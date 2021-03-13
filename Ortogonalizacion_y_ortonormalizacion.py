@@ -289,6 +289,201 @@ class OO1(ThreeDScene):
         self.play(ReplacementTransform(Text4_1,Text4_2))
         self.wait()
         
+	
+#####################################################################################
+#################################  Segunda escena  ##################################
+#####################################################################################
+
+
+def projection_of_a_along_b(vector_a, vector_b):
+            vector_b_norm = np.sqrt(sum(vector_b**2))
+            return (np.dot(vector_a, vector_b)/vector_b_norm**2)*vector_b
+
+class segundaescena(ThreeDScene):
+                
+    def construct(self):
+        axis_config = {
+            "y_max" : 5,
+            "y_min" : 0,
+            "x_max" : 4,
+            "x_min" : 0,
+            "z_max" : 3,
+            "z_min" : 0,
+        }
+        axes = ThreeDAxes(**axis_config)
+
+        
+        text1 = TexMobject(r"\langle \ \vec{b}, \vec{a} \ \rangle \neq 0").move_to(2*DOWN+4*RIGHT)
+        text1_bg=VGroup(SurroundingRectangle(text1, color=WHITE, fill_color=BLACK, fill_opacity=1), text1)
+        text2 = TexMobject(r"\vec{a}").move_to(DOWN+6*LEFT).scale(1.5)
+        text2[0].set_color(AZUL)
+        text3 = TexMobject(r"\vec{b}").next_to(text2, DOWN).scale(1.5)
+        text3[0].set_color(ROJO)
+        text4 = TexMobject(r"\vec{c}").next_to(text3, DOWN).scale(1.5)
+        text4[0].set_color(NARANJA)
+        text_group = VGroup(text2, text3, text4)
+        text_bg=SurroundingRectangle(text_group, color=WHITE, fill_color=BLACK, fill_opacity=1) 
+        text5 = TexMobject(r" \langle \ \vec{c}, \vec{a} \ \rangle  \neq 0").next_to(text1, DOWN)
+        text5_bg=VGroup(SurroundingRectangle(text5, color=WHITE, fill_color=BLACK, fill_opacity=1), text5)
+        text6 = TexMobject(r'''S = \qty\Big{\vec{a}, \vec{b} -  \frac{\langle \ \vec{b}, \vec{a} \ \rangle}{||\vec{a}||^2}\vec{a}, \hspace{.5cm}} ''').move_to(2.5*DOWN)
+        text6[0][6:8].set_color(ROJO)
+        text6[0][9:26].set_color(VERDE)
+        text6_bg=SurroundingRectangle(text6, color=WHITE, fill_color=BLACK, fill_opacity=1)
+        text6_group = VGroup(text6, text6_bg)
+        text7 = TexMobject(r"S = \qty\Big{  \vec{a},   \vec{b}'  , \vec{c} -  \frac{\langle \ \vec{c}, \vec{a} \ \rangle}{||\vec{a}||^2}\vec{a} - \frac{\langle \ \vec{c}, \vec{b} \ \rangle}{||\vec{b}||^2}\vec{b} } ").move_to(2.5*DOWN)
+        text7[0][6:9].set_color(VERDE)
+        text7[0][10:12].set_color(NARANJA)
+        text7[0][13:-1].set_color(MAGENTA)
+        text7_bg = SurroundingRectangle(text7, color=WHITE, fill_color=BLACK, fill_opacity=1)
+        text8 = TexMobject(r"S = \qty\Big{ \vec{a}, \ \vec{b}', \ \vec{c}' } ").move_to(2*DOWN+2.9*RIGHT)
+        text8[0][6:9].set_color(VERDE)
+        text8[0][10:-1].set_color(MAGENTA)
+        text8_bg = SurroundingRectangle(text8, color=WHITE, fill_color=BLACK, fill_opacity=1)
+        text9 = TexMobject(r"S = \qty\Big{ ", r"\vec{a}, \ ", r"\vec{b}'" , r", \ \vec{c}' ", r"} ").move_to(2*DOWN+4*RIGHT)
+        text9[2].set_color(VERDE)
+        text9[3].set_color(GOLD_C)
+        text9_bg = VGroup(SurroundingRectangle(text9, color=WHITE, fill_color=BLACK, fill_opacity=1), text9)
+
+        a = np.array([0.5, 2.6, 3.5])
+        b = np.array([3, 0, 2])
+        c = np.array([2, 2, 1])
+        a_vec = Vector(direction = a, color = AZUL)
+        b_vec = Vector(direction = b, color = ROJO)
+        c_vec = Vector(direction = c, color = NARANJA)
+
+        #PROYECCION DE B SOBRE A 
+        a_pro = projection_of_a_along_b(b, a)
+        a_vec_pro = Vector(direction = a_pro, color = YELLOW)
+        line_a = DashedLine(ORIGIN, a_pro, width=5, buff = 0.1)
+        line_a_perp = DashedLine(b, a_pro, width=5, buff=0.1)
+        a_ort = Vector(direction = b-a_pro, color = VERDE)
+        suma_a = Arrow(start = b, end = b-a_pro, color = YELLOW)
+
+        #PROYECCION DE C SOBRE A 
+        c_pro = projection_of_a_along_b(c, a)
+        c_vec_pro = Vector(direction = c_pro, color = YELLOW)
+        line_c = DashedLine(ORIGIN, c_pro, width=5, buff = 0.1)
+        line_c_perp = DashedLine(c, c_pro, width=5, buff=0.1)
+        c_ort = Vector(direction = c-c_pro, color = MAGENTA)
+        suma_c = Arrow(start = c, end = c-c_pro, color = YELLOW)
+
+        #PROYECCION DE C SOBRE B
+        b_pro = projection_of_a_along_b(c, b)
+        b_vec_pro = Vector(direction = b_pro, color = YELLOW)
+        line_b = DashedLine(ORIGIN, b_pro, width=5, buff = 0.1)
+        line_b_perp = DashedLine(c, b_pro, width=5, buff=0.1)
+        b_ort = Vector(direction = c-b_pro, color = MAGENTA)
+        suma_b = Arrow(start = c, end = c-b_pro, color = YELLOW)
+        cb_ort = Vector(direction = c-c_pro-b_pro, color = MAGENTA)
+        suma_cb = Arrow(start = c-c_pro, end = c-c_pro-b_pro, color = MAGENTA)
+
+        self.set_camera_orientation(phi=80 * DEGREES, theta=30*DEGREES)
+        self.play(ShowCreation(axes))
+        self.wait()
+        self.add_fixed_in_frame_mobjects(text_bg)
+        self.play(Write(text_bg))
+        self.play(GrowArrow(a_vec))
+        self.wait()
+        self.add_fixed_in_frame_mobjects(text2)
+        self.play(Write(text2))
+        self.wait()
+        self.play(GrowArrow(b_vec))
+        self.wait()
+        self.add_fixed_in_frame_mobjects(text3)
+        self.play(Write(text3))
+        self.wait()
+        self.play(GrowArrow(c_vec))
+        self.wait()
+        self.add_fixed_in_frame_mobjects(text4)
+        self.play(Write(text4))
+        self.wait()
+        self.begin_ambient_camera_rotation(rate=0.3)
+        self.wait(12)
+        self.move_camera(phi=90 * DEGREES, run_time=3)
+        self.stop_ambient_camera_rotation()
+        self.add_fixed_in_frame_mobjects(text1_bg)
+        self.play(Write(text1_bg))
+        self.play(c_vec.set_opacity, 0)
+        self.play(FadeOut(text1_bg))
+        
+        #PROYECCION DE B SOBRE A
+        self.play(Write(line_a))
+        self.wait()
+        self.play(Write(line_a_perp))
+        self.wait()
+        self.play(GrowArrow(a_vec_pro))
+        self.wait(2)
+        self.play(FadeOut(line_a), FadeOut(line_a_perp))
+        self.add_fixed_in_frame_mobjects(text6_bg)
+        self.play(Write(text6_bg))
+        self.add_fixed_in_frame_mobjects(text6[0][:8])
+        self.play(Write(text6[0][:8]))
+        self.wait()
+        self.play(Transform(a_vec_pro, suma_a), run_time=3)
+        self.add_fixed_in_frame_mobjects(text6[0][8:])
+        self.play(Write(text6[0][8:]))
+        self.wait()
+        self.play(GrowArrow(a_ort))
+        self.wait()
+        self.play(FadeOut(a_vec_pro))
+        self.wait()
+        self.move_camera(phi=80 * DEGREES, theta=30*DEGREES, run_time=3)
+        self.play(FadeOut(text6), FadeOut(text6_bg))
+        self.add_fixed_in_frame_mobjects(text7_bg)
+        self.add_fixed_in_frame_mobjects(text7[0][:10])
+        self.play(Write(text7_bg), Write(text7[0][:10]))
+        self.wait()
+
+        #PROYECCION DE C SOBRE A
+        self.play(c_vec.set_opacity, 1, b_vec.set_opacity, 0)
+        self.play(Write(line_c))
+        self.wait()
+        self.play(Write(line_c_perp))
+        self.wait()
+        self.play(GrowArrow(c_vec_pro))
+        self.wait(2)
+        self.play(FadeOut(line_c), FadeOut(line_c_perp))
+        self.add_fixed_in_frame_mobjects(text7[0][9:12])
+        self.play(Write(text7[0][9:12]))
+        self.wait()
+        self.play(Transform(c_vec_pro, suma_c), run_time=3)
+        self.add_fixed_in_frame_mobjects(text7[0][12:31])
+        self.play(Write(text7[0][12:31]))
+        self.wait()
+        self.play(GrowArrow(c_ort))
+        self.wait()
+        self.play(FadeOut(c_vec_pro))
+        self.wait()
+
+        #PROYECCION DE C SOBRE B
+        self.play(b_vec.set_opacity, 1, a_vec.set_opacity, 0)
+        self.play(Write(line_b))
+        self.wait()
+        self.play(Write(line_b_perp))
+        self.wait()
+        self.play(GrowArrow(b_vec_pro))
+        self.wait(2)
+        self.play(FadeOut(line_b), FadeOut(line_b_perp))
+        self.wait()
+        self.play(Transform(b_vec_pro, suma_b), run_time=3)
+        self.add_fixed_in_frame_mobjects(text7[0][31:])
+        self.play(Write(text7[0][31:]))
+        self.wait()
+        self.play(GrowArrow(b_ort))
+        self.wait()
+        self.play(FadeOut(b_vec_pro))
+        self.play(b_vec.set_opacity, 0, c_vec.set_opacity, 0, a_vec.set_opacity, 1, run_time=3)
+        self.wait()
+        self.play(FadeOut(text7), FadeOut(text7_bg))
+        self.play(Transform(b_ort, suma_cb))
+        self.play(GrowArrow(cb_ort))
+        self.play(FadeOut(b_ort), FadeOut(c_ort))
+        self.add_fixed_in_frame_mobjects(text8_bg)
+        self.add_fixed_in_frame_mobjects(text8)
+        self.play(Write(text8_bg), Write(text8))
+        self.wait()
+	
+	
 ######################################################
 ##### Tercera escena ########################
 ######################################################
