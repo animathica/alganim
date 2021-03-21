@@ -1,4 +1,5 @@
 
+
 from manimlib.imports import *
 
 
@@ -17,6 +18,13 @@ class OO1(ThreeDScene):
         self.play(Write(objeto))
 
     def construct(self):
+
+        # Constantes de los colores usados.
+        ROJO = '#FF0000'
+        AZUL = '#0087FF'
+        NARANJA = '#FF7700'
+        VERDE = '#1FFF00'
+        MAGENTA = '#FF00FF'
 
         # Texto de prodcto escalar y su rectángulo.
         Text1 = TextMobject('''$ \\langle \\vec{a},\\vec{b} \\rangle \\ \\ \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT)
@@ -39,25 +47,53 @@ class OO1(ThreeDScene):
             Text2_2.add(Text2[0][i])
 
         # Texto de conjunto inicial y su rectángulo.
-        Cto = TextMobject('''$ S = \\{ \\vec{a}, \\vec{b} \\} $''').move_to(1.5*DOWN + 3.5*RIGHT)
+        Cto = TextMobject('''$ I = \\{ \\vec{a}, \\vec{b} \\} $''').move_to(1.5*DOWN + 3.5*RIGHT)
+        for i in range(3,5):
+            Cto[0][i].set_color(AZUL)
+        for i in range(6,8):
+            Cto[0][i].set_color(ROJO)
         Cto.bg = SurroundingRectangle(Cto,color=WHITE,fill_color=BLACK,fill_opacity=1)
         Cto.group = VGroup(Cto.bg,Cto)
         Cto_1 = VGroup(Cto[0][6].copy(),Cto[0][7].copy())
 
         # Texto de conjunto ortogonal y su rectángulo, con las variaciones usadas.
-        CtoO = TextMobject('''$ S' = \\{ \\vec{b} \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
-        CtoO[0][4].set_color(BLACK)
-        CtoO[0][5].set_color(BLACK)
+        CtoO = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(4,6):
+            CtoO[0][i].set_color(BLACK)
         CtoO.bg = SurroundingRectangle(CtoO,color=WHITE,fill_color=BLACK,fill_opacity=1)
         CtoO.group = VGroup(CtoO.bg,CtoO)
         CtoO_1 = VGroup(CtoO[0][4],CtoO[0][5])
-        CtoO_1_1 = TextMobject('''$ S' = \\{ \\vec{b} \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
-        CtoO_2 = TextMobject('''$ S' = \\{ \\vec{b} , \\vec{c} \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
-        for i in range(6,9):
+        CtoO_1_1 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(4,6):
+            CtoO_1_1[0][i].set_color(ROJO)
+        CtoO_2 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{b}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(4,6):
+            CtoO_2[0][i].set_color(ROJO)
+        for i in range(6,10):
             CtoO_2[0][i].set_color(BLACK)
-        CtoO_2_1 = TextMobject('''$ S' = \\{ \\vec{b} , \\vec{c} \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        CtoO_2_1 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{b}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(4,6):
+            CtoO_2_1[0][i].set_color(ROJO)
+        for i in range(7,10):
+            CtoO_2_1[0][i].set_color(VERDE)
         CtoO_3 = VGroup(CtoO_2[0][6],CtoO_2[0][7],CtoO_2[0][8])
         CtoO_2.bg = SurroundingRectangle(CtoO_2,color=WHITE,fill_color=BLACK,fill_opacity=1)
+
+        # Texto para conjunto ortonormal y su  recángulo, con las variaciones usadas.
+        CtoON = TextMobject(''' $ N = \{ \hat{b} \} $ ''').move_to(2.5*DOWN + 3.5*RIGHT)
+        CtoON.bg = SurroundingRectangle(CtoON,color=WHITE,fill_color=BLACK,fill_opacity=1)
+        CtoON.group = VGroup(CtoON.bg,CtoON)
+        for i in range(3,5):
+            CtoON[0][i].set_color(BLACK)
+        CtoON_1 = TextMobject(''' $ N = \{ \hat{b} \} $ ''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(3,5):
+            CtoON_1[0][i].set_color(ROJO)
+        CtoON_2 = TextMobject(''' $ N = \{ \hat{b},\hat{b}' \} $ ''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(3,5):
+            CtoON_2[0][i].set_color(ROJO)
+        for i in range(6,9):
+            CtoON_2[0][i].set_color(VERDE)
+        CtoON_2.bg = SurroundingRectangle(CtoON_2,color=WHITE,fill_color=BLACK,fill_opacity=1)
 
         # Textos para vector normalizado y sus rectángulos.
         Text3 = TextMobject(''' $ (x_b,y_b) $ ''').move_to(2*DOWN + 4*LEFT)
@@ -68,21 +104,94 @@ class OO1(ThreeDScene):
         for i in range(1,7):
             Text3_1[0][-i].set_color(BLACK)
         Text3_2 = TextMobject(''' $ \\norm{ \\left( \\frac{x_b}{\\norm{\\vec{b}}},\\frac{y_b}{\\norm{\\vec{b}}} \\right) } = 1 $ ''').move_to(2*DOWN + 4*LEFT)
-        Text3_3 = TextMobject(''' $ \\norm{\\vec{b}'} = 1 $ ''').move_to(2*DOWN + 4*LEFT)
+        Text3_3 = TextMobject(''' $ \\norm{\\hat{b}} = 1 $ ''').move_to(2*DOWN + 4*LEFT)
         Text3_1.bg = SurroundingRectangle(Text3_2,color=WHITE,fill_color=BLACK,fill_opacity=1)
         Text3.group = VGroup(Text3.bg, Text3)
         Text3_3.bg = SurroundingRectangle(Text3_3,color=WHITE,fill_color=BLACK,fill_opacity=1)
 
         # Textos para proyección con normalizado y sus rectángulos.
-        Text4 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\vec{b}' \\rangle} { \\norm{ \\vec{b}' } ^2} \\vec{b}' \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
+        Text4 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\hat{b} \\rangle} { \\norm{ \\hat{b} } ^2} \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
         Text4.bg = SurroundingRectangle(Text4,color=WHITE,fill_color=BLACK,fill_opacity=1)
         #for i in range(1,5):
         #    Text4[0][-i].set_color(BLACK)
         Text4_b = VGroup()
         for i in range(9,14):
             Text4_b.add(Text4[0][i])
-        Text4_1 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\vec{b}' \\rangle} { 1 } \\vec{b}' \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
-        Text4_2 = TextMobject('''$  \\langle \\vec{a} , \\vec{b}' \\rangle \\vec{b}' \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT)
+        Text4_1 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\hat{b} \\rangle} { 1 } \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
+        Text4_2 = TextMobject('''$  \\langle \\vec{a} , \\hat{b} \\rangle \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT)
+
+        # Texto para generado de conjunto I y su rectángulo.
+        TGenS = TextMobject('''$ \\langle I \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
+        TGenS.bg = SurroundingRectangle(TGenS, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        TGenS.group = VGroup(TGenS.bg,TGenS)
+
+        # Texto para generado de conjunto Gamma_1 y su rectángulo.
+        TGenSp = TextMobject('''$ \\langle \\Gamma_1 \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
+        TGenSp.bg = SurroundingRectangle(TGenSp, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        TGenSp.group = VGroup(TGenSp.bg,TGenSp)
+
+        #Texto para igualar generados de I y Gamma_1 y su rectángulo.
+        TIG = TextMobject('''$ \\langle I \\rangle = \\langle \\Gamma_1 \\rangle $''').move_to(2*DOWN + 4*LEFT)
+        TIG.bg = SurroundingRectangle(TIG, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        TIG.group = VGroup(TIG.bg,TIG)
+
+        # Texto para generado de conjunto N y su rectángulo.
+        TGenSpp = TextMobject('''$ \\langle N \\rangle = \\mathbb{R}^2 $''').move_to(2*DOWN + 4*LEFT)
+        TGenSpp.bg = SurroundingRectangle(TGenSpp, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        TGenSpp.group = VGroup(TGenSpp.bg,TGenSpp)
+
+        #Texto para igualar generados de I y N y su rectángulo.
+        TIGp = TextMobject('''$ \\langle I \\rangle = \\langle N \\rangle $''').move_to(3*DOWN + 4*LEFT)
+        TIGp.bg = SurroundingRectangle(TIGp, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        TIGp.group = VGroup(TIGp.bg,TIGp)
+
+        # Texto para <a,b> = _<b,a> y su rectángulo.
+        TCon = TextMobject('''$ \\langle \\vec{a}, \\vec{b} \\rangle \\neq 0 $''').move_to(1*DOWN + 4*LEFT)
+        TCon.bg = SurroundingRectangle(TCon, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        TCon.group = VGroup(TCon.bg,TCon)
+        TCon_1 = TextMobject('''$ \\langle \\vec{b}, \\vec{a} \\rangle = \\overline{ \\langle \\vec{a}, \\vec{b} \\rangle } $''').move_to(2*DOWN + 4*LEFT)
+        TCon_1.bg = SurroundingRectangle(TCon_1, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        TCon_1.group = VGroup(TCon_1.bg,TCon_1)
+        TCon_2 = TextMobject('''$ \\Rightarrow \\langle \\vec{b}, \\vec{a} \\rangle \\neq 0 $''').move_to(3*DOWN + 4*LEFT)
+        TCon_2.bg = SurroundingRectangle(TCon_2, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        TCon_2.group = VGroup(TCon_2.bg,TCon_2)
+
+        # Texto para proyección de b sobre a.
+        Text5 = TextMobject('''$ \\frac{ \\langle \\vec{b} , \\vec{a} \\rangle} { \\norm{ \\vec{a} } ^2} \\vec{a} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
+        Text5.bg = SurroundingRectangle(Text5, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text5.group = VGroup(Text5.bg,Text5)
+
+        # Texto para segundo conjunto ortonormal, su rectángulo, y las variaciones usadas.
+        Text6 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a} \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(4,6):
+            Text6[0][i].set_color(BLACK)
+        Text6.bg = SurroundingRectangle(Text6, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text6.group = VGroup(Text6.bg,Text6)
+        Text6_1 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a} \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(4,6):
+            Text6_1[0][i].set_color(AZUL)
+        Text6_2 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a}, \\vec{a}' \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        for i in range(4,6):
+            Text6_2[0][i].set_color(AZUL)
+        for i in range(7,10):
+            Text6_2[0][i].set_color(VERDE)
+        Text6_2.bg = SurroundingRectangle(Text6_2, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+
+        # Textos del segundo generado.
+        Text7 = TextMobject('''$ \\langle \\Gamma_2 \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
+        Text7.bg = SurroundingRectangle(Text7, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text7.group = VGroup(Text7.bg,Text7)
+        Text7_1 = TextMobject(''' $ \\langle I \\rangle = \\langle \\Gamma_1 \\rangle = \\langle \\Gamma_2 \\rangle $ ''').move_to(2*DOWN + 4*LEFT)
+        Text7_1.bg = SurroundingRectangle(Text7_1, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text7_1.group = VGroup(Text7_1.bg,Text7_1)
+
+        # Textos del generado de N.
+        Text8 = TextMobject('''$ \\langle N \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
+        Text8.bg = SurroundingRectangle(Text8, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text8.group = VGroup(Text8.bg,Text8)
+        Text8_1 = TextMobject(''' $ \\langle I \\rangle = \\langle N \\rangle $ ''').move_to(2*DOWN + 4*LEFT)
+        Text8_1.bg = SurroundingRectangle(Text8_1, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text8_1.group = VGroup(Text8_1.bg,Text8_1)
 
         grid = NumberPlane()
 
@@ -95,9 +204,9 @@ class OO1(ThreeDScene):
         b_2 = 2
 
         # Vectores A y B, con sus etiquetas.
-        VecA = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=BLUE)
-        VecB = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=RED)
-        VecALab=TexMobject("\\vec{a}").move_to(VecA.get_end()+0.5*LEFT)
+        VecA = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
+        VecB = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
+        VecALab=TexMobject("\\vec{a}").move_to(VecA.get_end()+0.4*RIGHT+0.2*UP)
         VecBLab=TexMobject("\\vec{b}").move_to(VecB.get_end()+0.5*RIGHT)
 
         # Texto para los vectores, con su rectángulo correspondiente.
@@ -150,8 +259,8 @@ class OO1(ThreeDScene):
                     rayc.append([r1,r2])
             # Se genera cada rayo.
             for i in rayc:
-                rayo = Line( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(WHITE).set_color(color=[WHITE,"#8f8f8f"])
-                #rayo = Line( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(WHITE)
+                #rayo = Line( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(WHITE).set_color(color=[WHITE,"#8f8f8f"])
+                rayo = DashedLine( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(YELLOW)
                 rays.append(rayo)
             # Se hace un VGroup con los rayos.
             grupo = VGroup()
@@ -160,19 +269,73 @@ class OO1(ThreeDScene):
             return(grupo)
 
         # Objeto usado para la luz.
-        luz = light(a_1,a_2,b_1,b_2,200)
+        luz = light(a_1,a_2,b_1,b_2,25)
 
-        # Flecha de la proyección.
+        # Flecha de la proyección de a sobre b.
         p1 = ((a_1*b_1 + a_2*b_2)/(b_1**2 + b_2**2)) * b_1
         p2 = ((a_1*b_1 + a_2*b_2)/(b_1**2 + b_2**2)) * b_2
-        VecP = Arrow((0, 0, 0),(p1,p2,0), color = GREEN_D, buff = 0)
+        VecP = Arrow((0, 0, 0),(p1,p2,0), color = NARANJA, buff = 0)
+        VecPc = VecP.copy()
                 
-        # Copia de proyección usada para la resta.
-        VecPC = Arrow((a_1,a_2,0),(a_1-p1,a_2-p2,0), color = GREEN_D, buff = 0)
+        # Copia de proyección de a sobre b usada para la resta.
+        VecPC = Arrow((a_1,a_2,0),(a_1-p1,a_2-p2,0), color = NARANJA, buff = 0)
 
         # Vector resultante de la resta y su etiqueta.
-        VecR = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = YELLOW, buff = 0)
-        VecRLab = TextMobject('''$ \\vec{c} $''').move_to(VecR.get_end()+0.5*LEFT)
+        VecR = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
+        VecRLab = TextMobject('''$ \\vec{b}' $''').move_to(VecR.get_end()+0.5*LEFT)
+
+        # Función para luz de segunda proyección.
+        def light2(x1,y1,x2,y2,n = 10):
+            # Coordenadas de un vector ortogonal a (x2,y2)
+            x2o = y2
+            y2o = -x2
+            # Lista donde se guarda cada "rayo" de luz.
+            rays = []
+            # Lista donde se guardan las coordenadas de cada rayo:
+            rayc = []
+            # Se calcula la proyección.
+            p1 = ((x1*x2 + y1*y2)/(x2**2 + y2**2)) * x2
+            p2 = ((x1*x2 + y1*y2)/(x2**2 + y2**2)) * y2
+            proy = [p1,p2]
+            norma_proy = np.sqrt(p1**2 + p2**2)
+            # Se generan las coordenadas de cada rayo y se agregan a la lista.
+            for i in range(0,n+1):
+                r1 = 0 + i*((x2/n)*1.2)
+                r2 = 0 + i*((y2/n)*1.2)
+                nr = np.sqrt(r1**2 + r2**2)
+                if nr < norma_proy:
+                    inter = line_intersection(((0,0),(x1,y1)),((r1,r2),(r1 + x2o,r2 + y2o)))
+                    rayc.append([inter[0],inter[1]])                
+                else:
+                    rayc.append([r1,r2])
+            # Se genera cada rayo.
+            for i in rayc:
+                #rayo = Line( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(WHITE).set_color(color=[WHITE,"#8f8f8f"])
+                rayo = DashedLine( [i[0]+10*x2o,i[1]+10*y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(YELLOW)
+                rays.append(rayo)
+            # Se hace un VGroup con los rayos.
+            grupo = VGroup()
+            for i in rays:
+                grupo.add(i)
+            return(grupo)
+
+        # Objeto usado para segunda luz.
+        luz2 = light2(b_1,b_2,a_1,a_2,25)
+
+        # Flecha de la proyección de b sobre a.
+        p1_1 = ((b_1*a_1 + b_2*a_2)/(a_1**2 + a_2**2)) * a_1
+        p2_1 = ((b_1*a_1 + b_2*a_2)/(a_1**2 + a_2**2)) * a_2
+        VecP_1 = Arrow((0, 0, 0),(p1_1,p2_1,0), color = MAGENTA, buff = 0)
+
+        # Flecha para segundo uso de proyección de b sobre a.
+        VecP_2 = Arrow((0, 0, 0),(p1_1,p2_1,0), color = NARANJA, buff = 0)
+
+        # Copia de proyección de b sobre a usada para la resta.
+        VecPC_1 = Arrow((b_1,b_2,0),(b_1-p1_1,b_2-p2_1,0), color = NARANJA, buff = 0)
+
+        # Vector resultante de la segunda resta y su etiqueta.
+        VecR_1 = Arrow((0, 0, 0),(b_1-p1_1,b_2-p2_1,0), color = VERDE, buff = 0)
+        VecRLab_1 = TextMobject('''$ \\vec{a}' $''').move_to(VecR_1.get_end()+0.5*LEFT)
 
         # Eje para normalizar vector.
         Eje = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = PURPLE, buff = 0)
@@ -183,9 +346,10 @@ class OO1(ThreeDScene):
         # Coordenadas de B normalizado.
         nb_1 = b_1/NorB
         nb_2 = b_2/NorB
-        #Vector B normalizado y su etiqueta.
-        VecBN = Arrow((0,0,0),(nb_1,nb_2,0), color = BLUE, buff = 0)
-        VecBNLab = TextMobject(''' $ \\vec{b}' $ ''').move_to(VecB.get_end()+0.5*UP)
+
+        #Vector B' normalizado y su etiqueta.
+        VecBN = Arrow((0,0,0),(nb_1,nb_2,0), color = ROJO, buff = 0)
+        VecBNLab = TextMobject(''' $ \\hat{b} $ ''').move_to(VecBN.get_end()+0.5*UP)
 
         # Arco para mostrar distancia r=1.
         # El ángulo hasta el que llega el arco.
@@ -208,6 +372,41 @@ class OO1(ThreeDScene):
             new_punto = Dot((np.cos(th),np.sin(th),0))
             punto.become(new_punto)
 
+        # Ejes para mostrar independencia lineal.
+        Eje1 = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0)
+        Eje2 = DashedLine((0-5*a_1, 0-5*a_2, 0),(5*a_1,5*a_2,0), color = MAGENTA, buff = 0)
+        Ejes = VGroup(Eje1,Eje2)
+        Eje1copy = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0)
+        Eje2copy = DashedLine((0-5*a_1, 0-5*a_2, 0),(5*a_1,5*a_2,0), color = MAGENTA, buff = 0)
+        Ejescopy = VGroup(Eje1copy,Eje2copy)
+
+        # Copia de ejes, más grande.
+        Eje1c = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0).scale(2)
+        Eje2c = DashedLine((0-5*a_1, 0-5*a_2, 0),(5*a_1,5*a_2,0), color = MAGENTA, buff = 0).scale(2)
+        Ejesc = VGroup(Eje1c,Eje2c)
+
+        #Se normaliza vector B'.
+        # Norma de vector B'.
+        NorBP = np.sqrt((a_1-p1)**2 + (a_2-p2)**2)
+        # Coordenadas de B' normalizado
+        nbp_1 = (a_1-p1)/NorBP
+        nbp_2 = (a_2-p2)/NorBP
+
+        #Vector B' normalizado y su etiqueta.
+        VecBPN = Arrow((0,0,0),(nbp_1,nbp_2,0), color = VERDE, buff = 0)
+        VecBPNLab = TextMobject(''' $ \\hat{b}' $ ''').move_to(VecBPN.get_end()+0.5*UP)
+
+        # Planos para mostrar los generados.
+        PG = Rectangle(height=20,width=20).set_fill(BLUE, opacity=0.3)
+        PG2 = Rectangle(height=20,width=20).set_fill(BLUE, opacity=0.3)
+        PG3 = Rectangle(height=20,width=20).set_fill(RED, opacity=0.3)
+
+        # Grupos que se quitan.
+        Quitar = VGroup(VecR,VecRLab,Text2.bg,CtoO_2.bg,CtoO_2_1,TIG.group,Text1,Text2_2,Text2_1,TGenSp.group)
+        Quitar2 = VGroup(Text6_2.bg,Text6_2,VecR_1,VecRLab_1,Text7.group,Text7_1.group)
+
+
+
 
         ######################
         ####### Escena #######
@@ -215,18 +414,31 @@ class OO1(ThreeDScene):
 
         self.play(Write(grid))
         self.wait(0.5)
-        self.play(Write(VecBox),Write(Text_A))
         self.play(ShowCreation(VecA),Write(VecALab))
         self.wait()
-        self.play(Write(Text_B))
         self.play(ShowCreation(VecB),Write(VecBLab))
+        self.add_foreground_mobjects(VecA,VecB,VecALab)
         self.wait()
         self.play(Write(Cto.group))
+        self.wait()
+        self.play(ShowCreation(Ejes))
+        self.wait()
+        self.play(ReplacementTransform(Ejes,Ejesc),runtime = 0.5)
+        self.wait(0.5)
+        self.play(ReplacementTransform(Ejesc,Ejescopy),runtime = 0.5)
+        self.wait()
+        self.play(Write(TGenS.group))
+        self.add_foreground_mobject(TGenS)
+        self.bring_to_back(PG)
+        self.play(ShowCreation(PG),runtime = 0.25)
+        self.wait()
+        self.play(FadeOut(PG),runtime = 0.25)
+        self.remove_foreground_mobject(TGenS)
+        self.play(FadeOut(Ejescopy),FadeOut(TGenS.group))
         self.wait()
         self.play(Write(CtoO.group))
         self.wait()
         self.play(ReplacementTransform(CtoO,CtoO_1_1))
-        #self.play(ReplacementTransform(Cto_1,CtoO_1),ReplacementTransform(CtoO,CtoO_1_1))
         self.wait()
         self.play(Write(Text1.group))
         self.add_foreground_mobject(Text1)
@@ -237,14 +449,31 @@ class OO1(ThreeDScene):
         self.wait()
         self.play(ShowCreation(luz))
         self.wait()
+        self.add_foreground_mobject(VecP)
         self.play(ShowCreation(VecP), runtime=2)
         self.wait()
         self.play(FadeOut(luz))
         self.wait()
+        self.play(Write(TCon.group))
+        self.play(Write(TCon_1.group))
+        self.play(Write(TCon_2.group))
+        self.wait()
+        self.add_foreground_mobject(Cto.group)
+        self.play(ShowCreation(luz2))
+        self.add_foreground_mobject(VecP_1)
+        self.play(ShowCreation(VecP_1))
+        self.play(FadeOut(luz2))
+        self.remove_foreground_mobject(Cto.group)
+        self.wait()
+        self.remove_foreground_mobject(VecP_1)
+        self.play(FadeOut(VGroup(TCon.group,TCon_1.group,TCon_2.group,VecP_1)))
+        self.wait()
         self.play(ReplacementTransform(VecP,VecPC))
+        self.remove_foreground_mobject(VecP)
         self.wait()
         self.play(ShowCreation(VecR),Write(VecRLab))
-        self.play(FadeOut(VGroup(VecPC,VecA,VecALab,VecBox.group)))
+        self.remove_foreground_mobjects(VecA,VecALab)
+        self.play(FadeOut(VGroup(VecPC,VecA,VecALab)))
         self.wait()
         self.add_foreground_mobject(CtoO_1_1)
         self.play(ReplacementTransform(CtoO.bg,CtoO_2.bg))
@@ -252,42 +481,86 @@ class OO1(ThreeDScene):
         self.play(ReplacementTransform(CtoO_1_1,CtoO_2))
         self.wait()
         self.play(ReplacementTransform(CtoO_2,CtoO_2_1))
-        #self.play(ReplacementTransform(VecRLab.copy(),CtoO_3),ReplacementTransform(CtoO_2,CtoO_2_1))
         self.wait()
-        self.play(Write(Text3.group))
+        self.play(Write(TGenSp.group))
+        self.bring_to_back(PG2)
+        self.play(FadeIn(PG2),runtime = 0.25)
         self.wait()
-        self.add_foreground_mobject(Text3)
-        self.play(ReplacementTransform(Text3.bg,Text3_1.bg))
-        self.remove_foreground_mobject(Text3)
-        self.play(ReplacementTransform(Text3,Text3_1))
+        self.play(FadeOut(PG2),runtime = 0.25)
         self.wait()
-        self.play(ReplacementTransform(Text3_1,Text3_2))
+        self.play(Write(TIG.group))
         self.wait()
-        self.play(ReplacementTransform(Text3_2,Text3_3))
+        #####
+        self.play(FadeOut(Quitar),ShowCreation(VecA),Write(VecALab))
         self.wait()
-        self.add_foreground_mobject(Text3_3)
-        self.play(ReplacementTransform(Text3_1.bg,Text3_3.bg))
+        self.play(Write(Text6.group))
+        self.play(Write(Text5.group))
         self.wait()
-        self.add_foreground_mobjects(Text3_3.bg,Text3_3)
+        self.play(FadeOut(Cto.group))
+        self.play(ShowCreation(luz2))
+        self.play(ShowCreation(VecP_2))
+        self.play(FadeOut(luz2))
+        self.wait()
+        self.play(ReplacementTransform(VecP_2,VecPC_1))
+        self.play(ShowCreation(VecR_1))
+        self.play(ShowCreation(VecRLab_1))
+        self.play(FadeOut(VGroup(VecPC_1,VecB,VecBLab)))
+        self.wait()
+        self.play(ReplacementTransform(Text6,Text6_1))
+        self.add_foreground_mobject(Text6_1)
+        self.play(ReplacementTransform(Text6.bg,Text6_2.bg))
+        self.remove_foreground_mobject(Text6_1)
+        self.play(ReplacementTransform(Text6_1,Text6_2))
+        self.wait()
+        self.play(Write(Text7.group))
+        self.play(Write(Text7_1.group))
+        self.bring_to_back(PG3)
+        self.play(ShowCreation(PG3))
+        self.play(FadeIn(PG3),runtime = 0.25)
+        self.wait()
+        self.play(FadeOut(PG3),runtime = 0.25)
+        self.wait()
+        #####
+        self.play(FadeOut(Quitar2),ShowCreation(VecB),Write(VecBLab),Write(Cto.group))
+        self.wait()
+        self.play(Write(CtoON.group))
+        self.wait()
         self.play(ShowCreation(Eje))
+        self.play(ReplacementTransform(VecB,VecBN))
+        self.play(ReplacementTransform(VecBLab,VecBNLab))
+        self.play(FadeOut(Eje))
+        self.play(ReplacementTransform(CtoON,CtoON_1))
         self.wait()
-        self.play(ShowCreation(arco),ShowCreation(punto))
-        arco.add_updater(upd_for_arc)
-        punto.add_updater(upd_for_dot)
-        self.play(theta.set_value,ang,rate_func=linear)
+        self.add_foreground_mobject(VecPc)
+        self.play(ShowCreation(VecPc))
         self.wait()
-        self.play(ShowCreation(VecBN))
+        self.play(ReplacementTransform(VecPc,VecPC))
+        self.remove_foreground_mobject(VecPc)
         self.wait()
-        self.play(FadeOut(VGroup(Eje,arco,punto)))
-        self.remove_foreground_mobjects(Text3_3.bg,Text3_3)
+        self.play(ShowCreation(VecR),Write(VecRLab))
         self.wait()
-        self.play(ReplacementTransform(Text2.bg,Text4.bg))
-        self.play(ReplacementTransform(VGroup(Text2_1,Text2_2,Text1_2),Text4))
+        self.play(FadeOut(VecPC))
+        self.play(ReplacementTransform(VecR,VecBPN))
         self.wait()
-        self.play(ReplacementTransform(Text4,Text4_1))
+        self.play(ReplacementTransform(VecRLab,VecBPNLab))
         self.wait()
-        self.play(ReplacementTransform(Text4_1,Text4_2))
+        self.add_foreground_mobject(CtoON_1)
+        self.play(ReplacementTransform(CtoON.bg,CtoON_2.bg))
+        self.play(ReplacementTransform(CtoON_1,CtoON_2))
+        self.remove_foreground_mobject(CtoON_1)
         self.wait()
+        self.play(FadeOut(VGroup(VecA,VecALab)))
+        self.wait()
+        self.play(Write(Text8.group))
+        self.bring_to_back(PG)
+        self.play(ShowCreation(PG))
+        self.play(FadeIn(PG),runtime = 0.25)
+        self.wait()
+        self.play(FadeOut(PG),runtime = 0.25)
+        self.wait()
+        #####
+        self.play( *[FadeOut(mob)for mob in self.mobjects] )
+        self.wait(0.5)
         
 	
 #####################################################################################
