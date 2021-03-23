@@ -1018,17 +1018,17 @@ class TerceraEscena(GraphScene,Scene):
     }
     def construct(self):
         #------------------------------------------------------------------- GRAM-SCHMIDT normal
-        seaL = (TextMobject('''Sea $L$ un conjunto l.i.''').scale(0.7)).to_edge(1*UP)
+        seaL = (TextMobject('''Sea $l$ un conjunto l.i.''').scale(0.7)).to_edge(1*UP)
         left_corner = 2.7*LEFT+2.8*UP
         proceso_GM = (TextMobject('''\\textbf{Proceso de Gram-Schmidt}''').scale(0.7)).move_to(left_corner+LEFT)
         proceso_GM.set_color('#0087FF')
-        algoritmo_left_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $L$ y}''').scale(0.7)).move_to(left_corner+0.5*DOWN+1*LEFT)
+        algoritmo_left_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $l$ y}''').scale(0.7)).move_to(left_corner+0.5*DOWN+1*LEFT)
         algoritmo_left_1_2 = TextMobject('''\\texttt{agregarlo a un nuevo conjunto $\\Gamma$}.''').scale(0.7)
         algoritmo_paso_1 = VGroup(algoritmo_left_1_1, algoritmo_left_1_2)
         algoritmo_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
 
         algoritmo_left_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmo_paso_1, 3.5*DOWN)
-        algoritmo_left_2_2 = TextMobject('''\\texttt{de $L$, restarle sus proyecciones}''').scale(0.7)
+        algoritmo_left_2_2 = TextMobject('''\\texttt{de $l$, restarle sus proyecciones}''').scale(0.7)
         algoritmo_left_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $\\Gamma$}''').scale(0.7)
         algoritmo_left_2_4 = TextMobject('''\\texttt{y después agregarlo a $\\Gamma$}.''').scale(0.7)
         algoritmo_paso_2 = VGroup(algoritmo_left_2_1, algoritmo_left_2_2, algoritmo_left_2_3, algoritmo_left_2_4)
@@ -1037,7 +1037,7 @@ class TerceraEscena(GraphScene,Scene):
 
         algoritmo_left_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmo_paso_2, 3.4*DOWN)
         algoritmo_left_3_2 = TextMobject('''\\texttt{que $\\Gamma$ tenga tantos vectores}''').scale(0.7)
-        algoritmo_left_3_3 = TextMobject('''\\texttt{como $L$.}''').scale(0.7)
+        algoritmo_left_3_3 = TextMobject('''\\texttt{como $l$.}''').scale(0.7)
         algoritmo_paso_3 = VGroup(algoritmo_left_3_1, algoritmo_left_3_2, algoritmo_left_3_3)
         algoritmo_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmo_paso_3.align_to(algoritmo_paso_2, LEFT)
@@ -1049,7 +1049,7 @@ class TerceraEscena(GraphScene,Scene):
         right_corner = 3*RIGHT+2.8*UP
         proceso_GMM = (TextMobject('''\\textbf{Gram-Schmidt \\textit{modificado}}''').scale(0.7)).move_to(right_corner)
         proceso_GMM.set_color('#4FFF00')
-        algoritmo_right_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $L$,}''').scale(0.7)).move_to(right_corner+0.5*DOWN)
+        algoritmo_right_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $l$,}''').scale(0.7)).move_to(right_corner+0.5*DOWN)
         algoritmo_right_1_2 = TextMobject('''\\texttt{\\textit{normalizarlo} }''', '''\\texttt{y agregarlo a}''').scale(0.7)
         algoritmo_right_1_2[0].set_color('#4FFF00')
         algoritmo_right_1_3 = TextMobject('''\\texttt{un nuevo conjunto $N$}.''').scale(0.7)
@@ -1057,52 +1057,35 @@ class TerceraEscena(GraphScene,Scene):
         algoritmor_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
 
         algoritmo_right_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmor_paso_1, 2*DOWN)
-        algoritmo_right_2_2 = TextMobject('''\\texttt{de $L$, restarle sus proyecciones}''').scale(0.7)
+        algoritmo_right_2_2 = TextMobject('''\\texttt{de $l$, restarle sus proyecciones}''').scale(0.7)
         algoritmo_right_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $N$, }''').scale(0.7)
         algoritmo_right_2_4 = TextMobject('''\\texttt{\\textit{normalizarlo}''', '''\\texttt{, y después}''').scale(0.7)
         algoritmo_right_2_4[0].set_color('#4FFF00')
-        algoritmo_right_2_5 = TextMobject('''\\texttt{agragarlo a $N$}.''').scale(0.7)
+        algoritmo_right_2_5 = TextMobject('''\\texttt{agregarlo a $N$}.''').scale(0.7)
         algoritmor_paso_2 = VGroup(algoritmo_right_2_1, algoritmo_right_2_2, algoritmo_right_2_3, algoritmo_right_2_4, algoritmo_right_2_5)
         algoritmor_paso_2.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmor_paso_2.align_to(algoritmor_paso_1, LEFT)
 
         algoritmo_right_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmor_paso_2, 2*DOWN)
         algoritmo_right_3_2 = TextMobject('''\\texttt{que $N$ tenga tantos vectores}''').scale(0.7)
-        algoritmo_right_3_3 = TextMobject('''\\texttt{como $L$.}''').scale(0.7)
+        algoritmo_right_3_3 = TextMobject('''\\texttt{como $l$.}''').scale(0.7)
         algoritmor_paso_3 = VGroup(algoritmo_right_3_1, algoritmo_right_3_2, algoritmo_right_3_3)
         algoritmor_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmor_paso_3.align_to(algoritmor_paso_2, LEFT)
         
-        resultado_2 = (TextMobject('''¡$N$ es ortonormal!''').scale(0.7)).next_to(algoritmor_paso_3, 2*DOWN)
-        resultado_1 = (TextMobject('''¡$\\Gamma$ es ortogonal!''').scale(0.7)).next_to(algoritmo_paso_3, 2*DOWN)
-        resultado_1.align_to(resultado_2, UP)
 
-        Box_2 = SurroundingRectangle(resultado_2,color=YELLOW,fill_color=BLACK,fill_opacity=1)
-        Box_1 = SurroundingRectangle(resultado_1,color=YELLOW,fill_color=BLACK,fill_opacity=1)
+        conclusiones = (TextMobject(
+            "\\quad", #0
+            "¡$\\Gamma$ es ortogonal!", #1
+            "\\quad\\quad\\quad", #2
+            "$\\langle \\Gamma\\rangle = \\langle l\\rangle = \\langle N\\rangle$", #3
+            "\\quad\\quad\\quad", #4
+            "¡$N$ es ortonormal!" #5
+        ).scale(0.7)).next_to(linea, 2*DOWN)
 
-        r2_Box = VGroup(Box_2,resultado_2)
-        r1_Box = VGroup(Box_1,resultado_1)
-
-        #------------------------------------------------------------------- IDEAS PRINCIPALES
-
-        ideas_principales = (TextMobject("Las ideas principales detrás del \\textbf{Teorema de Gram-Schmidt} son:").scale(0.7)).move_to(2*UP)
-
-        principales_i_1 = (TextMobject('''(i) En espacios vectoriales de dimensión finita con producto escalar, los\n''').scale(0.7)).move_to(1*UP)
-        principales_i_2 = (TextMobject('''conjuntos l.i. se pueden ortogonalizar/ortonormalizar,''').scale(0.7))
-        principales_i = VGroup(principales_i_1, principales_i_2)
-        principales_i.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
-
-        principales_ii_1 = (TextMobject('''(ii) el conjunto ortogonal/ortonormal obtenido a partir del conjunto l.i.''').scale(0.7)).next_to(principales_i, DOWN)
-        principales_ii_2 = (TextMobject(''' sigue siendo l.i. y''').scale(0.7))
-        principales_ii = VGroup(principales_ii_1, principales_ii_2)
-        principales_ii.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
-        principales_ii.align_to(principales_i, LEFT)
-
-        principales_iii_1 = (TextMobject('''(iii) genera al mismo subespacio del conjunto original''').scale(0.7)).next_to(principales_ii, DOWN)
-        principales_iii = VGroup(principales_iii_1)
-        principales_iii.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
-        principales_iii.align_to(principales_i, LEFT)
-
+        framebox1 = SurroundingRectangle(conclusiones[1],color=YELLOW,fill_color=BLACK, buff = .1)
+        framebox2 = SurroundingRectangle(conclusiones[3],color=YELLOW,fill_color=BLACK, buff = .1)
+        framebox3 = SurroundingRectangle(conclusiones[5],color=YELLOW,fill_color=BLACK, buff = .1)
 
 
         #------------------------------------------------------------------- Pregunta y ejercicio
@@ -1149,28 +1132,26 @@ class TerceraEscena(GraphScene,Scene):
         self.wait(3)
 
         self.play(
-            FadeIn(r1_Box),
-            FadeIn(r2_Box),
-            run_time = 3
+            FadeIn(conclusiones),
+            run_time = 2
         )
+        self.play(
+            ShowCreation(framebox1),
+        )
+        self.wait(1.5)
+        self.play(
+            ShowCreation(framebox3),
+        )
+        self.wait(1.5)
+        self.play(
+            ShowCreation(framebox2),
+        )
+        self.wait(1.5)
 
         self.play(
             *[FadeOut(mob) for mob in self.mobjects]
         )
 
-
-        #self.play(FadeIn(ideas_principales))
-        #self.wait(2)
-        #self.play(FadeIn(principales_i))
-        #self.wait(2)
-        #self.play(FadeIn(principales_ii))
-        #self.wait(2)
-        #self.play(FadeIn(principales_iii))
-        #self.wait(2)
-
-        #self.play(
-         #   *[FadeOut(mob) for mob in self.mobjects]
-        #)
         #--------------------------------
         '''
 
