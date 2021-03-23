@@ -595,6 +595,7 @@ def projection_of_a_along_b(vector_a, vector_b):
 
 
 class segundaescena(ThreeDScene):
+	
     def parte1(self, a, b, c):
         text1 = TexMobject(r"S = \qty\Big{\vec{a}, \vec{b}, \vec{c}}").move_to(DOWN+4*RIGHT)
         text1_bg=SurroundingRectangle(text1, color=WHITE, fill_color=BLACK, fill_opacity=1)
@@ -880,6 +881,75 @@ class segundaescena(ThreeDScene):
             *[FadeOut(mob)for mob in self.mobjects]
             # All mobjects in the screen are saved in self.mobjects
         )
+	
+	
+	def projection_of_b_and_c_along_a(self, a, b, c):
+
+
+        a_vec = Vector(direction = a, color = AZUL)
+        b_vec = Vector(direction = b, color = ROJO)
+        c_vec = Vector(direction = c, color = NARANJA)
+
+        #PROYECCION DE B SOBRE A 
+        a_pro = projection_of_a_along_b(b, a)
+        a_vec_pro = Vector(direction = a_pro, color = YELLOW, buff=0)
+        line_a = DashedLine(ORIGIN, a_pro, width=5, buff = 0)
+        line_a_perp = DashedLine(b, a_pro, width=5, buff=0)
+        a_ort = Vector(direction = b-a_pro, color = VERDE, buff=0)
+        suma_a = Arrow(start = b, end = b-a_pro, color = YELLOW, buff=0)
+
+        #PROYECCION DE C SOBRE A 
+        c_pro = projection_of_a_along_b(c, a)
+        c_vec_pro = Vector(direction = c_pro, color = YELLOW, buff=0)
+        line_c = DashedLine(ORIGIN, c_pro, width=5, buff = 0)
+        line_c_perp = DashedLine(c, c_pro, width=5, buff=0)
+        c_ort = Vector(direction = c-c_pro, color = MAGENTA, buff=0)
+        suma_c = Arrow(start = c, end = c-c_pro, color = YELLOW, buff=0)
+
+        #PROYECCION DE C SOBRE B
+        b_pro = projection_of_a_along_b(c, b)
+        b_vec_pro = Vector(direction = b_pro, color = YELLOW, buff=0)
+        line_b = DashedLine(ORIGIN, b_pro, width=5, buff = 0)
+        line_b_perp = DashedLine(c, b_pro, width=5, buff=0)
+        suma_b = Arrow(start = c-c_pro, end = c-c_pro-b_pro, color = YELLOW, buff=0)
+        cb_ort = Vector(direction = c-c_pro-b_pro, color = MAGENTA, buff=0)
+
+        self.play(GrowArrow(a_vec))
+        self.play(GrowArrow(b_vec))
+        self.play(GrowArrow(c_vec))
+        
+        #PROYECCION DE B SOBRE A
+        self.play(Write(line_a))
+        self.play(Write(line_a_perp))
+        self.play(GrowArrow(a_vec_pro))
+        self.play(FadeOut(line_a), FadeOut(line_a_perp))
+        self.play(Transform(a_vec_pro, suma_a), run_time=1.5)
+        self.play(GrowArrow(a_ort))
+        self.play(FadeOut(a_vec_pro))
+        
+        #PROYECCION DE C SOBRE A
+        self.play(Write(line_c))
+        self.play(Write(line_c_perp))
+        self.play(GrowArrow(c_vec_pro))
+        self.play(FadeOut(line_c), FadeOut(line_c_perp))
+        self.play(Transform(c_vec_pro, suma_c), run_time=1.5)
+        self.play(GrowArrow(c_ort))
+        self.play(FadeOut(c_vec_pro))
+    
+        
+        #PROYECCION DE C SOBRE B
+        self.play(Write(line_b))
+        self.play(Write(line_b_perp))
+        self.play(GrowArrow(b_vec_pro))
+        self.play(FadeOut(line_b), FadeOut(line_b_perp))
+        self.play(Transform(b_vec_pro, suma_b), run_time=1.5)
+        self.play(GrowArrow(cb_ort))
+        self.play(FadeOut(b_vec_pro), FadeOut(c_ort), FadeOut(b_vec), FadeOut(c_vec),)
+        self.play(
+            *[FadeOut(mob)for mob in self.mobjects]
+            # All mobjects in the screen are saved in self.mobjects
+        )
+
                 
     def construct(self):
         axis_config = {
