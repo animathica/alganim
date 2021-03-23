@@ -1018,17 +1018,17 @@ class TerceraEscena(GraphScene,Scene):
     }
     def construct(self):
         #------------------------------------------------------------------- GRAM-SCHMIDT normal
-        seaL = (TextMobject('''Sea $l$ un conjunto l.i.''').scale(0.7)).to_edge(1*UP)
+        seaL = (TextMobject('''Sea $I$ un conjunto l.i.''').scale(0.7)).to_edge(1*UP)
         left_corner = 2.7*LEFT+2.8*UP
         proceso_GM = (TextMobject('''\\textbf{Proceso de Gram-Schmidt}''').scale(0.7)).move_to(left_corner+LEFT)
         proceso_GM.set_color('#0087FF')
-        algoritmo_left_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $l$ y}''').scale(0.7)).move_to(left_corner+0.5*DOWN+1*LEFT)
+        algoritmo_left_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $I$ y}''').scale(0.7)).move_to(left_corner+0.5*DOWN+1*LEFT)
         algoritmo_left_1_2 = TextMobject('''\\texttt{agregarlo a un nuevo conjunto $\\Gamma$}.''').scale(0.7)
         algoritmo_paso_1 = VGroup(algoritmo_left_1_1, algoritmo_left_1_2)
         algoritmo_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
 
         algoritmo_left_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmo_paso_1, 3.5*DOWN)
-        algoritmo_left_2_2 = TextMobject('''\\texttt{de $l$, restarle sus proyecciones}''').scale(0.7)
+        algoritmo_left_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
         algoritmo_left_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $\\Gamma$}''').scale(0.7)
         algoritmo_left_2_4 = TextMobject('''\\texttt{y después agregarlo a $\\Gamma$}.''').scale(0.7)
         algoritmo_paso_2 = VGroup(algoritmo_left_2_1, algoritmo_left_2_2, algoritmo_left_2_3, algoritmo_left_2_4)
@@ -1037,7 +1037,7 @@ class TerceraEscena(GraphScene,Scene):
 
         algoritmo_left_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmo_paso_2, 3.4*DOWN)
         algoritmo_left_3_2 = TextMobject('''\\texttt{que $\\Gamma$ tenga tantos vectores}''').scale(0.7)
-        algoritmo_left_3_3 = TextMobject('''\\texttt{como $l$.}''').scale(0.7)
+        algoritmo_left_3_3 = TextMobject('''\\texttt{como $I$.}''').scale(0.7)
         algoritmo_paso_3 = VGroup(algoritmo_left_3_1, algoritmo_left_3_2, algoritmo_left_3_3)
         algoritmo_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmo_paso_3.align_to(algoritmo_paso_2, LEFT)
@@ -1049,7 +1049,7 @@ class TerceraEscena(GraphScene,Scene):
         right_corner = 3*RIGHT+2.8*UP
         proceso_GMM = (TextMobject('''\\textbf{Gram-Schmidt \\textit{modificado}}''').scale(0.7)).move_to(right_corner)
         proceso_GMM.set_color('#4FFF00')
-        algoritmo_right_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $l$,}''').scale(0.7)).move_to(right_corner+0.5*DOWN)
+        algoritmo_right_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $I$,}''').scale(0.7)).move_to(right_corner+0.5*DOWN)
         algoritmo_right_1_2 = TextMobject('''\\texttt{\\textit{normalizarlo} }''', '''\\texttt{y agregarlo a}''').scale(0.7)
         algoritmo_right_1_2[0].set_color('#4FFF00')
         algoritmo_right_1_3 = TextMobject('''\\texttt{un nuevo conjunto $N$}.''').scale(0.7)
@@ -1057,7 +1057,7 @@ class TerceraEscena(GraphScene,Scene):
         algoritmor_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
 
         algoritmo_right_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmor_paso_1, 2*DOWN)
-        algoritmo_right_2_2 = TextMobject('''\\texttt{de $l$, restarle sus proyecciones}''').scale(0.7)
+        algoritmo_right_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
         algoritmo_right_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $N$, }''').scale(0.7)
         algoritmo_right_2_4 = TextMobject('''\\texttt{\\textit{normalizarlo}''', '''\\texttt{, y después}''').scale(0.7)
         algoritmo_right_2_4[0].set_color('#4FFF00')
@@ -1068,7 +1068,7 @@ class TerceraEscena(GraphScene,Scene):
 
         algoritmo_right_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmor_paso_2, 2*DOWN)
         algoritmo_right_3_2 = TextMobject('''\\texttt{que $N$ tenga tantos vectores}''').scale(0.7)
-        algoritmo_right_3_3 = TextMobject('''\\texttt{como $l$.}''').scale(0.7)
+        algoritmo_right_3_3 = TextMobject('''\\texttt{como $I$.}''').scale(0.7)
         algoritmor_paso_3 = VGroup(algoritmo_right_3_1, algoritmo_right_3_2, algoritmo_right_3_3)
         algoritmor_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmor_paso_3.align_to(algoritmor_paso_2, LEFT)
@@ -1078,7 +1078,7 @@ class TerceraEscena(GraphScene,Scene):
             "\\quad", #0
             "¡$\\Gamma$ es ortogonal!", #1
             "\\quad\\quad\\quad", #2
-            "$\\langle \\Gamma\\rangle = \\langle l\\rangle = \\langle N\\rangle$", #3
+            "$\\langle \\Gamma\\rangle = \\langle I\\rangle = \\langle N\\rangle$", #3
             "\\quad\\quad\\quad", #4
             "¡$N$ es ortonormal!" #5
         ).scale(0.7)).next_to(linea, 2*DOWN)
