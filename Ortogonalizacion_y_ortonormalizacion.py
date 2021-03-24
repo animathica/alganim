@@ -1,5 +1,6 @@
 
 
+
 from manimlib.imports import *
 
 
@@ -66,12 +67,12 @@ class OO1(ThreeDScene):
         CtoO_1_1 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             CtoO_1_1[0][i].set_color(ROJO)
-        CtoO_2 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{b}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        CtoO_2 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{a}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             CtoO_2[0][i].set_color(ROJO)
         for i in range(6,10):
             CtoO_2[0][i].set_color(BLACK)
-        CtoO_2_1 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{b}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        CtoO_2_1 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{a}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             CtoO_2_1[0][i].set_color(ROJO)
         for i in range(7,10):
@@ -88,7 +89,7 @@ class OO1(ThreeDScene):
         CtoON_1 = TextMobject(''' $ N = \{ \hat{b} \} $ ''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(3,5):
             CtoON_1[0][i].set_color(ROJO)
-        CtoON_2 = TextMobject(''' $ N = \{ \hat{b},\hat{b}' \} $ ''').move_to(2.5*DOWN + 3.5*RIGHT)
+        CtoON_2 = TextMobject(''' $ N = \{ \hat{b},\hat{a}' \} $ ''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(3,5):
             CtoON_2[0][i].set_color(ROJO)
         for i in range(6,9):
@@ -120,31 +121,6 @@ class OO1(ThreeDScene):
         Text4_1 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\hat{b} \\rangle} { 1 } \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
         Text4_2 = TextMobject('''$  \\langle \\vec{a} , \\hat{b} \\rangle \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT)
 
-        # Texto para generado de conjunto I y su rectángulo.
-        TGenS = TextMobject('''$ \\langle I \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
-        TGenS.bg = SurroundingRectangle(TGenS, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        TGenS.group = VGroup(TGenS.bg,TGenS)
-
-        # Texto para generado de conjunto Gamma_1 y su rectángulo.
-        TGenSp = TextMobject('''$ \\langle \\Gamma_1 \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
-        TGenSp.bg = SurroundingRectangle(TGenSp, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        TGenSp.group = VGroup(TGenSp.bg,TGenSp)
-
-        #Texto para igualar generados de I y Gamma_1 y su rectángulo.
-        TIG = TextMobject('''$ \\langle I \\rangle = \\langle \\Gamma_1 \\rangle $''').move_to(2*DOWN + 4*LEFT)
-        TIG.bg = SurroundingRectangle(TIG, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        TIG.group = VGroup(TIG.bg,TIG)
-
-        # Texto para generado de conjunto N y su rectángulo.
-        TGenSpp = TextMobject('''$ \\langle N \\rangle = \\mathbb{R}^2 $''').move_to(2*DOWN + 4*LEFT)
-        TGenSpp.bg = SurroundingRectangle(TGenSpp, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        TGenSpp.group = VGroup(TGenSpp.bg,TGenSpp)
-
-        #Texto para igualar generados de I y N y su rectángulo.
-        TIGp = TextMobject('''$ \\langle I \\rangle = \\langle N \\rangle $''').move_to(3*DOWN + 4*LEFT)
-        TIGp.bg = SurroundingRectangle(TIGp, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        TIGp.group = VGroup(TIGp.bg,TIGp)
-
         # Texto para <a,b> = _<b,a> y su rectángulo.
         TCon = TextMobject('''$ \\langle \\vec{a}, \\vec{b} \\rangle \\neq 0 $''').move_to(1*DOWN + 4*LEFT)
         TCon.bg = SurroundingRectangle(TCon, color = WHITE, fill_color = BLACK, fill_opacity = 1)
@@ -155,6 +131,9 @@ class OO1(ThreeDScene):
         TCon_2 = TextMobject('''$ \\Rightarrow \\langle \\vec{b}, \\vec{a} \\rangle \\neq 0 $''').move_to(3*DOWN + 4*LEFT)
         TCon_2.bg = SurroundingRectangle(TCon_2, color = WHITE, fill_color = BLACK, fill_opacity = 1)
         TCon_2.group = VGroup(TCon_2.bg,TCon_2)
+        Tsilo = VGroup(TCon,TCon_1,TCon_2)
+        Tsilo.bg = SurroundingRectangle(VGroup(TCon,TCon_2,TCon_1), color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Tsilo.group = VGroup(Tsilo.bg,Tsilo)
 
         # Texto para proyección de b sobre a.
         Text5 = TextMobject('''$ \\frac{ \\langle \\vec{b} , \\vec{a} \\rangle} { \\norm{ \\vec{a} } ^2} \\vec{a} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
@@ -170,20 +149,12 @@ class OO1(ThreeDScene):
         Text6_1 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a} \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             Text6_1[0][i].set_color(AZUL)
-        Text6_2 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a}, \\vec{a}' \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        Text6_2 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a}, \\vec{b}' \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             Text6_2[0][i].set_color(AZUL)
         for i in range(7,10):
             Text6_2[0][i].set_color(VERDE)
         Text6_2.bg = SurroundingRectangle(Text6_2, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-
-        # Textos del segundo generado.
-        Text7 = TextMobject('''$ \\langle \\Gamma_2 \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
-        Text7.bg = SurroundingRectangle(Text7, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        Text7.group = VGroup(Text7.bg,Text7)
-        Text7_1 = TextMobject(''' $ \\langle I \\rangle = \\langle \\Gamma_1 \\rangle = \\langle \\Gamma_2 \\rangle $ ''').move_to(2*DOWN + 4*LEFT)
-        Text7_1.bg = SurroundingRectangle(Text7_1, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        Text7_1.group = VGroup(Text7_1.bg,Text7_1)
 
         # Textos del generado de N.
         Text8 = TextMobject('''$ \\langle N \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
@@ -192,6 +163,28 @@ class OO1(ThreeDScene):
         Text8_1 = TextMobject(''' $ \\langle I \\rangle = \\langle N \\rangle $ ''').move_to(2*DOWN + 4*LEFT)
         Text8_1.bg = SurroundingRectangle(Text8_1, color = WHITE, fill_color = BLACK, fill_opacity = 1)
         Text8_1.group = VGroup(Text8_1.bg,Text8_1)
+
+        # Textos para los generados y sus rectángulos.
+        Text9 = TextMobject('''$ \\langle I \\rangle $''').move_to(2*DOWN + 4*LEFT)
+        Text9.bg = SurroundingRectangle(Text9, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text9.group = VGroup(Text9.bg,Text9)
+        Text9_1 = TextMobject('''$ \\langle I \\rangle = \\langle \\Gamma_1 \\rangle $''').move_to(2*DOWN + 4*LEFT)
+        Text9_1.bg = SurroundingRectangle(Text9_1, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text9_1.group = VGroup(Text9_1.bg,Text9_1)
+        Text9_2 = TextMobject('''$ \\langle I \\rangle = \\langle \\Gamma_1 \\rangle = \\langle \\Gamma_2 \\rangle $''').move_to(2*DOWN + 4*LEFT)
+        Text9_2.bg = SurroundingRectangle(Text9_2, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text9_2.group = VGroup(Text9_2.bg,Text9_2)
+        Text9_3 = TextMobject('''$ \\langle I \\rangle = \\langle N \\rangle $''').move_to(2*DOWN + 4*LEFT)
+        Text9_3.bg = SurroundingRectangle(Text9_3, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text9_3.group = VGroup(Text9_3.bg, Text9_3)
+
+        # Texto para mostrar operaciones de espacio.
+        Text10 = TextMobject('''$ \\vec{u} + \\vec{v} $''').move_to(UP+4*LEFT)
+        Text10_1 = TextMobject('''$ a \\vec{u} $''').move_to(4*LEFT)
+        Text10_2 = TextMobject('''$ \\langle \\vec{u} , \\vec{v} \\rangle $''').move_to(DOWN+4*LEFT)
+        Text10_group = VGroup(Text10,Text10_1,Text10_2)
+        Text10.bg = SurroundingRectangle(Text10_group, color = WHITE, fill_color = BLACK, fill_opacity = 1)
+        Text10.group = VGroup(Text10.bg,Text10_group)
 
         grid = NumberPlane()
 
@@ -282,7 +275,7 @@ class OO1(ThreeDScene):
 
         # Vector resultante de la resta y su etiqueta.
         VecR = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
-        VecRLab = TextMobject('''$ \\vec{b}' $''').move_to(VecR.get_end()+0.5*LEFT)
+        VecRLab = TextMobject('''$ \\vec{a}' $''').move_to(VecR.get_end()+0.5*LEFT)
 
         # Función para luz de segunda proyección.
         def light2(x1,y1,x2,y2,n = 10):
@@ -335,7 +328,7 @@ class OO1(ThreeDScene):
 
         # Vector resultante de la segunda resta y su etiqueta.
         VecR_1 = Arrow((0, 0, 0),(b_1-p1_1,b_2-p2_1,0), color = VERDE, buff = 0)
-        VecRLab_1 = TextMobject('''$ \\vec{a}' $''').move_to(VecR_1.get_end()+0.5*LEFT)
+        VecRLab_1 = TextMobject('''$ \\vec{b}' $''').move_to(VecR_1.get_end()+0.3*DOWN+0.5*LEFT)
 
         # Eje para normalizar vector.
         Eje = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = PURPLE, buff = 0)
@@ -350,27 +343,6 @@ class OO1(ThreeDScene):
         #Vector B' normalizado y su etiqueta.
         VecBN = Arrow((0,0,0),(nb_1,nb_2,0), color = ROJO, buff = 0)
         VecBNLab = TextMobject(''' $ \\hat{b} $ ''').move_to(VecBN.get_end()+0.5*UP)
-
-        # Arco para mostrar distancia r=1.
-        # El ángulo hasta el que llega el arco.
-        slope = (b_2/b_1)
-        ang = np.arctan(slope)
-        # Un ValueTracker para la longitud del arco.
-        theta = ValueTracker(0)
-        # El arco.
-        arco = Arc(radius=1,angle=theta.get_value())
-        # La función para cambiar el tamaño del arco.
-        def upd_for_arc(arc):
-            th = theta.get_value()
-            new_arc = Arc(radius=1, angle=th)
-            arc.become(new_arc)
-        # Punto al final del arco.
-        punto = Dot((np.cos(theta.get_value()),np.sin(theta.get_value()),0))
-        # Función para posición del punto.
-        def upd_for_dot(obj):
-            th = theta.get_value()
-            new_punto = Dot((np.cos(th),np.sin(th),0))
-            punto.become(new_punto)
 
         # Ejes para mostrar independencia lineal.
         Eje1 = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0)
@@ -394,17 +366,156 @@ class OO1(ThreeDScene):
 
         #Vector B' normalizado y su etiqueta.
         VecBPN = Arrow((0,0,0),(nbp_1,nbp_2,0), color = VERDE, buff = 0)
-        VecBPNLab = TextMobject(''' $ \\hat{b}' $ ''').move_to(VecBPN.get_end()+0.5*UP)
+        VecBPNLab = TextMobject(''' $ \\hat{a}' $ ''').move_to(VecBPN.get_end()+0.5*UP)
 
-        # Planos para mostrar los generados.
-        PG = Rectangle(height=20,width=20).set_fill(BLUE, opacity=0.3)
-        PG2 = Rectangle(height=20,width=20).set_fill(BLUE, opacity=0.3)
-        PG3 = Rectangle(height=20,width=20).set_fill(RED, opacity=0.3)
+        # Rellenar círculo con combinación lineal.
+        # Función para coeficientes de combinación lineal.
+        def coef(a_1,a_2,b_1,b_2,ang,r=1):
+            da = b_2*np.sin(ang)*r - b_1*np.cos(ang)*r
+            db = a_1*np.cos(ang)*r - a_2*np.sin(ang)*r
+            dd = a_1* b_2 - a_2*b_1
+            aa = da/dd
+            bb = db/dd
+            return([aa,bb])
+        # ValueTrackers para definir los ángulos del círculo y anillo.
+        theta = ValueTracker(0)
+        theta2 = ValueTracker(0)
+        # Vectores usados para las combinaciones lineales.
+        VCLA_1 = a_1
+        VCLA_2 = a_2
+        VCLB_1 = b_1
+        VCLB_2 = b_2
+        VCLA = Arrow((0, 0, 0), VCLA_1 * RIGHT + VCLA_2*UP, buff=0,color=AZUL)
+        C = coef(VCLA_1,VCLA_2,VCLB_1,VCLB_2,theta.get_value(),r=3)[1]
+        VCLB = Arrow(VCLA.get_end(), (VCLA.get_end()[0]+C*VCLB_1,VCLA.get_end()[1]+C*VCLB_2,0), buff=0,color=ROJO)
+        # Función para las primeras combinaciones lineales, updater.
+        def upd1_for_a(obj):
+            t = theta.get_value()
+            C = coef(VCLA_1,VCLA_2,VCLB_1,VCLB_2,t,r=3)[0]
+            obj.become(Arrow((0, 0, 0), (C*VCLA_1,C*VCLA_2,0), buff=0,color=AZUL))
+        def upd1_for_b(obj):
+            t = theta.get_value()
+            C = coef(VCLA_1,VCLA_2,VCLB_1,VCLB_2,t,r=3)[1]
+            obj.become(Arrow(VCLA.get_end(), (VCLA.get_end()[0]+C*VCLB_1,VCLA.get_end()[1]+C*VCLB_2,0), buff=0,color=ROJO))
+        # Círculo que se va a rellenar
+        Circulo1 = Sector(angle=-0.00001,outer_radius=3,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5)
+        # Función para rellenar círculo.
+        def upd_for_circ(obj):
+            t = theta.get_value()
+            obj.become(Sector(angle=-t,outer_radius=3,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5))
+        # Anillo usado para el resto del plano.
+        Anillo1 = AnnularSector(angle=-0.00001,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5)
+        # Función para rellenar el resto del plano.
+        def upd_for_ani(obj):
+            t2 = theta2.get_value()
+            obj.become(AnnularSector(angle=-t2,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5))
+
+        # Rellenar plano con segunda combinación lineal.
+        # Vectores usados para las combinaciones lineales.
+        VCLA2_1 = a_1-p1
+        VCLA2_2 = a_2-p2
+        VCLB2_1 = b_1
+        VCLB2_2 = b_2
+        VCLA2 = Arrow((0, 0, 0), VCLA2_1 * RIGHT + VCLA2_2*UP, buff=0,color=VERDE)
+        C = coef(VCLA2_1,VCLA2_2,VCLB2_1,VCLB2_2,theta.get_value(),r=3)[1]
+        VCLB2 = Arrow(VCLA2.get_end(), (VCLA2.get_end()[0]+C*VCLB2_1,VCLA2.get_end()[1]+C*VCLB2_2,0), buff=0,color=ROJO)
+        # Función para las primeras combinaciones lineales, updater.
+        def upd2_for_a(obj):
+            t = theta.get_value()
+            C = coef(VCLA2_1,VCLA2_2,VCLB2_1,VCLB2_2,t,r=3)[0]
+            obj.become(Arrow((0, 0, 0), (C*VCLA2_1,C*VCLA2_2,0), buff=0,color=VERDE))
+        def upd2_for_b(obj):
+            t = theta.get_value()
+            C = coef(VCLA2_1,VCLA2_2,VCLB2_1,VCLB2_2,t,r=3)[1]
+            obj.become(Arrow(VCLA2.get_end(), (VCLA2.get_end()[0]+C*VCLB2_1,VCLA2.get_end()[1]+C*VCLB2_2,0), buff=0,color=ROJO))
+        # Círculo que se va a rellenar
+        Circulo2 = Sector(angle=-0.00001,outer_radius=3,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5)
+        # Función para rellenar círculo.
+        def upd2_for_circ(obj):
+            t = theta.get_value()
+            obj.become(Sector(angle=-t,outer_radius=3,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5))
+        # Anillo usado para el resto del plano.
+        Anillo2 = AnnularSector(angle=-0.00001,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5)
+        # Función para rellenar el resto del plano.
+        def upd2_for_ani(obj):
+            t2 = theta2.get_value()
+            obj.become(AnnularSector(angle=-t2,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5))
+
+        # Rellenar plano con cuarta combinación lineal.
+        # Vectores usados para las combinaciones lineales.
+        VCLA4_1 = nbp_1
+        VCLA4_2 = nbp_2
+        VCLB4_1 = nb_1
+        VCLB4_2 = nb_2
+        VCLA4 = Arrow((0, 0, 0), VCLA4_1 * RIGHT + VCLA4_2*UP, buff=0,color=VERDE)
+        C = coef(VCLA4_1,VCLA4_2,VCLB4_1,VCLB4_2,theta.get_value(),r=3)[1]
+        VCLB4 = Arrow(VCLA4.get_end(), (VCLA4.get_end()[0]+C*VCLB4_1,VCLA4.get_end()[1]+C*VCLB4_2,0), buff=0,color=ROJO)
+        # Función para las primeras combinaciones lineales, updater.
+        def upd4_for_a(obj):
+            t = theta.get_value()
+            C = coef(VCLA4_1,VCLA4_2,VCLB4_1,VCLB4_2,t,r=3)[0]
+            obj.become(Arrow((0, 0, 0), (C*VCLA4_1,C*VCLA4_2,0), buff=0,color=VERDE))
+        def upd4_for_b(obj):
+            t = theta.get_value()
+            C = coef(VCLA4_1,VCLA4_2,VCLB4_1,VCLB4_2,t,r=3)[1]
+            obj.become(Arrow(VCLA4.get_end(), (VCLA4.get_end()[0]+C*VCLB4_1,VCLA4.get_end()[1]+C*VCLB4_2,0), buff=0,color=ROJO))
+        # Círculo que se va a rellenar
+        Circulo4 = Sector(angle=-0.00001,outer_radius=3,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5)
+        # Función para rellenar círculo.
+        def upd4_for_circ(obj):
+            t = theta.get_value()
+            obj.become(Sector(angle=-t,outer_radius=3,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5))
+        # Anillo usado para el resto del plano.
+        Anillo4 = AnnularSector(angle=-0.00001,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5)
+        # Función para rellenar el resto del plano.
+        def upd4_for_ani(obj):
+            t2 = theta2.get_value()
+            obj.become(AnnularSector(angle=-t2,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5))
+
+        # Rellenar plano con tercer combinación lineal.
+        # Vectores usados para las combinaciones lineales.
+        VCLA3_1 = a_1
+        VCLA3_2 = a_2
+        VCLB3_1 = b_1-p1_1
+        VCLB3_2 = b_2-p2_1
+        VCLA3 = Arrow((0, 0, 0), VCLA3_1 * RIGHT + VCLA3_2*UP, buff=0,color=AZUL)
+        C = coef(VCLA3_1,VCLA3_2,VCLB3_1,VCLB3_2,theta.get_value(),r=3)[1]
+        VCLB3 = Arrow(VCLA3.get_end(), (VCLA3.get_end()[0]+C*VCLB3_1,VCLA3.get_end()[1]+C*VCLB3_2,0), buff=0,color=VERDE)
+        # Función para las primeras combinaciones lineales, updater.
+        def upd3_for_a(obj):
+            t = theta.get_value()
+            C = coef(VCLA3_1,VCLA3_2,VCLB3_1,VCLB3_2,t,r=3)[0]
+            obj.become(Arrow((0, 0, 0), (C*VCLA3_1,C*VCLA3_2,0), buff=0,color=AZUL))
+        def upd3_for_b(obj):
+            t = theta.get_value()
+            C = coef(VCLA3_1,VCLA3_2,VCLB3_1,VCLB3_2,t,r=3)[1]
+            obj.become(Arrow(VCLA3.get_end(), (VCLA3.get_end()[0]+C*VCLB3_1,VCLA3.get_end()[1]+C*VCLB3_2,0), buff=0,color=VERDE))
+        # Círculo que se va a rellenar
+        Circulo3 = Sector(angle=-0.00001,outer_radius=3,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5)
+        # Función para rellenar círculo.
+        def upd3_for_circ(obj):
+            t = theta.get_value()
+            obj.become(Sector(angle=-t,outer_radius=3,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5))
+        # Anillo usado para el resto del plano.
+        Anillo3 = AnnularSector(angle=-0.00001,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5)
+        # Función para rellenar el resto del plano.
+        def upd3_for_ani(obj):
+            t2 = theta2.get_value()
+            obj.become(AnnularSector(angle=-t2,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5))
+
+        # Copias de A y B, para usar después de los transform y become.
+        VecAc = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
+        VecBc = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
+        VecAc2 = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
+        VecBc2 = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
+        VecAc3 = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
+        VecBc3 = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
+        VecRc = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
+        VecR_1c = Arrow((0, 0, 0),(b_1-p1_1,b_2-p2_1,0), color = VERDE, buff = 0)
 
         # Grupos que se quitan.
-        Quitar = VGroup(VecR,VecRLab,Text2.bg,CtoO_2.bg,CtoO_2_1,TIG.group,Text1,Text2_2,Text2_1,TGenSp.group)
-        Quitar2 = VGroup(Text6_2.bg,Text6_2,VecR_1,VecRLab_1,Text7.group,Text7_1.group)
-
+        Quitar = VGroup(VecR,Text2.bg,CtoO_2.bg,CtoO_2_1,Text1,Text2_2,Text2_1,VecAc2,VecRc)
+        Quitar2 = VGroup(Text6_2.bg,Text6_2,VecR_1c,VecRLab_1,Text9_2.group)
 
 
 
@@ -427,14 +538,34 @@ class OO1(ThreeDScene):
         self.wait(0.5)
         self.play(ReplacementTransform(Ejesc,Ejescopy),runtime = 0.5)
         self.wait()
-        self.play(Write(TGenS.group))
-        self.add_foreground_mobject(TGenS)
-        self.bring_to_back(PG)
-        self.play(ShowCreation(PG),runtime = 0.25)
+        self.play(FadeOut(Ejescopy))
+        self.play(Write(VGroup(Text10.bg,Text10)))
+        self.play(Write(Text10_1))
+        self.play(Write(Text10_2))
         self.wait()
-        self.play(FadeOut(PG),runtime = 0.25)
-        self.remove_foreground_mobject(TGenS)
-        self.play(FadeOut(Ejescopy),FadeOut(TGenS.group))
+        self.play(FadeOut(Text10.group))
+        ############################
+
+        self.remove_foreground_mobjects(VecA,VecB,VecALab,VecBLab)
+        self.play(ReplacementTransform(VecA,VCLA),ReplacementTransform(VecB,VCLB),FadeOut(VGroup(VecALab,VecBLab)))
+        self.bring_to_back(Circulo1)
+        self.play(ShowCreation(Circulo1))
+        VCLA.add_updater(upd1_for_a)
+        VCLB.add_updater(upd1_for_b)
+        Circulo1.add_updater(upd_for_circ)
+        self.play(theta.set_value,2*np.pi,run_time = 4)
+        self.bring_to_back(Anillo1)
+        self.play(ShowCreation(Anillo1))
+        Anillo1.add_updater(upd_for_ani)
+        self.play(theta2.set_value,2*np.pi,run_time = 2)
+        self.play(Write(Text9.group))
+        self.wait()
+        self.remove(VGroup(Anillo1,Circulo1))
+        self.play(ReplacementTransform(VCLA,VecAc),ReplacementTransform(VCLB,VecBc),Write(VGroup(VecALab,VecBLab)),FadeOut(Text9.group))
+        self.play(theta.set_value,0,run_time=0.01)
+        self.play(theta2.set_value,0,run_time=0.01)
+
+        ############################
         self.wait()
         self.play(Write(CtoO.group))
         self.wait()
@@ -447,6 +578,7 @@ class OO1(ThreeDScene):
         self.remove_foreground_mobject(Text1)
         self.play(ReplacementTransform(Text1_1,Text2_1),Write(Text2_2))
         self.wait()
+        self.bring_to_back(luz)
         self.play(ShowCreation(luz))
         self.wait()
         self.add_foreground_mobject(VecP)
@@ -454,11 +586,13 @@ class OO1(ThreeDScene):
         self.wait()
         self.play(FadeOut(luz))
         self.wait()
-        self.play(Write(TCon.group))
-        self.play(Write(TCon_1.group))
-        self.play(Write(TCon_2.group))
+        self.play(Write(Tsilo.bg))
+        self.play(Write(TCon))
+        self.play(Write(TCon_1))
+        self.play(Write(TCon_2))
         self.wait()
         self.add_foreground_mobject(Cto.group)
+        self.bring_to_back(luz2)
         self.play(ShowCreation(luz2))
         self.add_foreground_mobject(VecP_1)
         self.play(ShowCreation(VecP_1))
@@ -466,14 +600,14 @@ class OO1(ThreeDScene):
         self.remove_foreground_mobject(Cto.group)
         self.wait()
         self.remove_foreground_mobject(VecP_1)
-        self.play(FadeOut(VGroup(TCon.group,TCon_1.group,TCon_2.group,VecP_1)))
+        self.play(FadeOut(VGroup(Tsilo.group,VecP_1)))
         self.wait()
         self.play(ReplacementTransform(VecP,VecPC))
         self.remove_foreground_mobject(VecP)
         self.wait()
         self.play(ShowCreation(VecR),Write(VecRLab))
         self.remove_foreground_mobjects(VecA,VecALab)
-        self.play(FadeOut(VGroup(VecPC,VecA,VecALab)))
+        self.play(FadeOut(VGroup(VecPC,VecAc,VecALab)))
         self.wait()
         self.add_foreground_mobject(CtoO_1_1)
         self.play(ReplacementTransform(CtoO.bg,CtoO_2.bg))
@@ -482,21 +616,37 @@ class OO1(ThreeDScene):
         self.wait()
         self.play(ReplacementTransform(CtoO_2,CtoO_2_1))
         self.wait()
-        self.play(Write(TGenSp.group))
-        self.bring_to_back(PG2)
-        self.play(FadeIn(PG2),runtime = 0.25)
+        ############################
+
+        self.play(ReplacementTransform(VecR,VCLA2),ReplacementTransform(VecBc,VCLB2),FadeOut(VGroup(VecBLab,VecRLab)))
+        self.bring_to_back(Circulo2)
+        self.play(ShowCreation(Circulo2))
+        VCLA2.add_updater(upd2_for_a)
+        VCLB2.add_updater(upd2_for_b)
+        Circulo2.add_updater(upd2_for_circ)
+        self.play(theta.set_value,2*np.pi,run_time = 4)
+        self.bring_to_back(Anillo2)
+        self.play(ShowCreation(Anillo2))
+        Anillo2.add_updater(upd2_for_ani)
+        self.play(theta2.set_value,2*np.pi,run_time = 2)
+        self.play(Write(Text9_1.group))
         self.wait()
-        self.play(FadeOut(PG2),runtime = 0.25)
+        self.remove(VGroup(Anillo2,Circulo2))
+        self.play(ReplacementTransform(VCLA2,VecRc),ReplacementTransform(VCLB2,VecBc2))
+        self.play(theta.set_value,0,run_time=0.01)
+        self.play(theta2.set_value,0,run_time=0.01)
+
+        ############################
         self.wait()
-        self.play(Write(TIG.group))
-        self.wait()
-        #####
-        self.play(FadeOut(Quitar),ShowCreation(VecA),Write(VecALab))
+        self.play(FadeOut(Quitar),ShowCreation(VecA),Write(VecALab),Write(VecBLab))
         self.wait()
         self.play(Write(Text6.group))
+        self.wait()
+        self.play(ReplacementTransform(Text6,Text6_1))
         self.play(Write(Text5.group))
         self.wait()
         self.play(FadeOut(Cto.group))
+        self.bring_to_back(luz2)
         self.play(ShowCreation(luz2))
         self.play(ShowCreation(VecP_2))
         self.play(FadeOut(luz2))
@@ -504,29 +654,46 @@ class OO1(ThreeDScene):
         self.play(ReplacementTransform(VecP_2,VecPC_1))
         self.play(ShowCreation(VecR_1))
         self.play(ShowCreation(VecRLab_1))
-        self.play(FadeOut(VGroup(VecPC_1,VecB,VecBLab)))
+        self.remove_foreground_mobject(VecBc)
+        self.play(FadeOut(VGroup(VecPC_1,VecBc2,VecBLab)))
         self.wait()
-        self.play(ReplacementTransform(Text6,Text6_1))
         self.add_foreground_mobject(Text6_1)
         self.play(ReplacementTransform(Text6.bg,Text6_2.bg))
         self.remove_foreground_mobject(Text6_1)
         self.play(ReplacementTransform(Text6_1,Text6_2))
         self.wait()
-        self.play(Write(Text7.group))
-        self.play(Write(Text7_1.group))
-        self.bring_to_back(PG3)
-        self.play(ShowCreation(PG3))
-        self.play(FadeIn(PG3),runtime = 0.25)
+        ############################
+
+        self.play(ReplacementTransform(VecA,VCLA3),ReplacementTransform(VecR_1,VCLB3),FadeOut(VGroup(VecALab,VecRLab_1)))
+        self.bring_to_back(Circulo3)
+        self.play(ShowCreation(Circulo3))
+        VCLA3.add_updater(upd3_for_a)
+        VCLB3.add_updater(upd3_for_b)
+        Circulo3.add_updater(upd3_for_circ)
+        self.play(theta.set_value,2*np.pi,run_time = 4)
+        self.bring_to_back(Anillo3)
+        self.play(ShowCreation(Anillo3))
+        Anillo3.add_updater(upd3_for_ani)
+        self.play(theta2.set_value,2*np.pi,run_time = 2)
+        self.add_foreground_mobject(Text9_1)
+        self.play(ReplacementTransform(Text9_1.bg,Text9_2.bg))
+        self.remove_foreground_mobject(Text9_1)
+        self.play(ReplacementTransform(Text9_1,Text9_2))
         self.wait()
-        self.play(FadeOut(PG3),runtime = 0.25)
+        self.remove(VGroup(Anillo3,Circulo3))
+        self.play(ReplacementTransform(VCLA3,VecAc3),ReplacementTransform(VCLB3,VecR_1c))
+        self.play(theta.set_value,0,run_time=0.01)
+        self.play(theta2.set_value,0,run_time=0.01)
+
+        ############################
         self.wait()
-        #####
-        self.play(FadeOut(Quitar2),ShowCreation(VecB),Write(VecBLab),Write(Cto.group))
+        self.play(FadeOut(Quitar2),ShowCreation(VecBc3),Write(VecBLab),Write(VecALab),Write(Cto.group))
         self.wait()
         self.play(Write(CtoON.group))
         self.wait()
+        self.bring_to_back(Eje)
         self.play(ShowCreation(Eje))
-        self.play(ReplacementTransform(VecB,VecBN))
+        self.play(ReplacementTransform(VecBc3,VecBN))
         self.play(ReplacementTransform(VecBLab,VecBNLab))
         self.play(FadeOut(Eje))
         self.play(ReplacementTransform(CtoON,CtoON_1))
@@ -539,7 +706,7 @@ class OO1(ThreeDScene):
         self.wait()
         self.play(ShowCreation(VecR),Write(VecRLab))
         self.wait()
-        self.play(FadeOut(VecPC))
+        self.play(FadeOut(VecPC),FadeOut(VGroup(VecAc3,VecALab)))
         self.play(ReplacementTransform(VecR,VecBPN))
         self.wait()
         self.play(ReplacementTransform(VecRLab,VecBPNLab))
@@ -549,18 +716,25 @@ class OO1(ThreeDScene):
         self.play(ReplacementTransform(CtoON_1,CtoON_2))
         self.remove_foreground_mobject(CtoON_1)
         self.wait()
-        self.play(FadeOut(VGroup(VecA,VecALab)))
-        self.wait()
-        self.play(Write(Text8.group))
-        self.bring_to_back(PG)
-        self.play(ShowCreation(PG))
-        self.play(FadeIn(PG),runtime = 0.25)
-        self.wait()
-        self.play(FadeOut(PG),runtime = 0.25)
-        self.wait()
-        #####
+        ############################
+
+        self.play(ReplacementTransform(VecBPN,VCLA4),ReplacementTransform(VecBN,VCLB4),FadeOut(VGroup(VecBNLab,VecBPNLab)))
+        self.bring_to_back(Circulo4)
+        self.play(ShowCreation(Circulo4))
+        VCLA4.add_updater(upd4_for_a)
+        VCLB4.add_updater(upd4_for_b)
+        Circulo4.add_updater(upd4_for_circ)
+        self.play(theta.set_value,2*np.pi,run_time = 4)
+        self.bring_to_back(Anillo4)
+        self.play(ShowCreation(Anillo4))
+        Anillo4.add_updater(upd4_for_ani)
+        self.play(theta2.set_value,2*np.pi,run_time = 2)
+        self.play(Write(Text9_3.group))
+        self.wait(2)
+
+        ############################
         self.play( *[FadeOut(mob)for mob in self.mobjects] )
-        self.wait(0.5)
+        self.wait(2)
         
 	
 #####################################################################################
