@@ -1056,8 +1056,7 @@ class segundaescena(ThreeDScene):
             # All mobjects in the screen are saved in self.mobjects
         )
 	
-	
-	def projection_of_b_and_c_along_a(self, a, b, c):
+    def projection_of_b_and_c_along_a(self, a, b, c):
 
 
         a_vec = Vector(direction = a, color = AZUL)
