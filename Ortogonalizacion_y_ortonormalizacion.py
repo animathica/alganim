@@ -782,11 +782,11 @@ class segundaescena(ThreeDScene):
         a_vec = Vector(direction = a, color = AZUL)
         b_vec = Vector(direction = b, color = ROJO)
         c_vec = Vector(direction = c, color = NARANJA)
-        a_vec_label = TexMobject(r"\vec{a}").move_to(DOWN+6*LEFT).move_to(2.8*RIGHT+2.7*UP)
+        a_vec_label = TexMobject(r"\vec{a}").move_to(2.8*RIGHT+2.7*UP)
         a_vec_label[0].set_color(AZUL)
-        b_vec_label = TexMobject(r"\vec{b}").next_to(a_vec_label, DOWN).move_to(1.8*LEFT+1.4*UP)
+        b_vec_label = TexMobject(r"\vec{b}").move_to(1.8*LEFT+1.4*UP)
         b_vec_label[0].set_color(ROJO)
-        c_vec_label = TexMobject(r"\vec{c}").next_to(b_vec_label, DOWN).move_to(2*RIGHT+0.1*UP)
+        c_vec_label = TexMobject(r"\vec{c}").move_to(2*RIGHT+0.1*UP)
         c_vec_label[0].set_color(NARANJA)
 
 
