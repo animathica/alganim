@@ -1,7 +1,10 @@
 # alganim
 Repositorio con el material usado para crear los videos sobre Álgebra Lineal en el canal de YouTube [Animathica](https://www.youtube.com/channel/UCzkyH2bxpesubzc87VxqDiA).
 
-Los videos de esta serie se enfocan en la teoría de espacios vectoriales con producto escalar, enfocándose en la notación y los conceptos necesarios para los cursos de mecáncia cuántica impartidos en la Facultad de Ciencias de la UNAM.
+Serie de videos de álgebra lineal sobre la teoría de los espacios vectoriales con producto escalar, con un enfoque especial hacia entender la descomposición espectral.
+
+## Objetivo
+Generar material educativo audiovisual para apoyar el curso de Álgebra Lineal de la Licenciatura en Física Biomédica, así como a l@s estudiantes de la Licenciatura en Física, con un enfoque particularhacia sentar las bases del formalismo de la mecánica cuántica durante la segunda mitad de la serie.
 
 ## Acerca del código
 
@@ -9,14 +12,8 @@ El código de este repositorio está en Python, se utiliza la biblioteca [Manim]
 - [manimlib](https://pypi.org/project/manimlib/) 0.2.0
 - [manimCE](https://docs.manim.community/en/v0.1.1/index.html) 0.1.1
 
-## Lista de temas 
-Los temas que se animarán son los siguientes, se indican en __negritas__ aquellos temas cuyo código está presente aquí:
+## Lista de temas animados
 
-- Producto escalar y norma inducida (magnitud, proyecciones y ortogonalidad) 
-- __Ortogonalización y ortonormalización (proceso de Gram-Schmidt)__
-- Bases ortogonales y ortonormales 
-- Notación bra-ket (o de Dirac), funcionales y dualidad
-- Proyecciones ortogonales y complemento ortogonal
-- Descomposición espectral (introducción al Teorema espectral)
+- Ortogonalización y ortonormalización (proceso de Gram-Schmidt)
 
 
