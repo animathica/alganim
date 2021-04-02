@@ -1,6 +1,4 @@
 
-
-
 from manimlib.imports import *
 
 
@@ -12,11 +10,82 @@ from manimlib.imports import *
 #################################  Primera escena  ##################################
 #####################################################################################
 
-class OO1(ThreeDScene):
+# Clase para flechas con líneas punteadas.
+class DashedArrow(DashedLine):
+    CONFIG = {
+        "stroke_width": 6,
+        "buff": MED_SMALL_BUFF,
+        "max_tip_length_to_length_ratio": 0.25,
+        "max_stroke_width_to_length_ratio": 5,
+        "preserve_tip_size_when_scaling": True,
+    }
 
-    def acomodar_textos(self,objeto):
-        self.add_fixed_in_frame_mobjects(objeto)
-        self.play(Write(objeto))
+    def __init__(self, *args, **kwargs):
+        DashedLine.__init__(self, *args, **kwargs)
+        # TODO, should this be affected when
+        # Arrow.set_stroke is called?
+        self.initial_stroke_width = self.stroke_width
+        self.add_tip()
+        self.set_stroke_width_from_length()
+
+    def scale(self, factor, **kwargs):
+        if self.get_length() == 0:
+            return self
+
+        has_tip = self.has_tip()
+        has_start_tip = self.has_start_tip()
+        if has_tip or has_start_tip:
+            old_tips = self.pop_tips()
+
+        VMobject.scale(self, factor, **kwargs)
+        self.set_stroke_width_from_length()
+
+        # So horribly confusing, must redo
+        if has_tip:
+            self.add_tip()
+            old_tips[0].points[:, :] = self.tip.points
+            self.remove(self.tip)
+            self.tip = old_tips[0]
+            self.add(self.tip)
+        if has_start_tip:
+            self.add_tip(at_start=True)
+            old_tips[1].points[:, :] = self.start_tip.points
+            self.remove(self.start_tip)
+            self.start_tip = old_tips[1]
+            self.add(self.start_tip)
+        return self
+
+    def get_normal_vector(self):
+        p0, p1, p2 = self.tip.get_start_anchors()[:3]
+        return normalize(np.cross(p2 - p1, p1 - p0))
+
+    def reset_normal_vector(self):
+        self.normal_vector = self.get_normal_vector()
+        return self
+
+    def get_default_tip_length(self):
+        max_ratio = self.max_tip_length_to_length_ratio
+        return min(
+            self.tip_length,
+            max_ratio * self.get_length(),
+        )
+
+    def set_stroke_width_from_length(self):
+        max_ratio = self.max_stroke_width_to_length_ratio
+        self.set_stroke(
+            width=min(
+                self.initial_stroke_width,
+                max_ratio * self.get_length(),
+            ),
+            family=False,
+        )
+        return self
+
+    # TODO, should this be the default for everything?
+    def copy(self):
+        return self.deepcopy()
+
+class PrimeraEscena(ThreeDScene):
 
     def construct(self):
 
@@ -96,31 +165,6 @@ class OO1(ThreeDScene):
             CtoON_2[0][i].set_color(VERDE)
         CtoON_2.bg = SurroundingRectangle(CtoON_2,color=WHITE,fill_color=BLACK,fill_opacity=1)
 
-        # Textos para vector normalizado y sus rectángulos.
-        Text3 = TextMobject(''' $ (x_b,y_b) $ ''').move_to(2*DOWN + 4*LEFT)
-        Text3.bg = SurroundingRectangle(Text3,color=WHITE,fill_color=BLACK,fill_opacity=1)
-        Text3_1 = TextMobject(''' $ \\norm{ \\left( \\frac{x_b}{\\norm{\\vec{b}}},\\frac{y_b}{\\norm{\\vec{b}}} \\right) } = 1 $ ''').move_to(2*DOWN + 4*LEFT)
-        for i in range(0,4):
-            Text3_1[0][i].set_color(BLACK)
-        for i in range(1,7):
-            Text3_1[0][-i].set_color(BLACK)
-        Text3_2 = TextMobject(''' $ \\norm{ \\left( \\frac{x_b}{\\norm{\\vec{b}}},\\frac{y_b}{\\norm{\\vec{b}}} \\right) } = 1 $ ''').move_to(2*DOWN + 4*LEFT)
-        Text3_3 = TextMobject(''' $ \\norm{\\hat{b}} = 1 $ ''').move_to(2*DOWN + 4*LEFT)
-        Text3_1.bg = SurroundingRectangle(Text3_2,color=WHITE,fill_color=BLACK,fill_opacity=1)
-        Text3.group = VGroup(Text3.bg, Text3)
-        Text3_3.bg = SurroundingRectangle(Text3_3,color=WHITE,fill_color=BLACK,fill_opacity=1)
-
-        # Textos para proyección con normalizado y sus rectángulos.
-        Text4 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\hat{b} \\rangle} { \\norm{ \\hat{b} } ^2} \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
-        Text4.bg = SurroundingRectangle(Text4,color=WHITE,fill_color=BLACK,fill_opacity=1)
-        #for i in range(1,5):
-        #    Text4[0][-i].set_color(BLACK)
-        Text4_b = VGroup()
-        for i in range(9,14):
-            Text4_b.add(Text4[0][i])
-        Text4_1 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\hat{b} \\rangle} { 1 } \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
-        Text4_2 = TextMobject('''$  \\langle \\vec{a} , \\hat{b} \\rangle \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT)
-
         # Texto para <a,b> = _<b,a> y su rectángulo.
         TCon = TextMobject('''$ \\langle \\vec{a}, \\vec{b} \\rangle \\neq 0 $''').move_to(1*DOWN + 4*LEFT)
         TCon.bg = SurroundingRectangle(TCon, color = WHITE, fill_color = BLACK, fill_opacity = 1)
@@ -156,14 +200,6 @@ class OO1(ThreeDScene):
             Text6_2[0][i].set_color(VERDE)
         Text6_2.bg = SurroundingRectangle(Text6_2, color = WHITE, fill_color = BLACK, fill_opacity = 1)
 
-        # Textos del generado de N.
-        Text8 = TextMobject('''$ \\langle N \\rangle = \\mathbb{R}^2 $''').move_to(1*DOWN + 4*LEFT)
-        Text8.bg = SurroundingRectangle(Text8, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        Text8.group = VGroup(Text8.bg,Text8)
-        Text8_1 = TextMobject(''' $ \\langle I \\rangle = \\langle N \\rangle $ ''').move_to(2*DOWN + 4*LEFT)
-        Text8_1.bg = SurroundingRectangle(Text8_1, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        Text8_1.group = VGroup(Text8_1.bg,Text8_1)
-
         # Textos para los generados y sus rectángulos.
         Text9 = TextMobject('''$ \\langle I \\rangle $''').move_to(2*DOWN + 4*LEFT)
         Text9.bg = SurroundingRectangle(Text9, color = WHITE, fill_color = BLACK, fill_opacity = 1)
@@ -180,7 +216,7 @@ class OO1(ThreeDScene):
 
         # Texto para mostrar operaciones de espacio.
         Text10 = TextMobject('''$ \\vec{u} + \\vec{v} $''').move_to(UP+4*LEFT)
-        Text10_1 = TextMobject('''$ a \\vec{u} $''').move_to(4*LEFT)
+        Text10_1 = TextMobject('''$ c \\vec{u} $''').move_to(4*LEFT)
         Text10_2 = TextMobject('''$ \\langle \\vec{u} , \\vec{v} \\rangle $''').move_to(DOWN+4*LEFT)
         Text10_group = VGroup(Text10,Text10_1,Text10_2)
         Text10.bg = SurroundingRectangle(Text10_group, color = WHITE, fill_color = BLACK, fill_opacity = 1)
@@ -190,17 +226,17 @@ class OO1(ThreeDScene):
 
         # Coordenadas de vector A
         a_1 = 1
-        a_2 = 3
+        a_2 = 2
         
         # Coordenadas de vector B
-        b_1 = 5
-        b_2 = 2
+        b_1 = 4
+        b_2 = 1
 
         # Vectores A y B, con sus etiquetas.
         VecA = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
         VecB = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
-        VecALab=TexMobject("\\vec{a}").move_to(VecA.get_end()+0.4*RIGHT+0.2*UP)
-        VecBLab=TexMobject("\\vec{b}").move_to(VecB.get_end()+0.5*RIGHT)
+        VecALab=TexMobject("\\vec{a}").move_to(VecA.get_end()+0.4*RIGHT+0.2*UP).set_color(AZUL)
+        VecBLab=TexMobject("\\vec{b}").move_to(VecB.get_end()+0.5*RIGHT).set_color(ROJO)
 
         # Texto para los vectores, con su rectángulo correspondiente.
         Text_B = TextMobject('''$\\vec{b} = (5,2)$''').move_to(3*DOWN + 4*LEFT)
@@ -275,7 +311,7 @@ class OO1(ThreeDScene):
 
         # Vector resultante de la resta y su etiqueta.
         VecR = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
-        VecRLab = TextMobject('''$ \\vec{a}' $''').move_to(VecR.get_end()+0.5*LEFT)
+        VecRLab = TextMobject('''$ \\vec{a}' $''').move_to(VecR.get_end()+0.5*LEFT).set_color(VERDE)
 
         # Función para luz de segunda proyección.
         def light2(x1,y1,x2,y2,n = 10):
@@ -293,8 +329,8 @@ class OO1(ThreeDScene):
             norma_proy = np.sqrt(p1**2 + p2**2)
             # Se generan las coordenadas de cada rayo y se agregan a la lista.
             for i in range(0,n+1):
-                r1 = 0 + i*((x2/n)*1.2)
-                r2 = 0 + i*((y2/n)*1.2)
+                r1 = 0 + i*((x2/n)*1.3)
+                r2 = 0 + i*((y2/n)*1.3)
                 nr = np.sqrt(r1**2 + r2**2)
                 if nr < norma_proy:
                     inter = line_intersection(((0,0),(x1,y1)),((r1,r2),(r1 + x2o,r2 + y2o)))
@@ -328,7 +364,7 @@ class OO1(ThreeDScene):
 
         # Vector resultante de la segunda resta y su etiqueta.
         VecR_1 = Arrow((0, 0, 0),(b_1-p1_1,b_2-p2_1,0), color = VERDE, buff = 0)
-        VecRLab_1 = TextMobject('''$ \\vec{b}' $''').move_to(VecR_1.get_end()+0.3*DOWN+0.5*LEFT)
+        VecRLab_1 = TextMobject('''$ \\vec{b}' $''').move_to(VecR_1.get_end()+0.3*DOWN+0.5*LEFT).set_color(VERDE)
 
         # Eje para normalizar vector.
         Eje = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = PURPLE, buff = 0)
@@ -342,7 +378,7 @@ class OO1(ThreeDScene):
 
         #Vector B' normalizado y su etiqueta.
         VecBN = Arrow((0,0,0),(nb_1,nb_2,0), color = ROJO, buff = 0)
-        VecBNLab = TextMobject(''' $ \\hat{b} $ ''').move_to(VecBN.get_end()+0.5*UP)
+        VecBNLab = TextMobject(''' $ \\hat{b} $ ''').move_to(VecBN.get_end()+0.5*UP).set_color(ROJO)
 
         # Ejes para mostrar independencia lineal.
         Eje1 = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0)
@@ -366,156 +402,139 @@ class OO1(ThreeDScene):
 
         #Vector B' normalizado y su etiqueta.
         VecBPN = Arrow((0,0,0),(nbp_1,nbp_2,0), color = VERDE, buff = 0)
-        VecBPNLab = TextMobject(''' $ \\hat{a}' $ ''').move_to(VecBPN.get_end()+0.5*UP)
+        VecBPNLab = TextMobject(''' $ \\hat{a}' $ ''').move_to(VecBPN.get_end()+0.5*UP).set_color(VERDE)
 
-        # Rellenar círculo con combinación lineal.
-        # Función para coeficientes de combinación lineal.
-        def coef(a_1,a_2,b_1,b_2,ang,r=1):
-            da = b_2*np.sin(ang)*r - b_1*np.cos(ang)*r
-            db = a_1*np.cos(ang)*r - a_2*np.sin(ang)*r
-            dd = a_1* b_2 - a_2*b_1
-            aa = da/dd
-            bb = db/dd
-            return([aa,bb])
-        # ValueTrackers para definir los ángulos del círculo y anillo.
-        theta = ValueTracker(0)
-        theta2 = ValueTracker(0)
-        # Vectores usados para las combinaciones lineales.
-        VCLA_1 = a_1
-        VCLA_2 = a_2
-        VCLB_1 = b_1
-        VCLB_2 = b_2
-        VCLA = Arrow((0, 0, 0), VCLA_1 * RIGHT + VCLA_2*UP, buff=0,color=AZUL)
-        C = coef(VCLA_1,VCLA_2,VCLB_1,VCLB_2,theta.get_value(),r=3)[1]
-        VCLB = Arrow(VCLA.get_end(), (VCLA.get_end()[0]+C*VCLB_1,VCLA.get_end()[1]+C*VCLB_2,0), buff=0,color=ROJO)
-        # Función para las primeras combinaciones lineales, updater.
-        def upd1_for_a(obj):
-            t = theta.get_value()
-            C = coef(VCLA_1,VCLA_2,VCLB_1,VCLB_2,t,r=3)[0]
-            obj.become(Arrow((0, 0, 0), (C*VCLA_1,C*VCLA_2,0), buff=0,color=AZUL))
-        def upd1_for_b(obj):
-            t = theta.get_value()
-            C = coef(VCLA_1,VCLA_2,VCLB_1,VCLB_2,t,r=3)[1]
-            obj.become(Arrow(VCLA.get_end(), (VCLA.get_end()[0]+C*VCLB_1,VCLA.get_end()[1]+C*VCLB_2,0), buff=0,color=ROJO))
-        # Círculo que se va a rellenar
-        Circulo1 = Sector(angle=-0.00001,outer_radius=3,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5)
-        # Función para rellenar círculo.
-        def upd_for_circ(obj):
-            t = theta.get_value()
-            obj.become(Sector(angle=-t,outer_radius=3,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5))
-        # Anillo usado para el resto del plano.
-        Anillo1 = AnnularSector(angle=-0.00001,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5)
-        # Función para rellenar el resto del plano.
-        def upd_for_ani(obj):
-            t2 = theta2.get_value()
-            obj.become(AnnularSector(angle=-t2,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5))
+        # Función para mostrar el generado de dos vectores.
+        # Aquí ya se encuentran los self.play.
+        def gen(Vec1,Vec2,Lab1,Lab2):
+            self.play(FadeOut(VGroup(Lab1,Lab2)))
+            # Copias de vectores.
+            Copia1 = Vec1.copy()
+            Copia2 = Vec2.copy()
+            # Coordenadas de vectores
+            A1 = Vec1.get_end()[0]
+            A2 = Vec1.get_end()[1]
+            B1 = Vec2.get_end()[0]
+            B2 = Vec2.get_end()[1]
+            # Vectores para el paralelogramo.
+            Vec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+A1*RIGHT+A2*UP, buff=0, color = Vec1.get_color()).set_fill(opacity=0.5)
+            Vec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+B1*RIGHT+B2*UP, buff=0, color = Vec2.get_color()).set_fill(opacity=0.5)
+            self.play(ShowCreation(VGroup(Vec1c,Vec2c)))
+            # Vector resultante de la combinación lineal.
+            #VecRCL = Arrow((0,0,0), (A1+B1)*UP+(A2+B2)*RIGHT, buff=0, color = MAGENTA, opacity = 0.7)
+            VecRCL = DashedArrow((0,0,0), Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            self.play(ShowCreation(VecRCL))
+            # ValueTrackers
+            vt1 = ValueTracker(0)
+            self.play(FadeOut(Vec1c))
+            # Primera función para cambios de Vec2.
+            def upd_for_vec2_1(obj):
+                t = vt1.get_value()
+                NewVec2 = Arrow((0,0,0),(B1+t*B1,B2+t*B2,0),buff=0, color = Vec2.get_color())
+                obj.become(NewVec2)
+            # Primera función para cambios de Vec2c.
+            def upd_for_vec2c_1(obj):
+                t = vt1.get_value()
+                NewVec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+(B1+t*B1,B2+t*B2,0), buff=0, color = Vec2.get_color()).set_fill(opacity=0.5)
+                obj.become(NewVec2c)
+            # Primera función para cambios de VecRCL.
+            def upd_for_vecrcl_1(obj):
+                t = vt1.get_value()
+                NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(NewVecRCL)
+            # Primera línea usada.
+            Linea1 = Line(Vec1.get_end(), Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            # Segunda línea usada.
+            Linea2 = Line(Vec1.get_end(), Vec1.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+            # Función para cambiar tamaño de las líneas.
+            def upd_for_linea(obj):
+                t = vt1.get_value()
+                new_linea = Line(Vec1.get_end(),Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(new_linea)
+            self.play(ShowCreation(Linea1),ShowCreation(Linea2))
+            self.bring_to_back(Linea1)
+            self.bring_to_back(Linea2)
+            Vec2.add_updater(upd_for_vec2_1)
+            Vec2c.add_updater(upd_for_vec2c_1)
+            VecRCL.add_updater(upd_for_vecrcl_1)
+            Linea1.add_updater(upd_for_linea)
+            self.play(vt1.set_value,7.5,run_time=1.75,rate_func=rush_into)
+            Linea1.remove_updater(upd_for_linea)
+            self.play(vt1.set_value,0)
+            #self.bring_to_back(Linea1)
+            #self.play(ShowCreation(Linea1))
+            Linea2.add_updater(upd_for_linea)
+            self.play(vt1.set_value,-9,run_time=1.75,rate_func=rush_into)
+            Linea2.remove_updater(upd_for_linea)
+            #self.bring_to_back(Linea2)
+            #self.play(ShowCreation(Linea2))
+            self.play(vt1.set_value,0)
+            Vec2.remove_updater(upd_for_vec2_1)
+            Vec2c.remove_updater(upd_for_vec2c_1)
+            VecRCL.remove_updater(upd_for_vecrcl_1)
+            self.wait()
+            self.play(ShowCreation(Vec1c))
+            self.play(FadeOut(Vec2c))
+            # Primera función para cambios de Vec1.
+            def upd_for_vec1_1(obj):
+                t = vt1.get_value()
+                NewVec1 = Arrow((0,0,0),(A1+t*A1,A2+t*A2,0),buff=0, color = Vec1.get_color())
+                obj.become(NewVec1)
+            # Primera función para cambios de Vec1c.
+            def upd_for_vec1c_1(obj):
+                t = vt1.get_value()
+                NewVec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+(A1+t*A1,A2+t*A2,0), buff=0, color = Vec1.get_color()).set_fill(opacity=0.5)
+                obj.become(NewVec1c)
+            # Segunda función para cambios de VecRCL.
+            def upd_for_vecrcl_2(obj):
+                t = vt1.get_value()
+                NewVecRCL = DashedArrow((0,0,0),Vec1c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(NewVecRCL)
+            # Rectangulos usados para rellenar plano.
+            Vertice1 = Linea1.get_end()
+            Vertice2 = Linea2.get_end()
+            Vertice3 = Linea2.get_end()+(0.05*A1,0.025*A2,0)
+            Vertice4 = Linea1.get_end()+(0.05*A1,0.025*A2,0)
+            Vertice5 = Linea2.get_end()-(0.05*A1,0.025*A2,0)
+            Vertice6 = Linea1.get_end()-(0.05*A1,0.025*A2,0)
+            Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            # Función que rellena plano.
+            def upd_for_plano(obj):
+                t = vt1.get_value()
+                vert1 = Linea1.get_end()
+                vert2 = Linea2.get_end()
+                vert3 = Linea2.get_end()+(t*A1,t*A2,0)
+                vert4 = Linea1.get_end()+(t*A1,t*A2,0)
+                New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+                obj.become(New_plano)
+                self.bring_to_back(obj)
+            Vec1.add_updater(upd_for_vec1_1)
+            Vec1c.add_updater(upd_for_vec1c_1)
+            VecRCL.add_updater(upd_for_vecrcl_2)
+            Plano1.add_updater(upd_for_plano)
+            self.play(ShowCreation(VGroup(Plano1,Plano2)), run_time=0.05)
+            self.play(FadeOut(VGroup(Linea1,Linea2)), run_time=0.05)
+            self.play(vt1.set_value,5,run_time=1.75,rate_func=rush_into)
+            Plano1.remove_updater(upd_for_plano)
+            self.play(vt1.set_value,0)
+            Plano2.add_updater(upd_for_plano)
+            self.play(vt1.set_value,-7,run_time=1.75,rate_func=rush_into)
+            Plano2.remove_updater(upd_for_plano)
+            self.play(vt1.set_value,0)
+            Vec1.remove_updater(upd_for_vec1_1)
+            Vec1c.remove_updater(upd_for_vec1c_1)
+            VecRCL.remove_updater(upd_for_vecrcl_2)
+            self.wait()
+            Punto = Dot(radius=0.01, color = MAGENTA).set_fill(MAGENTA)
+            self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
+            self.play(FadeOut(VGroup(Vec1c,VecRCL,Punto)))
+            self.play(Write(VGroup(Lab1,Lab2)))
 
-        # Rellenar plano con segunda combinación lineal.
-        # Vectores usados para las combinaciones lineales.
-        VCLA2_1 = a_1-p1
-        VCLA2_2 = a_2-p2
-        VCLB2_1 = b_1
-        VCLB2_2 = b_2
-        VCLA2 = Arrow((0, 0, 0), VCLA2_1 * RIGHT + VCLA2_2*UP, buff=0,color=VERDE)
-        C = coef(VCLA2_1,VCLA2_2,VCLB2_1,VCLB2_2,theta.get_value(),r=3)[1]
-        VCLB2 = Arrow(VCLA2.get_end(), (VCLA2.get_end()[0]+C*VCLB2_1,VCLA2.get_end()[1]+C*VCLB2_2,0), buff=0,color=ROJO)
-        # Función para las primeras combinaciones lineales, updater.
-        def upd2_for_a(obj):
-            t = theta.get_value()
-            C = coef(VCLA2_1,VCLA2_2,VCLB2_1,VCLB2_2,t,r=3)[0]
-            obj.become(Arrow((0, 0, 0), (C*VCLA2_1,C*VCLA2_2,0), buff=0,color=VERDE))
-        def upd2_for_b(obj):
-            t = theta.get_value()
-            C = coef(VCLA2_1,VCLA2_2,VCLB2_1,VCLB2_2,t,r=3)[1]
-            obj.become(Arrow(VCLA2.get_end(), (VCLA2.get_end()[0]+C*VCLB2_1,VCLA2.get_end()[1]+C*VCLB2_2,0), buff=0,color=ROJO))
-        # Círculo que se va a rellenar
-        Circulo2 = Sector(angle=-0.00001,outer_radius=3,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5)
-        # Función para rellenar círculo.
-        def upd2_for_circ(obj):
-            t = theta.get_value()
-            obj.become(Sector(angle=-t,outer_radius=3,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5))
-        # Anillo usado para el resto del plano.
-        Anillo2 = AnnularSector(angle=-0.00001,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5)
-        # Función para rellenar el resto del plano.
-        def upd2_for_ani(obj):
-            t2 = theta2.get_value()
-            obj.become(AnnularSector(angle=-t2,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5))
-
-        # Rellenar plano con cuarta combinación lineal.
-        # Vectores usados para las combinaciones lineales.
-        VCLA4_1 = nbp_1
-        VCLA4_2 = nbp_2
-        VCLB4_1 = nb_1
-        VCLB4_2 = nb_2
-        VCLA4 = Arrow((0, 0, 0), VCLA4_1 * RIGHT + VCLA4_2*UP, buff=0,color=VERDE)
-        C = coef(VCLA4_1,VCLA4_2,VCLB4_1,VCLB4_2,theta.get_value(),r=3)[1]
-        VCLB4 = Arrow(VCLA4.get_end(), (VCLA4.get_end()[0]+C*VCLB4_1,VCLA4.get_end()[1]+C*VCLB4_2,0), buff=0,color=ROJO)
-        # Función para las primeras combinaciones lineales, updater.
-        def upd4_for_a(obj):
-            t = theta.get_value()
-            C = coef(VCLA4_1,VCLA4_2,VCLB4_1,VCLB4_2,t,r=3)[0]
-            obj.become(Arrow((0, 0, 0), (C*VCLA4_1,C*VCLA4_2,0), buff=0,color=VERDE))
-        def upd4_for_b(obj):
-            t = theta.get_value()
-            C = coef(VCLA4_1,VCLA4_2,VCLB4_1,VCLB4_2,t,r=3)[1]
-            obj.become(Arrow(VCLA4.get_end(), (VCLA4.get_end()[0]+C*VCLB4_1,VCLA4.get_end()[1]+C*VCLB4_2,0), buff=0,color=ROJO))
-        # Círculo que se va a rellenar
-        Circulo4 = Sector(angle=-0.00001,outer_radius=3,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5)
-        # Función para rellenar círculo.
-        def upd4_for_circ(obj):
-            t = theta.get_value()
-            obj.become(Sector(angle=-t,outer_radius=3,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5))
-        # Anillo usado para el resto del plano.
-        Anillo4 = AnnularSector(angle=-0.00001,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5)
-        # Función para rellenar el resto del plano.
-        def upd4_for_ani(obj):
-            t2 = theta2.get_value()
-            obj.become(AnnularSector(angle=-t2,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(AZUL, opacity=0.5))
-
-        # Rellenar plano con tercer combinación lineal.
-        # Vectores usados para las combinaciones lineales.
-        VCLA3_1 = a_1
-        VCLA3_2 = a_2
-        VCLB3_1 = b_1-p1_1
-        VCLB3_2 = b_2-p2_1
-        VCLA3 = Arrow((0, 0, 0), VCLA3_1 * RIGHT + VCLA3_2*UP, buff=0,color=AZUL)
-        C = coef(VCLA3_1,VCLA3_2,VCLB3_1,VCLB3_2,theta.get_value(),r=3)[1]
-        VCLB3 = Arrow(VCLA3.get_end(), (VCLA3.get_end()[0]+C*VCLB3_1,VCLA3.get_end()[1]+C*VCLB3_2,0), buff=0,color=VERDE)
-        # Función para las primeras combinaciones lineales, updater.
-        def upd3_for_a(obj):
-            t = theta.get_value()
-            C = coef(VCLA3_1,VCLA3_2,VCLB3_1,VCLB3_2,t,r=3)[0]
-            obj.become(Arrow((0, 0, 0), (C*VCLA3_1,C*VCLA3_2,0), buff=0,color=AZUL))
-        def upd3_for_b(obj):
-            t = theta.get_value()
-            C = coef(VCLA3_1,VCLA3_2,VCLB3_1,VCLB3_2,t,r=3)[1]
-            obj.become(Arrow(VCLA3.get_end(), (VCLA3.get_end()[0]+C*VCLB3_1,VCLA3.get_end()[1]+C*VCLB3_2,0), buff=0,color=VERDE))
-        # Círculo que se va a rellenar
-        Circulo3 = Sector(angle=-0.00001,outer_radius=3,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5)
-        # Función para rellenar círculo.
-        def upd3_for_circ(obj):
-            t = theta.get_value()
-            obj.become(Sector(angle=-t,outer_radius=3,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5))
-        # Anillo usado para el resto del plano.
-        Anillo3 = AnnularSector(angle=-0.00001,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5)
-        # Función para rellenar el resto del plano.
-        def upd3_for_ani(obj):
-            t2 = theta2.get_value()
-            obj.become(AnnularSector(angle=-t2,inner_radius=3, outer_radius=10,start_angle=np.pi/2).set_fill(MAGENTA, opacity=0.5))
-
-        # Copias de A y B, para usar después de los transform y become.
-        VecAc = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
-        VecBc = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
-        VecAc2 = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
-        VecBc2 = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
-        VecAc3 = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
-        VecBc3 = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
-        VecRc = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
-        VecR_1c = Arrow((0, 0, 0),(b_1-p1_1,b_2-p2_1,0), color = VERDE, buff = 0)
 
         # Grupos que se quitan.
-        Quitar = VGroup(VecR,Text2.bg,CtoO_2.bg,CtoO_2_1,Text1,Text2_2,Text2_1,VecAc2,VecRc)
-        Quitar2 = VGroup(Text6_2.bg,Text6_2,VecR_1c,VecRLab_1,Text9_2.group)
+        Quitar = VGroup(VecR,Text2.bg,CtoO_2.bg,CtoO_2_1,Text1,Text2_2,Text2_1,VecRLab)
+        Quitar2 = VGroup(Text6_2.bg,Text6_2,VecRLab_1,Text9_2.group,VecR_1,Text5.group)
 
 
 
@@ -528,7 +547,7 @@ class OO1(ThreeDScene):
         self.play(ShowCreation(VecA),Write(VecALab))
         self.wait()
         self.play(ShowCreation(VecB),Write(VecBLab))
-        self.add_foreground_mobjects(VecA,VecB,VecALab)
+        self.add_foreground_mobjects(VecA,VecB)
         self.wait()
         self.play(Write(Cto.group))
         self.wait()
@@ -544,28 +563,10 @@ class OO1(ThreeDScene):
         self.play(Write(Text10_2))
         self.wait()
         self.play(FadeOut(Text10.group))
-        ############################
-
-        self.remove_foreground_mobjects(VecA,VecB,VecALab,VecBLab)
-        self.play(ReplacementTransform(VecA,VCLA),ReplacementTransform(VecB,VCLB),FadeOut(VGroup(VecALab,VecBLab)))
-        self.bring_to_back(Circulo1)
-        self.play(ShowCreation(Circulo1))
-        VCLA.add_updater(upd1_for_a)
-        VCLB.add_updater(upd1_for_b)
-        Circulo1.add_updater(upd_for_circ)
-        self.play(theta.set_value,2*np.pi,run_time = 4)
-        self.bring_to_back(Anillo1)
-        self.play(ShowCreation(Anillo1))
-        Anillo1.add_updater(upd_for_ani)
-        self.play(theta2.set_value,2*np.pi,run_time = 2)
+        self.add_foreground_mobject(Cto.group)
+        gen(VecA,VecB,VecALab,VecBLab)
         self.play(Write(Text9.group))
-        self.wait()
-        self.remove(VGroup(Anillo1,Circulo1))
-        self.play(ReplacementTransform(VCLA,VecAc),ReplacementTransform(VCLB,VecBc),Write(VGroup(VecALab,VecBLab)),FadeOut(Text9.group))
-        self.play(theta.set_value,0,run_time=0.01)
-        self.play(theta2.set_value,0,run_time=0.01)
-
-        ############################
+        self.remove_foreground_mobject(Cto.group)
         self.wait()
         self.play(Write(CtoO.group))
         self.wait()
@@ -586,6 +587,7 @@ class OO1(ThreeDScene):
         self.wait()
         self.play(FadeOut(luz))
         self.wait()
+        self.play(FadeOut(Text9.group))
         self.play(Write(Tsilo.bg))
         self.play(Write(TCon))
         self.play(Write(TCon_1))
@@ -607,7 +609,7 @@ class OO1(ThreeDScene):
         self.wait()
         self.play(ShowCreation(VecR),Write(VecRLab))
         self.remove_foreground_mobjects(VecA,VecALab)
-        self.play(FadeOut(VGroup(VecPC,VecAc,VecALab)))
+        self.play(FadeOut(VGroup(VecPC,VecA,VecALab)))
         self.wait()
         self.add_foreground_mobject(CtoO_1_1)
         self.play(ReplacementTransform(CtoO.bg,CtoO_2.bg))
@@ -616,27 +618,10 @@ class OO1(ThreeDScene):
         self.wait()
         self.play(ReplacementTransform(CtoO_2,CtoO_2_1))
         self.wait()
-        ############################
-
-        self.play(ReplacementTransform(VecR,VCLA2),ReplacementTransform(VecBc,VCLB2),FadeOut(VGroup(VecBLab,VecRLab)))
-        self.bring_to_back(Circulo2)
-        self.play(ShowCreation(Circulo2))
-        VCLA2.add_updater(upd2_for_a)
-        VCLB2.add_updater(upd2_for_b)
-        Circulo2.add_updater(upd2_for_circ)
-        self.play(theta.set_value,2*np.pi,run_time = 4)
-        self.bring_to_back(Anillo2)
-        self.play(ShowCreation(Anillo2))
-        Anillo2.add_updater(upd2_for_ani)
-        self.play(theta2.set_value,2*np.pi,run_time = 2)
+        self.add_foreground_mobjects(Cto.group,CtoO_2.bg,CtoO_2_1)
+        gen(VecR,VecB,VecRLab,VecBLab)
         self.play(Write(Text9_1.group))
-        self.wait()
-        self.remove(VGroup(Anillo2,Circulo2))
-        self.play(ReplacementTransform(VCLA2,VecRc),ReplacementTransform(VCLB2,VecBc2))
-        self.play(theta.set_value,0,run_time=0.01)
-        self.play(theta2.set_value,0,run_time=0.01)
-
-        ############################
+        self.remove_foreground_mobjects(Cto.group,CtoO_2.bg,CtoO_2_1)
         self.wait()
         self.play(FadeOut(Quitar),ShowCreation(VecA),Write(VecALab),Write(VecBLab))
         self.wait()
@@ -654,46 +639,29 @@ class OO1(ThreeDScene):
         self.play(ReplacementTransform(VecP_2,VecPC_1))
         self.play(ShowCreation(VecR_1))
         self.play(ShowCreation(VecRLab_1))
-        self.remove_foreground_mobject(VecBc)
-        self.play(FadeOut(VGroup(VecPC_1,VecBc2,VecBLab)))
+        self.remove_foreground_mobject(VecB)
+        self.play(FadeOut(VGroup(VecPC_1,VecB,VecBLab)))
         self.wait()
         self.add_foreground_mobject(Text6_1)
         self.play(ReplacementTransform(Text6.bg,Text6_2.bg))
         self.remove_foreground_mobject(Text6_1)
         self.play(ReplacementTransform(Text6_1,Text6_2))
         self.wait()
-        ############################
-
-        self.play(ReplacementTransform(VecA,VCLA3),ReplacementTransform(VecR_1,VCLB3),FadeOut(VGroup(VecALab,VecRLab_1)))
-        self.bring_to_back(Circulo3)
-        self.play(ShowCreation(Circulo3))
-        VCLA3.add_updater(upd3_for_a)
-        VCLB3.add_updater(upd3_for_b)
-        Circulo3.add_updater(upd3_for_circ)
-        self.play(theta.set_value,2*np.pi,run_time = 4)
-        self.bring_to_back(Anillo3)
-        self.play(ShowCreation(Anillo3))
-        Anillo3.add_updater(upd3_for_ani)
-        self.play(theta2.set_value,2*np.pi,run_time = 2)
+        self.add_foreground_mobjects(Text5.group,Text6_2.bg,Text6_2)
+        gen(VecA,VecR_1,VecALab,VecRLab_1)
         self.add_foreground_mobject(Text9_1)
         self.play(ReplacementTransform(Text9_1.bg,Text9_2.bg))
-        self.remove_foreground_mobject(Text9_1)
+        self.remove_foreground_mobjects(Text9_1)
         self.play(ReplacementTransform(Text9_1,Text9_2))
+        self.remove_foreground_mobjects(Text5.group,Text6_2.bg,Text6_2)
         self.wait()
-        self.remove(VGroup(Anillo3,Circulo3))
-        self.play(ReplacementTransform(VCLA3,VecAc3),ReplacementTransform(VCLB3,VecR_1c))
-        self.play(theta.set_value,0,run_time=0.01)
-        self.play(theta2.set_value,0,run_time=0.01)
-
-        ############################
-        self.wait()
-        self.play(FadeOut(Quitar2),ShowCreation(VecBc3),Write(VecBLab),Write(VecALab),Write(Cto.group))
+        self.play(FadeOut(Quitar2),ShowCreation(VecB),Write(VecBLab),Write(VecALab),Write(Cto.group))
         self.wait()
         self.play(Write(CtoON.group))
         self.wait()
         self.bring_to_back(Eje)
         self.play(ShowCreation(Eje))
-        self.play(ReplacementTransform(VecBc3,VecBN))
+        self.play(ReplacementTransform(VecB,VecBN))
         self.play(ReplacementTransform(VecBLab,VecBNLab))
         self.play(FadeOut(Eje))
         self.play(ReplacementTransform(CtoON,CtoON_1))
@@ -706,7 +674,7 @@ class OO1(ThreeDScene):
         self.wait()
         self.play(ShowCreation(VecR),Write(VecRLab))
         self.wait()
-        self.play(FadeOut(VecPC),FadeOut(VGroup(VecAc3,VecALab)))
+        self.play(FadeOut(VecPC),FadeOut(VGroup(VecA,VecALab)))
         self.play(ReplacementTransform(VecR,VecBPN))
         self.wait()
         self.play(ReplacementTransform(VecRLab,VecBPNLab))
@@ -716,23 +684,9 @@ class OO1(ThreeDScene):
         self.play(ReplacementTransform(CtoON_1,CtoON_2))
         self.remove_foreground_mobject(CtoON_1)
         self.wait()
-        ############################
-
-        self.play(ReplacementTransform(VecBPN,VCLA4),ReplacementTransform(VecBN,VCLB4),FadeOut(VGroup(VecBNLab,VecBPNLab)))
-        self.bring_to_back(Circulo4)
-        self.play(ShowCreation(Circulo4))
-        VCLA4.add_updater(upd4_for_a)
-        VCLB4.add_updater(upd4_for_b)
-        Circulo4.add_updater(upd4_for_circ)
-        self.play(theta.set_value,2*np.pi,run_time = 4)
-        self.bring_to_back(Anillo4)
-        self.play(ShowCreation(Anillo4))
-        Anillo4.add_updater(upd4_for_ani)
-        self.play(theta2.set_value,2*np.pi,run_time = 2)
+        gen(VecBPN,VecBN,VecBPNLab,VecBNLab)
         self.play(Write(Text9_3.group))
         self.wait(2)
-
-        ############################
         self.play( *[FadeOut(mob)for mob in self.mobjects] )
         self.wait(2)
         
