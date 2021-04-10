@@ -10,7 +10,6 @@ from manimlib.imports import *
 #################################  Primera escena  ##################################
 #####################################################################################
 
-# Clase para flechas con líneas punteadas.
 class DashedArrow(DashedLine):
     CONFIG = {
         "stroke_width": 6,
@@ -85,7 +84,7 @@ class DashedArrow(DashedLine):
     def copy(self):
         return self.deepcopy()
 
-class PrimeraEscena(ThreeDScene):
+class OO1(ThreeDScene):
 
     def construct(self):
 
@@ -95,6 +94,9 @@ class PrimeraEscena(ThreeDScene):
         NARANJA = '#FF7700'
         VERDE = '#1FFF00'
         MAGENTA = '#FF00FF'
+        AMARILLO = "#FFFF00"
+        GRIS = "#888888"
+        MAGENTA_CLARO = "#FFCEFF"
 
         # Texto de prodcto escalar y su rectángulo.
         Text1 = TextMobject('''$ \\langle \\vec{a},\\vec{b} \\rangle \\ \\ \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT)
@@ -136,12 +138,12 @@ class PrimeraEscena(ThreeDScene):
         CtoO_1_1 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             CtoO_1_1[0][i].set_color(ROJO)
-        CtoO_2 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{a}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        CtoO_2 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{b}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             CtoO_2[0][i].set_color(ROJO)
         for i in range(6,10):
             CtoO_2[0][i].set_color(BLACK)
-        CtoO_2_1 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{a}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        CtoO_2_1 = TextMobject('''$ \\Gamma_1 = \\{ \\vec{b} , \\vec{b}' \\} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             CtoO_2_1[0][i].set_color(ROJO)
         for i in range(7,10):
@@ -193,7 +195,7 @@ class PrimeraEscena(ThreeDScene):
         Text6_1 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a} \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             Text6_1[0][i].set_color(AZUL)
-        Text6_2 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a}, \\vec{b}' \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
+        Text6_2 = TextMobject('''$ \\Gamma_2 = \{ \\vec{a}, \\vec{a}' \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
             Text6_2[0][i].set_color(AZUL)
         for i in range(7,10):
@@ -289,7 +291,7 @@ class PrimeraEscena(ThreeDScene):
             # Se genera cada rayo.
             for i in rayc:
                 #rayo = Line( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(WHITE).set_color(color=[WHITE,"#8f8f8f"])
-                rayo = DashedLine( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(YELLOW)
+                rayo = DashedLine( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(AMARILLO)
                 rays.append(rayo)
             # Se hace un VGroup con los rayos.
             grupo = VGroup()
@@ -299,6 +301,9 @@ class PrimeraEscena(ThreeDScene):
 
         # Objeto usado para la luz.
         luz = light(a_1,a_2,b_1,b_2,25)
+
+        # Pared para primera proyección.
+        pared = Line((-10*b_1,-10*b_2,0),(10*b_1,10*b_2,0), color = GRIS)
 
         # Flecha de la proyección de a sobre b.
         p1 = ((a_1*b_1 + a_2*b_2)/(b_1**2 + b_2**2)) * b_1
@@ -311,7 +316,7 @@ class PrimeraEscena(ThreeDScene):
 
         # Vector resultante de la resta y su etiqueta.
         VecR = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
-        VecRLab = TextMobject('''$ \\vec{a}' $''').move_to(VecR.get_end()+0.5*LEFT).set_color(VERDE)
+        VecRLab = TextMobject('''$ \\vec{b}' $''').move_to(VecR.get_end()+0.5*LEFT).set_color(VERDE)
 
         # Función para luz de segunda proyección.
         def light2(x1,y1,x2,y2,n = 10):
@@ -340,7 +345,7 @@ class PrimeraEscena(ThreeDScene):
             # Se genera cada rayo.
             for i in rayc:
                 #rayo = Line( [i[0]+x2o,i[1]+y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(WHITE).set_color(color=[WHITE,"#8f8f8f"])
-                rayo = DashedLine( [i[0]+10*x2o,i[1]+10*y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(YELLOW)
+                rayo = DashedLine( [i[0]+10*x2o,i[1]+10*y2o,0], [i[0],i[1],0], width=5, stroke_width=5 , buff = 0.05).set_color(AMARILLO)
                 rays.append(rayo)
             # Se hace un VGroup con los rayos.
             grupo = VGroup()
@@ -350,6 +355,9 @@ class PrimeraEscena(ThreeDScene):
 
         # Objeto usado para segunda luz.
         luz2 = light2(b_1,b_2,a_1,a_2,25)
+
+        # Pared para segunda proyección.
+        pared2 = Line((-10*a_1,-10*a_2,0),(10*a_1,10*a_2,0), color = GRIS)
 
         # Flecha de la proyección de b sobre a.
         p1_1 = ((b_1*a_1 + b_2*a_2)/(a_1**2 + a_2**2)) * a_1
@@ -364,10 +372,10 @@ class PrimeraEscena(ThreeDScene):
 
         # Vector resultante de la segunda resta y su etiqueta.
         VecR_1 = Arrow((0, 0, 0),(b_1-p1_1,b_2-p2_1,0), color = VERDE, buff = 0)
-        VecRLab_1 = TextMobject('''$ \\vec{b}' $''').move_to(VecR_1.get_end()+0.3*DOWN+0.5*LEFT).set_color(VERDE)
+        VecRLab_1 = TextMobject('''$ \\vec{a}' $''').move_to(VecR_1.get_end()+0.3*DOWN+0.5*LEFT).set_color(VERDE)
 
         # Eje para normalizar vector.
-        Eje = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = PURPLE, buff = 0)
+        Eje = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0)
 
         # Se normaliza vector B.
         # Norma de vector B.
@@ -404,9 +412,9 @@ class PrimeraEscena(ThreeDScene):
         VecBPN = Arrow((0,0,0),(nbp_1,nbp_2,0), color = VERDE, buff = 0)
         VecBPNLab = TextMobject(''' $ \\hat{a}' $ ''').move_to(VecBPN.get_end()+0.5*UP).set_color(VERDE)
 
-        # Función para mostrar el generado de dos vectores.
+        # Función para primer generado.
         # Aquí ya se encuentran los self.play.
-        def gen(Vec1,Vec2,Lab1,Lab2):
+        def gen1(Vec1,Vec2,Lab1,Lab2):
             self.play(FadeOut(VGroup(Lab1,Lab2)))
             # Copias de vectores.
             Copia1 = Vec1.copy()
@@ -443,13 +451,13 @@ class PrimeraEscena(ThreeDScene):
                 NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
                 obj.become(NewVecRCL)
             # Primera línea usada.
-            Linea1 = Line(Vec1.get_end(), Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
             # Segunda línea usada.
             Linea2 = Line(Vec1.get_end(), Vec1.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5)
             # Función para cambiar tamaño de las líneas.
             def upd_for_linea(obj):
                 t = vt1.get_value()
-                new_linea = Line(Vec1.get_end(),Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+                new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
                 obj.become(new_linea)
             self.play(ShowCreation(Linea1),ShowCreation(Linea2))
             self.bring_to_back(Linea1)
@@ -458,12 +466,13 @@ class PrimeraEscena(ThreeDScene):
             Vec2c.add_updater(upd_for_vec2c_1)
             VecRCL.add_updater(upd_for_vecrcl_1)
             Linea1.add_updater(upd_for_linea)
+            Linea2.add_updater(upd_for_linea)
             self.play(vt1.set_value,7.5,run_time=1.75,rate_func=rush_into)
             Linea1.remove_updater(upd_for_linea)
             self.play(vt1.set_value,0)
             #self.bring_to_back(Linea1)
             #self.play(ShowCreation(Linea1))
-            Linea2.add_updater(upd_for_linea)
+            #Linea2.add_updater(upd_for_linea)
             self.play(vt1.set_value,-9,run_time=1.75,rate_func=rush_into)
             Linea2.remove_updater(upd_for_linea)
             #self.bring_to_back(Linea2)
@@ -472,7 +481,7 @@ class PrimeraEscena(ThreeDScene):
             Vec2.remove_updater(upd_for_vec2_1)
             Vec2c.remove_updater(upd_for_vec2c_1)
             VecRCL.remove_updater(upd_for_vecrcl_1)
-            self.wait()
+            self.wait(0.65)
             self.play(ShowCreation(Vec1c))
             self.play(FadeOut(Vec2c))
             # Primera función para cambios de Vec1.
@@ -506,14 +515,16 @@ class PrimeraEscena(ThreeDScene):
                 vert2 = Linea2.get_end()
                 vert3 = Linea2.get_end()+(t*A1,t*A2,0)
                 vert4 = Linea1.get_end()+(t*A1,t*A2,0)
-                New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+                New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA_CLARO, opacity = 1)
+                #New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
                 obj.become(New_plano)
                 self.bring_to_back(obj)
             Vec1.add_updater(upd_for_vec1_1)
             Vec1c.add_updater(upd_for_vec1c_1)
             VecRCL.add_updater(upd_for_vecrcl_2)
             Plano1.add_updater(upd_for_plano)
-            self.play(ShowCreation(VGroup(Plano1,Plano2)), run_time=0.05)
+            self.play(ShowCreation(Plano1), run_time=0.05)
+            self.play(ShowCreation(Plano2), run_time = 0.05)
             self.play(FadeOut(VGroup(Linea1,Linea2)), run_time=0.05)
             self.play(vt1.set_value,5,run_time=1.75,rate_func=rush_into)
             Plano1.remove_updater(upd_for_plano)
@@ -525,12 +536,428 @@ class PrimeraEscena(ThreeDScene):
             Vec1.remove_updater(upd_for_vec1_1)
             Vec1c.remove_updater(upd_for_vec1c_1)
             VecRCL.remove_updater(upd_for_vecrcl_2)
-            self.wait()
+            self.wait(0.65)
+            self.play(Write(Text9.group))
+            self.add_foreground_mobject(Text9.group)
+            self.wait(0.65)
             Punto = Dot(radius=0.01, color = MAGENTA).set_fill(MAGENTA)
-            self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
+            #self.remove(VGroup(Plano1,Plano2))
+            self.play(FadeOut(VGroup(Plano1,Plano2)))
+            self.remove_foreground_mobject(Text9.group)
+            #self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
             self.play(FadeOut(VGroup(Vec1c,VecRCL,Punto)))
             self.play(Write(VGroup(Lab1,Lab2)))
 
+        # Función para mostrar el segundo generado.
+        # Aquí ya se encuentran los self.play.
+        def gen2(Vec1,Vec2,Lab1,Lab2):
+            self.play(FadeOut(VGroup(Lab1,Lab2)))
+            # Copias de vectores.
+            Copia1 = Vec1.copy()
+            Copia2 = Vec2.copy()
+            # Coordenadas de vectores
+            A1 = Vec1.get_end()[0]
+            A2 = Vec1.get_end()[1]
+            B1 = Vec2.get_end()[0]
+            B2 = Vec2.get_end()[1]
+            # Vectores para el paralelogramo.
+            Vec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+A1*RIGHT+A2*UP, buff=0, color = Vec1.get_color()).set_fill(opacity=0.5)
+            Vec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+B1*RIGHT+B2*UP, buff=0, color = Vec2.get_color()).set_fill(opacity=0.5)
+            self.play(ShowCreation(VGroup(Vec1c,Vec2c)))
+            # Vector resultante de la combinación lineal.
+            #VecRCL = Arrow((0,0,0), (A1+B1)*UP+(A2+B2)*RIGHT, buff=0, color = MAGENTA, opacity = 0.7)
+            VecRCL = DashedArrow((0,0,0), Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            self.play(ShowCreation(VecRCL))
+            # ValueTrackers
+            vt1 = ValueTracker(0)
+            self.play(FadeOut(Vec1c),runtime=0.2)
+            # Primera función para cambios de Vec2.
+            def upd_for_vec2_1(obj):
+                t = vt1.get_value()
+                NewVec2 = Arrow((0,0,0),(B1+t*B1,B2+t*B2,0),buff=0, color = Vec2.get_color())
+                obj.become(NewVec2)
+            # Primera función para cambios de Vec2c.
+            def upd_for_vec2c_1(obj):
+                t = vt1.get_value()
+                NewVec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+(B1+t*B1,B2+t*B2,0), buff=0, color = Vec2.get_color()).set_fill(opacity=0.5)
+                obj.become(NewVec2c)
+            # Primera función para cambios de VecRCL.
+            def upd_for_vecrcl_1(obj):
+                t = vt1.get_value()
+                NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(NewVecRCL)
+            # Primera línea usada.
+            Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            # Segunda línea usada.
+            Linea2 = Line(Vec1.get_end(), Vec1.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+            # Función para cambiar tamaño de las líneas.
+            def upd_for_linea(obj):
+                t = vt1.get_value()
+                new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(new_linea)
+            self.play(ShowCreation(Linea1),ShowCreation(Linea2))
+            self.bring_to_back(Linea1)
+            self.bring_to_back(Linea2)
+            Vec2.add_updater(upd_for_vec2_1)
+            Vec2c.add_updater(upd_for_vec2c_1)
+            VecRCL.add_updater(upd_for_vecrcl_1)
+            Linea1.add_updater(upd_for_linea)
+            Linea2.add_updater(upd_for_linea)
+            self.play(vt1.set_value,7.5,run_time=0.85,rate_func=rush_into)
+            Linea1.remove_updater(upd_for_linea)
+            self.play(vt1.set_value,0)
+            #self.bring_to_back(Linea1)
+            #self.play(ShowCreation(Linea1))
+            #Linea2.add_updater(upd_for_linea)
+            self.play(vt1.set_value,-9,run_time=0.85,rate_func=rush_into)
+            Linea2.remove_updater(upd_for_linea)
+            #self.bring_to_back(Linea2)
+            #self.play(ShowCreation(Linea2))
+            self.play(vt1.set_value,0)
+            Vec2.remove_updater(upd_for_vec2_1)
+            Vec2c.remove_updater(upd_for_vec2c_1)
+            VecRCL.remove_updater(upd_for_vecrcl_1)
+            self.wait(0.65)
+            self.play(ShowCreation(Vec1c),FadeOut(Vec2c),runtime = 0.5)
+            #self.play(FadeOut(Vec2c))
+            # Primera función para cambios de Vec1.
+            def upd_for_vec1_1(obj):
+                t = vt1.get_value()
+                NewVec1 = Arrow((0,0,0),(A1+t*A1,A2+t*A2,0),buff=0, color = Vec1.get_color())
+                obj.become(NewVec1)
+            # Primera función para cambios de Vec1c.
+            def upd_for_vec1c_1(obj):
+                t = vt1.get_value()
+                NewVec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+(A1+t*A1,A2+t*A2,0), buff=0, color = Vec1.get_color()).set_fill(opacity=0.5)
+                obj.become(NewVec1c)
+            # Segunda función para cambios de VecRCL.
+            def upd_for_vecrcl_2(obj):
+                t = vt1.get_value()
+                NewVecRCL = DashedArrow((0,0,0),Vec1c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(NewVecRCL)
+            # Rectangulos usados para rellenar plano.
+            Vertice1 = Linea1.get_end()
+            Vertice2 = Linea2.get_end()
+            Vertice3 = Linea2.get_end()+(0.05*A1,0.025*A2,0)
+            Vertice4 = Linea1.get_end()+(0.05*A1,0.025*A2,0)
+            Vertice5 = Linea2.get_end()-(0.05*A1,0.025*A2,0)
+            Vertice6 = Linea1.get_end()-(0.05*A1,0.025*A2,0)
+            Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            # Función que rellena plano.
+            def upd_for_plano(obj):
+                t = vt1.get_value()
+                vert1 = Linea1.get_end()
+                vert2 = Linea2.get_end()
+                vert3 = Linea2.get_end()+(t*A1,t*A2,0)
+                vert4 = Linea1.get_end()+(t*A1,t*A2,0)
+                New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA_CLARO, opacity = 1)
+                #New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+                obj.become(New_plano)
+                self.bring_to_back(obj)
+            Vec1.add_updater(upd_for_vec1_1)
+            Vec1c.add_updater(upd_for_vec1c_1)
+            VecRCL.add_updater(upd_for_vecrcl_2)
+            Plano1.add_updater(upd_for_plano)
+            self.play(ShowCreation(Plano1), run_time=0.05)
+            self.play(ShowCreation(Plano2), run_time = 0.05)
+            self.play(FadeOut(VGroup(Linea1,Linea2)), run_time=0.05)
+            self.play(vt1.set_value,5,run_time=0.85,rate_func=rush_into)
+            Plano1.remove_updater(upd_for_plano)
+            self.play(vt1.set_value,0)
+            Plano2.add_updater(upd_for_plano)
+            self.play(vt1.set_value,-7,run_time=0.85,rate_func=rush_into)
+            Plano2.remove_updater(upd_for_plano)
+            self.play(vt1.set_value,0)
+            Vec1.remove_updater(upd_for_vec1_1)
+            Vec1c.remove_updater(upd_for_vec1c_1)
+            VecRCL.remove_updater(upd_for_vecrcl_2)
+            self.wait(0.65)
+            self.play(Write(Text9_1.group))
+            self.add_foreground_mobjects(Text9_1.group,Text2.bg,Text1,Text2_2,Text2_1)
+            self.wait(0.65)
+            Punto = Dot(radius=0.01, color = MAGENTA).set_fill(MAGENTA)
+            #self.remove(VGroup(Plano1,Plano2))
+            self.play(FadeOut(VGroup(Plano1,Plano2)))
+            self.remove_foreground_mobjects(Text9_1.group,Text2.bg,Text1,Text2_2,Text2_1)
+            #self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
+            self.play(FadeOut(VGroup(Vec1c,VecRCL,Punto)))
+            self.play(Write(VGroup(Lab1,Lab2)))
+
+
+        # Función para mostrar el tercer generado.
+        # Aquí ya se encuentran los self.play.
+        def gen3(Vec1,Vec2,Lab1,Lab2,Texto,Textobg,Texto_viejo,Texto_viejobg):
+            Texto.group = VGroup(Textobg,Texto)
+            Texto_viejo.group = VGroup(Texto_viejobg,Texto_viejo)
+            self.play(FadeOut(VGroup(Lab1,Lab2)))
+            # Copias de vectores.
+            Copia1 = Vec1.copy()
+            Copia2 = Vec2.copy()
+            # Coordenadas de vectores
+            A1 = Vec1.get_end()[0]
+            A2 = Vec1.get_end()[1]
+            B1 = Vec2.get_end()[0]
+            B2 = Vec2.get_end()[1]
+            # Vectores para el paralelogramo.
+            Vec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+A1*RIGHT+A2*UP, buff=0, color = Vec1.get_color()).set_fill(opacity=0.5)
+            Vec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+B1*RIGHT+B2*UP, buff=0, color = Vec2.get_color()).set_fill(opacity=0.5)
+            self.play(ShowCreation(VGroup(Vec1c,Vec2c)))
+            # Vector resultante de la combinación lineal.
+            #VecRCL = Arrow((0,0,0), (A1+B1)*UP+(A2+B2)*RIGHT, buff=0, color = MAGENTA, opacity = 0.7)
+            VecRCL = DashedArrow((0,0,0), Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            self.play(ShowCreation(VecRCL))
+            # ValueTrackers
+            vt1 = ValueTracker(0)
+            self.play(FadeOut(Vec1c),runtime=0.2)
+            # Primera función para cambios de Vec2.
+            def upd_for_vec2_1(obj):
+                t = vt1.get_value()
+                NewVec2 = Arrow((0,0,0),(B1+t*B1,B2+t*B2,0),buff=0, color = Vec2.get_color())
+                obj.become(NewVec2)
+            # Primera función para cambios de Vec2c.
+            def upd_for_vec2c_1(obj):
+                t = vt1.get_value()
+                NewVec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+(B1+t*B1,B2+t*B2,0), buff=0, color = Vec2.get_color()).set_fill(opacity=0.5)
+                obj.become(NewVec2c)
+            # Primera función para cambios de VecRCL.
+            def upd_for_vecrcl_1(obj):
+                t = vt1.get_value()
+                NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(NewVecRCL)
+            # Primera línea usada.
+            Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            # Segunda línea usada.
+            Linea2 = Line(Vec1.get_end(), Vec1.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+            # Función para cambiar tamaño de las líneas.
+            def upd_for_linea(obj):
+                t = vt1.get_value()
+                new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(new_linea)
+            self.play(ShowCreation(Linea1),ShowCreation(Linea2))
+            self.bring_to_back(Linea1)
+            self.bring_to_back(Linea2)
+            Vec2.add_updater(upd_for_vec2_1)
+            Vec2c.add_updater(upd_for_vec2c_1)
+            VecRCL.add_updater(upd_for_vecrcl_1)
+            Linea1.add_updater(upd_for_linea)
+            Linea2.add_updater(upd_for_linea)
+            self.play(vt1.set_value,7.5,run_time=0.85,rate_func=rush_into)
+            Linea1.remove_updater(upd_for_linea)
+            self.play(vt1.set_value,0)
+            #self.bring_to_back(Linea1)
+            #self.play(ShowCreation(Linea1))
+            #Linea2.add_updater(upd_for_linea)
+            self.play(vt1.set_value,-9,run_time=0.85,rate_func=rush_into)
+            Linea2.remove_updater(upd_for_linea)
+            #self.bring_to_back(Linea2)
+            #self.play(ShowCreation(Linea2))
+            self.play(vt1.set_value,0)
+            Vec2.remove_updater(upd_for_vec2_1)
+            Vec2c.remove_updater(upd_for_vec2c_1)
+            VecRCL.remove_updater(upd_for_vecrcl_1)
+            self.wait(0.65)
+            self.play(ShowCreation(Vec1c),FadeOut(Vec2c),runtime = 0.5)
+            #self.play(FadeOut(Vec2c))
+            # Primera función para cambios de Vec1.
+            def upd_for_vec1_1(obj):
+                t = vt1.get_value()
+                NewVec1 = Arrow((0,0,0),(A1+t*A1,A2+t*A2,0),buff=0, color = Vec1.get_color())
+                obj.become(NewVec1)
+            # Primera función para cambios de Vec1c.
+            def upd_for_vec1c_1(obj):
+                t = vt1.get_value()
+                NewVec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+(A1+t*A1,A2+t*A2,0), buff=0, color = Vec1.get_color()).set_fill(opacity=0.5)
+                obj.become(NewVec1c)
+            # Segunda función para cambios de VecRCL.
+            def upd_for_vecrcl_2(obj):
+                t = vt1.get_value()
+                NewVecRCL = DashedArrow((0,0,0),Vec1c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(NewVecRCL)
+            # Rectangulos usados para rellenar plano.
+            Vertice1 = Linea1.get_end()
+            Vertice2 = Linea2.get_end()
+            Vertice3 = Linea2.get_end()+(0.05*A1,0.025*A2,0)
+            Vertice4 = Linea1.get_end()+(0.05*A1,0.025*A2,0)
+            Vertice5 = Linea2.get_end()-(0.05*A1,0.025*A2,0)
+            Vertice6 = Linea1.get_end()-(0.05*A1,0.025*A2,0)
+            Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            # Función que rellena plano.
+            def upd_for_plano(obj):
+                t = vt1.get_value()
+                vert1 = Linea1.get_end()
+                vert2 = Linea2.get_end()
+                vert3 = Linea2.get_end()+(t*A1,t*A2,0)
+                vert4 = Linea1.get_end()+(t*A1,t*A2,0)
+                New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA_CLARO, opacity = 1)
+                #New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+                obj.become(New_plano)
+                self.bring_to_back(obj)
+            Vec1.add_updater(upd_for_vec1_1)
+            Vec1c.add_updater(upd_for_vec1c_1)
+            VecRCL.add_updater(upd_for_vecrcl_2)
+            Plano1.add_updater(upd_for_plano)
+            self.play(ShowCreation(Plano1), run_time=0.05)
+            self.play(ShowCreation(Plano2), run_time = 0.05)
+            self.play(FadeOut(VGroup(Linea1,Linea2)), run_time=0.05)
+            self.play(vt1.set_value,5,run_time=0.85,rate_func=rush_into)
+            Plano1.remove_updater(upd_for_plano)
+            self.play(vt1.set_value,0)
+            Plano2.add_updater(upd_for_plano)
+            self.play(vt1.set_value,-7,run_time=0.85,rate_func=rush_into)
+            Plano2.remove_updater(upd_for_plano)
+            self.play(vt1.set_value,0)
+            Vec1.remove_updater(upd_for_vec1_1)
+            Vec1c.remove_updater(upd_for_vec1c_1)
+            VecRCL.remove_updater(upd_for_vecrcl_2)
+            self.wait(0.65)
+            self.play(ReplacementTransform(Texto_viejo.group,Texto.group))
+            self.add_foreground_mobject(Texto.group)
+            self.wait(0.65)
+            Punto = Dot(radius=0.01, color = MAGENTA).set_fill(MAGENTA)
+            #self.remove(VGroup(Plano1,Plano2))
+            self.play(FadeOut(VGroup(Plano1,Plano2)))
+            self.remove_foreground_mobject(Texto.group)
+            #self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
+            self.play(FadeOut(VGroup(Vec1c,VecRCL,Punto)))
+            self.play(Write(VGroup(Lab1,Lab2)))
+
+        # Función para mostrar el segundo generado.
+        # Aquí ya se encuentran los self.play.
+        def gen4(Vec1,Vec2,Lab1,Lab2):
+            self.play(FadeOut(VGroup(Lab1,Lab2)))
+            # Copias de vectores.
+            Copia1 = Vec1.copy()
+            Copia2 = Vec2.copy()
+            # Coordenadas de vectores
+            A1 = Vec1.get_end()[0]
+            A2 = Vec1.get_end()[1]
+            B1 = Vec2.get_end()[0]
+            B2 = Vec2.get_end()[1]
+            # Vectores para el paralelogramo.
+            Vec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+A1*RIGHT+A2*UP, buff=0, color = Vec1.get_color()).set_fill(opacity=0.5)
+            Vec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+B1*RIGHT+B2*UP, buff=0, color = Vec2.get_color()).set_fill(opacity=0.5)
+            self.play(ShowCreation(VGroup(Vec1c,Vec2c)))
+            # Vector resultante de la combinación lineal.
+            #VecRCL = Arrow((0,0,0), (A1+B1)*UP+(A2+B2)*RIGHT, buff=0, color = MAGENTA, opacity = 0.7)
+            VecRCL = DashedArrow((0,0,0), Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            self.play(ShowCreation(VecRCL))
+            # ValueTrackers
+            vt1 = ValueTracker(0)
+            self.play(FadeOut(Vec1c),runtime=0.2)
+            # Primera función para cambios de Vec2.
+            def upd_for_vec2_1(obj):
+                t = vt1.get_value()
+                NewVec2 = Arrow((0,0,0),(B1+t*B1,B2+t*B2,0),buff=0, color = Vec2.get_color())
+                obj.become(NewVec2)
+            # Primera función para cambios de Vec2c.
+            def upd_for_vec2c_1(obj):
+                t = vt1.get_value()
+                NewVec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+(B1+t*B1,B2+t*B2,0), buff=0, color = Vec2.get_color()).set_fill(opacity=0.5)
+                obj.become(NewVec2c)
+            # Primera función para cambios de VecRCL.
+            def upd_for_vecrcl_1(obj):
+                t = vt1.get_value()
+                NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(NewVecRCL)
+            # Primera línea usada.
+            Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            # Segunda línea usada.
+            Linea2 = Line(Vec1.get_end(), Vec1.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+            # Función para cambiar tamaño de las líneas.
+            def upd_for_linea(obj):
+                t = vt1.get_value()
+                new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(new_linea)
+            self.play(ShowCreation(Linea1),ShowCreation(Linea2))
+            self.bring_to_back(Linea1)
+            self.bring_to_back(Linea2)
+            Vec2.add_updater(upd_for_vec2_1)
+            Vec2c.add_updater(upd_for_vec2c_1)
+            VecRCL.add_updater(upd_for_vecrcl_1)
+            Linea1.add_updater(upd_for_linea)
+            Linea2.add_updater(upd_for_linea)
+            self.play(vt1.set_value,7.5,run_time=0.85,rate_func=rush_into)
+            Linea1.remove_updater(upd_for_linea)
+            self.play(vt1.set_value,0)
+            #self.bring_to_back(Linea1)
+            #self.play(ShowCreation(Linea1))
+            #Linea2.add_updater(upd_for_linea)
+            self.play(vt1.set_value,-9,run_time=0.85,rate_func=rush_into)
+            Linea2.remove_updater(upd_for_linea)
+            #self.bring_to_back(Linea2)
+            #self.play(ShowCreation(Linea2))
+            self.play(vt1.set_value,0)
+            Vec2.remove_updater(upd_for_vec2_1)
+            Vec2c.remove_updater(upd_for_vec2c_1)
+            VecRCL.remove_updater(upd_for_vecrcl_1)
+            self.wait(0.65)
+            self.play(ShowCreation(Vec1c),FadeOut(Vec2c),runtime = 0.5)
+            #self.play(FadeOut(Vec2c))
+            # Primera función para cambios de Vec1.
+            def upd_for_vec1_1(obj):
+                t = vt1.get_value()
+                NewVec1 = Arrow((0,0,0),(A1+t*A1,A2+t*A2,0),buff=0, color = Vec1.get_color())
+                obj.become(NewVec1)
+            # Primera función para cambios de Vec1c.
+            def upd_for_vec1c_1(obj):
+                t = vt1.get_value()
+                NewVec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+(A1+t*A1,A2+t*A2,0), buff=0, color = Vec1.get_color()).set_fill(opacity=0.5)
+                obj.become(NewVec1c)
+            # Segunda función para cambios de VecRCL.
+            def upd_for_vecrcl_2(obj):
+                t = vt1.get_value()
+                NewVecRCL = DashedArrow((0,0,0),Vec1c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+                obj.become(NewVecRCL)
+            # Rectangulos usados para rellenar plano.
+            Vertice1 = Linea1.get_end()
+            Vertice2 = Linea2.get_end()
+            Vertice3 = Linea2.get_end()+(0.05*A1,0.025*A2,0)
+            Vertice4 = Linea1.get_end()+(0.05*A1,0.025*A2,0)
+            Vertice5 = Linea2.get_end()-(0.05*A1,0.025*A2,0)
+            Vertice6 = Linea1.get_end()-(0.05*A1,0.025*A2,0)
+            Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            # Función que rellena plano.
+            def upd_for_plano(obj):
+                t = vt1.get_value()
+                vert1 = Linea1.get_end()
+                vert2 = Linea2.get_end()
+                vert3 = Linea2.get_end()+(t*A1,t*A2,0)
+                vert4 = Linea1.get_end()+(t*A1,t*A2,0)
+                New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA_CLARO, opacity = 1)
+                #New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+                obj.become(New_plano)
+                self.bring_to_back(obj)
+            Vec1.add_updater(upd_for_vec1_1)
+            Vec1c.add_updater(upd_for_vec1c_1)
+            VecRCL.add_updater(upd_for_vecrcl_2)
+            Plano1.add_updater(upd_for_plano)
+            self.play(ShowCreation(Plano1), run_time=0.05)
+            self.play(ShowCreation(Plano2), run_time = 0.05)
+            self.play(FadeOut(VGroup(Linea1,Linea2)), run_time=0.05)
+            self.play(vt1.set_value,5,run_time=0.85,rate_func=rush_into)
+            Plano1.remove_updater(upd_for_plano)
+            self.play(vt1.set_value,0)
+            Plano2.add_updater(upd_for_plano)
+            self.play(vt1.set_value,-7,run_time=0.85,rate_func=rush_into)
+            Plano2.remove_updater(upd_for_plano)
+            self.play(vt1.set_value,0)
+            Vec1.remove_updater(upd_for_vec1_1)
+            Vec1c.remove_updater(upd_for_vec1c_1)
+            VecRCL.remove_updater(upd_for_vecrcl_2)
+            self.wait(0.65)
+            self.play(Write(Text9_3.group))
+            self.add_foreground_mobjects(Text9_3.group,CtoON_2.bg,CtoON_2,Cto.group)
+            self.wait(0.65)
+            Punto = Dot(radius=0.01, color = MAGENTA).set_fill(MAGENTA)
+            #self.remove(VGroup(Plano1,Plano2))
+            self.play(FadeOut(VGroup(Plano1,Plano2)))
+            self.remove_foreground_mobjects(Text9_3.group,CtoON_2.bg,CtoON_2,Cto.group)
+            #self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
+            self.play(FadeOut(VGroup(Vec1c,VecRCL,Punto)))
+            self.play(Write(VGroup(Lab1,Lab2)))
 
         # Grupos que se quitan.
         Quitar = VGroup(VecR,Text2.bg,CtoO_2.bg,CtoO_2_1,Text1,Text2_2,Text2_1,VecRLab)
@@ -545,146 +972,152 @@ class PrimeraEscena(ThreeDScene):
         self.play(Write(grid))
         self.wait(0.5)
         self.play(ShowCreation(VecA),Write(VecALab))
-        self.wait()
+        self.wait(0.65)
         self.play(ShowCreation(VecB),Write(VecBLab))
         self.add_foreground_mobjects(VecA,VecB)
-        self.wait()
+        self.wait(0.65)
         self.play(Write(Cto.group))
-        self.wait()
+        self.wait(0.65)
         self.play(ShowCreation(Ejes))
-        self.wait()
-        self.play(ReplacementTransform(Ejes,Ejesc),runtime = 0.5)
-        self.wait(0.5)
-        self.play(ReplacementTransform(Ejesc,Ejescopy),runtime = 0.5)
-        self.wait()
-        self.play(FadeOut(Ejescopy))
+        self.wait(0.65)
+        #self.play(ReplacementTransform(Ejes,Ejesc),runtime = 0.5)
+        #self.wait(0.5)
+        #self.play(ReplacementTransform(Ejesc,Ejescopy),runtime = 0.5)
+        #self.wait()
+        self.play(FadeOut(Ejes))
         self.play(Write(VGroup(Text10.bg,Text10)))
         self.play(Write(Text10_1))
         self.play(Write(Text10_2))
-        self.wait()
+        self.wait(0.65)
         self.play(FadeOut(Text10.group))
         self.add_foreground_mobject(Cto.group)
-        gen(VecA,VecB,VecALab,VecBLab)
-        self.play(Write(Text9.group))
+        gen1(VecA,VecB,VecALab,VecBLab)
+        #self.play(Write(Text9.group))
         self.remove_foreground_mobject(Cto.group)
-        self.wait()
+        self.wait(0.65)
         self.play(Write(CtoO.group))
-        self.wait()
+        self.wait(0.65)
         self.play(ReplacementTransform(CtoO,CtoO_1_1))
-        self.wait()
+        self.wait(0.65)
         self.play(Write(Text1.group))
         self.add_foreground_mobject(Text1)
-        self.wait()
+        self.wait(0.65)
         self.play(ReplacementTransform(Text1.bg,Text2.bg), runtime = 0.5)
         self.remove_foreground_mobject(Text1)
         self.play(ReplacementTransform(Text1_1,Text2_1),Write(Text2_2))
-        self.wait()
+        self.wait(0.65)
+        self.bring_to_back(pared)
+        self.play(ShowCreation(pared))
         self.bring_to_back(luz)
         self.play(ShowCreation(luz))
-        self.wait()
+        self.wait(0.65)
         self.add_foreground_mobject(VecP)
         self.play(ShowCreation(VecP), runtime=2)
-        self.wait()
-        self.play(FadeOut(luz))
-        self.wait()
+        self.wait(0.65)
+        self.play(FadeOut(luz),FadeOut(pared))
+        self.wait(0.65)
         self.play(FadeOut(Text9.group))
         self.play(Write(Tsilo.bg))
         self.play(Write(TCon))
         self.play(Write(TCon_1))
         self.play(Write(TCon_2))
-        self.wait()
+        self.wait(0.65)
         self.add_foreground_mobject(Cto.group)
+        self.bring_to_back(pared2)
+        self.play(ShowCreation(pared2))
         self.bring_to_back(luz2)
         self.play(ShowCreation(luz2))
         self.add_foreground_mobject(VecP_1)
         self.play(ShowCreation(VecP_1))
-        self.play(FadeOut(luz2))
+        self.play(FadeOut(luz2),FadeOut(pared2))
         self.remove_foreground_mobject(Cto.group)
-        self.wait()
+        self.wait(0.65)
         self.remove_foreground_mobject(VecP_1)
         self.play(FadeOut(VGroup(Tsilo.group,VecP_1)))
-        self.wait()
+        self.wait(0.65)
         self.play(ReplacementTransform(VecP,VecPC))
         self.remove_foreground_mobject(VecP)
-        self.wait()
+        self.wait(0.65)
         self.play(ShowCreation(VecR),Write(VecRLab))
         self.remove_foreground_mobjects(VecA,VecALab)
         self.play(FadeOut(VGroup(VecPC,VecA,VecALab)))
-        self.wait()
+        self.wait(0.65)
         self.add_foreground_mobject(CtoO_1_1)
         self.play(ReplacementTransform(CtoO.bg,CtoO_2.bg))
         self.remove_foreground_mobject(CtoO_1_1)
         self.play(ReplacementTransform(CtoO_1_1,CtoO_2))
-        self.wait()
+        self.wait(0.65)
         self.play(ReplacementTransform(CtoO_2,CtoO_2_1))
-        self.wait()
+        self.wait(0.65)
         self.add_foreground_mobjects(Cto.group,CtoO_2.bg,CtoO_2_1)
-        gen(VecR,VecB,VecRLab,VecBLab)
-        self.play(Write(Text9_1.group))
+        gen2(VecR,VecB,VecRLab,VecBLab)
+        #self.play(Write(Text9_1.group))
         self.remove_foreground_mobjects(Cto.group,CtoO_2.bg,CtoO_2_1)
-        self.wait()
+        self.wait(0.65)
         self.play(FadeOut(Quitar),ShowCreation(VecA),Write(VecALab),Write(VecBLab))
-        self.wait()
+        self.wait(0.65)
         self.play(Write(Text6.group))
-        self.wait()
+        self.wait(0.65)
         self.play(ReplacementTransform(Text6,Text6_1))
         self.play(Write(Text5.group))
-        self.wait()
+        self.wait(0.65)
         self.play(FadeOut(Cto.group))
+        self.bring_to_back(pared2)
+        self.play(ShowCreation(pared2))
         self.bring_to_back(luz2)
         self.play(ShowCreation(luz2))
         self.play(ShowCreation(VecP_2))
-        self.play(FadeOut(luz2))
-        self.wait()
+        self.play(FadeOut(luz2),FadeOut(pared2))
+        self.wait(0.65)
         self.play(ReplacementTransform(VecP_2,VecPC_1))
         self.play(ShowCreation(VecR_1))
         self.play(ShowCreation(VecRLab_1))
         self.remove_foreground_mobject(VecB)
         self.play(FadeOut(VGroup(VecPC_1,VecB,VecBLab)))
-        self.wait()
+        self.wait(0.65)
         self.add_foreground_mobject(Text6_1)
         self.play(ReplacementTransform(Text6.bg,Text6_2.bg))
         self.remove_foreground_mobject(Text6_1)
         self.play(ReplacementTransform(Text6_1,Text6_2))
-        self.wait()
+        self.wait(0.65)
         self.add_foreground_mobjects(Text5.group,Text6_2.bg,Text6_2)
-        gen(VecA,VecR_1,VecALab,VecRLab_1)
+        gen3(VecA,VecR_1,VecALab,VecRLab_1,Text9_2,Text9_2.bg,Text9_1,Text9_1.bg)
         self.add_foreground_mobject(Text9_1)
         self.play(ReplacementTransform(Text9_1.bg,Text9_2.bg))
         self.remove_foreground_mobjects(Text9_1)
         self.play(ReplacementTransform(Text9_1,Text9_2))
         self.remove_foreground_mobjects(Text5.group,Text6_2.bg,Text6_2)
-        self.wait()
+        self.wait(0.65)
         self.play(FadeOut(Quitar2),ShowCreation(VecB),Write(VecBLab),Write(VecALab),Write(Cto.group))
-        self.wait()
+        self.wait(0.65)
         self.play(Write(CtoON.group))
-        self.wait()
+        self.wait(0.65)
         self.bring_to_back(Eje)
         self.play(ShowCreation(Eje))
         self.play(ReplacementTransform(VecB,VecBN))
         self.play(ReplacementTransform(VecBLab,VecBNLab))
         self.play(FadeOut(Eje))
         self.play(ReplacementTransform(CtoON,CtoON_1))
-        self.wait()
+        self.wait(0.65)
         self.add_foreground_mobject(VecPc)
         self.play(ShowCreation(VecPc))
-        self.wait()
+        self.wait(0.65)
         self.play(ReplacementTransform(VecPc,VecPC))
         self.remove_foreground_mobject(VecPc)
-        self.wait()
+        self.wait(0.65)
         self.play(ShowCreation(VecR),Write(VecRLab))
-        self.wait()
+        self.wait(0.65)
         self.play(FadeOut(VecPC),FadeOut(VGroup(VecA,VecALab)))
         self.play(ReplacementTransform(VecR,VecBPN))
-        self.wait()
+        self.wait(0.65)
         self.play(ReplacementTransform(VecRLab,VecBPNLab))
-        self.wait()
+        self.wait(0.65)
         self.add_foreground_mobject(CtoON_1)
         self.play(ReplacementTransform(CtoON.bg,CtoON_2.bg))
         self.play(ReplacementTransform(CtoON_1,CtoON_2))
         self.remove_foreground_mobject(CtoON_1)
-        self.wait()
-        gen(VecBPN,VecBN,VecBPNLab,VecBNLab)
+        self.wait(0.65)
+        gen4(VecBPN,VecBN,VecBPNLab,VecBNLab)
         self.play(Write(Text9_3.group))
         self.wait(2)
         self.play( *[FadeOut(mob)for mob in self.mobjects] )
