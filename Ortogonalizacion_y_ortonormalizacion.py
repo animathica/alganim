@@ -1537,9 +1537,9 @@ class segundaescena(ThreeDScene):
         
 	
 	
-
 ######################################################
-##### Tercera escena ########################
+##### Tercera escena #################################
+##### versión: Manim Community v0.4.0 ################ 
 ######################################################
 
 class TerceraEscena(GraphScene,Scene):
@@ -1548,56 +1548,56 @@ class TerceraEscena(GraphScene,Scene):
         GraphScene.setup(self)
     def FadeOutWrite(self,objeto1,objeto2):
         self.play(FadeOut(objeto1))
-        self.play(Write(objeto2))            
-    CONFIG = {
-        "x_min": -0.25,
-        "x_max": 1,
-        "x_axis_width": 5,
-        "x_tick_frequency": 10,
-        "x_leftmost_tick": None,  # Change if different from x_min
-        "x_labeled_nums": [],
-        "x_axis_label": "$x$",
-        "y_min": -1.5,
-        "y_max": 1.5,
-        "y_axis_height": 3*1.5,
-        "y_tick_frequency": 0.5,
-        "y_bottom_tick": None,  # Change if different from y_min
-        "y_labeled_nums": [-1,1],
-        "y_axis_label": "$y$",
-        "axes_color": BLUE,
-        "graph_origin": 4.5*LEFT+0.7*DOWN,
-        "exclude_zero_label": True,
-        "default_graph_colors": [BLUE, GREEN, YELLOW],
-        "default_derivative_color": GREEN,
-        "default_input_color": YELLOW,
-        "default_riemann_start_color": BLUE,
-        "default_riemann_end_color": GREEN,
-        "area_opacity": 0.8,
-        "num_rects": 50,
-        "num_graph_anchor_points": 3000
-    }
+        self.play(Write(objeto2))
+    #Parámetros de CONFIG como asignación de los valores 
+    #de los atributos
+    config.x_min = -0.25,
+    config.x_max = 1,
+    config.x_axis_width = 5,
+    config.x_tick_frequency = 10,
+    config.x_leftmost_tick = None,  # Change if different from x_min
+    config.x_labeled_nums = [],
+    config.x_axis_label = "$x$",
+    config.y_min = -1.5,
+    config.y_max = 1.5,
+    config.y_axis_height = 3*1.5,
+    config.y_tick_frequency = 0.5,
+    config.y_bottom_tick = None,  # Change if different from y_min
+    config.y_labeled_nums = [-1,1],
+    config.y_axis_label = "$y$",
+    config.axes_color = BLUE,
+    config.graph_origin = 4.5*LEFT+0.7*DOWN,
+    config.exclude_zero_label = True,
+    config.default_graph_colors = [BLUE, GREEN, YELLOW],
+    config.default_derivative_color = GREEN,
+    config.default_input_color = YELLOW,
+    config.default_riemann_start_color = BLUE,
+    config.default_riemann_end_color = GREEN,
+    config.area_opacity = 0.8,
+    config.num_rects = 50,
+    config.num_graph_anchor_points = 3000,
     def construct(self):
         #------------------------------------------------------------------- GRAM-SCHMIDT normal
-        seaL = (TextMobject('''Sea $I$ un conjunto l.i.''').scale(0.7)).to_edge(1*UP)
+        seaL = (Tex('''Sea $I$ un conjunto l.i.''').scale(0.7)).to_edge(1*UP)
         left_corner = 2.7*LEFT+2.8*UP
-        proceso_GM = (TextMobject('''\\textbf{Proceso de Gram-Schmidt}''').scale(0.7)).move_to(left_corner+LEFT)
+        proceso_GM = (Tex('''\\textbf{Proceso de Gram-Schmidt}''').scale(0.7)).move_to(left_corner+LEFT)
         proceso_GM.set_color('#0087FF')
-        algoritmo_left_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $I$ y}''').scale(0.7)).move_to(left_corner+0.5*DOWN+1*LEFT)
-        algoritmo_left_1_2 = TextMobject('''\\texttt{agregarlo a un nuevo conjunto $\\Gamma$}.''').scale(0.7)
+        algoritmo_left_1_1 = (Tex('''\\texttt{1.- Tomar a un vector de $I$ y}''').scale(0.7)).move_to(left_corner+0.5*DOWN+1*LEFT)
+        algoritmo_left_1_2 = Tex('''\\texttt{agregarlo a un nuevo conjunto $\\Gamma$}.''').scale(0.7)
         algoritmo_paso_1 = VGroup(algoritmo_left_1_1, algoritmo_left_1_2)
         algoritmo_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
 
-        algoritmo_left_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmo_paso_1, 3.5*DOWN)
-        algoritmo_left_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
-        algoritmo_left_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $\\Gamma$}''').scale(0.7)
-        algoritmo_left_2_4 = TextMobject('''\\texttt{y después agregarlo a $\\Gamma$}.''').scale(0.7)
+        algoritmo_left_2_1 = (Tex('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmo_paso_1, 3.5*DOWN)
+        algoritmo_left_2_2 = Tex('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
+        algoritmo_left_2_3 = Tex('''\\texttt{sobre todos los vectores de $\\Gamma$}''').scale(0.7)
+        algoritmo_left_2_4 = Tex('''\\texttt{y después agregarlo a $\\Gamma$}.''').scale(0.7)
         algoritmo_paso_2 = VGroup(algoritmo_left_2_1, algoritmo_left_2_2, algoritmo_left_2_3, algoritmo_left_2_4)
         algoritmo_paso_2.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmo_paso_2.align_to(algoritmo_paso_1, LEFT)
 
-        algoritmo_left_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmo_paso_2, 3.4*DOWN)
-        algoritmo_left_3_2 = TextMobject('''\\texttt{que $\\Gamma$ tenga tantos vectores}''').scale(0.7)
-        algoritmo_left_3_3 = TextMobject('''\\texttt{como $I$.}''').scale(0.7)
+        algoritmo_left_3_1 = (Tex('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmo_paso_2, 3.4*DOWN)
+        algoritmo_left_3_2 = Tex('''\\texttt{que $\\Gamma$ tenga tantos vectores}''').scale(0.7)
+        algoritmo_left_3_3 = Tex('''\\texttt{como $I$.}''').scale(0.7)
         algoritmo_paso_3 = VGroup(algoritmo_left_3_1, algoritmo_left_3_2, algoritmo_left_3_3)
         algoritmo_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmo_paso_3.align_to(algoritmo_paso_2, LEFT)
@@ -1607,34 +1607,34 @@ class TerceraEscena(GraphScene,Scene):
         #------------------------------------------------------------------- GRAM-SCHMIDT modificado
 
         right_corner = 3*RIGHT+2.8*UP
-        proceso_GMM = (TextMobject('''\\textbf{Gram-Schmidt \\textit{modificado}}''').scale(0.7)).move_to(right_corner)
+        proceso_GMM = (Tex('''\\textbf{Gram-Schmidt \\textit{modificado}}''').scale(0.7)).move_to(right_corner)
         proceso_GMM.set_color('#4FFF00')
-        algoritmo_right_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $I$,}''').scale(0.7)).move_to(right_corner+0.5*DOWN)
-        algoritmo_right_1_2 = TextMobject('''\\texttt{\\textit{normalizarlo} }''', '''\\texttt{y agregarlo a}''').scale(0.7)
+        algoritmo_right_1_1 = (Tex('''\\texttt{1.- Tomar a un vector de $I$,}''').scale(0.7)).move_to(right_corner+0.5*DOWN)
+        algoritmo_right_1_2 = Tex('''\\texttt{\\textit{normalizarlo} }''', '''\\texttt{y agregarlo a}''').scale(0.7)
         algoritmo_right_1_2[0].set_color('#4FFF00')
-        algoritmo_right_1_3 = TextMobject('''\\texttt{un nuevo conjunto $N$}.''').scale(0.7)
+        algoritmo_right_1_3 = Tex('''\\texttt{un nuevo conjunto $N$}.''').scale(0.7)
         algoritmor_paso_1 = VGroup(algoritmo_right_1_1, algoritmo_right_1_2, algoritmo_right_1_3)
         algoritmor_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
 
-        algoritmo_right_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmor_paso_1, 2*DOWN)
-        algoritmo_right_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
-        algoritmo_right_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $N$, }''').scale(0.7)
-        algoritmo_right_2_4 = TextMobject('''\\texttt{\\textit{normalizarlo}''', '''\\texttt{, y después}''').scale(0.7)
+        algoritmo_right_2_1 = (Tex('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmor_paso_1, 2*DOWN)
+        algoritmo_right_2_2 = Tex('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
+        algoritmo_right_2_3 = Tex('''\\texttt{sobre todos los vectores de $N$, }''').scale(0.7)
+        algoritmo_right_2_4 = Tex('''\\texttt{\\textit{normalizarlo}''', '''\\texttt{, y después}''').scale(0.7)
         algoritmo_right_2_4[0].set_color('#4FFF00')
-        algoritmo_right_2_5 = TextMobject('''\\texttt{agregarlo a $N$}.''').scale(0.7)
+        algoritmo_right_2_5 = Tex('''\\texttt{agregarlo a $N$}.''').scale(0.7)
         algoritmor_paso_2 = VGroup(algoritmo_right_2_1, algoritmo_right_2_2, algoritmo_right_2_3, algoritmo_right_2_4, algoritmo_right_2_5)
         algoritmor_paso_2.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmor_paso_2.align_to(algoritmor_paso_1, LEFT)
 
-        algoritmo_right_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmor_paso_2, 2*DOWN)
-        algoritmo_right_3_2 = TextMobject('''\\texttt{que $N$ tenga tantos vectores}''').scale(0.7)
-        algoritmo_right_3_3 = TextMobject('''\\texttt{como $I$.}''').scale(0.7)
+        algoritmo_right_3_1 = (Tex('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmor_paso_2, 2*DOWN)
+        algoritmo_right_3_2 = Tex('''\\texttt{que $N$ tenga tantos vectores}''').scale(0.7)
+        algoritmo_right_3_3 = Tex('''\\texttt{como $I$.}''').scale(0.7)
         algoritmor_paso_3 = VGroup(algoritmo_right_3_1, algoritmo_right_3_2, algoritmo_right_3_3)
         algoritmor_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmor_paso_3.align_to(algoritmor_paso_2, LEFT)
         
 
-        conclusiones = (TextMobject(
+        conclusiones = (Tex(
             "\\quad", #0
             "¡$\\Gamma$ es ortogonal!", #1
             "\\quad\\quad\\quad", #2
@@ -1646,26 +1646,102 @@ class TerceraEscena(GraphScene,Scene):
         framebox1 = SurroundingRectangle(conclusiones[1],color=YELLOW,fill_color=BLACK, buff = .1)
         framebox2 = SurroundingRectangle(conclusiones[3],color=YELLOW,fill_color=BLACK, buff = .1)
         framebox3 = SurroundingRectangle(conclusiones[5],color=YELLOW,fill_color=BLACK, buff = .1)
+        #------------------------------------------------------------------- Teorema de Gram-Schmidt
+        tex_8 = Tex("Teorema de Gram-Schmidt").scale(0.9).to_edge(UP)
+        tex_1 = MathTex("\\text{dim}(V)=k<\\infty").scale(0.6).next_to(tex_8, DOWN)
+        tex_2_1 = MathTex("\\beta = \\{\\vec{b}_1,..., \\vec{b}_k\\}").scale(0.6).move_to(left_corner+1.8*LEFT+0.7*DOWN)
+        tex_2_2 = MathTex("\\langle\\beta\\rangle = V").scale(0.6).next_to(tex_2_1,DOWN)
+        tex_2_3 = Tex("$\\beta$ es l.i.").scale(0.6).next_to(tex_2_2,DOWN)
+        tex_2 = VGroup(tex_2_1, tex_2_2, tex_2_3)
+        tex_4_1 = MathTex("\\Gamma = \\{\\vec{g}_1,..., \\vec{g}_k\\}").scale(0.6).next_to(tex_2[0], 5*RIGHT)
+        tex_4_2 = MathTex("\\langle\\Gamma\\rangle = V").scale(0.6).next_to(tex_4_1,DOWN)
+        tex_4_3 = Tex("$\\Gamma$ es l.i.").scale(0.6).next_to(tex_4_2,DOWN)
+        tex_4 = VGroup(tex_4_1, tex_4_2, tex_4_3)
+        tex_6_1 = MathTex("N = \\{\\hat{n}_1,..., \\hat{n}_k\\}").scale(0.6).next_to(tex_4[0], 14*RIGHT)
+        tex_6_2 = MathTex("\\langle N\\rangle = V").scale(0.6).next_to(tex_6_1,DOWN)
+        tex_6_3 = Tex("N es l.i.").scale(0.6).next_to(tex_6_2,DOWN)
+        tex_6 = VGroup(tex_6_1, tex_6_2, tex_6_3)
+        tex_3_1 = MathTex("\\vec{g}_1:=\\vec{b}_1").scale(0.6).next_to(tex_4,2.5*DOWN)
+        tex_3_2 = MathTex("""\\vec{g}_j:=
+                        \\vec{b}_j
+                        -
+                        \\displaystyle\\sum_{i=1}^{j-1}
+                        \\dfrac{\\langle\\vec{b}_j, \\vec{g}_i\\rangle}
+                        {\\left\\Vert\\vec{g}_i\\right\\Vert}
+                        \\hat{g}_i,\\quad 1<j\\leq k
+                        """).scale(0.6).next_to(tex_3_1,2.5*DOWN)
+        tex_3 = VGroup(tex_3_1, tex_3_2)
+        tex_5_1 = MathTex("\\hat{n}_1:=\\dfrac{\\vec{b}_1}{\\left\\Vert\\vec{b}_1\\right\\Vert}").scale(0.6).next_to(tex_6,1.5*DOWN)
+        tex_5_2 = MathTex("""\\hat{n}_j:=
+                        \\dfrac{
+                        \\vec{b}_j
+                        -
+                        \\displaystyle\\sum_{i=1}^{j-1}
+                        \\langle\\vec{b}_j, \\hat{n}_i\\rangle
+                        \\hat{n}_i
+                        }
+                        {
+                        \\left\\Vert
+                        \\vec{b}_j
+                        -
+                        \\displaystyle\\sum_{i=1}^{j-1}
+                        \\langle\\vec{b}_j, \\hat{n}_i\\rangle
+                        \\hat{n}_i
+                        \\right\\Vert
+                        }
+                        ,\\quad 1<j\\leq k
+                        """).scale(0.6).next_to(tex_5_1,1.5*DOWN)
+        tex_5 = VGroup(tex_5_1, tex_5_2)
+        tex_7_1 = Tex("$\\beta$ es base de $V$").scale(0.6).next_to(tex_2, 16*DOWN )
+        arrow = Tex("$\\Longrightarrow$").scale(0.6).next_to(tex_7_1,1.5*RIGHT)
+        tex_7_2 = Tex("$\\Gamma$ es base ortogonal de $V$,").scale(0.6).align_to(tex_7_1,UP).align_to(tex_4,LEFT)
+        tex_7_3 = Tex("$N$ es base ortonormal de $V$").scale(0.6).align_to(tex_7_1,UP).align_to(tex_5[1],LEFT)
+        tex_7 = VGroup(tex_7_1, arrow, tex_7_2, tex_7_3)
+
+        tex_teorema = [tex_1, tex_2, tex_3, tex_4, tex_5, tex_6, tex_7, tex_8]
 
 
-        #------------------------------------------------------------------- Pregunta y ejercicio
-        pregunta_1 = TextMobject("Pregunta: ",'''¿Qué sucedería si aplicáramos el\n''').scale(0.7)
-        pregunta_2 = TextMobject("proceso de Gram-Schmidt a un conjunto\n").scale(0.7)
-        pregunta_3 = TextMobject("linealmente \\textit{dependiente}?").scale(0.7)
-        pregunta_1[0].set_color('FF0000')
+        #------------------------------------------------------------------- Pregunta y ejercicios
+        ejercicio_1_1 = Tex("Ejercicio 2.1. ","Demuestra que").scale(0.7)
+        ejercicio_1_2 = MathTex("""\\Bigg\\langle
+                                \\qty\\Bigg{
+                                \\vec{u},\\vec{v}-\\dfrac{\\langle\\vec{u}, \\vec{v}\\rangle}
+                                {\\left\\Vert\\vec{u}\\right\\Vert}\\hat{u}
+                                """).scale(0.7)
+        ejercicio_1_2_ = MathTex(
+                                """
+                                \\Bigg\\rangle 
+                                = 
+                                \\langle
+                                \\{\\vec{u},\\vec{v}\\}
+                                \\rangle
+                                """).scale(0.7).next_to(ejercicio_1_2,0.3*RIGHT)
+        ejercicio_1_2 = VGroup(ejercicio_1_2, ejercicio_1_2_)
+        ejercicio_1_3 = Tex("para $\\vec{u},\\vec{v}\\in V$ con $\\vec{u},\\vec{v}\\neq\\vec{0}$ y dibuja un ejemplo en $\\mathbb{R}^2$.").scale(0.7)
+        ejercicio_1_1[0].set_color('#0087FF')
+        ejercicioG_1 = VGroup(ejercicio_1_1, ejercicio_1_2, ejercicio_1_3)
+        ejercicioG_1.arrange(0.5*DOWN, center=False, aligned_edge=LEFT)
+        ejercicioG_1.move_to(2*UP)
+
+        ejercicio_2_1 = Tex("Ejercicio 2.2. ","Supongamos que $V$ tiene dimensión finita. \n").scale(0.7)
+        ejercicio_2_2 = Tex("Demuestra que, para $1\\leq k\\leq \\text{dim}(V)$, cualquier conjunto\n").scale(0.7)
+        ejercicio_2_3 = Tex("ortogonal de $k$ vectores es linealmente independiente.\n").scale(0.7)
+        ejercicio_2_1[0].set_color('#0087FF')
+        ejercicioG_2 = VGroup(ejercicio_2_1, ejercicio_2_2, ejercicio_2_3)
+        ejercicioG_2.arrange(0.5*DOWN, center=False, aligned_edge=LEFT)
+        ejercicioG_2.align_to(ejercicioG_1, LEFT)
+
+        pregunta_1 = Tex("Pregunta: ",'''¿Qué sucedería si aplicáramos el proceso de\n''').scale(0.7)
+        pregunta_2 = Tex("Gram-Schmidt a un conjunto linealmente \\textit{dependiente}\n").scale(0.7)
+        pregunta_3 = Tex("de $k$ vectores?").scale(0.7)
+        pregunta_1[0].set_color('#FF0000')
         preguntaG = VGroup(pregunta_1, pregunta_2, pregunta_3)
         preguntaG.arrange(0.5*DOWN, center=False, aligned_edge=LEFT)
+        preguntaG.align_to(ejercicioG_2, LEFT)
+        preguntaG.move_to(2*DOWN)
 
 
-        ejercicio_1 = TextMobject("Ejercicio: ","Sea $V$ un espacio vectorial de dimensión finita $n$ con\n").scale(0.7)
-        ejercicio_2 = TextMobject("producto escalar. Demuestra que, para toda $k$ entre $1$ y $n$,\n").scale(0.7)
-        ejercicio_3 = TextMobject("cualquier conjunto ortogonal de $k$ vectores no nulos es un\n").scale(0.7)
-        ejercicio_4 = TextMobject("conjunto linealmente independiente.\n").scale(0.7)
-        ejercicio_5 = TextMobject("En particular, demuestra que cualquier conjunto ortogonal de $n$ vectores no nulos es\n").scale(0.7)
-        ejercicio_6 = TextMobject("una base ortogonal de $V$.").scale(0.7)
-        ejercicio_1[0].set_color('#0087FF')
-        ejercicioG = VGroup(ejercicio_1, ejercicio_2, ejercicio_3, ejercicio_4)
-        ejercicioG.arrange(0.5*DOWN, center=False, aligned_edge=LEFT)
+        
         
         
         
@@ -1680,7 +1756,7 @@ class TerceraEscena(GraphScene,Scene):
         self.wait(2)
         self.play(Write(algoritmo_paso_3))
         self.wait(2)
-        self.play(ShowCreation(linea))
+        self.play(Create(linea))
 
         self.play(Write(proceso_GMM))
         self.wait(2)
@@ -1692,26 +1768,39 @@ class TerceraEscena(GraphScene,Scene):
         self.wait(3)
 
         self.play(
-            FadeIn(conclusiones),
+            FadeIn(conclusiones[1]),
             run_time = 2
         )
         self.play(
-            ShowCreation(framebox1),
+            FadeIn(conclusiones[5]),
+            run_time = 2
         )
-        self.wait(1.5)
         self.play(
-            ShowCreation(framebox3),
+            FadeIn(conclusiones[3]),
+            run_time = 2
         )
-        self.wait(1.5)
-        self.play(
-            ShowCreation(framebox2),
-        )
-        self.wait(1.5)
 
         self.play(
             *[FadeOut(mob) for mob in self.mobjects]
         )
+        #--------------------------------
+        '''
 
+        Teorema
+
+        '''
+        #--------------------------------
+        for j,i in enumerate(tex_teorema):
+            if j == 6:
+                for k in i:
+                    self.play(Write(k))
+                    self.wait(2)
+            else:
+                self.play(Write(i))
+                self.wait(2)
+        self.play(
+            *[FadeOut(mob) for mob in self.mobjects]
+        )
         #--------------------------------
         '''
 
@@ -1719,20 +1808,12 @@ class TerceraEscena(GraphScene,Scene):
 
         '''
         #--------------------------------
+        self.play(Write(ejercicioG_1))
+        self.wait(2)
+        self.play(Write(ejercicioG_2))
+        self.wait(2)
         self.play(Write(preguntaG))
-        self.play(
-            preguntaG.shift, 
-            2*UP+3*LEFT,
-            run_time = 2
-        )
-        self.wait(3)
-        self.play(Write(ejercicioG))
-        self.play(
-            ejercicioG.shift,
-            0.5*DOWN+1.5*RIGHT, 
-            run_time = 2
-        )
-        self.wait(5)
+        self.wait(2)
         self.play(
             *[FadeOut(mob) for mob in self.mobjects]
         )
