@@ -1,4 +1,5 @@
 
+
 from manimlib.imports import *
 
 
@@ -98,6 +99,7 @@ class OO1(ThreeDScene):
         GRIS = "#888888"
         MAGENTA_CLARO = "#FF67FF"
         AZUL_CLARO = "#9CDCEB"
+        AZUL_OSCURO = "#1C758A"
         TEAL_A = "#ACEAD7"
         TEAL_E = "#49A88F"
 
@@ -212,14 +214,14 @@ class OO1(ThreeDScene):
         Text9.bg = SurroundingRectangle(Text9, color = WHITE, fill_color = BLACK, fill_opacity = 1)
         Text9.group = VGroup(Text9.bg,Text9)
         Text9_1 = TextMobject('''$ \\langle I \\rangle = \\langle \\Gamma_1 \\rangle $''').move_to(2*DOWN + 4*LEFT)
-        Text9_1[0:2].set_color(MAGENTA_CLARO)
-        Text9_1[4:7].set_color(AZUL_CLARO)
+        Text9_1[0][0:2].set_color(MAGENTA_CLARO)
+        Text9_1[0][4:7].set_color(AZUL_CLARO)
         Text9_1.bg = SurroundingRectangle(Text9_1, color = WHITE, fill_color = BLACK, fill_opacity = 1)
         Text9_1.group = VGroup(Text9_1.bg,Text9_1)
         Text9_2 = TextMobject('''$ \\langle I \\rangle = \\langle \\Gamma_1 \\rangle = \\langle \\Gamma_2 \\rangle $''').move_to(2*DOWN + 4*LEFT)
-        Text9_2[0:2].set_color(MAGENTA_CLARO)
-        Text9_2[4:7].set_color(AZUL_CLARO)
-        Text9_2[9:12].set_color(TEAL_A)
+        Text9_2[0][0:2].set_color(MAGENTA_CLARO)
+        Text9_2[0][4:7].set_color(AZUL_CLARO)
+        Text9_2[0][9:12].set_color(TEAL_A)
         Text9_2.bg = SurroundingRectangle(Text9_2, color = WHITE, fill_color = BLACK, fill_opacity = 1)
         Text9_2.group = VGroup(Text9_2.bg,Text9_2)
         Text9_3 = TextMobject('''$ \\langle I \\rangle = \\langle N \\rangle $''').move_to(2*DOWN + 4*LEFT)
@@ -443,7 +445,7 @@ class OO1(ThreeDScene):
 
         #Vector VecR_1 normalizado y su etiqueta.
         VecRN_1 = Arrow((0,0,0),(nvr_2,nvr_1,0), color = VERDE, buff = 0)
-        VecRN_1Lab = TextMobject(''' $ \\hat{b}' $ ''').move_to(VecBPN.get_end()+0.5*UP).set_color(VERDE)
+        VecRN_1Lab = TextMobject(''' $ \\hat{b}' $ ''').move_to(VecRN_1.get_end()+0.5*UP).set_color(VERDE)
 
         # Función para primer generado.
         # Aquí ya se encuentran los self.play.
@@ -599,7 +601,7 @@ class OO1(ThreeDScene):
             self.play(ShowCreation(VGroup(Vec1c,Vec2c)))
             # Vector resultante de la combinación lineal.
             #VecRCL = Arrow((0,0,0), (A1+B1)*UP+(A2+B2)*RIGHT, buff=0, color = MAGENTA, opacity = 0.7)
-            VecRCL = DashedArrow((0,0,0), Vec2c.get_end()+(-0.1,-0.1,0), buff=0, color = MAGENTA).set_fill(opacity=0.5)
+            VecRCL = DashedArrow((0,0,0), Vec2c.get_end()+(-0.1,-0.1,0), buff=0, color = AZUL_OSCURO).set_fill(opacity=0.5)
             self.play(ShowCreation(VecRCL))
             # ValueTrackers
             vt1 = ValueTracker(0)
@@ -617,7 +619,7 @@ class OO1(ThreeDScene):
             # Primera función para cambios de VecRCL.
             def upd_for_vecrcl_1(obj):
                 t = vt1.get_value()
-                NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end()+(-0.1,-0.1,0), buff=0, color = MAGENTA).set_fill(opacity=0.5)
+                NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end()+(-0.1,-0.1,0), buff=0, color = AZUL_OSCURO).set_fill(opacity=0.5)
                 obj.become(NewVecRCL)
             # Primera línea usada.
             Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
@@ -666,7 +668,7 @@ class OO1(ThreeDScene):
             # Segunda función para cambios de VecRCL.
             def upd_for_vecrcl_2(obj):
                 t = vt1.get_value()
-                NewVecRCL = DashedArrow((0,0,0),Vec1c.get_end()+(-0.1,-0.1,0), buff=0, color = MAGENTA).set_fill(opacity=0.5)
+                NewVecRCL = DashedArrow((0,0,0),Vec1c.get_end()+(-0.1,-0.1,0), buff=0, color = AZUL_OSCURO).set_fill(opacity=0.5)
                 obj.become(NewVecRCL)
             # Rectangulos usados para rellenar plano.
             Vertice1 = Linea1.get_end()
@@ -675,8 +677,8 @@ class OO1(ThreeDScene):
             Vertice4 = Linea1.get_end()+(0.05*A1,0.025*A2,0)
             Vertice5 = Linea2.get_end()-(0.05*A1,0.025*A2,0)
             Vertice6 = Linea1.get_end()-(0.05*A1,0.025*A2,0)
-            Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
-            Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=0).set_fill(AZUL_CLARO, opacity = 0.5)
+            Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=0).set_fill(AZUL_CLARO, opacity = 0.5)
             # Función que rellena plano.
             def upd_for_plano(obj):
                 t = vt1.get_value()
@@ -874,7 +876,7 @@ class OO1(ThreeDScene):
             self.play(ShowCreation(VGroup(Vec1c,Vec2c)))
             # Vector resultante de la combinación lineal.
             #VecRCL = Arrow((0,0,0), (A1+B1)*UP+(A2+B2)*RIGHT, buff=0, color = MAGENTA, opacity = 0.7)
-            VecRCL = DashedArrow((0,0,0), Vec2c.get_end()+(-0.1,-0.1,0), buff=0, color = MAGENTA).set_fill(opacity=0.5)
+            VecRCL = DashedArrow((0,0,0), Vec2c.get_end()+(-0.1,-0.1,0), buff=0, color = AZUL_OSCURO).set_fill(opacity=0.5)
             self.play(ShowCreation(VecRCL))
             # ValueTrackers
             vt1 = ValueTracker(0)
@@ -892,7 +894,7 @@ class OO1(ThreeDScene):
             # Primera función para cambios de VecRCL.
             def upd_for_vecrcl_1(obj):
                 t = vt1.get_value()
-                NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end()+(-0.1,-0.1,0), buff=0, color = MAGENTA).set_fill(opacity=0.5)
+                NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end()+(-0.1,-0.1,0), buff=0, color = AZUL_OSCURO).set_fill(opacity=0.5)
                 obj.become(NewVecRCL)
             # Primera línea usada.
             Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
@@ -941,7 +943,7 @@ class OO1(ThreeDScene):
             # Segunda función para cambios de VecRCL.
             def upd_for_vecrcl_2(obj):
                 t = vt1.get_value()
-                NewVecRCL = DashedArrow((0,0,0),Vec1c.get_end()+(-0.1,-0.1,0), buff=0, color = MAGENTA).set_fill(opacity=0.5)
+                NewVecRCL = DashedArrow((0,0,0),Vec1c.get_end()+(-0.1,-0.1,0), buff=0, color = AZUL_OSCURO).set_fill(opacity=0.5)
                 obj.become(NewVecRCL)
             # Rectangulos usados para rellenar plano.
             Vertice1 = Linea1.get_end()
@@ -950,8 +952,8 @@ class OO1(ThreeDScene):
             Vertice4 = Linea1.get_end()+(0.05*A1,0.025*A2,0)
             Vertice5 = Linea2.get_end()-(0.05*A1,0.025*A2,0)
             Vertice6 = Linea1.get_end()-(0.05*A1,0.025*A2,0)
-            Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
-            Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=0).set_fill(MAGENTA, opacity = 0.5)
+            Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=0).set_fill(AZUL_CLARO, opacity = 0.5)
+            Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=0).set_fill(AZUL_CLARO, opacity = 0.5)
             # Función que rellena plano.
             def upd_for_plano(obj):
                 t = vt1.get_value()
@@ -1163,6 +1165,7 @@ class OO1(ThreeDScene):
         self.wait(2)
         self.play( *[FadeOut(mob)for mob in self.mobjects] )
         self.wait(2)
+        
         
         
 	
