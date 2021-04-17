@@ -1,7 +1,18 @@
-
-
 from manimlib.imports import *
 
+# Constantes de los colores usados.
+ROJO = '#FF0000'
+AZUL = '#0087FF'
+NARANJA = '#FF7700'
+VERDE = '#1FFF00'
+MAGENTA = '#FF00FF'
+AMARILLO = "#FFFF00"
+GRIS = "#888888"
+MAGENTA_CLARO = "#FF67FF"
+AZUL_CLARO = "#9CDCEB"
+AZUL_OSCURO = "#1C758A"
+TEAL_A = "#ACEAD7"
+TEAL_E = "#49A88F"
 
 #####################################################################################
 ######################  Ortogonalización y ortonormalización  #######################
@@ -85,23 +96,9 @@ class DashedArrow(DashedLine):
     def copy(self):
         return self.deepcopy()
 
-class OO1(ThreeDScene):
+class PrimeraEscena(ThreeDScene):
 
     def construct(self):
-
-        # Constantes de los colores usados.
-        ROJO = '#FF0000'
-        AZUL = '#0087FF'
-        NARANJA = '#FF7700'
-        VERDE = '#1FFF00'
-        MAGENTA = '#FF00FF'
-        AMARILLO = "#FFFF00"
-        GRIS = "#888888"
-        MAGENTA_CLARO = "#FF67FF"
-        AZUL_CLARO = "#9CDCEB"
-        AZUL_OSCURO = "#1C758A"
-        TEAL_A = "#ACEAD7"
-        TEAL_E = "#49A88F"
 
         # Texto de prodcto escalar y su rectángulo.
         Text1 = TextMobject('''$ \\langle \\vec{a},\\vec{b} \\rangle \\ \\ \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT)
