@@ -1849,7 +1849,7 @@ class TerceraEscena(GraphScene, Scene):
         "default_riemann_end_color": GREEN,
         "area_opacity": 0.8,
         "num_rects": 50,
-        "num_graph_anchor_points": 30000
+        "num_graph_anchor_points": 15000
     }
 
 
@@ -1894,8 +1894,9 @@ class TerceraEscena(GraphScene, Scene):
         algoritmo_right_1_3 = TextMobject('''\\texttt{un nuevo conjunto $N$}.''').scale(0.7)
         algoritmor_paso_1 = VGroup(algoritmo_right_1_1, algoritmo_right_1_2, algoritmo_right_1_3)
         algoritmor_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
+        algoritmor_paso_1.align_to(algoritmo_paso_1, UP)
 
-        algoritmo_right_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmor_paso_1, 2*DOWN)
+        algoritmo_right_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmor_paso_1, DOWN)
         algoritmo_right_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
         algoritmo_right_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $N$, }''').scale(0.7)
         algoritmo_right_2_4 = TextMobject('''\\texttt{\\textit{normalizarlo}''', '''\\texttt{, y después}''').scale(0.7)
@@ -1904,6 +1905,7 @@ class TerceraEscena(GraphScene, Scene):
         algoritmor_paso_2 = VGroup(algoritmo_right_2_1, algoritmo_right_2_2, algoritmo_right_2_3, algoritmo_right_2_4, algoritmo_right_2_5)
         algoritmor_paso_2.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmor_paso_2.align_to(algoritmor_paso_1, LEFT)
+        algoritmor_paso_2.align_to(algoritmo_paso_2, UP)
 
         algoritmo_right_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmor_paso_2, 2*DOWN)
         algoritmo_right_3_2 = TextMobject('''\\texttt{que $N$ tenga tantos vectores}''').scale(0.7)
@@ -1911,6 +1913,7 @@ class TerceraEscena(GraphScene, Scene):
         algoritmor_paso_3 = VGroup(algoritmo_right_3_1, algoritmo_right_3_2, algoritmo_right_3_3)
         algoritmor_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmor_paso_3.align_to(algoritmor_paso_2, LEFT)
+        algoritmor_paso_3.align_to(algoritmo_paso_3, UP)
         
 
         conclusiones = (TextMobject(
@@ -1963,21 +1966,27 @@ class TerceraEscena(GraphScene, Scene):
         #------------------------------------------------------------------- Teorema de Gram-Schmidt
         tex_8 = TextMobject("Teorema de Gram-Schmidt").scale(0.9).to_edge(UP)
         tex_1 = TexMobject("\\text{dim}(V)=k<\\infty").scale(0.6).next_to(tex_8, DOWN)
-        tex_2_1 = TexMobject("\\beta = \\{\\vec{b}_1,..., \\vec{b}_k\\}").scale(0.6).move_to(left_corner+3*LEFT+0.7*DOWN)
+
+        tex_4_1 = TexMobject("\\Gamma = \\{\\vec{g}_1,..., \\vec{g}_k\\}").scale(0.6).next_to(tex_1,DOWN)
+        tex_4_2 = TexMobject("\\langle\\Gamma\\rangle = V").scale(0.6).next_to(tex_4_1,DOWN)
+        tex_4_3 = TextMobject("$\\Gamma$ es l.i.").scale(0.6).next_to(tex_4_2,DOWN)
+        tex_4 = VGroup(tex_4_1, tex_4_2, tex_4_3).set_color('#0087FF')
+        tex_4.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
+        tex_4.align_to(tex_1,LEFT)
+
+        tex_2_1 = TexMobject("\\beta = \\{\\vec{b}_1,..., \\vec{b}_k\\}").scale(0.6).next_to(tex_4[0],10*LEFT)
         tex_2_2 = TexMobject("\\langle\\beta\\rangle = V").scale(0.6).next_to(tex_2_1,DOWN)
         tex_2_3 = TextMobject("$\\beta$ es l.i.").scale(0.6).next_to(tex_2_2,DOWN)
         tex_2 = VGroup(tex_2_1, tex_2_2, tex_2_3)
-        tex_2.arrange(1*DOWN, center=False, aligned_edge=LEFT)
-        tex_4_1 = TexMobject("\\Gamma = \\{\\vec{g}_1,..., \\vec{g}_k\\}").scale(0.6).next_to(tex_2[0], 4*RIGHT)
-        tex_4_2 = TexMobject("\\langle\\Gamma\\rangle = V").scale(0.6).next_to(tex_4_1,DOWN)
-        tex_4_3 = TextMobject("$\\Gamma$ es l.i.").scale(0.6).next_to(tex_4_2,DOWN)
-        tex_4 = VGroup(tex_4_1, tex_4_2, tex_4_3)
-        tex_4.arrange(1*DOWN, center=False, aligned_edge=LEFT)
-        tex_6_1 = TexMobject("N = \\{\\hat{n}_1,..., \\hat{n}_k\\}").scale(0.6).next_to(tex_4[0], 14*RIGHT)
+        tex_2.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
+
+        
+        tex_6_1 = TexMobject("N = \\{\\hat{n}_1,..., \\hat{n}_k\\}").scale(0.6).next_to(tex_4[0], 10*RIGHT)
         tex_6_2 = TexMobject("\\langle N\\rangle = V").scale(0.6).next_to(tex_6_1,DOWN)
         tex_6_3 = TextMobject("$N$ es l.i.").scale(0.6).next_to(tex_6_2,DOWN)
-        tex_6 = VGroup(tex_6_1, tex_6_2, tex_6_3)
-        tex_6.arrange(1*DOWN, center=False, aligned_edge=LEFT)
+        tex_6 = VGroup(tex_6_1, tex_6_2, tex_6_3).set_color('#4FFF00')
+        tex_6.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
+
         tex_3_1 = TexMobject("\\vec{g}_1:=\\vec{b}_1").scale(0.6).next_to(tex_4,2.5*DOWN)
         tex_3_2 = TexMobject("""\\vec{g}_j:=
                         \\vec{b}_j
@@ -1985,11 +1994,12 @@ class TerceraEscena(GraphScene, Scene):
                         \\displaystyle\\sum_{i=1}^{j-1}
                         \\dfrac{\\langle\\vec{b}_j, \\vec{g}_i\\rangle}
                         {\\left\\Vert\\vec{g}_i\\right\\Vert}
-                        \\hat{g}_i,\\quad 1<j\\leq k
+                        \\hat{g}_i
                         """).scale(0.6).next_to(tex_3_1,2.5*DOWN)
         tex_3 = VGroup(tex_3_1, tex_3_2)
         tex_3.arrange(5*DOWN, center=False, aligned_edge=LEFT)
         tex_3.align_to(tex_4,LEFT)
+
         tex_5_1 = TexMobject("\\hat{n}_1:=\\dfrac{\\vec{b}_1}{\\left\\Vert\\vec{b}_1\\right\\Vert}").scale(0.6).next_to(tex_6,1.5*DOWN)
         tex_5_2 = TexMobject("""\\hat{n}_j:=
                         \\dfrac{
@@ -2008,30 +2018,58 @@ class TerceraEscena(GraphScene, Scene):
                         \\hat{n}_i
                         \\right\\Vert
                         }
-                        ,\\quad 1<j\\leq k
                         """).scale(0.6).next_to(tex_5_1,1.5*DOWN)
         tex_5 = VGroup(tex_5_1, tex_5_2)
         tex_5.arrange(1*DOWN, center=False, aligned_edge=LEFT)
         tex_5.align_to(tex_6,LEFT)
+
+        intervalo_j = TexMobject("1<j\\leq k").scale(0.6).next_to(tex_5, LEFT)
+        intervalo_j.align_to(tex_2,LEFT)
+        intervalo_j.shift(0.7*DOWN)
+
         tex_7_1 = TextMobject("$\\beta$ es base de $V$").scale(0.6)
         arrow = TextMobject("$\\Longrightarrow$").scale(0.6).next_to(tex_7_1,1.5*RIGHT)
-        tex_7_2 = TextMobject("$\\Gamma$ es base ortogonal de $V$, $N$ es base ortonormal de $V$").scale(0.6).next_to(arrow,1.5*RIGHT)
+        tex_7_2 = TextMobject("$\\Gamma$ es base ",
+                            "ortogonal ",
+                            "de $V$, $N$ es base ",
+                            "ortonormal ",
+                            "de $V$").scale(0.6).next_to(arrow,1.5*RIGHT)
+        tex_7_2[1].set_color('#0087FF')
+        tex_7_2[3].set_color('#4FFF00')
         tex_7 = VGroup(tex_7_1, arrow, tex_7_2).move_to(3*DOWN)
 
         tex_teorema = [tex_1, tex_2, tex_3, tex_4, tex_5, tex_6, tex_7, tex_8]
 
         self.play(Write(tex_1))
         self.wait(2)
-        self.play(Write(tex_2))
+        self.play(FadeIn(tex_2), run_time = 2)
         self.wait(2)
-        self.play(Write(tex_3))
+        self.play(Write(tex_3[0]))
         self.wait(2)
-        self.play(Write(tex_4))
+        self.play(Write(tex_3[1]))
         self.wait(2)
-        self.play(Write(tex_5))
+        self.play(FadeIn(intervalo_j))
+        self.wait(1)
+        self.play(FadeIn(tex_4), run_time = 2)
+        for _ in range(3):
+            self.play(
+                ApplyMethod(tex_3[1].set_color, '#0087FF', rate_func=there_and_back),
+                ApplyMethod(intervalo_j.set_color, '#0087FF', rate_func=there_and_back),
+                run_time = 1
+            )
         self.wait(2)
-        self.play(Write(tex_6))
+        self.play(Write(tex_5[0]))
         self.wait(2)
+        self.play(Write(tex_5[1]))
+        self.wait(2)
+        self.play(FadeIn(tex_6), run_time = 2)
+        self.wait(2)
+        for _ in range(3):
+            self.play(
+                ApplyMethod(tex_5[1].set_color, '#4FFF00', rate_func=there_and_back),
+                ApplyMethod(intervalo_j.set_color, '#4FFF00', rate_func=there_and_back),
+                run_time = 1
+            )
         self.play(Write(tex_7[0]))
         self.wait(2)
         self.play(Write(tex_7[1]))
@@ -2049,25 +2087,26 @@ class TerceraEscena(GraphScene, Scene):
         #------------------------------------------------------------------- Pregunta y ejercicios
         seaV = TextMobject("Sea $V$ un espacio vectorial con producto escalar").scale(0.7).move_to(3.4*UP)
         ejercicio_1_1 = TextMobject("Ejercicio 2.1. ","Demuestra que").scale(0.7)
-        ejercicio_1_2 = TexMobject("""\\Bigg\\langle
+        ejercicio_1_2_1 = TexMobject("""\\Bigg\\langle
                                 \\qty\\Bigg{
                                 \\vec{u},\\vec{v}-\\dfrac{\\langle\\vec{u}, \\vec{v}\\rangle}
                                 {\\left\\Vert\\vec{u}\\right\\Vert}\\hat{u}
                                 """).scale(0.7)
-        ejercicio_1_2_ = TexMobject(
+        ejercicio_1_2_2 = TexMobject(
                                 """
                                 \\Bigg\\rangle 
                                 = 
                                 \\langle
                                 \\{\\vec{u},\\vec{v}\\}
                                 \\rangle
-                                """).scale(0.7).next_to(ejercicio_1_2,0.3*RIGHT)
-        ejercicio_1_2 = VGroup(ejercicio_1_2, ejercicio_1_2_)
+                                """).scale(0.7).next_to(ejercicio_1_2_1,0.3*RIGHT)
+        ejercicio_1_2 = VGroup(ejercicio_1_2_1, ejercicio_1_2_2)
         ejercicio_1_3 = TextMobject("para $\\vec{u},\\vec{v}\\in V$ con $\\vec{u},\\vec{v}\\neq\\vec{0}$ y dibuja un ejemplo en $\\mathbb{R}^2$.").scale(0.7)
         ejercicio_1_1[0].set_color('#0087FF')
         ejercicioG_1 = VGroup(ejercicio_1_1, ejercicio_1_2, ejercicio_1_3)
         ejercicioG_1.arrange(0.5*DOWN, center=False, aligned_edge=LEFT)
         ejercicioG_1.move_to(2*UP)
+        ejercicioG_1[1].shift(2*RIGHT)
 
         ejercicio_2_1 = TextMobject("Ejercicio 2.2. ","Supongamos que $V$ tiene dimensión finita. \n").scale(0.7)
         ejercicio_2_2 = TextMobject("Demuestra que, para $1\\leq k\\leq \\text{dim}(V)$, cualquier conjunto\n").scale(0.7)
@@ -2084,7 +2123,7 @@ class TerceraEscena(GraphScene, Scene):
         preguntaG = VGroup(pregunta_1, pregunta_2, pregunta_3)
         preguntaG.arrange(0.5*DOWN, center=False, aligned_edge=LEFT)
         preguntaG.align_to(ejercicioG_2, LEFT)
-        preguntaG.move_to(2*DOWN)
+        preguntaG.move_to(2.5*DOWN)
     #--------------------------------
         self.play(Write(seaV))
         self.play(Write(ejercicioG_1))
