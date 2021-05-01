@@ -2074,7 +2074,7 @@ class TerceraEscena(GraphScene, Scene):
         #------------------------------------------------------------------- GRAM-SCHMIDT normal
         seaL = (TextMobject('''Sea $I$ un conjunto l.i.''').scale(0.7)).to_edge(1*UP)
         global left_corner 
-        left_corner = 2.7*LEFT+2.8*UP
+        left_corner = 2.85*LEFT+2.44*UP
         proceso_GM = (TextMobject('''\\textbf{Proceso de Gram-Schmidt}''').scale(0.7)).move_to(left_corner+LEFT)
         proceso_GM.set_color('#0087FF')
         algoritmo_left_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $I$ y}''').scale(0.7)).move_to(left_corner+0.5*DOWN+1*LEFT)
@@ -2097,12 +2097,29 @@ class TerceraEscena(GraphScene, Scene):
         algoritmo_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
         algoritmo_paso_3.align_to(algoritmo_paso_2, LEFT)
 
+        rect = SurroundingRectangle(VGroup(proceso_GM,algoritmo_paso_1, algoritmo_paso_2, algoritmo_paso_3),
+                                    buff=0.5,
+                                    color="#303030",
+                                    fill_color="#303030",
+                                    stroke_width=0,
+                                    fill_opacity=0.5 )
+        red_button = Dot(radius=0.1, stroke_width=0, color='#ff5f56')
+        red_button.shift(LEFT * 0.1 * 3)
+        yellow_button = Dot(radius=0.1, stroke_width=0, color='#ffbd2e')
+        green_button = Dot(radius=0.1, stroke_width=0, color='#27c93f')
+        green_button.shift(RIGHT * 0.1 * 3)
+        buttons = VGroup(red_button, yellow_button, green_button)
+        buttons.move_to(rect.get_corner(UL))
+        buttons.shift(0.2*DOWN+0.5*RIGHT)
+        canvas_GM = VGroup(rect, buttons)
+
+
         linea = Line((0,2.5,0),(0,-2,0))
 
         #------------------------------------------------------------------- GRAM-SCHMIDT modificado
 
         global right_corner
-        right_corner = 3*RIGHT+2.8*UP
+        right_corner = 3*RIGHT+2.4*UP
         proceso_GMM = (TextMobject('''\\textbf{Gram-Schmidt \\textit{modificado}}''').scale(0.7)).move_to(right_corner)
         proceso_GMM.set_color('#4FFF00')
         algoritmo_right_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $I$,}''').scale(0.7)).move_to(right_corner+0.5*DOWN)
@@ -2132,6 +2149,19 @@ class TerceraEscena(GraphScene, Scene):
         algoritmor_paso_3.align_to(algoritmor_paso_2, LEFT)
         algoritmor_paso_3.align_to(algoritmo_paso_3, UP)
         
+        rect_ = SurroundingRectangle(VGroup(proceso_GMM,algoritmor_paso_1, algoritmor_paso_2, algoritmor_paso_3),
+                                    buff=0.5,
+                                    color="#303030",
+                                    fill_color="#303030",
+                                    stroke_width=0,
+                                    fill_opacity=0.5 )
+
+        buttons_ = buttons.copy()
+        buttons_.move_to(rect_.get_corner(UL))
+        buttons_.shift(0.2*DOWN+0.5*RIGHT)
+        canvas_GMM = VGroup(rect_, buttons_)
+
+
 
         conclusiones = (TextMobject(
             "\\quad", #0
@@ -2140,9 +2170,11 @@ class TerceraEscena(GraphScene, Scene):
             "$\\langle \\Gamma\\rangle = \\langle I\\rangle = \\langle N\\rangle$", #3
             "\\quad\\quad\\quad", #4
             "¡$N$ es ortonormal!" #5
-        ).scale(0.7)).next_to(linea, 2*DOWN)
+        ).scale(0.7)).next_to(linea, 5*DOWN)
 
         self.play(Write(seaL))
+        self.play(ShowCreation(canvas_GM[0]), run_time = 2)
+        self.play(ShowCreation(canvas_GM[1]), run_time = 1)
         self.play(Write(proceso_GM))
         self.play(Write(algoritmo_paso_1))
         self.wait(2)
@@ -2150,8 +2182,10 @@ class TerceraEscena(GraphScene, Scene):
         self.wait(2)
         self.play(Write(algoritmo_paso_3))
         self.wait(2)
-        self.play(ShowCreation(linea))
+        #self.play(ShowCreation(linea))
 
+        self.play(ShowCreation(canvas_GMM[0]), run_time = 2)
+        self.play(ShowCreation(canvas_GMM[1]), run_time = 1)
         self.play(Write(proceso_GMM))
         self.wait(2)
         self.play(Write(algoritmor_paso_1))
@@ -2184,10 +2218,20 @@ class TerceraEscena(GraphScene, Scene):
         tex_8 = TextMobject("Teorema de Gram-Schmidt").scale(0.9).to_edge(UP)
         tex_1 = TexMobject("\\text{dim}(V)=k<\\infty").scale(0.6).next_to(tex_8, DOWN)
 
-        tex_4_1 = TexMobject("\\Gamma = \\{\\vec{g}_1,..., \\vec{g}_k\\}").scale(0.6).next_to(tex_1,DOWN)
-        tex_4_2 = TexMobject("\\langle\\Gamma\\rangle = V").scale(0.6).next_to(tex_4_1,DOWN)
-        tex_4_3 = TextMobject("$\\Gamma$ es l.i.").scale(0.6).next_to(tex_4_2,DOWN)
-        tex_4 = VGroup(tex_4_1, tex_4_2, tex_4_3).set_color('#0087FF')
+        tex_4_1 = TexMobject("\\Gamma", #0
+                            " = \\{\\vec{g}_1,..., \\vec{g}_k\\}" #1
+                            ).scale(0.6).next_to(tex_1,DOWN)
+        tex_4_2 = TexMobject("\\langle", #0
+                            "\\Gamma", #1
+                            "\\rangle = V" #2
+                            ).scale(0.6).next_to(tex_4_1,DOWN)
+        tex_4_3 = TextMobject("$\\Gamma$", #0
+                                " es l.i." #1
+                                ).scale(0.6).next_to(tex_4_2,DOWN)
+        tex_4 = VGroup(tex_4_1, tex_4_2, tex_4_3)
+        tex_4[0][:].set_color('#0087FF')
+        tex_4[1][1].set_color('#0087FF')
+        tex_4[2][0].set_color('#0087FF')
         tex_4.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
         tex_4.align_to(tex_1,LEFT)
 
@@ -2198,10 +2242,20 @@ class TerceraEscena(GraphScene, Scene):
         tex_2.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
 
         
-        tex_6_1 = TexMobject("N = \\{\\hat{n}_1,..., \\hat{n}_k\\}").scale(0.6).next_to(tex_4[0], 10*RIGHT)
-        tex_6_2 = TexMobject("\\langle N\\rangle = V").scale(0.6).next_to(tex_6_1,DOWN)
-        tex_6_3 = TextMobject("$N$ es l.i.").scale(0.6).next_to(tex_6_2,DOWN)
-        tex_6 = VGroup(tex_6_1, tex_6_2, tex_6_3).set_color('#4FFF00')
+        tex_6_1 = TexMobject("N",
+                            " = \\{\\hat{n}_1,..., \\hat{n}_k\\}"
+                            ).scale(0.6).next_to(tex_4[0], 10*RIGHT)
+        tex_6_2 = TexMobject("\\langle",
+                            "N",
+                            "\\rangle = V"
+                            ).scale(0.6).next_to(tex_6_1,DOWN)
+        tex_6_3 = TextMobject("$N$",
+                            " es l.i."
+                            ).scale(0.6).next_to(tex_6_2,DOWN)
+        tex_6 = VGroup(tex_6_1, tex_6_2, tex_6_3)
+        tex_6[0][:].set_color('#4FFF00')
+        tex_6[1][1].set_color('#4FFF00')
+        tex_6[2][0].set_color('#4FFF00')
         tex_6.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
 
         tex_3_1 = TexMobject("\\vec{g}_1:=\\vec{b}_1").scale(0.6).next_to(tex_4,2.5*DOWN)
@@ -2268,11 +2322,11 @@ class TerceraEscena(GraphScene, Scene):
         self.play(FadeIn(intervalo_j))
         self.wait(1)
         self.play(FadeIn(tex_4), run_time = 2)
-        for _ in range(3):
+        for _ in range(2):
             self.play(
                 ApplyMethod(tex_3[1].set_color, '#0087FF', rate_func=there_and_back),
                 ApplyMethod(intervalo_j.set_color, '#0087FF', rate_func=there_and_back),
-                run_time = 1
+                run_time = 2
             )
         self.wait(2)
         self.play(Write(tex_5[0]))
@@ -2281,11 +2335,11 @@ class TerceraEscena(GraphScene, Scene):
         self.wait(2)
         self.play(FadeIn(tex_6), run_time = 2)
         self.wait(2)
-        for _ in range(3):
+        for _ in range(2):
             self.play(
                 ApplyMethod(tex_5[1].set_color, '#4FFF00', rate_func=there_and_back),
                 ApplyMethod(intervalo_j.set_color, '#4FFF00', rate_func=there_and_back),
-                run_time = 1
+                run_time = 2
             )
         self.play(Write(tex_7[0]))
         self.wait(2)
