@@ -1445,10 +1445,6 @@ def norma(vector):
 def vector_normal(vector):
     return norma(vector)*vector
 
-def projection_of_a_along_b(vector_a, vector_b):
-    vector_b_norm = np.sqrt(sum(vector_b**2))
-    return (np.dot(vector_a, vector_b)/vector_b_norm**2)*vector_b
-
 def line_intersection(line1, line2):
     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
     ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
@@ -1529,14 +1525,9 @@ class SegundaEscena(ThreeDScene):
                 text3.set_color(MAGENTA)
                 text3_bg=SurroundingRectangle(text3, color=WHITE, fill_color=BLACK, fill_opacity=1)
                 text4 = TextMobject("¿", "?").scale(5).to_edge(UL)
-                text5 = TexMobject(r"\langle \ I \ \rangle \ = \langle \ \Gamma_1 \ \rangle").next_to(text3, LEFT)
-                text5.set_color_by_tex_to_color_map({
-                    r" \langle \ I \ \rangle ": MAGENTA  
-                })
-                text5.set_color_by_tex_to_color_map({
-                    r" \langle \ \Gamma_1 \ \rangle ": MAGENTA  
-                })
-                
+                text5 = TexMobject(r"\langle \ I \ \rangle \ ", r" = ", r" \langle \ \Gamma_1 \ \rangle").move_to(DOWN-4.3*RIGHT)
+                text5[0].set_color(MAGENTA)
+                text5[2].set_color(TEAL_A)
                 text5_bg=SurroundingRectangle(text5, color=WHITE, fill_color=BLACK, fill_opacity=1)
                 
                 #axb = [-8.5, 5, -0.25]
@@ -1639,9 +1630,9 @@ class SegundaEscena(ThreeDScene):
                 #SUBESPACIOS
                 
                 self.play(a_vec_label.set_opacity, 0, b_vec_label.set_opacity, 0, c_vec_label.set_opacity, 0)
-                self.move_camera(phi=45*DEGREES, theta=-45*DEGREES, gamma=0*DEGREES, run_time=1)
-                self.subespacios(a,b,c,a_vec,b_vec,c_vec, text3, text3_bg, MAGENTA)
-                self.move_camera(phi=90*DEGREES, theta=50*DEGREES, gamma=0*DEGREES, run_time=1)
+                self.move_camera(phi=45*DEGREES, theta=-15*DEGREES, gamma = 0*DEGREES, run_time=1)
+                self.subespacios(a,b,c,a_vec,b_vec,c_vec, -21.5, 23.5, text3, text3_bg, MAGENTA)
+                self.move_camera(phi=85*DEGREES, theta=28*DEGREES, run_time = 1)
                 self.play(a_vec_label.set_opacity, 1, b_vec_label.set_opacity, 1, c_vec_label.set_opacity, 1,
                         run_time=1.5)
                 
@@ -1659,12 +1650,12 @@ class SegundaEscena(ThreeDScene):
                 self.add_fixed_in_frame_mobjects(text2[0][-1])
                 self.play(Write(text2_bg), Write(text2[0][:7]), Write(text2[0][-1]))
                 self.add_foreground_mobjects(luz, text1_bg, text1, text2_bg, text2[0][:7], text2[0][-1])
-                self.play(ShowCreation(luz))
+                self.play(ShowCreation(luz), b_vec_label.set_opacity, 0)
                 self.add_foreground_mobjects(a_vec_pro_label, a_vec_pro)
                 self.add_fixed_in_frame_mobjects(a_vec_pro_label)
                 self.play(GrowArrow(a_vec_pro), Write(a_vec_pro_label))
                 self.wait(1.5)
-                self.play(FadeOut(luz))
+                self.play(FadeOut(luz), b_vec_label.set_opacity, 1)
                 self.add_foreground_mobjects(a_vec_pro_labelc)
                 self.add_fixed_in_frame_mobjects(a_vec_pro_labelc)
                 self.play(Transform(a_vec_pro, suma_a), AnimationGroup(ApplyMethod(a_vec_pro_label.move_to, 2.5*RIGHT+0.5*DOWN), Write(a_vec_pro_labelc), lag_ratio = 0.5), run_time=3)
@@ -1679,7 +1670,7 @@ class SegundaEscena(ThreeDScene):
                 self.wait()
                 self.play(FadeOut(plane1), FadeOut(y_axis), FadeOut(z_axis))
                 self.play(c_vec.set_opacity, 1, c_vec_label.set_opacity, 1)
-                self.move_camera(phi=90 * DEGREES, theta=50*DEGREES, run_time=2)
+                self.move_camera(phi=85*DEGREES, theta=28*DEGREES, run_time=2)
                 self.play(b_vec_label.move_to, 2.3*RIGHT-0.1*UP, a_vec_label.move_to, 1*RIGHT+1.8*UP, a_ort_label.move_to, 1.6*RIGHT+1.6*DOWN)
                 self.remove_foreground_mobjects(a_vec_pro_label, a_vec, b_vec_pro_label, b_vec, text2_bg, text2[0][:7], text2[0][-1])
                 
@@ -1699,7 +1690,7 @@ class SegundaEscena(ThreeDScene):
                 #PROYECCION DE C SOBRE B
                 self.play(Write(line_b_perp))
                 self.wait()
-                self.add_fixed_in_frame_mobjects(b_vec_pro_label, b_vec_pro_labelc)
+                self.add_fixed_in_frame_mobjects(b_vec_pro_label)
                 self.play(GrowArrow(b_vec_pro), Write(b_vec_pro_label))
                 self.play(FadeOut(line_b_perp))
                 self.wait(1.5)
@@ -1711,17 +1702,20 @@ class SegundaEscena(ThreeDScene):
                 self.add_fixed_in_frame_mobjects(text2[0][11:14])
                 self.play(Write(text2[0][11:14]))
                 self.wait()
+                self.add_foreground_mobjects(text2_bg, text2)
                 
-                '''
+                #SUBESPACIOS
+                
                 self.play(a_vec_label.set_opacity, 0, a_ort_label.set_opacity, 0, cb_ort_label.set_opacity, 0)
-                self.move_camera(phi=45*DEGREES, theta=-45*DEGREES, gamma=0*DEGREES, run_time=2)
-                self.play(FadeOut( a_vec), FadeOut(a_ort), FadeOut( cb_ort), run_time=3)
-                self.subespacios(a,b-a_pro,c-c_pro-b_pro, text5, text5_bg, verdeclaro)
+                self.move_camera(phi=75*DEGREES, theta=18*DEGREES, gamma=0*DEGREES, run_time=2)
+                self.subespacios(a,b-a_pro,c-c_pro-b_pro, a_vec, a_ort, cb_ort, -23.6, -42, text5, text5_bg, TEAL_A)
+                self.move_camera(phi=85*DEGREES, theta=28*DEGREES, run_time=1)
                 self.play(a_vec.restore, a_ort.restore, cb_ort.restore, 
                         a_vec_label.set_opacity, 1, a_ort_label.set_opacity, 1, cb_ort_label.set_opacity, 1,
-                        run_time=1.5)'''
+                        run_time=1.5)
 
 
+                
                 self.play(
                     *[FadeOut(mob)for mob in self.mobjects]
                 
@@ -1804,12 +1798,8 @@ class SegundaEscena(ThreeDScene):
                     # All mobjects in the screen are saved in self.mobjects
                 )
                         
-    def projection_of_b_and_c_along_a(self, a, b, c, a_color, b_color, c_color):
+    def projection_of_b_and_c_along_a(self, a, b, c, a_vec, b_vec, c_vec):
 
-
-                a_vec = Vector(direction = a, color = a_color)
-                b_vec = Vector(direction = b, color = b_color)
-                c_vec = Vector(direction = c, color = c_color)
 
                 #PROYECCION DE B SOBRE A 
                 a_pro = projection_of_a_along_b(b, a)
@@ -1828,7 +1818,7 @@ class SegundaEscena(ThreeDScene):
                 suma_c = Arrow(start = c, end = c-c_pro, color = YELLOW, buff=0)
 
                 #PROYECCION DE C SOBRE B
-                b_pro = projection_of_a_along_b(c, b)
+                b_pro = projection_of_a_along_b(c, b-a_pro)
                 b_vec_pro = Vector(direction = b_pro, color = YELLOW, buff=0)
                 line_b = DashedLine(ORIGIN, b_pro, width=5, buff = 0)
                 line_b_perp = DashedLine(c, b_pro, width=5, buff=0)
@@ -1838,10 +1828,9 @@ class SegundaEscena(ThreeDScene):
                 self.play(GrowArrow(a_vec))
                 self.play(GrowArrow(b_vec))
                 self.play(GrowArrow(c_vec))
-                self.play(a_vec.scale, 2, rate_func = there_and_back, run_time = 2)
+                self.play(a_vec.set_color, [WHITE, MAROON_A, YELLOW_C], rate_func = there_and_back, run_time = 3 )
                 
                 #PROYECCION DE B SOBRE A
-                self.play(Write(line_a))
                 self.play(Write(line_a_perp))
                 self.play(GrowArrow(a_vec_pro))
                 self.play(FadeOut(line_a), FadeOut(line_a_perp))
@@ -1850,7 +1839,6 @@ class SegundaEscena(ThreeDScene):
                 self.play(FadeOut(a_vec_pro))
                 
                 #PROYECCION DE C SOBRE A
-                self.play(Write(line_c))
                 self.play(Write(line_c_perp))
                 self.play(GrowArrow(c_vec_pro))
                 self.play(FadeOut(line_c), FadeOut(line_c_perp))
@@ -1860,7 +1848,6 @@ class SegundaEscena(ThreeDScene):
             
                 
                 #PROYECCION DE C SOBRE B
-                self.play(Write(line_b))
                 self.play(Write(line_b_perp))
                 self.play(GrowArrow(b_vec_pro))
                 self.play(FadeOut(line_b), FadeOut(line_b_perp))
@@ -1872,14 +1859,13 @@ class SegundaEscena(ThreeDScene):
                     # All mobjects in the screen are saved in self.mobjects
                 )
 
-
-    def subespacios(self, a, b, c, a_vec1, b_vec1, c_vec1, text, text_bg, COLOR):
+    def subespacios(self, a, b, c, a_vec1, b_vec1, c_vec1, anguloz, angulox, text, text_bg, COLOR):
         
                 
-                a_vec1_suma = Arrow(start = b+c, end = a+b+c, color = BLUE, buff = 0).set_opacity(0.5)
-                b_vec1_suma = Arrow(start = c, end = b+c, color = ROJO, buff = 0).set_opacity(0.5)
-                c_vec1_suma = Arrow(start = b, end = b+c, color = NARANJA, buff = 0).set_opacity(0.5)
-                suma = Vector(direction = a+b+c, color = MAGENTA, buff = 0)
+                a_vec1_suma = Arrow(start = b+c, end = a+b+c, color = a_vec1.get_color(), buff = 0).set_opacity(0.5)
+                b_vec1_suma = Arrow(start = c, end = b+c, color = b_vec1.get_color(), buff = 0).set_opacity(0.5)
+                c_vec1_suma = Arrow(start = b, end = b+c, color = c_vec1.get_color(), buff = 0).set_opacity(0.5)
+                suma = Vector(direction = a+b+c, color = COLOR, buff = 0)
 
 
                 dotb = Dot(point = b, color = RED).set_opacity(0)
@@ -1913,39 +1899,39 @@ class SegundaEscena(ThreeDScene):
                 dota.save_state()
 
                 def update_a(obj):
-                    new_vec=Vector(direction = dota.get_center(), color = AZUL)
+                    new_vec=Vector(direction = dota.get_center(), color = a_vec1.get_color())
                     obj.become(new_vec)
 
                 def update_b(obj):
-                    new_vec=Vector(direction = dotb.get_center(), color = ROJO)
+                    new_vec=Vector(direction = dotb.get_center(), color = b_vec1.get_color())
                     obj.become(new_vec)
                 
                 def update_c(obj):
-                    new_vec=Vector(direction = dotc.get_center(), color = NARANJA)
+                    new_vec=Vector(direction = dotc.get_center(), color = c_vec1.get_color())
                     obj.become(new_vec)
 
                 def update_a_s(obj):
-                    new_vec=Arrow(start = b_vec1.get_end()+c_vec1.get_end(), end = a_vec1.get_end()+b_vec1.get_end()+c_vec1.get_end(), color = BLUE, buff = 0).set_opacity(0.5)
+                    new_vec=Arrow(start = b_vec1.get_end()+c_vec1.get_end(), end = a_vec1.get_end()+b_vec1.get_end()+c_vec1.get_end(), color = a_vec1.get_color(), buff = 0).set_opacity(0.5)
                     obj.become(new_vec)
 
                 def update_b_s(obj):
-                    new_vec=Arrow(start = c_vec1.get_end(), end = b_vec1.get_end()+c_vec1.get_end(), color = ROJO, buff = 0).set_opacity(0.5)
+                    new_vec=Arrow(start = c_vec1.get_end(), end = b_vec1.get_end()+c_vec1.get_end(), color = b_vec1.get_color(), buff = 0).set_opacity(0.5)
                     obj.become(new_vec)
                 
                 def update_c_s(obj):
-                    new_vec=Arrow(start = b_vec1.get_end(), end = b_vec1.get_end()+c_vec1.get_end(), color = NARANJA, buff = 0).set_opacity(0.5)
+                    new_vec=Arrow(start = b_vec1.get_end(), end = b_vec1.get_end()+c_vec1.get_end(), color = c_vec1.get_color(), buff = 0).set_opacity(0.5)
                     obj.become(new_vec)
 
                 def update_sa(obj):
-                    new_vec=Vector(direction = a_vec1.get_end()+b+c, color = MAGENTA, buff = 0)
+                    new_vec=Vector(direction = a_vec1.get_end()+b+c, color = COLOR, buff = 0)
                     obj.become(new_vec)
 
                 def update_sb(obj):
-                    new_vec=Vector(direction = a+b_vec1.get_end()+c, color = MAGENTA, buff = 0)
+                    new_vec=Vector(direction = a+b_vec1.get_end()+c, color = COLOR, buff = 0)
                     obj.become(new_vec)
 
                 def update_sc(obj):
-                    new_vec=Vector(direction = a+b+c_vec1.get_end(), color = MAGENTA, buff = 0)
+                    new_vec=Vector(direction = a+b+c_vec1.get_end(), color = COLOR, buff = 0)
                     obj.become(new_vec)
 
                 def update_estela1(obj):
@@ -1959,22 +1945,22 @@ class SegundaEscena(ThreeDScene):
                 def update_ps(mob,alpha):
                     mob.become(mob.target)
                     mob.set_width(alpha*9, stretch=True)
-                    mob.next_to(estela1.get_start(), RIGHT, buff = 0).rotate(-22*DEGREES, axis = Z_AXIS, about_point= estela1.get_start()).rotate(24.2*DEGREES, axis = X_AXIS, about_point= estela1.get_start())
+                    mob.next_to(estela1.get_start(), RIGHT, buff = 0).rotate(anguloz*DEGREES, axis = Z_AXIS, about_point= estela1.get_start()).rotate(angulox*DEGREES, axis = X_AXIS, about_point= estela1.get_start())
 
                 def update_ps2(mob,alpha):
                     mob.become(mob.target)
                     mob.set_width(alpha*9, stretch=True)
-                    mob.next_to(estela1.get_start(), LEFT, buff = 0).rotate(-22*DEGREES, axis = Z_AXIS, about_point= estela1.get_start()).rotate(24.2*DEGREES, axis = X_AXIS, about_point= estela1.get_start())
+                    mob.next_to(estela1.get_start(), LEFT, buff = 0).rotate(anguloz*DEGREES, axis = Z_AXIS, about_point= estela1.get_start()).rotate(angulox*DEGREES, axis = X_AXIS, about_point= estela1.get_start())
 
                 def update_cs(mob,alpha):
                     mob.become(mob.target)
                     mob.set_depth(alpha*6, stretch=True)
-                    mob.next_to(estela2.get_start()-[0,10,0], UP+[0,0,1.5], buff=0).rotate(-22*DEGREES, axis = Z_AXIS, about_point= estela1.get_start()).rotate(24.2*DEGREES, axis = X_AXIS, about_point= estela1.get_start())
+                    mob.next_to(estela2.get_start()-[0,12,0], UP+[0,0,1.5], buff=0).rotate(anguloz*DEGREES, axis = Z_AXIS, about_point= estela1.get_start()).rotate(angulox*DEGREES, axis = X_AXIS, about_point= estela1.get_start())
                         
                 def update_cs2(mob,alpha):
                     mob.become(mob.target)
                     mob.set_depth(alpha*6, stretch=True)
-                    mob.next_to(estela2.get_start()+[0,10,0], DOWN+[0,0,-1.5], buff=0).rotate(-22*DEGREES, axis = Z_AXIS, about_point= estela1.get_start()).rotate(24.2*DEGREES, axis = X_AXIS, about_point= estela1.get_start())
+                    mob.next_to(estela2.get_start()+[0,12,0], DOWN+[0,0,-1.5], buff=0).rotate(anguloz*DEGREES, axis = Z_AXIS, about_point= estela1.get_start()).rotate(angulox*DEGREES, axis = X_AXIS, about_point= estela1.get_start())
 
                 
                 self.play(Write(a_vec1_suma), Write(b_vec1_suma), Write(c_vec1_suma), Write(dotb), GrowArrow(suma), run_time=3)
@@ -1996,6 +1982,7 @@ class SegundaEscena(ThreeDScene):
                             dotb.move_to, -3*(b), run_time=1) 
                 self.play(b_vec1.restore, b_vec1_suma.restore, a_vec1_suma.restore, c_vec1_suma.restore, suma.restore, run_time = 0.5)
 
+
                 self.add_foreground_mobjects(c_vec1)
                 self.add(plano_estela1)
                 plano_estela1.generate_target()
@@ -2010,6 +1997,7 @@ class SegundaEscena(ThreeDScene):
                 self.add_foreground_mobjects(c_vec1)
                 self.add(plano_estela2)
                 plano_estela2.generate_target()
+                # FadeOut(estela1), FadeOut(estela2),
                 self.play(  FadeOut(estela1), FadeOut(estela2),
                             UpdateFromFunc(c_vec1,update_c), 
                             UpdateFromFunc(a_vec1_suma,update_a_s),
@@ -2017,8 +2005,11 @@ class SegundaEscena(ThreeDScene):
                             UpdateFromFunc(c_vec1_suma,update_c_s), 
                             UpdateFromFunc(suma,update_sc),
                             UpdateFromAlphaFunc(plano_estela2, update_ps2),
-                            dotc.move_to, -13*c, run_time=1) 
+                            dotc.move_to, -6*c, run_time=1) 
                 self.play(c_vec1.restore, c_vec1_suma.restore, a_vec1_suma.restore, b_vec1_suma.restore, suma.restore, run_time = 0.5)
+
+                
+
 
                 self.move_camera(phi=80*DEGREES, theta=-0*DEGREES, gamma=0*DEGREES, run_time=2)
                 self.add_foreground_mobjects(a_vec1)
@@ -2066,20 +2057,24 @@ class SegundaEscena(ThreeDScene):
                     "z_min" : 0,
                 }
         axes = ThreeDAxes(**axis_config)
-        a = np.array([0.5, 1.5, 1.8])
-        b = np.array([1, 2.5, 1])
-        c = np.array([2, 1, 1])  
+        a = np.array([0.5, 1.5, 2])
+        b = np.array([1, 2.3, 1])
+        c = np.array([2, 0.5, 1])  
         
 
 
-        self.set_camera_orientation(phi=90* DEGREES, theta=50*DEGREES)
+        #self.set_camera_orientation(phi=75*DEGREES, theta=40*DEGREES)
+        #self.set_camera_orientation(phi=100*DEGREES, theta=35*DEGREES)
+        #self.set_camera_orientation(phi=95*DEGREES, theta=43*DEGREES)
+        self.set_camera_orientation(phi=85*DEGREES, theta=28*DEGREES)
         self.play(ShowCreation(axes))
         self.parte1(a,b,c)
-        self.set_camera_orientation(phi=90 * DEGREES, theta=50*DEGREES)
+        self.set_camera_orientation(phi=85*DEGREES, theta=28*DEGREES)
         self.play(ShowCreation(axes))
         #self.wait()
         self.parte2(a,b,c)
        
+
 
 
 
