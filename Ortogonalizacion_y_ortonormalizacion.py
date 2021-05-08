@@ -2079,10 +2079,52 @@ class SegundaEscena(ThreeDScene):
 
 
 	
+from manimlib.imports import *
 ######################################################
 ##### Tercera escena #################################
-##### versión: Manim cairo ################ 
+##### versión: Manim cairo ################ ##########
 ######################################################
+
+class CodeWindow(VGroup):
+    '''
+    Code Window es escencialmente un objeto del tipo SurroundingRectangle con
+    formato de ventana de código, que enumera las líneas de texto.
+    INPUT: text, parámetros de surrounding rectangle.
+            text ---->  VGroup con un cierto número de líneas. Para escribir espacios se recomienda
+            usar lineas de texto que nunca serán escritas o añadidas a la pantalla.
+    '''
+    # PARA EL EQUIPO DE DOCUMENTACIÓN:
+    # Mejorar la recepción de parámetros con **kwargs, si se puedem para escribir mejor la clase.
+    # Implementar mejor control sobre el formato de la enumeración.
+
+    def __init__(self, text, buff, color, fill_color, stroke_width, fill_opacity):
+        rect = SurroundingRectangle(text,
+                                    buff = buff,
+                                    color = color,
+                                    fill_color = fill_color,
+                                    stroke_width = stroke_width,
+                                    fill_opacity = fill_opacity)
+        
+        red_button = Dot(radius=0.1, stroke_width=0, color='#ff5f56')
+        red_button.shift(LEFT * 0.1 * 3)
+        yellow_button = Dot(radius=0.1, stroke_width=0, color='#ffbd2e')
+        green_button = Dot(radius=0.1, stroke_width=0, color='#27c93f')
+        green_button.shift(RIGHT * 0.1 * 3)
+        buttons = VGroup(red_button, yellow_button, green_button)
+        buttons.move_to(rect.get_corner(UL))
+        buttons.shift(0.2*DOWN+0.5*RIGHT)
+
+        number_line = [TextMobject(str(i+1)) for i in range(len(text))]
+        number_line_mob = VGroup(*number_line).scale(0.5)
+        number_line_mob.arrange(0.6*DOWN, aligned_edge=RIGHT)
+        number_line_mob.next_to(text,0.4*LEFT)
+
+        for i in range(len(number_line)):
+            number_line_mob[i].set_color("#8A8A8A")
+            number_line_mob[i].align_to(text[i], UP)
+
+        self.canvas = VGroup(rect, buttons, number_line_mob)
+        self.canvas.shift(0.3*LEFT)
 
 class TerceraEscena(GraphScene, Scene):
     def setup(self):
@@ -2124,137 +2166,153 @@ class TerceraEscena(GraphScene, Scene):
         #------------------------------------------------------------------- GRAM-SCHMIDT normal
         seaL = (TextMobject('''Sea $I$ un conjunto l.i.''').scale(0.7)).to_edge(1*UP)
         global left_corner 
-        left_corner = 2.85*LEFT+2.44*UP
-        proceso_GM = (TextMobject('''\\textbf{Proceso de Gram-Schmidt}''').scale(0.7)).move_to(left_corner+LEFT)
+        left_corner = 3.2*LEFT
+
+        proceso_GM = TextMobject('''\\textbf{Proceso de Gram-Schmidt}''').scale(0.6)
         proceso_GM.set_color('#0087FF')
-        algoritmo_left_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $I$ y}''').scale(0.7)).move_to(left_corner+0.5*DOWN+1*LEFT)
-        algoritmo_left_1_2 = TextMobject('''\\texttt{agregarlo a un nuevo conjunto $\\Gamma$}.''').scale(0.7)
-        algoritmo_paso_1 = VGroup(algoritmo_left_1_1, algoritmo_left_1_2)
-        algoritmo_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
+        
+        algoritmo_left_1_1 = TextMobject('''\\texttt{1.- Tomar a un vector de $I$ y}''').scale(0.6)
+        algoritmo_left_1_2 = TextMobject('''\\texttt{agregarlo a un nuevo conjunto }''',
+                                            '''\\texttt{$\\Gamma$}''', '''.''').scale(0.6)
+        algoritmo_left_1_2[1].set_color('#0087FF')                                
 
-        algoritmo_left_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmo_paso_1, 3.5*DOWN)
-        algoritmo_left_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
-        algoritmo_left_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $\\Gamma$}''').scale(0.7)
-        algoritmo_left_2_4 = TextMobject('''\\texttt{y después agregarlo a $\\Gamma$}.''').scale(0.7)
-        algoritmo_paso_2 = VGroup(algoritmo_left_2_1, algoritmo_left_2_2, algoritmo_left_2_3, algoritmo_left_2_4)
-        algoritmo_paso_2.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
-        algoritmo_paso_2.align_to(algoritmo_paso_1, LEFT)
+        algoritmo_left_2_1 = TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.6)
+        algoritmo_left_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.6)
+        algoritmo_left_2_3 = TextMobject('''\\texttt{sobre todos los vectores de }''', '''\\texttt{$\\Gamma$}''').scale(0.6)
+        algoritmo_left_2_3[1].set_color('#0087FF')
 
-        algoritmo_left_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmo_paso_2, 3.4*DOWN)
-        algoritmo_left_3_2 = TextMobject('''\\texttt{que $\\Gamma$ tenga tantos vectores}''').scale(0.7)
-        algoritmo_left_3_3 = TextMobject('''\\texttt{como $I$.}''').scale(0.7)
-        algoritmo_paso_3 = VGroup(algoritmo_left_3_1, algoritmo_left_3_2, algoritmo_left_3_3)
-        algoritmo_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
-        algoritmo_paso_3.align_to(algoritmo_paso_2, LEFT)
+        algoritmo_left_2_4 = TextMobject('''\\texttt{y después agregarlo a }''','''\\texttt{$\\Gamma$}''','''.''').scale(0.6)
+        algoritmo_left_2_4[1].set_color('#0087FF')
 
-        rect = SurroundingRectangle(VGroup(proceso_GM,algoritmo_paso_1, algoritmo_paso_2, algoritmo_paso_3),
-                                    buff=0.5,
-                                    color="#303030",
-                                    fill_color="#303030",
-                                    stroke_width=0,
-                                    fill_opacity=0.5 )
-        red_button = Dot(radius=0.1, stroke_width=0, color='#ff5f56')
-        red_button.shift(LEFT * 0.1 * 3)
-        yellow_button = Dot(radius=0.1, stroke_width=0, color='#ffbd2e')
-        green_button = Dot(radius=0.1, stroke_width=0, color='#27c93f')
-        green_button.shift(RIGHT * 0.1 * 3)
-        buttons = VGroup(red_button, yellow_button, green_button)
-        buttons.move_to(rect.get_corner(UL))
-        buttons.shift(0.2*DOWN+0.5*RIGHT)
-        canvas_GM = VGroup(rect, buttons)
+        algoritmo_left_3_1 = TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.6)
+        algoritmo_left_3_2 = TextMobject('''\\texttt{que }''','''\\texttt{$\\Gamma$}''','''\\texttt{ tenga tantos vectores}''').scale(0.6)
+        algoritmo_left_3_2[1].set_color('#0087FF')
+        algoritmo_left_3_3 = TextMobject('''\\texttt{como $I$.}''').scale(0.6)
 
+        espacio = TextMobject('''\\texttt{espacio, espacio, espacio}''').scale(0.6).set_color("#303030")
+
+        algo_left = VGroup(
+                            proceso_GM, #0
+                            algoritmo_left_1_1, #1
+                            algoritmo_left_1_2, #2
+                            espacio, #3
+                            espacio.copy(), #4
+                            algoritmo_left_2_1, #5
+                            algoritmo_left_2_2, #6
+                            algoritmo_left_2_3, #7
+                            algoritmo_left_2_4, #8
+                            espacio.copy(), #9
+                            espacio.copy(), #10
+                            algoritmo_left_3_1, #11
+                            algoritmo_left_3_2, #12
+                            algoritmo_left_3_3, #13
+        ).arrange(0.4*DOWN, aligned_edge=LEFT).move_to(left_corner)
+
+        canvas_GM = CodeWindow(text = algo_left, buff = 0.6, color = "#303030", fill_color = "#303030", stroke_width=0, fill_opacity = 0.5).canvas
 
         linea = Line((0,2.5,0),(0,-2,0))
 
         #------------------------------------------------------------------- GRAM-SCHMIDT modificado
 
         global right_corner
-        right_corner = 3*RIGHT+2.4*UP
-        proceso_GMM = (TextMobject('''\\textbf{Gram-Schmidt \\textit{modificado}}''').scale(0.7)).move_to(right_corner)
+        right_corner = 3.7*RIGHT
+        proceso_GMM = TextMobject('''\\textbf{Gram-Schmidt \\textit{modificado}}''').scale(0.6)
         proceso_GMM.set_color('#4FFF00')
-        algoritmo_right_1_1 = (TextMobject('''\\texttt{1.- Tomar a un vector de $I$,}''').scale(0.7)).move_to(right_corner+0.5*DOWN)
-        algoritmo_right_1_2 = TextMobject('''\\texttt{\\textit{normalizarlo} }''', '''\\texttt{y agregarlo a}''').scale(0.7)
+
+        algoritmo_right_1_1 = TextMobject('''\\texttt{1.- Tomar a un vector de $I$,}''').scale(0.6)
+        algoritmo_right_1_2 = TextMobject('''\\texttt{\\textit{normalizarlo} }''', '''\\texttt{y agregarlo a}''').scale(0.6)
         algoritmo_right_1_2[0].set_color('#4FFF00')
-        algoritmo_right_1_3 = TextMobject('''\\texttt{un nuevo conjunto $N$}.''').scale(0.7)
-        algoritmor_paso_1 = VGroup(algoritmo_right_1_1, algoritmo_right_1_2, algoritmo_right_1_3)
-        algoritmor_paso_1.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
-        algoritmor_paso_1.align_to(algoritmo_paso_1, UP)
+        algoritmo_right_1_3 = TextMobject('''\\texttt{un nuevo conjunto }''','''\\texttt{$N$}.''').scale(0.6)
+        algoritmo_right_1_3[1].set_color('#4FFF00')
 
-        algoritmo_right_2_1 = (TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.7)).next_to(algoritmor_paso_1, DOWN)
-        algoritmo_right_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.7)
-        algoritmo_right_2_3 = TextMobject('''\\texttt{sobre todos los vectores de $N$, }''').scale(0.7)
-        algoritmo_right_2_4 = TextMobject('''\\texttt{\\textit{normalizarlo}''', '''\\texttt{, y después}''').scale(0.7)
+        algoritmo_right_2_1 = TextMobject('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.6)
+        algoritmo_right_2_2 = TextMobject('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.6)
+        algoritmo_right_2_3 = TextMobject('''\\texttt{sobre todos los vectores de }''','''\\texttt{$N$}''',''',''').scale(0.6)
+        algoritmo_right_2_3[1].set_color('#4FFF00')
+        algoritmo_right_2_4 = TextMobject('''\\texttt{\\textit{normalizarlo}''', '''\\texttt{, y después}''').scale(0.6)
         algoritmo_right_2_4[0].set_color('#4FFF00')
-        algoritmo_right_2_5 = TextMobject('''\\texttt{agregarlo a $N$}.''').scale(0.7)
-        algoritmor_paso_2 = VGroup(algoritmo_right_2_1, algoritmo_right_2_2, algoritmo_right_2_3, algoritmo_right_2_4, algoritmo_right_2_5)
-        algoritmor_paso_2.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
-        algoritmor_paso_2.align_to(algoritmor_paso_1, LEFT)
-        algoritmor_paso_2.align_to(algoritmo_paso_2, UP)
+        algoritmo_right_2_5 = TextMobject('''\\texttt{agregarlo a }''','''\\texttt{$N$}''','''.''').scale(0.6)
+        algoritmo_right_2_5[1].set_color('#4FFF00')
 
-        algoritmo_right_3_1 = (TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.7)).next_to(algoritmor_paso_2, 2*DOWN)
-        algoritmo_right_3_2 = TextMobject('''\\texttt{que $N$ tenga tantos vectores}''').scale(0.7)
-        algoritmo_right_3_3 = TextMobject('''\\texttt{como $I$.}''').scale(0.7)
-        algoritmor_paso_3 = VGroup(algoritmo_right_3_1, algoritmo_right_3_2, algoritmo_right_3_3)
-        algoritmor_paso_3.arrange(0.2*DOWN, center=False, aligned_edge=LEFT)
-        algoritmor_paso_3.align_to(algoritmor_paso_2, LEFT)
-        algoritmor_paso_3.align_to(algoritmo_paso_3, UP)
-        
-        rect_ = SurroundingRectangle(VGroup(proceso_GMM,algoritmor_paso_1, algoritmor_paso_2, algoritmor_paso_3),
-                                    buff=0.5,
-                                    color="#303030",
-                                    fill_color="#303030",
-                                    stroke_width=0,
-                                    fill_opacity=0.5 )
+        algoritmo_right_3_1 = TextMobject('''\\texttt{3.- Repetir el paso 2 hasta}''').scale(0.6)
+        algoritmo_right_3_2 = TextMobject('''\\texttt{que }''','''\\texttt{$N$}''', '''\\texttt{ tenga tantos vectores}''').scale(0.6)
+        algoritmo_right_3_2[1].set_color('#4FFF00')
+        algoritmo_right_3_3 = TextMobject('''\\texttt{como $I$.}''').scale(0.6)
 
-        buttons_ = buttons.copy()
-        buttons_.move_to(rect_.get_corner(UL))
-        buttons_.shift(0.2*DOWN+0.5*RIGHT)
-        canvas_GMM = VGroup(rect_, buttons_)
+        algo_right = VGroup(
+                            proceso_GMM, #0
+                            algoritmo_right_1_1, #1
+                            algoritmo_right_1_2, #2
+                            algoritmo_right_1_3, #3
+                            espacio.copy(), #4
+                            algoritmo_right_2_1, #5
+                            algoritmo_right_2_2, #6
+                            algoritmo_right_2_3, #7
+                            algoritmo_right_2_4, #8
+                            algoritmo_right_2_5, #9
+                            espacio.copy(), #10
+                            algoritmo_right_3_1, #11
+                            algoritmo_right_3_2, #12
+                            algoritmo_right_3_3, #13
+        ).arrange(0.4*DOWN, aligned_edge=LEFT).move_to(right_corner)
 
-
+        canvas_GMM = CodeWindow(text = algo_right, buff = 0.6, color = "#303030", fill_color = "#303030", stroke_width=0, fill_opacity = 0.5).canvas
 
         conclusiones = (TextMobject(
-            "\\quad", #0
-            "¡$\\Gamma$ es ortogonal!", #1
-            "\\quad\\quad\\quad", #2
-            "$\\langle \\Gamma\\rangle = \\langle I\\rangle = \\langle N\\rangle$", #3
-            "\\quad\\quad\\quad", #4
-            "¡$N$ es ortonormal!" #5
+            "\\quad¡", #0
+            "$\\Gamma$",#1
+            " es ortogonal!", #2
+            "\\quad\\quad\\quad", #3
+            "$\\langle$", #4
+            "$\\Gamma$", #5
+            "$\\rangle$", #6
+            "$= \\langle I\\rangle = \\langle$",#7
+            "$N$",#8
+            "$\\rangle$", #9
+            "\\quad\\quad\\quad", #10
+            "¡",#11
+            "$N$",#12
+            " es ortonormal!" #13
         ).scale(0.7)).next_to(linea, 5*DOWN)
+        conclusiones[1].set_color('#0087FF')
+        conclusiones[5].set_color('#0087FF')
+        conclusiones[8].set_color('#4FFF00')
+        conclusiones[12].set_color('#4FFF00')
 
         self.play(Write(seaL))
         self.play(ShowCreation(canvas_GM[0]), run_time = 2)
         self.play(ShowCreation(canvas_GM[1]), run_time = 1)
-        self.play(Write(proceso_GM))
-        self.play(Write(algoritmo_paso_1))
+        self.play(ShowCreation(canvas_GM[2]), run_time = 1)
+        self.play(Write(algo_left[0]))
+        self.play(Write(algo_left[1:3]))
         self.wait(2)
-        self.play(Write(algoritmo_paso_2))
+        self.play(Write(algo_left[5:9]))
         self.wait(2)
-        self.play(Write(algoritmo_paso_3))
+        self.play(Write(algo_left[11:]))
         self.wait(2)
         #self.play(ShowCreation(linea))
 
         self.play(ShowCreation(canvas_GMM[0]), run_time = 2)
         self.play(ShowCreation(canvas_GMM[1]), run_time = 1)
-        self.play(Write(proceso_GMM))
+        self.play(ShowCreation(canvas_GMM[2]), run_time = 1)
+        self.play(Write(algo_right[0]))
+        self.play(Write(algo_right[1:4]))
         self.wait(2)
-        self.play(Write(algoritmor_paso_1))
+        self.play(Write(algo_right[5:10]))
         self.wait(2)
-        self.play(Write(algoritmor_paso_2))
+        self.play(Write(algo_right[11:]))
         self.wait(2)
-        self.play(Write(algoritmor_paso_3))
-        self.wait(3)
 
         self.play(
-            FadeIn(conclusiones[1]),
+            FadeIn(conclusiones[:3]),
             run_time = 2
         )
         self.play(
-            FadeIn(conclusiones[5]),
+            FadeIn(conclusiones[11:]),
             run_time = 2
         )
         self.play(
-            FadeIn(conclusiones[3]),
+            FadeIn(conclusiones[4:10]),
             run_time = 2
         )
 
@@ -2279,7 +2337,7 @@ class TerceraEscena(GraphScene, Scene):
                                 " es l.i." #1
                                 ).scale(0.6).next_to(tex_4_2,DOWN)
         tex_4 = VGroup(tex_4_1, tex_4_2, tex_4_3)
-        tex_4[0][:].set_color('#0087FF')
+        tex_4[0][0].set_color('#0087FF')
         tex_4[1][1].set_color('#0087FF')
         tex_4[2][0].set_color('#0087FF')
         tex_4.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
@@ -2303,7 +2361,7 @@ class TerceraEscena(GraphScene, Scene):
                             " es l.i."
                             ).scale(0.6).next_to(tex_6_2,DOWN)
         tex_6 = VGroup(tex_6_1, tex_6_2, tex_6_3)
-        tex_6[0][:].set_color('#4FFF00')
+        tex_6[0][0].set_color('#4FFF00')
         tex_6[1][1].set_color('#4FFF00')
         tex_6[2][0].set_color('#4FFF00')
         tex_6.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
@@ -2350,13 +2408,18 @@ class TerceraEscena(GraphScene, Scene):
 
         tex_7_1 = TextMobject("$\\beta$ es base de $V$").scale(0.6)
         arrow = TextMobject("$\\Longrightarrow$").scale(0.6).next_to(tex_7_1,1.5*RIGHT)
-        tex_7_2 = TextMobject("$\\Gamma$ es base ",
+        tex_7_2 = TextMobject("$\\Gamma$",
+                            " es base ",
                             "ortogonal ",
-                            "de $V$, $N$ es base ",
+                            "de $V$, ",
+                            "$N$",
+                            " es base ",
                             "ortonormal ",
                             "de $V$").scale(0.6).next_to(arrow,1.5*RIGHT)
-        tex_7_2[1].set_color('#0087FF')
-        tex_7_2[3].set_color('#4FFF00')
+        tex_7_2[0].set_color('#0087FF')
+        tex_7_2[2].set_color('#0087FF')
+        tex_7_2[4].set_color('#4FFF00')
+        tex_7_2[6].set_color('#4FFF00')
         tex_7 = VGroup(tex_7_1, arrow, tex_7_2).move_to(3*DOWN)
 
         tex_teorema = [tex_1, tex_2, tex_3, tex_4, tex_5, tex_6, tex_7, tex_8]
