@@ -157,6 +157,7 @@ class Escena1(ThreeDScene):
             CtoO_2_1[0][i].set_color(VERDE)
         CtoO_3 = VGroup(CtoO_2[0][6],CtoO_2[0][7],CtoO_2[0][8])
         CtoO_2.bg = SurroundingRectangle(CtoO_2,color=WHITE,fill_color=BLACK,fill_opacity=1)
+        CtoOF = VGroup(CtoO_2.bg, CtoO_2_1)
 
         # Texto para conjunto ortonormal y su  recángulo, con las variaciones usadas.
         CtoON = TextMobject(''' $ N = \{ \hat{b} \} $ ''').move_to(2.5*DOWN + 3.5*RIGHT)
@@ -234,6 +235,7 @@ class Escena1(ThreeDScene):
         Text9_2.bg = SurroundingRectangle(Text9_2, color = WHITE, fill_color = BLACK, fill_opacity = 1)
         Text9_2.group = VGroup(Text9_2.bg,Text9_2)
         Text9_3 = TextMobject('''$ \\langle I \\rangle = \\langle N \\rangle $''').move_to(1.5*DOWN + 4*LEFT)
+        Text9_3[0][4:7].set_color(AZUL_CLARO)
         Text9_3.bg = SurroundingRectangle(Text9_3, color = WHITE, fill_color = BLACK, fill_opacity = 1)
         Text9_3.group = VGroup(Text9_3.bg, Text9_3)
 
@@ -260,6 +262,10 @@ class Escena1(ThreeDScene):
         VecB = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
         VecALab=TexMobject("\\vec{a}").move_to(VecA.get_end()+0.4*RIGHT+0.2*UP).set_color(AZUL)
         VecBLab=TexMobject("\\vec{b}").move_to(VecB.get_end()+0.5*RIGHT).set_color(ROJO)
+
+        # Copia de VecB.
+        VecBc = Arrow((0, 0, 0),b_1 * RIGHT + b_2*UP, buff=0,color=ROJO)
+        VecBcLab=TexMobject("\\vec{b}").move_to(VecBc.get_end()+0.5*RIGHT).set_color(ROJO)
 
         # Texto para los vectores, con su rectángulo correspondiente.
         Text_B = TextMobject('''$\\vec{b} = (5,2)$''').move_to(3*DOWN + 4*LEFT)
@@ -329,16 +335,21 @@ class Escena1(ThreeDScene):
         # Flecha de la proyección de a sobre b.
         p1 = ((a_1*b_1 + a_2*b_2)/(b_1**2 + b_2**2)) * b_1
         p2 = ((a_1*b_1 + a_2*b_2)/(b_1**2 + b_2**2)) * b_2
-        VecP = Arrow((0, 0, 0),(p1,p2,0), color = MAGENTA, buff = 0)
-        VecPnaranja = Arrow((0, 0, 0),(p1,p2,0), color = NARANJA, buff = 0)
+        #VecP = Arrow((0, 0, 0),(p1,p2,0), color = MAGENTA, buff = 0)
+        VecP = Arrow((0, 0, 0),(p1,p2,0), color = AMARILLO, buff = 0)
+        #VecPnaranja = Arrow((0, 0, 0),(p1,p2,0), color = NARANJA, buff = 0)
+        VecPnaranja = Arrow((0, 0, 0),(p1,p2,0), color = AMARILLO, buff = 0)
         VecPc = VecP.copy()
                 
         # Copia de proyección de a sobre b usada para la resta.
-        VecPC = Arrow((a_1,a_2,0),(a_1-p1,a_2-p2,0), color = NARANJA, buff = 0)
+        #VecPC = Arrow((a_1,a_2,0),(a_1-p1,a_2-p2,0), color = NARANJA, buff = 0)
+        VecPC = Arrow((a_1,a_2,0),(a_1-p1,a_2-p2,0), color = AMARILLO, buff = 0)
 
         # Vector resultante de la resta y su etiqueta.
         VecR = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
         VecRLab = TextMobject('''$ \\vec{a}' $''').move_to(VecR.get_end()+0.5*LEFT).set_color(VERDE)
+        VecRc = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
+        VecRcLab = TextMobject('''$ \\vec{a}' $''').move_to(VecR.get_end()+0.5*LEFT).set_color(VERDE)
 
         # Función para luz de segunda proyección.
         def light2(x1,y1,x2,y2,n = 10):
@@ -387,10 +398,12 @@ class Escena1(ThreeDScene):
         VecP_1 = Arrow((0, 0, 0),(p1_1,p2_1,0), color = MAGENTA, buff = 0)
 
         # Flecha para segundo uso de proyección de b sobre a.
-        VecP_2 = Arrow((0, 0, 0),(p1_1,p2_1,0), color = NARANJA, buff = 0)
+        #VecP_2 = Arrow((0, 0, 0),(p1_1,p2_1,0), color = NARANJA, buff = 0)
+        VecP_2 = Arrow((0, 0, 0),(p1_1,p2_1,0), color = AMARILLO, buff = 0)
 
         # Copia de proyección de b sobre a usada para la resta.
-        VecPC_1 = Arrow((b_1,b_2,0),(b_1-p1_1,b_2-p2_1,0), color = NARANJA, buff = 0)
+        #VecPC_1 = Arrow((b_1,b_2,0),(b_1-p1_1,b_2-p2_1,0), color = NARANJA, buff = 0)
+        VecPC_1 = Arrow((b_1,b_2,0),(b_1-p1_1,b_2-p2_1,0), color = AMARILLO, buff = 0)
 
         # Vector resultante de la segunda resta y su etiqueta.
         VecR_1 = Arrow((0, 0, 0),(b_1-p1_1,b_2-p2_1,0), color = VERDE, buff = 0)
@@ -413,9 +426,13 @@ class Escena1(ThreeDScene):
         na_1 = a_1/NorA
         na_2 = a_2/NorA
 
-        #Vector B' normalizado y su etiqueta.
+        # Vector B' normalizado y su etiqueta.
         VecBN = Arrow((0,0,0),(nb_1,nb_2,0), color = ROJO, buff = 0)
         VecBNLab = TextMobject(''' $ \\hat{b} $ ''').move_to(VecBN.get_end()+0.5*UP).set_color(ROJO)
+
+        # Copias de ector VecBN y su etiqueta.
+        VecBNc = Arrow((0,0,0),(nb_1,nb_2,0), color = ROJO, buff = 0)
+        VecBNcLab = TextMobject(''' $ \\hat{b} $ ''').move_to(VecBN.get_end()+0.5*UP).set_color(ROJO)
 
         #Vector A' normalizado y su etiqueta.
         VecAN = Arrow((0,0,0),(na_1,na_2,0), color = AZUL, buff = 0)
@@ -448,16 +465,29 @@ class Escena1(ThreeDScene):
         NorVR1 = np.sqrt((b_1-p1_1)**2 + (b_2-p2_1)**2)
         # Coordenadas de VecRN_1.
         nvr_2 = (b_1-p1_1)/NorVR1
-        nvr_1 = (b_2-p2_1)/NorVR1       
+        nvr_1 = (b_2-p2_1)/NorVR1   
 
-        #Vector B' normalizado y su etiqueta.
+        # Se normliza vector VecR.
+        # a_1-p1,a_2-p2
+        # Norma de VecR.
+        NorVR = np.sqrt((a_1-p1)**2 + (a_2-p2)**2)   
+        # Coordenadas de VecRN.
+        nr_1 = (a_1-p1)/NorVR
+        nr_2 = (a_2-p2)/NorVR
+
+        # Vector B' normalizado y su etiqueta.
         VecBPN = Arrow((0,0,0),(nbp_1,nbp_2,0), color = VERDE, buff = 0)
-        VecBPNLab = TextMobject(''' $ \\hat{b}' $ ''').move_to(VecBPN.get_end()+0.5*UP).set_color(VERDE)
+        #VecBPNLab = TextMobject(''' $ \\hat{b}' $ ''').move_to(VecBPN.get_end()+0.5*UP).set_color(VERDE)
+        VecBPNLab = TextMobject(''' $ \\hat{a}' $ ''').move_to(VecBPN.get_end()+0.5*UP).set_color(VERDE)
 
-        #Vector VecR_1 normalizado y su etiqueta.
+        # Vector VecR_1 normalizado y su etiqueta.
         VecRN_1 = Arrow((0,0,0),(nvr_2,nvr_1,0), color = VERDE, buff = 0)
         #VecRN_1Lab = TextMobject(''' $ \\hat{b}' $ ''').move_to(VecRN_1.get_end()+0.5*UP).set_color(VERDE)
         VecRN_1Lab = TextMobject(''' $ \\hat{b}' $ ''').move_to(VecRN_1.get_end()+0.5*DOWN).set_color(VERDE)
+
+        # Vector VecR normalizado y su etiqueta.
+        VecRN = Arrow((0,0,0),(nr_1,nr_2,0), color = VERDE, buff = 0)
+        VecRNLab = TextMobject(''' $ \\hat{a}' $ ''').move_to(VecRN.get_end()+0.5*LEFT).set_color(VERDE)
 
         # Función para primer generado.
         # Aquí ya se encuentran los self.play.
@@ -607,7 +637,7 @@ class Escena1(ThreeDScene):
         # Función para mostrar el segundo generado.
         # Aquí ya se encuentran los self.play.
         def gen2(Vec1,Vec2,Lab1,Lab2):
-            self.add_foreground_mobject(Text9_1.group)
+            #self.add_foreground_mobject(Text9_1.group)
             self.play(FadeOut(VGroup(Lab1,Lab2)))
             # Copias de vectores.
             Copia1 = Vec1.copy()
@@ -724,6 +754,7 @@ class Escena1(ThreeDScene):
             self.play(ShowCreation(Plano1), run_time=0.05)
             self.play(ShowCreation(Plano2), run_time = 0.05)
             self.play(FadeOut(VGroup(Linea1,Linea2)), run_time=0.05)
+            self.add_foreground_mobject(CtoOF)
             self.play(vt1.set_value,5,run_time=0.85,rate_func=linear)
             Plano1.remove_updater(upd_for_plano)
             self.play(vt1.set_value,0,rate_func=linear)
@@ -737,11 +768,12 @@ class Escena1(ThreeDScene):
             self.wait(0.65)
             #self.play(Write(Text9_1.group))
             self.play(FadeOut(Vec1c))
-            self.remove_foreground_mobject(Text9_1.group)
-            self.add_foreground_mobject(Text9_1)
-            self.play(ReplacementTransform(Text9_1.bg,Text9_2.bg))
-            self.remove_foreground_mobject(Text9_1)
-            self.play(ReplacementTransform(Text9_1,Text9_2))
+            #self.remove_foreground_mobject(Text9_1.group)
+            #self.add_foreground_mobject(Text9_1)
+            #self.play(ReplacementTransform(Text9_1.bg,Text9_2.bg))
+            #self.remove_foreground_mobject(Text9_1)
+            #self.play(ReplacementTransform(Text9_1,Text9_2))
+            self.play(Write(Text9_2.group))
             #self.add_foreground_mobjects(Text9_2.group,Text2.bg,Text1,Text2_2,Text2_1)
             self.add_foreground_mobjects(Text9_2.group,Text11.group)
             self.wait(0.65)
@@ -749,7 +781,7 @@ class Escena1(ThreeDScene):
             #self.remove(VGroup(Plano1,Plano2))
             self.play(FadeOut(VGroup(Plano1,Plano2)))
             #self.remove_foreground_mobjects(Text9_2.group,Text2.bg,Text1,Text2_2,Text2_1)
-            self.remove_foreground_mobjects(Text9_2.group)
+            self.remove_foreground_mobjects(Text9_2.group,CtoOF)
             #self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
             #self.play(FadeOut(VGroup(VecRCL,Punto)))
             self.play(FadeOut(VGroup(Vec1c,VecRCL,Punto)))
@@ -897,6 +929,7 @@ class Escena1(ThreeDScene):
             Punto = Dot(radius=0.01, color = TEAL_E).set_fill(TEAL_A)
             #self.remove(VGroup(Plano1,Plano2))
             self.play(FadeOut(VGroup(Plano1,Plano2)))
+            self.play(FadeOut(Text9_1.group))
             #self.remove_foreground_mobject(Texto.group)
             self.remove_foreground_mobject(Text9_1.group)
             #self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
@@ -943,13 +976,16 @@ class Escena1(ThreeDScene):
                 NewVecRCL = DashedArrow((0,0,0),Vec2c.get_end(), buff=0, color = AZUL_OSCURO).set_fill(opacity=1)
                 obj.become(NewVecRCL)
             # Primera línea usada.
-            Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            #Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5)
+            Linea1 = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP, Vec2c.get_end(), color = AZUL_OSCURO).set_fill(opacity=0.5)
             # Segunda línea usada.
-            Linea2 = Line(Vec1.get_end(), Vec1.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+            #Linea2 = Line(Vec1.get_end(), Vec1.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+            Linea2 = Line(Vec1.get_end(), Vec1.get_end()-(0.01*B1,0.01*B2,0), color = AZUL_OSCURO).set_fill(opacity=0.5)
             # Función para cambiar tamaño de las líneas.
             def upd_for_linea(obj):
                 t = vt1.get_value()
-                new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+                #new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
+                new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(B1+t*B1,B2+t*B2,0), color = AZUL_OSCURO).set_fill(opacity=0.5)
                 obj.become(new_linea)
             self.play(ShowCreation(Linea1),ShowCreation(Linea2))
             self.bring_to_back(Linea1)
@@ -1035,11 +1071,12 @@ class Escena1(ThreeDScene):
             #self.add_foreground_mobjects(Text9_3.group,CtoON_2.bg,CtoON_2,Cto.group)
             self.add_foreground_mobjects(Text9_3.group,CtoON_2.bg,CtoON_2)
             self.wait(0.65)
-            Punto = Dot(radius=0.01, color = MAGENTA).set_fill(MAGENTA)
+            Punto = Dot(radius=0.01, color = AZUL_CLARO).set_fill(AZUL_CLARO)
             #self.remove(VGroup(Plano1,Plano2))
             self.play(FadeOut(VGroup(Plano1,Plano2)))
             #self.remove_foreground_mobjects(Text9_3.group,CtoON_2.bg,CtoON_2,Cto.group)
             self.remove_foreground_mobjects(Text9_3.group,CtoON_2.bg,CtoON_2)
+            self.play(FadeOut(Text9_3.group))
             #self.play(ReplacementTransform(VGroup(Plano1,Plano2),Punto))
             #self.play(FadeOut(VGroup(Vec1c,VecRCL,Punto)))
             self.play(FadeOut(VGroup(VecRCL,Punto)))
@@ -1100,6 +1137,7 @@ class Escena1(ThreeDScene):
         self.remove_foreground_mobject(Text1)
         self.play(ReplacementTransform(Text1_1,Text2_1),Write(Text2_2))
         self.wait(0.65)
+        self.play(FadeOut(VecALab))
         self.bring_to_back(pared)
         self.play(ShowCreation(pared))
         self.bring_to_back(luz)
@@ -1109,6 +1147,7 @@ class Escena1(ThreeDScene):
         self.play(ShowCreation(VecP), runtime=2)
         self.wait(0.65)
         self.play(FadeOut(luz),FadeOut(pared))
+        self.play(Write(VecALab))
         self.wait(0.65)
         self.play(Write(Tsilo.bg))
         self.play(Write(TCon))
@@ -1127,11 +1166,13 @@ class Escena1(ThreeDScene):
         self.wait(0.65)
         self.bring_to_back(pared2)
         self.play(ShowCreation(pared2))
+        self.play(FadeOut(VecBLab))
         self.bring_to_back(luz2)
         self.play(ShowCreation(luz2))
         self.remove_foreground_mobject(VecA)
         self.play(ShowCreation(VecP_2))
         self.play(FadeOut(luz2),FadeOut(pared2))
+        self.play(Write(VecBLab))
         self.wait(0.65)
         #self.play(FadeOut(Cto.group), FadeOut(VecP), FadeOut(Tsilo.group), FadeOut(Text5.group))
         self.play(FadeOut(VecP), FadeOut(Tsilo.group), FadeOut(Text5.group))
@@ -1157,38 +1198,48 @@ class Escena1(ThreeDScene):
         self.wait(0.65)
         self.play(ReplacementTransform(VGroup(VecR_1,VecRLab_1),VGroup(VecB,VecBLab)))
         self.play(FadeOut(VGroup(Text6_2.bg,Text6_2)))
+        self.play(Write(CtoO.group))
+        self.play(ReplacementTransform(CtoO,CtoO_1_1))
         self.play(Write(Text11.group))
         self.bring_to_back(pared)
         self.play(ShowCreation(pared))
+        self.play(FadeOut(VecALab))
         self.bring_to_back(luz)
         self.play(ShowCreation(luz))
         self.remove_foreground_mobject(VecA)
         self.play(ShowCreation(VecPnaranja))
         self.play(FadeOut(luz),FadeOut(pared))
+        self.play(Write(VecALab))
         self.play(ReplacementTransform(VecPnaranja,VecPC))
         self.wait(0.65)
-        self.play(ShowCreation(VecR),Write(VecRLab))   
+        self.play(ShowCreation(VecR),Write(VecRLab))
+        self.add_foreground_mobject(CtoO_1_1)
+        self.play(ReplacementTransform(CtoO.bg,CtoO_2.bg))
+        self.remove_foreground_mobject(CtoO_1_1)
+        self.play(ReplacementTransform(CtoO_1_1,CtoO_2_1))
         self.play(FadeOut(VGroup(VecPC,VecA,VecALab)))
         self.wait(0.65)
         gen2(VecR,VecB,VecRLab,VecBLab)
-        
-        self.play(FadeOut(VGroup(Text2.group)))
-        self.play(ReplacementTransform(VecR,VecA),ReplacementTransform(VecRLab,VecALab))
 
-        self.play(ReplacementTransform(VGroup(VecA,VecALab),VGroup(VecAN,VecANLab)))
-        self.play(ReplacementTransform(VGroup(VecRLab_1,VecR_1),VGroup(VecRN_1,VecRN_1Lab)))
+        self.play(ReplacementTransform(VecB,VecBN),ReplacementTransform(VecBLab,VecBNLab))
+        self.play(ReplacementTransform(VecR,VecRN),ReplacementTransform(VecRLab,VecRNLab))
         self.wait(0.65)
 
-        #self.play(FadeOut(Quitar2),ShowCreation(VecB),Write(VecBLab),Write(VecALab),Write(Cto.group),ShowCreation(VecAc))
-        self.play(FadeOut(Quitar2),Write(VecBLab),Write(VecALab),ShowCreation(VecAc))
+        self.remove_foreground_mobject(Text11.group)
+        self.play(FadeOut(VGroup(Text9_2.group,Text11.group,CtoOF)))
+
+        #self.play(ReplacementTransform(VecR,VecA),ReplacementTransform(VecRLab,VecALab))
+        self.play(ReplacementTransform(VecRN,VecA),ReplacementTransform(VecRNLab,VecALab))
+        self.play(ReplacementTransform(VecBN,VecBc),ReplacementTransform(VecBNLab,VecBcLab))
+
         self.wait(0.65)
         self.play(Write(CtoON.group))
         self.wait(0.65)
         self.bring_to_back(Eje)
         self.play(ShowCreation(Eje))
-        self.play(ReplacementTransform(VecB,VecBN))
-        self.play(FadeOut(VecB))#############################
-        self.play(ReplacementTransform(VecBLab,VecBNLab))
+        self.play(ReplacementTransform(VecBc,VecBNc))
+        #self.play(FadeOut(VecB))
+        self.play(ReplacementTransform(VecBcLab,VecBNcLab))
         self.play(FadeOut(Eje))
         self.play(ReplacementTransform(CtoON,CtoON_1))
         self.wait(0.65)
@@ -1198,25 +1249,24 @@ class Escena1(ThreeDScene):
         self.play(ReplacementTransform(VecPc,VecPC))
         self.remove_foreground_mobject(VecPc)
         self.wait(0.65)
-        self.play(ShowCreation(VecR),Write(VecRLab))
+        self.play(ShowCreation(VecRc),Write(VecRcLab))
         self.wait(0.65)
-        self.play(FadeOut(VecPC),FadeOut(VGroup(VecAc,VecALab)))
-        self.play(ReplacementTransform(VecR,VecBPN))
+        self.play(FadeOut(VecPC),FadeOut(VGroup(VecAc,VecALab,VecA)))
+        self.play(ReplacementTransform(VecRc,VecBPN))
         self.wait(0.65)
-        self.play(ReplacementTransform(VecRLab,VecBPNLab))
+        self.play(ReplacementTransform(VecRcLab,VecBPNLab))
         self.wait(0.65)
         self.add_foreground_mobject(CtoON_1)
         self.play(ReplacementTransform(CtoON.bg,CtoON_2.bg))
         self.play(ReplacementTransform(CtoON_1,CtoON_2))
         self.remove_foreground_mobject(CtoON_1)
         self.wait(0.65)
-        gen4(VecBPN,VecBN,VecBPNLab,VecBNLab)
-        self.play(Write(Text9_3.group))
+        gen4(VecBPN,VecBNc,VecBPNLab,VecBNcLab)
+        #self.play(Write(Text9_3.group))
         self.wait(2)
         self.play( *[FadeOut(mob)for mob in self.mobjects] )
         self.wait(2)
 
-        self.wait(2)
         
         
         
