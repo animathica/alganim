@@ -194,12 +194,6 @@ class Escena1(ThreeDScene):
         Text5.bg = SurroundingRectangle(Text5, color = WHITE, fill_color = BLACK, fill_opacity = 1)
         Text5.group = VGroup(Text5.bg,Text5)
 
-        # Texto para proyección de b sobre a.
-        Text11 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\vec{b} \\rangle} { \\norm{ \\vec{b}} } \\hat{b} \\neq \\vec{0} $''').move_to(2*UP + 4*LEFT).scale(1.2)
-        Text11[0][0:14].set_color(AMARILLO)
-        Text11.bg = SurroundingRectangle(Text11, color = WHITE, fill_color = BLACK, fill_opacity = 1)
-        Text11.group = VGroup(Text11.bg,Text11)
-
         # Texto para segundo conjunto ortonormal, su rectángulo, y las variaciones usadas.
         Text6 = TextMobject('''$ \\Gamma_1 = \{ \\vec{a} \} $''').move_to(2.5*DOWN + 3.5*RIGHT)
         for i in range(4,6):
@@ -338,6 +332,11 @@ class Escena1(ThreeDScene):
                 
         # Copia de proyección de a sobre b usada para la resta.
         VecPC = Arrow((a_1,a_2,0),(a_1-p1,a_2-p2,0), color = AMARILLO, buff = 0)
+
+        # Texto para penúltima proyección.
+        Text13 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\vec{b} \\rangle} { \\norm{ \\vec{b}} } \\hat{b} $''').move_to(VecPnaranja.get_end()+0.9*DOWN).set_color(AMARILLO)
+        Text13_1 = TextMobject('''$ - \\frac{ \\langle \\vec{a} , \\vec{b} \\rangle} { \\norm{ \\vec{b}} } \\hat{b} $''').move_to(VecPnaranja.get_end()+0.9*DOWN).set_color(AMARILLO)
+        Text13_2 = TextMobject('''$ - \\frac{ \\langle \\vec{a} , \\vec{b} \\rangle} { \\norm{ \\vec{b}} } \\hat{b} $''').move_to(VecPC.get_end()+0.9*UP).set_color(AMARILLO)
 
         # Texto para última proyección.
         Text12 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\hat{b} \\rangle} { \\norm{ \\hat{b}} } \\hat{b} $''').move_to(1*LEFT).set_color(AMARILLO)
@@ -1003,7 +1002,7 @@ class Escena1(ThreeDScene):
         VecAc = Arrow((0, 0, 0), a_1 * RIGHT + a_2*UP, buff=0,color=AZUL)
 
         # Grupos que se quitan.
-        Quitar2 = VGroup(Text6_2.bg,Text6_2,VecRN_1Lab,Text9_2.group,VecRN_1,Text11.group,VecAN,VecANLab)
+        Quitar2 = VGroup(Text6_2.bg,Text6_2,VecRN_1Lab,Text9_2.group,VecRN_1,VecAN,VecANLab)
 
 
 
@@ -1023,22 +1022,16 @@ class Escena1(ThreeDScene):
         self.wait(0.65)
         self.play(ShowCreation(Ejes))
         self.wait(0.65)
-        self.play(FadeOut(Ejes))
-        gen1(VecA,VecB,VecALab,VecBLab)
-        self.wait(0.65)
         self.play(Write(VGroup(Text10.bg,Text10)))
         self.play(Write(Text10_1))
         self.play(Write(Text10_2))
         self.wait(0.65)
         self.play(FadeOut(Text10.group))
         self.wait(0.65)
-
-        self.play(Write(Text1.group))
-        self.add_foreground_mobject(Text1)
+        self.play(FadeOut(Ejes))
+        gen1(VecA,VecB,VecALab,VecBLab)
         self.wait(0.65)
-        self.play(ReplacementTransform(Text1.bg,Text2.bg), runtime = 0.5)
-        self.remove_foreground_mobject(Text1)
-        self.play(ReplacementTransform(Text1_1,Text2_1),Write(Text2_2))
+        self.play(Write(Text1.group))
         self.wait(0.65)
         self.play(FadeOut(VecALab))
         self.bring_to_back(pared)
@@ -1048,6 +1041,11 @@ class Escena1(ThreeDScene):
         self.wait(0.65)
         self.add_foreground_mobject(VecP)
         self.play(ShowCreation(VecP), runtime=2)
+        self.add_foreground_mobject(Text1)
+        self.wait(0.65)
+        self.play(ReplacementTransform(Text1.bg,Text2.bg), runtime = 0.5)
+        self.remove_foreground_mobject(Text1)
+        self.play(ReplacementTransform(Text1_1,Text2_1),Write(Text2_2))
         self.wait(0.65)
         self.play(FadeOut(luz),FadeOut(pared))
         self.play(Write(VecALab))
@@ -1057,13 +1055,6 @@ class Escena1(ThreeDScene):
         self.play(Write(TCon_1))
         self.play(Write(TCon_2))
         self.wait(0.65)
-        self.play(ReplacementTransform(VGroup(Text1,Text2.bg,Text2_2,Text2_1),Text5.group))
-        self.wait(0.65)
-
-        self.play(Write(Text6.group))
-        self.wait(0.65)
-        self.play(ReplacementTransform(Text6,Text6_1))
-        self.wait(0.65)
         self.bring_to_back(pared2)
         self.play(ShowCreation(pared2))
         self.play(FadeOut(VecBLab))
@@ -1071,8 +1062,14 @@ class Escena1(ThreeDScene):
         self.play(ShowCreation(luz2))
         self.remove_foreground_mobject(VecA)
         self.play(ShowCreation(VecP_2))
+        self.play(ReplacementTransform(VGroup(Text1,Text2.bg,Text2_2,Text2_1),Text5.group))
+        self.wait(0.65)
         self.play(FadeOut(luz2),FadeOut(pared2))
         self.play(Write(VecBLab))
+        self.wait(0.65)
+        self.play(Write(Text6.group))
+        self.wait(0.65)
+        self.play(ReplacementTransform(Text6,Text6_1))
         self.wait(0.65)
         self.play(FadeOut(VecP), FadeOut(Tsilo.group), FadeOut(Text5.group))
         self.play(ReplacementTransform(VecP_2,VecPC_1))
@@ -1088,13 +1085,13 @@ class Escena1(ThreeDScene):
         self.wait(0.65)
         self.add_foreground_mobjects(Text6_2.bg,Text6_2)
         gen3(VecA,VecR_1,VecALab,VecRLab_1)
+        self.wait(0.65)
         self.remove_foreground_mobjects(Text5.group,Text6_2.bg,Text6_2)
         self.wait(0.65)
         self.play(ReplacementTransform(VGroup(VecR_1,VecRLab_1),VGroup(VecB,VecBLab)))
         self.play(FadeOut(VGroup(Text6_2.bg,Text6_2)))
         self.play(Write(CtoO.group))
         self.play(ReplacementTransform(CtoO,CtoO_1_1))
-        self.play(Write(Text11.group))
         self.bring_to_back(pared)
         self.play(ShowCreation(pared))
         self.play(FadeOut(VecALab))
@@ -1102,29 +1099,26 @@ class Escena1(ThreeDScene):
         self.play(ShowCreation(luz))
         self.remove_foreground_mobject(VecA)
         self.play(ShowCreation(VecPnaranja))
+        self.play(Write(Text13))
         self.play(FadeOut(luz),FadeOut(pared))
         self.play(Write(VecALab))
-        self.play(ReplacementTransform(VecPnaranja,VecPC))
+        self.play(ReplacementTransform(Text13,Text13_1))
+        self.play(ReplacementTransform(VecPnaranja,VecPC),ReplacementTransform(Text13_1,Text13_2))
         self.wait(0.65)
-        self.play(ShowCreation(VecR),Write(VecRLab))
+        self.play(ShowCreation(VecR),Write(VecRLab),FadeOut(Text13_2))
         self.add_foreground_mobject(CtoO_1_1)
         self.play(ReplacementTransform(CtoO.bg,CtoO_2.bg))
         self.remove_foreground_mobject(CtoO_1_1)
         self.play(ReplacementTransform(CtoO_1_1,CtoO_2_1))
-        self.remove_foreground_mobject(Text11.group)
-        self.play(FadeOut(VGroup(VecPC,VecA,VecALab,Text11.group)))
+        self.play(FadeOut(VGroup(VecPC,VecA,VecALab)))
         self.wait(0.65)
         gen2(VecR,VecB,VecRLab,VecBLab)
-
         self.play(FadeOut(VGroup(Text9_2.group,CtoOF)))
-
         self.play(ReplacementTransform(VecB,VecBN),ReplacementTransform(VecBLab,VecBNLab))
         self.play(ReplacementTransform(VecR,VecRN),ReplacementTransform(VecRLab,VecRNLab))
         self.wait(0.65)
-
         self.play(ReplacementTransform(VecRN,VecA),ReplacementTransform(VecRNLab,VecALab))
         self.play(ReplacementTransform(VecBN,VecBc),ReplacementTransform(VecBNLab,VecBcLab))
-
         self.wait(0.65)
         self.play(Write(CtoON.group))
         self.wait(0.65)
@@ -1135,10 +1129,9 @@ class Escena1(ThreeDScene):
         self.play(FadeOut(Eje))
         self.play(ReplacementTransform(CtoON,CtoON_1))
         self.wait(0.65)
-        self.play(Write(Text12))
-        self.play(ReplacementTransform(Text12,Text12_1))
         self.add_foreground_mobject(VecPc)
-        self.play(ShowCreation(VecPc))
+        self.play(ShowCreation(VecPc),Write(Text12))
+        self.play(ReplacementTransform(Text12,Text12_1))
         self.wait(0.65)
         self.play(ReplacementTransform(Text12_1,Text12_2))
         self.play(ReplacementTransform(VecPc,VecPC),ReplacementTransform(Text12_2,Text12_3))
@@ -1159,8 +1152,8 @@ class Escena1(ThreeDScene):
         gen4(VecBPN,VecBNc,VecBPNLab,VecBNcLab)
         self.wait(2)
         self.play( *[FadeOut(mob)for mob in self.mobjects] )
-        self.wait(2)        
-        
+        self.wait(2)
+	
         
 	
 #####################################################################################
