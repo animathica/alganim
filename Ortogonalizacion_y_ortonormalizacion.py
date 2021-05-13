@@ -2020,11 +2020,9 @@ class SegundaEscena(ThreeDScene):
 
 
 
-	
-from manimlib.imports import *
 ######################################################
 ##### Tercera escena #################################
-##### versión: Manim cairo ################ ##########
+##### versión: Manimlib ##############################
 ######################################################
 
 class CodeWindow(VGroup):
@@ -2036,7 +2034,7 @@ class CodeWindow(VGroup):
             usar lineas de texto que nunca serán escritas o añadidas a la pantalla.
     '''
     # PARA EL EQUIPO DE DOCUMENTACIÓN:
-    # Mejorar la recepción de parámetros con **kwargs, si se puedem para escribir mejor la clase.
+    # Mejorar la recepción de parámetros con **kwargs, si se puede, para escribir mejor la clase.
     # Implementar mejor control sobre el formato de la enumeración.
 
     def __init__(self, text, buff, color, fill_color, stroke_width, fill_opacity):
@@ -2203,23 +2201,29 @@ class TerceraEscena(GraphScene, Scene):
         conclusiones = (TextMobject(
             "\\quad¡", #0
             "$\\Gamma$",#1
-            " es ortogonal!", #2
-            "\\quad\\quad\\quad", #3
-            "$\\langle$", #4
-            "$\\Gamma$", #5
-            "$\\rangle$", #6
-            "$= \\langle I\\rangle = \\langle$",#7
-            "$N$",#8
-            "$\\rangle$", #9
-            "\\quad\\quad\\quad", #10
-            "¡",#11
-            "$N$",#12
-            " es ortonormal!" #13
+            " es ", #2
+            "ortogonal", #3
+            "!", #4
+            "\\quad\\quad\\quad", #5
+            "$\\langle$", #6
+            "$\\Gamma$", #7
+            "$\\rangle$", #8
+            "$ = \\langle I\\rangle = \\langle$",#9
+            "$N$",#10
+            "$\\rangle$", #11
+            "\\quad\\quad\\quad", #12
+            "¡",#13
+            "$N$",#14
+            " es ", #15
+            "ortonormal", #16
+            "!"#17
         ).scale(0.7)).next_to(linea, 5*DOWN)
         conclusiones[1].set_color('#0087FF')
-        conclusiones[5].set_color('#0087FF')
-        conclusiones[8].set_color('#4FFF00')
-        conclusiones[12].set_color('#4FFF00')
+        conclusiones[3].set_color('#0087FF')
+        conclusiones[7].set_color('#0087FF')
+        conclusiones[10].set_color('#4FFF00')
+        conclusiones[14].set_color('#4FFF00')
+        conclusiones[16].set_color('#4FFF00')
 
         self.play(Write(seaL))
         self.play(ShowCreation(canvas_GM[0]), run_time = 2)
@@ -2246,15 +2250,15 @@ class TerceraEscena(GraphScene, Scene):
         self.wait(2)
 
         self.play(
-            FadeIn(conclusiones[:3]),
+            FadeIn(conclusiones[6:12]),
             run_time = 2
         )
         self.play(
-            FadeIn(conclusiones[11:]),
+            FadeIn(conclusiones[:5]),
             run_time = 2
         )
         self.play(
-            FadeIn(conclusiones[4:10]),
+            FadeIn(conclusiones[13:]),
             run_time = 2
         )
 
@@ -2271,49 +2275,38 @@ class TerceraEscena(GraphScene, Scene):
         tex_4_1 = TexMobject("\\Gamma", #0
                             " = \\{\\vec{g}_1,..., \\vec{g}_k\\}" #1
                             ).scale(0.6).next_to(tex_1,DOWN)
-        tex_4_2 = TexMobject("\\langle", #0
-                            "\\Gamma", #1
-                            "\\rangle = V" #2
-                            ).scale(0.6).next_to(tex_4_1,DOWN)
-        tex_4_3 = TextMobject("$\\Gamma$", #0
+        tex_4_2 = TextMobject("$\\Gamma$", #0
                                 " es l.i." #1
-                                ).scale(0.6).next_to(tex_4_2,DOWN)
-        tex_4 = VGroup(tex_4_1, tex_4_2, tex_4_3)
+                                ).scale(0.6).next_to(tex_4_1,DOWN)
+        tex_4 = VGroup(tex_4_1, tex_4_2)
         tex_4[0][0].set_color('#0087FF')
-        tex_4[1][1].set_color('#0087FF')
-        tex_4[2][0].set_color('#0087FF')
+        tex_4[1][0].set_color('#0087FF')
         tex_4.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
         tex_4.align_to(tex_1,LEFT)
 
-        tex_2_1 = TexMobject("\\beta = \\{\\vec{b}_1,..., \\vec{b}_k\\}").scale(0.6).next_to(tex_4[0],10*LEFT)
-        tex_2_2 = TexMobject("\\langle\\beta\\rangle = V").scale(0.6).next_to(tex_2_1,DOWN)
-        tex_2_3 = TextMobject("$\\beta$ es l.i.").scale(0.6).next_to(tex_2_2,DOWN)
-        tex_2 = VGroup(tex_2_1, tex_2_2, tex_2_3)
+        tex_2_1 = TexMobject("I= \\{\\vec{v}_1,..., \\vec{v}_k\\},\\,k<\\infty").scale(0.6).next_to(tex_4[0],10*LEFT)
+        tex_2_2 = TextMobject("$I$ es l.i.").scale(0.6).next_to(tex_2_1,DOWN)
+        tex_2 = VGroup(tex_2_1, tex_2_2)
         tex_2.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
 
         
         tex_6_1 = TexMobject("N",
                             " = \\{\\hat{n}_1,..., \\hat{n}_k\\}"
                             ).scale(0.6).next_to(tex_4[0], 10*RIGHT)
-        tex_6_2 = TexMobject("\\langle",
-                            "N",
-                            "\\rangle = V"
-                            ).scale(0.6).next_to(tex_6_1,DOWN)
-        tex_6_3 = TextMobject("$N$",
+        tex_6_2 = TextMobject("$N$",
                             " es l.i."
-                            ).scale(0.6).next_to(tex_6_2,DOWN)
-        tex_6 = VGroup(tex_6_1, tex_6_2, tex_6_3)
+                            ).scale(0.6).next_to(tex_6_1,DOWN)
+        tex_6 = VGroup(tex_6_1, tex_6_2)
         tex_6[0][0].set_color('#4FFF00')
-        tex_6[1][1].set_color('#4FFF00')
-        tex_6[2][0].set_color('#4FFF00')
+        tex_6[1][0].set_color('#4FFF00')
         tex_6.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
 
-        tex_3_1 = TexMobject("\\vec{g}_1:=\\vec{b}_1").scale(0.6).next_to(tex_4,2.5*DOWN)
+        tex_3_1 = TexMobject("\\vec{g}_1:=\\vec{v}_1").scale(0.6).next_to(tex_4,2.5*DOWN)
         tex_3_2 = TexMobject("""\\vec{g}_j:=
-                        \\vec{b}_j
+                        \\vec{v}_j
                         -
                         \\displaystyle\\sum_{i=1}^{j-1}
-                        \\dfrac{\\langle\\vec{b}_j, \\vec{g}_i\\rangle}
+                        \\dfrac{\\langle\\vec{v}_j, \\vec{g}_i\\rangle}
                         {\\left\\Vert\\vec{g}_i\\right\\Vert}
                         \\hat{g}_i
                         """).scale(0.6).next_to(tex_3_1,2.5*DOWN)
@@ -2321,21 +2314,21 @@ class TerceraEscena(GraphScene, Scene):
         tex_3.arrange(5*DOWN, center=False, aligned_edge=LEFT)
         tex_3.align_to(tex_4,LEFT)
 
-        tex_5_1 = TexMobject("\\hat{n}_1:=\\dfrac{\\vec{b}_1}{\\left\\Vert\\vec{b}_1\\right\\Vert}").scale(0.6).next_to(tex_6,1.5*DOWN)
+        tex_5_1 = TexMobject("\\hat{n}_1:=\\dfrac{\\vec{v}_1}{\\left\\Vert\\vec{v}_1\\right\\Vert}").scale(0.6).next_to(tex_6,1.5*DOWN)
         tex_5_2 = TexMobject("""\\hat{n}_j:=
                         \\dfrac{
-                        \\vec{b}_j
+                        \\vec{v}_j
                         -
                         \\displaystyle\\sum_{i=1}^{j-1}
-                        \\langle\\vec{b}_j, \\hat{n}_i\\rangle
+                        \\langle\\vec{v}_j, \\hat{n}_i\\rangle
                         \\hat{n}_i
                         }
                         {
                         \\left\\Vert
-                        \\vec{b}_j
+                        \\vec{v}_j
                         -
                         \\displaystyle\\sum_{i=1}^{j-1}
-                        \\langle\\vec{b}_j, \\hat{n}_i\\rangle
+                        \\langle\\vec{v}_j, \\hat{n}_i\\rangle
                         \\hat{n}_i
                         \\right\\Vert
                         }
@@ -2343,30 +2336,47 @@ class TerceraEscena(GraphScene, Scene):
         tex_5 = VGroup(tex_5_1, tex_5_2)
         tex_5.arrange(1*DOWN, center=False, aligned_edge=LEFT)
         tex_5.align_to(tex_6,LEFT)
+        tex_5[1].shift(0.3*DOWN)
 
         intervalo_j = TexMobject("1<j\\leq k").scale(0.6).next_to(tex_5, LEFT)
         intervalo_j.align_to(tex_2,LEFT)
         intervalo_j.shift(0.7*DOWN)
 
-        tex_7_1 = TextMobject("$\\beta$ es base de $V$").scale(0.6)
-        arrow = TextMobject("$\\Longrightarrow$").scale(0.6).next_to(tex_7_1,1.5*RIGHT)
-        tex_7_2 = TextMobject("$\\Gamma$",
-                            " es base ",
-                            "ortogonal ",
-                            "de $V$, ",
-                            "$N$",
-                            " es base ",
-                            "ortonormal ",
-                            "de $V$").scale(0.6).next_to(arrow,1.5*RIGHT)
-        tex_7_2[0].set_color('#0087FF')
-        tex_7_2[2].set_color('#0087FF')
-        tex_7_2[4].set_color('#4FFF00')
-        tex_7_2[6].set_color('#4FFF00')
-        tex_7 = VGroup(tex_7_1, arrow, tex_7_2).move_to(3*DOWN)
 
-        tex_teorema = [tex_1, tex_2, tex_3, tex_4, tex_5, tex_6, tex_7, tex_8]
+        tex_7_0 = TextMobject("$\\langle$", #0
+            "$\\Gamma$", #1
+            "$\\rangle$", #2
+            "$ = \\langle I\\rangle = \\langle$",#3
+            "$N$",#4
+            "$\\rangle$", #5
+            )
+        tex_7_1 = TextMobject("$\\Gamma$",
+                                " es un conjunto ",
+                                "ortogonal",
+                                ", "
+                            ).next_to(tex_7_0)
+        tex_7_2 = TextMobject("$N$",
+                                " es un conjunto ",
+                                "ortonormal"
+                            ).next_to(tex_7_1,RIGHT)
 
-        self.play(Write(tex_1))
+        tex_7_0[1].set_color('#0087FF')
+        tex_7_0[4].set_color('#4FFF00')
+
+        tex_7_1[0].set_color('#0087FF')
+        tex_7_1[2].set_color('#0087FF')
+
+        tex_7_2[0].set_color('#4FFF00')
+        tex_7_2[2].set_color('#4FFF00')
+                            
+        tex_7_1_2 = VGroup(tex_7_1, tex_7_2)
+
+        tex_7_1_2.next_to(tex_7_0, 4*DOWN)
+
+        tex_7 = VGroup(tex_7_0, tex_7_1_2[0], tex_7_1_2[1]).scale(0.6).move_to(3*DOWN)
+
+
+        #self.play(Write(tex_1))
         self.wait(2)
         self.play(FadeIn(tex_2), run_time = 2)
         self.wait(2)
@@ -2396,7 +2406,8 @@ class TerceraEscena(GraphScene, Scene):
                 ApplyMethod(intervalo_j.set_color, '#4FFF00', rate_func=there_and_back),
                 run_time = 2
             )
-        self.play(Write(tex_7[0]))
+        self.play(GrowFromCenter(tex_7[0]),
+                run_time = 2)
         self.wait(2)
         self.play(Write(tex_7[1]))
         self.wait(2)
@@ -2415,7 +2426,7 @@ class TerceraEscena(GraphScene, Scene):
         ejercicio_1_1 = TextMobject("Ejercicio 2.1. ","Demuestra que").scale(0.7)
         ejercicio_1_2_1 = TexMobject("""\\Bigg\\langle
                                 \\qty\\Bigg{
-                                \\vec{u},\\vec{v}-\\dfrac{\\langle\\vec{u}, \\vec{v}\\rangle}
+                                \\vec{u},\\vec{v}-\\dfrac{\\langle\\vec{v}, \\vec{u}\\rangle}
                                 {\\left\\Vert\\vec{u}\\right\\Vert}\\hat{u}
                                 """).scale(0.7)
         ejercicio_1_2_2 = TexMobject(
