@@ -10,17 +10,29 @@ import Reanimate
 import Reanimate.LaTeX
 import Reanimate.Scene
 
+--------------------------------------
+-- Código principal de la animación --
+--------------------------------------
+
 main :: IO ()
 main = reanimate $ addStatic (mkBackground "black") $ scene $ do
 
-  -- Este bloque genera una lista con los objetos (SVGs) que serán utilizados en la escena.
+  -- Este bloque dibuja la cabecera, asegurándose de que esté centrada; si no es necesario, se puede "comentar" con "--".
   
-  texts <- mapM oNew [ cabecera, ejercicio1Titulo, ejercicio1Cuerpo, ejercicio1Cuerpo', ejercicio1Cuerpo''
+  cab <- oNew cabecera
+  oModify cab $ oCenterX .~ 0
+  oModify cab $ oTopY .~ 4
+  oShowWith cab $ adjustDuration (*0.33) . oDraw
+  wait 0.5
+  
+  -- Este bloque genera una lista con los demás objetos de texto (SVGs) que serán utilizados en la escena.
+  
+  texts <- mapM oNew [ejercicio1Titulo, ejercicio1Cuerpo, ejercicio1Cuerpo', ejercicio1Cuerpo''
                      , ejercicio2Titulo, ejercicio2Cuerpo, ejercicio2Cuerpo'
                      , preguntaTitulo, preguntaCuerpo]
 
-  -- Este bloque describe lo que sucederá en la escena.
-  
+  -- Este bloque describe lo que sucederá en la escena con los demás objetos de texto.
+
   forM_ (zip5 texts leftXs topYs durationFunctions waitDurations) $    -- Creamos una lista de 5-tuplas a partir de las
     \(obj, xPos, yPos, dFunc, wDur) -> do                                 -- listas de parámetros;
     oModify obj $ oLeftX .~ xPos                                          -- modificamos la posición horizontal del objeto;
@@ -33,16 +45,16 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
 -----------------------------------------------------------------------------
 
 leftXs :: [Double]
-leftXs = [-4.7, -5.5, -3.25, -3.2, -5.5, -5.5, -3.2, -5.5, -5.5, -5.5]
+leftXs = [-5.5, -3.25, -3.2, -5.5, -5.5, -3.2, -5.5, -5.5, -5.5]
 
 topYs :: [Double]
-topYs = [4, 3, 3, 2.25, 1, 0, 0, -0.5, -2, -2]
+topYs = [3, 3, 2.25, 1, 0, 0, -0.5, -2, -2]
 
 durationFunctions :: [(Duration -> Duration)]
-durationFunctions = [(*0.33), (*0.3), (*0.33), (*0.33), (*0.33), (*0.3), (*0.33), (*0.3), (*0.3), (*0.33)]
+durationFunctions = [(*0.3), (*0.33), (*0.33), (*0.33), (*0.3), (*0.33), (*0.3), (*0.3), (*0.33)]
 
 waitDurations :: [Double]
-waitDurations = [0.5, 0.5, 0, 0.5, 0.5, 0.5, 0, 0.5, 0.5, 3]
+waitDurations = [0.5, 0, 0.5, 0.5, 0.5, 0, 0.5, 0.5, 3]
 
 ------------------------------------------------------------------------------------------------------------------
 -- Aquí va el texto que escribiremos, separado en pedazos; usamos "\\hfill\\break" para romper líneas en LaTeX. --
