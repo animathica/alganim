@@ -10,9 +10,9 @@ import Reanimate
 import Reanimate.LaTeX
 import Reanimate.Scene
 
---------------------------------------
--- Código principal de la animación --
---------------------------------------
+----------------------------------------------------------------------------------
+-- Código principal de la animación, que fue generada usando reanimate-1.1.4.0. --
+----------------------------------------------------------------------------------
 
 main :: IO ()
 main = reanimate $ addStatic (mkBackground "black") $ scene $ do
@@ -34,11 +34,11 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
   -- Este bloque describe lo que sucederá en la escena con los demás objetos de texto.
 
   forM_ (zip5 texts leftXs topYs durationFunctions waitDurations) $    -- Creamos una lista de 5-tuplas a partir de las
-    \(obj, xPos, yPos, dFunc, wDur) -> do                                 -- listas de parámetros;
-    oModify obj $ oLeftX .~ xPos                                          -- modificamos la posición horizontal del objeto;
+    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
+    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
     oModify obj $ oTopY .~ yPos                                        -- modificamos la posición vertical del objeto;
-    oShowWith obj $ adjustDuration dFunc . oDraw                          -- dibujamos el objeto ajustando la velocidad;
-    wait wDur                                                             -- esperamos una cantidad indicada de tiempo.
+    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
+    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
 
 -----------------------------------------------------------------------------
 -- Listas de parámetros utilizados en la escena para cada objeto de texto. --
@@ -60,11 +60,11 @@ waitDurations = [0.5, 0, 0.5, 0.5, 0.5, 0, 0.5, 0.5, 3]
 -- Aquí va el texto que escribiremos, separado en pedazos; usamos "\\hfill\\break" para romper líneas en LaTeX. --
 ------------------------------------------------------------------------------------------------------------------
 
-cabecera :: SVG    -- Definimos el SVG de la cabecera con los atributos deseados.
+cabecera :: SVG      -- Definimos el SVG de la cabecera con los atributos deseados.
 cabecera = withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ center $ scale 0.4 $
-         latex "Sea V un espacio vectorial con producto escalar."
+         latex "Sea $V$ un espacio vectorial con producto escalar."
 
-ejercicio1 :: SVG    -- Definimos el SVG de la primera pregunta con los atributos deseados.
+ejercicio1 :: SVG    -- Definimos el SVG del primer ejercicio con los atributos deseados.
 ejercicio1 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
             withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
                 latexCfg myTexConfig "Ejercicio 2.1 Para $\\vec{u},\\vec{v}\\in V$, con $\\vec{u},\\vec{v}\\neq 0$, demuestra que $$\\bigg\\langle\\bigg\\{\\vec{u},\\vec{v}-\\frac{\\langle\\vec{v},\\vec{u}\\rangle}{||\\vec{u}||}\\hat{u}\\bigg\\}\\bigg\\rangle = \\langle\\{\\vec{u},\\vec{v}\\}\\rangle,$$ y dibuja un ejemplo en $\\mathbb{R}^2$."
