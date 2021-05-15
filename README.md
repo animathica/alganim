@@ -18,7 +18,7 @@ Generar material educativo audiovisual para apoyar el curso de Álgebra Lineal d
 ## Acerca del código
 
 El código de este repositorio está escrito principalmente en Python(3), utilizando la biblioteca [Manim](https://github.com/3b1b/manim) para hacer la mayoría de las animaciones. Por el momento, existen varias versiones de esta biblioteca; en este repositorio se han utilizado las siguientes:
-- [manimlib](https://pypi.org/project/manimlib/) 0.2.0                         (también conocido como ManimCairo)
-- [Manim Community](https://docs.manim.community/en/v0.6.0/index.html) v0.6.0  (también conocido como manim/manimCE)
+- [manimlib 0.2.0](https://pypi.org/project/manimlib/)  (también conocido como ManimCairo)
+- [Manim Community v0.6.0](https://docs.manim.community/en/v0.6.0/index.html)  (también conocido como manim/manimCE)
 
-Adicionalmente, algunas escenas están escritas en Haskell, utilizando la biblioteca [Reanimate](https://github.com/reanimate/reanimate). En este repositorio se ha utilizado la versión [reanimate](https://hackage.haskell.org/package/reanimate-1.1.4.0/docs/Reanimate.html) 1.1.4.0; una introducción a esta biblioteca se encuentra disponible [aquí](https://reanimate.readthedocs.io/en/latest/).
+Adicionalmente, algunas escenas están escritas en Haskell, utilizando la biblioteca [Reanimate](https://github.com/reanimate/reanimate). En este repositorio se ha utilizado la versión [reanimate 1.1.4.0](https://hackage.haskell.org/package/reanimate-1.1.4.0/docs/Reanimate.html); una introducción a esta biblioteca se encuentra disponible [aquí](https://reanimate.readthedocs.io/en/latest/).
