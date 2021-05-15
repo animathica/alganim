@@ -16,15 +16,15 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
   -- Este bloque genera una lista con los objetos (SVGs) que serán utilizados en la escena.
   
   texts <- mapM oNew [ cabecera, ejercicio1Titulo, ejercicio1Cuerpo, ejercicio1Cuerpo', ejercicio1Cuerpo''
-                     , ejercicio2Titulo, ejercicio2Cuerpo, ejercicio2Cuerpo', ejercicio2Cuerpo''
-                     , preguntaTitulo, preguntaCuerpo, preguntaCuerpo', preguntaCuerpo'' ]
+                     , ejercicio2Titulo, ejercicio2Cuerpo, ejercicio2Cuerpo'
+                     , preguntaTitulo, preguntaCuerpo]
 
   -- Este bloque describe lo que sucederá en la escena.
   
-  forM_ (zip5 texts leftXs centerYs durationFunctions waitDurations) $    -- Creamos una lista de 5-tuplas a partir de las
+  forM_ (zip5 texts leftXs topYs durationFunctions waitDurations) $    -- Creamos una lista de 5-tuplas a partir de las
     \(obj, xPos, yPos, dFunc, wDur) -> do                                 -- listas de parámetros;
     oModify obj $ oLeftX .~ xPos                                          -- modificamos la posición horizontal del objeto;
-    oModify obj $ oCenterY .~ yPos                                        -- modificamos la posición vertical del objeto;
+    oModify obj $ oTopY .~ yPos                                        -- modificamos la posición vertical del objeto;
     oShowWith obj $ adjustDuration dFunc . oDraw                          -- dibujamos el objeto ajustando la velocidad;
     wait wDur                                                             -- esperamos una cantidad indicada de tiempo.
 
@@ -33,16 +33,16 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
 -----------------------------------------------------------------------------
 
 leftXs :: [Double]
-leftXs = [-4.7, -5.5, -3.25, -3.2, -5.5, -5.5, -3.2, -5.5, -5.5, -5.5, -3.75, -5.5, -5.5]
+leftXs = [-4.7, -5.5, -3.25, -3.2, -5.5, -5.5, -3.2, -5.5, -5.5, -5.5]
 
-centerYs :: [Double]
-centerYs = [3.5, 2.5, 2.5, 1.5, 0.5, -0.5, -0.5, -1, -1.5, -2.5, -2.5, -3, -3.5]
+topYs :: [Double]
+topYs = [4, 3, 3, 2.25, 1, 0, 0, -0.5, -2, -2]
 
 durationFunctions :: [(Duration -> Duration)]
-durationFunctions = [(*0.3), (*0.3), (*0.3), (*0.33), (*0.33), (*0.3), (*0.3), (*0.33), (*0.3), (*0.3), (*0.3), (*0.3), (*0.33)]
+durationFunctions = [(*0.33), (*0.3), (*0.33), (*0.33), (*0.33), (*0.3), (*0.33), (*0.3), (*0.3), (*0.33)]
 
 waitDurations :: [Double]
-waitDurations = [0.5, 0.5, 0, 0, 0.5, 0.5, 0, 0, 0.5, 0.5, 0, 0, 3]
+waitDurations = [0.5, 0.5, 0, 0.5, 0.5, 0.5, 0, 0.5, 0.5, 3]
 
 ------------------------------------------------------------------------------------------------------------------
 -- Aquí va el texto que escribiremos, separado en pedazos; usamos "\\hfill\\break" para romper líneas en LaTeX. --
@@ -81,10 +81,7 @@ ejercicio2Cuerpo :: SVG
 ejercicio2Cuerpo = split [12..46] ejercicio2
 
 ejercicio2Cuerpo' :: SVG
-ejercicio2Cuerpo' = split [47..91] ejercicio2
-
-ejercicio2Cuerpo'' :: SVG
-ejercicio2Cuerpo'' = split [92..139] ejercicio2
+ejercicio2Cuerpo' = split [47..139] ejercicio2
 
 pregunta :: SVG    -- Análogo a lo anterior.
 pregunta = withSubglyphs [0..7] (withStrokeColorPixel miRojo) $ withSubglyphs [0..7] (withFillColorPixel miRojo) $
@@ -95,13 +92,7 @@ preguntaTitulo :: SVG
 preguntaTitulo = split [0..7] pregunta
 
 preguntaCuerpo :: SVG
-preguntaCuerpo = split [8..47] pregunta
-
-preguntaCuerpo' :: SVG
-preguntaCuerpo' = split [48..92] pregunta
-
-preguntaCuerpo'' :: SVG
-preguntaCuerpo'' = split [93..104] pregunta
+preguntaCuerpo = split [8..104] pregunta
 
 --------------------------------------------------------------------------------------------------------------
 -- Funciones auxiliares. En las primeras líneas se declaran las signaturas y en las siguientes, se definen. --
