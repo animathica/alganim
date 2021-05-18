@@ -21,14 +21,14 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
   
   cab <- oNew cabecera
   oModify cab $ oCenterX .~ 0
-  oModify cab $ oTopY .~ 4
+  oModify cab $ oTopY .~ 3.75
   oShowWith cab $ adjustDuration (*0.33) . oDraw
   wait 0.5
   
   -- Este bloque genera una lista con los demás objetos de texto (SVGs) que serán utilizados en la escena.
   
   texts <- mapM oNew [ejercicio1Titulo, ejercicio1Cuerpo, ejercicio1Cuerpo', ejercicio1Cuerpo''
-                     , ejercicio2Titulo, ejercicio2Cuerpo, ejercicio2Cuerpo'
+                     , ejercicio2Titulo, ejercicio2Cuerpo
                      , preguntaTitulo, preguntaCuerpo]
 
   -- Este bloque describe lo que sucederá en la escena con los demás objetos de texto.
@@ -45,16 +45,16 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
 -----------------------------------------------------------------------------
 
 leftXs :: [Double]
-leftXs = [-5.5, -3.25, -3.2, -5.5, -5.5, -3.2, -5.5, -5.5, -5.5]
+leftXs = [-5.5, -3.25, -3.2, -5.5, -5.5, -5.5, -5.5, -5.5]
 
 topYs :: [Double]
-topYs = [3, 3, 2.25, 1, 0, 0, -0.5, -2, -2]
+topYs = [2.75, 2.75, 2, 0.75, -0.25, -0.25, -1.75, -1.75]
 
 durationFunctions :: [(Duration -> Duration)]
-durationFunctions = [(*0.3), (*0.33), (*0.33), (*0.33), (*0.3), (*0.33), (*0.3), (*0.3), (*0.33)]
+durationFunctions = [(*0.3), (*0.33), (*0.33), (*0.5), (*0.3), (*0.33), (*0.3), (*0.33)]
 
 waitDurations :: [Double]
-waitDurations = [0.5, 0, 0.5, 0.5, 0.5, 0, 0.5, 0.5, 3]
+waitDurations = [0.5, 0, 0.5, 0.5, 0.5, 0, 0.5, 3]
 
 ------------------------------------------------------------------------------------------------------------------
 -- Aquí va el texto que escribiremos, separado en pedazos; usamos "\\hfill\\break" para romper líneas en LaTeX. --
@@ -84,21 +84,18 @@ ejercicio1Cuerpo'' = split [85..105] ejercicio1    -- Separamos la última parte
 ejercicio2 :: SVG    -- Análogo a lo anterior.
 ejercicio2 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
             withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
-                latex "Ejercicio 2.2 Supongamos que $V$ tiene dimensión finita. \\hfill\\break Demuestra que, para $1\\leq k\\leq \\text{dim}(V)$, cualquier conjunto \\hfill\\break ortogonal de $k$ vectores es linealmente independiente."
+                latex "Ejercicio 2.2 Demuestra que cualquier conjunto ortogonal \\hfill\\break de vectores no nulos es linealmente independiente."
 
 ejercicio2Titulo :: SVG
 ejercicio2Titulo = split [0..11] ejercicio2
 
 ejercicio2Cuerpo :: SVG
-ejercicio2Cuerpo = split [12..46] ejercicio2
-
-ejercicio2Cuerpo' :: SVG
-ejercicio2Cuerpo' = split [47..139] ejercicio2
+ejercicio2Cuerpo = split [12..99] ejercicio2
 
 pregunta :: SVG    -- Análogo a lo anterior.
 pregunta = withSubglyphs [0..7] (withStrokeColorPixel miRojo) $ withSubglyphs [0..7] (withFillColorPixel miRojo) $
            withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
-           latex "Pregunta ¿Qué sucedería si aplicáramos el proceso de \\hfill\\break Gram-Schmidt a un conjunto linealmente \\emph{dependiente} \\hfill\\break de $k$ vectores?"
+           latex "Pregunta ¿Qué sucedería si aplicáramos el proceso de \\hfill\\break Gram-Schmidt a un conjunto de vectores linealmente \\hfill\\break \\emph{dependiente}?"
 
 preguntaTitulo :: SVG
 preguntaTitulo = split [0..7] pregunta
