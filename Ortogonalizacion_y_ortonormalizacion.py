@@ -340,9 +340,32 @@ class Escena1(ThreeDScene):
 
         # Texto para última proyección.
         Text12 = TextMobject('''$ \\frac{ \\langle \\vec{a} , \\hat{b} \\rangle} { \\norm{ \\hat{b}} } \\hat{b} $''').move_to(1*LEFT).set_color(AMARILLO)
-        Text12_1 = TextMobject('''$ \\langle \\vec{a} , \\hat{b} \\rangle \\hat{b} $''').move_to(1*LEFT).set_color(AMARILLO)
+        Text12_1 = TextMobject('''$ - \\langle \\vec{a} , \\hat{b} \\rangle \\hat{b} $''').move_to(1*LEFT).set_color(AMARILLO)
+        Text12_1[0][0].set_color(BLACK)
         Text12_3 = TextMobject('''$ - \\langle \\vec{a} , \\hat{b} \\rangle  \\hat{b} $''').move_to(VecPC.get_end()+0.6*UP).set_color(AMARILLO)
         
+        # Texto mostrado junto con el primer generado.
+        Text14 = TextMobject('''$ \\{ \\vec{a} + c_2 \\vec{b} : c_2 \\in \\mathbb{R}^2 \\} $''').move_to(1.5*DOWN + 4*LEFT)
+        Text14[0][1:8].set_color(MAGENTA_CLARO)
+        Text14.bg = SurroundingRectangle(Text14,color=WHITE,fill_color=BLACK,fill_opacity=1)
+        Text14.group = VGroup(Text14.bg, Text14)
+        Text14_2 = TextMobject('''$ \\{ c_1 \\vec{a} + c_2 \\vec{b} : c_1, c_2 \\in \\mathbb{R}^2 \\} $''').move_to(1.5*DOWN + 4*LEFT)
+        Text14_2[0][1:10].set_color(MAGENTA_CLARO)
+        Text14_2.bg = SurroundingRectangle(Text14_2,color=WHITE,fill_color=BLACK,fill_opacity=1)
+        Text14_2.group = VGroup(Text14_2.bg, Text14_2)
+
+        # Texto para explicar vectores normalizados.
+        Text15_1 = TextMobject('''$ \\vec{b} \\neq \\vec{0} $''').move_to(0.5*UP + 4*LEFT)
+        Text15_2 = TextMobject('''$ \\hat{v} := \\frac{\\vec{v}}{\\norm{\\vec{v}}} $''').move_to(0.5*DOWN + 4*LEFT)
+        Text15_3 = TextMobject('''$ \\Rightarrow \\frac{\\langle \\vec{u}, \\vec{v} \\rangle}{\\langle \\vec{v}, 
+        \\vec{v} \\rangle} \\vec{v} $''').move_to(1.5*DOWN + 4*LEFT)
+        Text15_4 = TextMobject('''$ \\Rightarrow \\frac{\\langle \\vec{u}, \\vec{v} \\rangle}{\\norm{\\vec{v}}^2} = 
+        \\langle \\vec{u}, \\frac{\\vec{v}}{\\norm{\\vec{v}}} \\rangle \\frac{\\vec{v}}{\\norm{\\vec{v}}} $''').move_to(1.5*DOWN + 4*LEFT)
+        Text15_5 = TextMobject('''$ \\Rightarrow \\frac{\\langle \\vec{u}, \\vec{v} \\rangle}{\\norm{\\vec{v}}^2} =
+        \\langle \\vec{u}, \\hat{v} \\rangle \\hat{v} $ ''').move_to(1.5*DOWN + 4*LEFT)
+        Text15bg = SurroundingRectangle(VGroup(Text15_1,Text15_2,Text15_4),color=WHITE,fill_color=BLACK,fill_opacity=1)
+        Text15group = VGroup(Text15bg,Text15_1,Text15_2,Text15_5)
+
         # Vector resultante de la resta y su etiqueta.
         VecR = Arrow((0, 0, 0),(a_1-p1,a_2-p2,0), color = VERDE, buff = 0)
         VecRLab = TextMobject('''$ \\vec{a}' $''').move_to(VecR.get_end()+0.5*LEFT).set_color(VERDE)
@@ -413,13 +436,6 @@ class Escena1(ThreeDScene):
         nb_1 = b_1/NorB
         nb_2 = b_2/NorB
 
-        # Se normaliza vector A.
-        # Norma de vector A.
-        NorA = np.sqrt(a_1**2 + a_2**2)
-        # Coordenadas de B normalizado.
-        na_1 = a_1/NorA
-        na_2 = a_2/NorA
-
         # Vector B' normalizado y su etiqueta.
         VecBN = Arrow((0,0,0),(nb_1,nb_2,0), color = ROJO, buff = 0)
         VecBNLab = TextMobject(''' $ \\hat{b} $ ''').move_to(VecBN.get_end()+0.5*UP).set_color(ROJO)
@@ -428,19 +444,10 @@ class Escena1(ThreeDScene):
         VecBNc = Arrow((0,0,0),(nb_1,nb_2,0), color = ROJO, buff = 0)
         VecBNcLab = TextMobject(''' $ \\hat{b} $ ''').move_to(VecBN.get_end()+0.5*UP).set_color(ROJO)
 
-        #Vector A' normalizado y su etiqueta.
-        VecAN = Arrow((0,0,0),(na_1,na_2,0), color = AZUL, buff = 0)
-
         # Ejes para mostrar independencia lineal.
         Eje1 = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0)
         Eje2 = DashedLine((0-5*a_1, 0-5*a_2, 0),(5*a_1,5*a_2,0), color = MAGENTA, buff = 0)
         Ejes = VGroup(Eje1,Eje2)
-        Eje1copy = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0)
-        Eje2copy = DashedLine((0-5*a_1, 0-5*a_2, 0),(5*a_1,5*a_2,0), color = MAGENTA, buff = 0)
-
-        # Copia de ejes, más grande.
-        Eje1c = DashedLine((0-5*b_1, 0-5*b_2, 0),(5*b_1,5*b_2,0), color = MAGENTA, buff = 0).scale(2)
-        Eje2c = DashedLine((0-5*a_1, 0-5*a_2, 0),(5*a_1,5*a_2,0), color = MAGENTA, buff = 0).scale(2)
 
         #Se normaliza vector B'.
         # Norma de vector B'.
@@ -529,12 +536,15 @@ class Escena1(ThreeDScene):
             VecRCL.add_updater(upd_for_vecrcl_1)
             Linea1.add_updater(upd_for_linea)
             Linea2.add_updater(upd_for_linea)
+            self.play(Write(Text14.group))
+            self.add_foreground_mobjects(Text14.group)
             self.play(vt1.set_value,7.5,run_time=1.3)
             Linea1.remove_updater(upd_for_linea)
             self.play(vt1.set_value,0)
             self.play(vt1.set_value,-9,run_time=1.3)
             Linea2.remove_updater(upd_for_linea)
             self.play(vt1.set_value,0)
+            self.remove_foreground_mobjects(Text14.group)
             Vec2.remove_updater(upd_for_vec2_1)
             Vec2c.remove_updater(upd_for_vec2c_1)
             VecRCL.remove_updater(upd_for_vecrcl_1)
@@ -579,6 +589,8 @@ class Escena1(ThreeDScene):
             Vec1c.add_updater(upd_for_vec1c_1)
             VecRCL.add_updater(upd_for_vecrcl_2)
             Plano1.add_updater(upd_for_plano)
+            self.play(ReplacementTransform(Text14.group,Text14_2.group))
+            self.add_foreground_mobjects(Text14_2.group)
             self.play(ShowCreation(Plano1), run_time=0.05)
             self.play(ShowCreation(Plano2), run_time = 0.05)
             self.play(FadeOut(VGroup(Linea1,Linea2)), run_time=0.05)
@@ -595,7 +607,9 @@ class Escena1(ThreeDScene):
             VecRCL.remove_updater(upd_for_vecrcl_2)
             self.wait(0.65)
             self.play(FadeOut(Vec1c))
-            self.play(Write(Text9.group))
+            #self.play(Write(Text9.group))
+            self.remove_foreground_mobjects(Text14_2.group)
+            self.play(ReplacementTransform(Text14_2.group,Text9.group))
             self.add_foreground_mobject(Text9.group)
             self.wait(0.65)
             Punto = Dot(radius=0.01, color = MAGENTA).set_fill(MAGENTA)
@@ -1101,6 +1115,20 @@ class Escena1(ThreeDScene):
         self.wait(0.65)
         gen2(VecR,VecB,VecRLab,VecBLab)
         self.play(FadeOut(VGroup(Text9_2.group,CtoOF)))
+
+        self.play(Write(Text15bg))
+        self.play(Write(Text15_1))
+        self.wait(0.65)
+        self.play(Write(Text15_2))
+        self.wait(0.65)
+        self.play(Write(Text15_3))
+        self.wait(0.65)
+        self.play(ReplacementTransform(Text15_3,Text15_4))
+        self.wait(0.65)
+        self.play(ReplacementTransform(Text15_4,Text15_5))
+        self.wait(0.65)
+        self.play(FadeOut(Text15group))
+
         self.play(ReplacementTransform(VecB,VecBN),ReplacementTransform(VecBLab,VecBNLab))
         self.play(ReplacementTransform(VecR,VecRN),ReplacementTransform(VecRLab,VecRNLab))
         self.wait(0.65)
@@ -1138,6 +1166,7 @@ class Escena1(ThreeDScene):
         self.wait(2)
         self.play( *[FadeOut(mob)for mob in self.mobjects] )
         self.wait(2)
+
 	   
 	
 #####################################################################################
