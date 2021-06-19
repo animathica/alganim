@@ -136,45 +136,66 @@
 %\tableofcontents
 
 \begin{obs}
+    Las ideas principales a presentar en este video son:
 
-Las ideas principales detrás del Teorema de Gram-Schmidt son tres:
-\begin{enumerate}[label=(\roman*)]
-    
-    \item en espacios vectoriales de dimensión finita con producto escalar, los conjuntos l.i. se pueden ortogonalizar/ortonormalizar,
-    
-    \item el conjunto ortogonal/ortonormal obtenido a partir del conjunto l.i. genera al mismo subespacio vectorial que el conjunto l.i. y
-    
-    \item sigue siendo l.i.
-\end{enumerate}
+    \begin{enumerate}[label=(\roman*)]
+        \item Por definición, un producto escalar positivo en un espacio vectorial induce una norma en ese espacio. Aunque no todas las normas provienen de un producto escalar positivo definido\footnote{Colocar ejemplos de normas no inducidas por productos escalares positivo definidos en la descripción.}, en esta serie de videos nos enfocaremos en este tipo de normas.
 
-El objetivo es mostrar estas tres ideas geométricamente para generar la intuición necesaria para entender el teorema.
+        \item La norma nos da una noción de \emph{magnitud} de un vector, y nos permite hacer comparaciones entre vectores en este sentido.
+
+        \item Todo vector no nulo puede ser reescalado de tal forma que el vector resultante tenga norma unitaria. A este tipo de vectores se les conoce como vectores unitarios. En particular, un conjunto en el que todos los vectores son unitarios y ortogonales entre sí se conoce como conjunto ortonormal.
+
+        \item Si un espacio vectorial con producto escalar tiene dimensión finita y existe una base ortonormal, entonces el problema de encontrar los coeficientes necesarios para expresar a un vector arbitrario como combinación lineal de esta base tiene una solución extremadamente simple.
+    \end{enumerate}
 \end{obs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% PRIMERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Primera escena}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Segunda escena}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Tercera escena}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Cuarta escena}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Escena final}
 
-\begin{center}
-    Sea $V$ un espacio vectorial con producto escalar.
-\end{center}
+%\begin{center}
+%    Sea $V$ un espacio vectorial con producto escalar.
+%\end{center}
 
-Ejercicio 2.1: Demuestra que
-\begin{align*}
-    \bigg\langle \bigg\{\vec{u}, \vec{v} - \frac{\langle \vec{v}, \vec{u}\rangle}{||\vec{u}||}\hat{u} \bigg\}\bigg\rangle = \langle \{\vec{u},\vec{v}\} \rangle
-\end{align*} para $\vec{u},\vec{v}\in V$ con $\vec{u},\vec{v}\neq\vec{0}$ y dibuja un ejemplo en $\mathbb{R}^2$.
+Ejercicio 2.1 Demuestra que todo conjunto ortonormal es linealmente independiente.
 
 \vspace{5mm}
-
-Ejercicio 2.2: Demuestra que cualquier conjunto ortogonal de vectores no nulos es linealmente independiente.
+Ejercicio 2.2
 
 \vspace{5mm}
+Ejercicio 2.¿? Una \emph{métrica} o \emph{función de distancia} en un conjunto $X$ es una función $f(\cdot, \cdot ):X\times X\to [0,\infty)$ que cumple las siguientes propiedades:
+\begin{enumerate}[label=(\roman*)]
+    \item $d(x,y)=0$ si, y sólo si, $x=y$;
 
-Pregunta 2.1: ¿Qué sucedería si aplicáramos el proceso de Gram-Schmidt a un conjunto de vectores linealmente \emph{dependiente}?
+    \item $d(x,y)=d(y,x)$ para todo $x,y\in X$;
 
-Pregunta 2.2: ¿Qué sucedería si, en el proceso de Gram-Schmidt modificado, normalizáramos a alguno de los vectores \emph{antes} de ortogonalizarlo en vez de  \emph{después}?
+    \item $d(x,y) \le d(x,z) + d(z,y)$ para todo $x,y,z\in X$.
+\end{enumerate}
+
+\noindent Demuestra que si $(V,K)$ es un espacio vectorial con norma $||\cdot||$, entonces la función dada por $d(\vec{x},\vec{y})=||\vec{x}-\vec{y}||$ para todo $\vec{x},\vec{y}\in V$ es una métrica en $V$. Por lo tanto, toda norma \emph{induce} una métrica. En particular, se sigue que todo producto escalar positivo definido induce una métrica; sin embargo, existen métricas que no son inducidas por normas ni productos escalares.
+
+\vspace{5mm}
+Pregunta 
 
 \end{document}

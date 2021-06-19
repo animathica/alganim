@@ -127,28 +127,28 @@
  
 \begin{document}
 
-\title{Producto escalar y bases ortogonales (proyecciones y ortogonalidad)}
+\title{Producto escalar y bases ortogonales \\ (proyecciones y ortogonalidad)}
 \date{}
 \maketitle
 %\tableofcontents
 
 \begin{obs}
+    Por definición, cualquier base de un espacio vectorial genera a cada vector del espacio mediante una combinación lineal única. Sin embargo, encontrar los coeficientes necesarios para expresar a un vector arbitrario no nulo como combinación lineal de una base es, en general, un proceso laborioso que en complejidad a medida que aumenta la dimensión del espacio. Definiendo la operación de producto escalar \textemdash y, subsecuentemente, los conceptos de ortogonalidad, conjunto ortogonal y base ortogonal\textemdash \ podemos obtener un resultado poderoso que nos muestra cómo encontrar a dichos coeficientes de forma sencilla, suponiendo que existe una base ortogonal. Este resultado, a su vez, nos permite darle una interpretación geométrica al producto escalar.
+\end{obs}
 
+\begin{obs}
 Las ideas principales a presentar en este video son:
 \begin{enumerate}[label=(\roman*)]
+    \item Dada una base de un espacio vectorial de dimensión finita y un vector no nulo arbitrario, el problema de encontrar los coeficientes para expresar a ese vector como combinación lineal de la base no es trivial. En general, puede resolverse computacionalmente mediante sistemas de ecuaciones, pero su complejidad aumenta dependiendo de la dimensión del espacio y de qué tipo de vectores viven en él.
     
-    \item el producto escalar es una operación no esencial que, de estar presente, dota a un espacio vectorial de estructura adicional;
+    \item El producto escalar es una operación no esencial que, de estar presente, dota a un espacio vectorial de estructura adicional; en particular, su introducción permite definir los conceptos de ortogonalidad y conjunto ortogonal.
     
-    \item por definición, el producto escalar positivo definido induce nociones de longitud, proyecciones y ortogonalidad;
-    
-    \item la norma nos da una noción de longitud \textemdash o magnitud, en contextos físicos\textemdash \ y nos permite hacer comparaciones entre vectores;
-    
-    \item los productos escalares positivo definidos inducen un caso particular de norma;
-    
-    \item todo vector no nulo puede ser reescalado de tal forma que su norma sea unitaria.
-\end{enumerate}
+    \item Si un espacio vectorial con producto escalar tiene dimensón finita y existe una base ortogonal, ésta simplifica enormemente el problema de encontrar los coeficientes necesarios para expresar a un vector arbitrario como combinación lineal de una base.
 
-El objetivo central es mostrar cómo los espacios vectoriales con productos escalares positivo definidos, con ayuda de la norma inducida, nos permiten proyectar vectores de manera perpendicular para obtener la componente de uno de ellos a lo largo del eje del otro.
+    \item El resultado anterior nos permite interpretar geométricamente la operación de producto escalar: el producto escalar entre dos vectores es proporcional al número por el cual debemos reescalar a uno de los vectores para obtener la componente del otro vector que ``vive'' en el subespacio vectorial generado por el vector reescalado. En particular, dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es nula.
+    
+    \item La interpretación geométrica anterior es consistente con las propiedades que definen al producto escalar.
+\end{enumerate}
 \end{obs}
 
 \begin{obs}
@@ -156,25 +156,33 @@ Considerando que la serie está enfocada en abordar la descomposición espectral
 \end{obs}
 
 \begin{obs}
-Siendo el primer video de la serie, se dejarán varios ejercicios con el objetivo de que el primero esté muy ligado con la exposición y cada uno de los siguientes se retome en un video posterior.
+Siendo el primer video de la serie, se dejarán varios ejercicios con la intención de que sean retomados en videos posteriores.
 \end{obs}
-
-\begin{obs}
-Hay que alinear las cosas mejor de lo que logro hacerlo con el comando align*...
-\end{obs}
-
-Escenas:
-
-\begin{enumerate}
-    \item Introducción (operaciones esenciales y no esenciales) 
-    \item Propiedades del producto escalar
-    \item Norma inducida, magnitud y normalización de vectores
-\end{enumerate}
 
 %%%%%%%%%%%%% PRIMERA ESCENA %%%%%%%%%%%
 
 \newpage
 \section{Primera escena}
+
+%%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%
+
+\newpage
+\section{Segunda escena}
+
+%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%
+
+\newpage
+\section{Tercera escena}
+
+%%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%
+
+\newpage
+\section{Cuarta escena}
+
+%%%%%%%%%%%%% QUINTA ESCENA %%%%%%%%%%%
+
+\newpage
+\section{Quinta escena}
 
 
 %%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%
@@ -186,43 +194,33 @@ Escenas:
     Sea $(V,K)$ un espacio vectorial con producto escalar.
 \end{center}
 
-Ejercicio 1.1: Demuestra que
+Ejercicio 1.1 Demuestra que %Se hace referencia a este ejercicio en el video de Ortogonalización y ortonormalización
 \begin{align*}
     \langle \vec{u} + a\vec{w}, \vec{v}\rangle &= \langle \vec{u},\vec{v}\rangle + a\langle \vec{w}, \vec{v}\rangle, \\
     \\
     \langle \vec{u}, \vec{v} + a\vec{w}\rangle &= \langle \vec{u},\vec{v}\rangle + \overline{a}\langle \vec{u}, \vec{w}\rangle
-\end{align*} para $\vec{u},\vec{v},\vec{w}\in V$, $a\in K$ y dibuja un ejemplo no trivial ($\vec{u},\vec{v},\vec{w}\neq\vec{0}, a\neq 0$) en $\mathbb{R}^2$.
-
-\hspace{5mm}
-
-Ejercicio 1.2: Demuestra que
-\begin{align*}
-    \bigg\langle \vec{u}, \vec{v} - \frac{\langle \vec{u}, \vec{v}\rangle}{||\vec{u}||}\hat{u} \bigg\rangle = 0
-\end{align*} para $\vec{u},\vec{v}\in V$ con $\vec{u},\vec{v}\neq\vec{0}$ y dibuja un ejemplo en $\mathbb{R}^2$.
+\end{align*} para todo $\vec{u},\vec{v},\vec{w}\in V$, $a\in K$ y dibuja un ejemplo no trivial ($\vec{u},\vec{v},\vec{w}\neq\vec{0}, a\neq 0$) en $\mathbb{R}^2$.
 
 \vspace{5mm}
+Ejercicio 1.2 Demuestra que las siguientes condiciones son equivalentes. %Se hace referencia a este ejercicio en el video de Ortogonalización y ortonormalización
 
-Ejercicio 1.3: 
+\begin{enumerate}[label=(\alph*)]
+    \item $\langle \vec{u} , \vec{v} \rangle = 0$ para todo $\vec{u}\in V$.
 
-\vspace{5mm}
+    \item $\vec{v}=\vec{0}$.
 
-Ejercicio 1.4: Demuestra que
-\begin{align*}
-    \langle \vec{u}, \vec{v} \rangle = 0 \quad \forall \  \vec{v}\in V \implies \vec{u}=\vec{0}, \\
-    \\
-    \langle \vec{u}, \vec{v} \rangle = 0 \quad \forall \  \vec{u}\in V \implies \vec{v}=\vec{0}. \\
-\end{align*}
+    \item $\langle \vec{v} , \vec{u} \rangle = 0$ para todo $\vec{u}\in V$.
+\end{enumerate}
 
-\vspace{5mm}
-
-Ejercicio 1.5:
+Ejercicio 1.3 Demuestra que todo conjunto ortogonal es linealmente independiente si, y sólo si, no contiene al vector nulo.
 
 \vspace{5mm}
-
-Ejercicio 1.6:
+Ejercicio 1.4 
 
 \vspace{5mm}
+Pregunta 1.1 ¿Cómo puedes interpretar la propiedad de simetría conjugada del producto escalar en un espacio vectorial complejo?\footnote{Ésta ni yo la sé responder en toda su profundida, pero me parece interesante pensarla.}
 
-Pregunta:
+\vspace{5mm}
+Pregunta 1.2 ¿El resultado de las bases ortogonales será válido en espacios vectoriales con producto escalar de dimensión \emph{infnita}? Argumenta\footnote{Respuesta: no porque, en general, las combinaciones lineales infinitas no están bien definidas; se tendrían que considerar cuestiones de convergencia.}.
 
 \end{document}

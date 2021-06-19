@@ -126,7 +126,7 @@
  
 \begin{document}
 
-\title{Ortogonalización y ortonormalización \\ (Proceso de Gram-Schmidt)}
+\title{Ortogonalización y ortonormalización \\ (Teorema de Gram-Schmidt)}
 \date{}
 \maketitle
 %\tableofcontents
@@ -209,10 +209,23 @@ Como consecuencia de este teorema, se sigue que la existencia de bases ortogonal
 \newpage
 \section{Escena final}
 
-Ejercicio 3.1 Demuestra que todo conjunto ortogonal es linealmente dependiente si, y sólo si, no contiene al vector nulo.
+Ejercicio 3.1: Demuestra que
+\begin{align*}
+    \bigg\langle \vec{u}, \vec{v} - \frac{\langle \vec{v}, \vec{u}\rangle}{\langle \vec{u} , \vec{u} \rangle}\vec{u} \bigg\rangle = 0 \quad \text{y} \quad \bigg\langle \bigg\{\vec{u}, \vec{v} - \frac{\langle \vec{v}, \vec{u}\rangle}{\langle \vec{u} , \vec{u} \rangle}\vec{u} \bigg\} \bigg\rangle = \langle \{\vec{u}, \vec{v}\} \rangle
+\end{align*} para $\vec{u},\vec{v}\in V$ con $\vec{u},\vec{v}\neq\vec{0}$, y dibuja un ejemplo en $\mathbb{R}^2$. (Pista: Para la primera parte, utiliza el Ejercicio 1.1.)
 
-Ejercicio 3.2 Demuestra que todo conjunto ortonormal es linealmente independiente.
+\vspace{5mm}
+Ejercicio 3.2 Usa la intuición generada por este video para demostrar el Teorema de Gram-Schmidt.
 
-Pregunta ¿Cuántos conjuntos ortogonales linealmente independientes diferentes se pueden obtener a partir de un conjunto linealmente independiente de $k$ vectores, y cuántos ortonormales?\footnote{Respuesta: ortogonales linealmente independientes, una infinidad \textemdash suponiendo que el campo es infinito; ortonormales, sólo $k!$.} 
+\vspace{5mm}
+Pregunta 3.1 ¿Qué sucedería si aplicáramos el proceso de Gram-Schmidt a un conjunto de vectores linealmente \emph{dependiente}?\footnote{Respuesta: obtendríamos un conjunto ortogonal linealmente independiente con tantos vectores como vectores linealmente independientes haya tenido el conjunto original.}
+
+\vspace{5mm}
+Pregunta 3.2 ¿Qué sucedería si, en el proceso de Gram-Schmidt modificado, normalizáramos a alguno de los vectores \emph{antes} de ortogonalizarlo y no \emph{después}?\footnote{Respuesta: los vectores obtenidos no serían unitarios, por lo que el conjunto resultante no sería ortonormal.}
+
+\vspace{5mm}
+Pregunta 3.3 El Teorema de Gram-Schmidt \textbf{no} asegura la existencia de bases ortogonales y ortonormales en espacios vectoriales con producto escalar de dimensión \textbf{infinita}, ¿por qué?\footnote{Respuesta: porque las combinaciones lineales infinitas, en general, no están bien definidas.} (Sugerencia: piensa en la Pregunta 1.2.)
+
+Pregunta 3.4 ¿Cuántos conjuntos ortogonales linealmente independientes diferentes se pueden obtener a partir de un conjunto linealmente independiente de $k$ vectores, y cuántos ortonormales?\footnote{Respuesta: ortogonales linealmente independientes, una infinidad \textemdash suponiendo que el campo es infinito; ortonormales, sólo $k!$.} 
 
 \end{document}

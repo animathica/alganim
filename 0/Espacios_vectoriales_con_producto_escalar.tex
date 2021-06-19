@@ -123,19 +123,14 @@
 			\end{tikzpicture}
 \end{flushright}\end{figure}}
 
-\title{Guiones de Animathica, tema: Topología (Compactos).}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
- 
 \begin{document}
 
 \title{Espacios vectoriales con producto escalar}
 \date{}
 \maketitle
-%\tableofcontents
 
 \section{Objetivo}
-Generar material educativo audiovisual para apoyar el curso de \href{http://www.fciencias.unam.mx/licenciatura/asignaturas/2016/1330}{Álgebra Lineal} de la Licenciatura en Física Biomédica, así como a l@s estudiantes de la Licenciatura en Física, con un enfoque particular hacia sentar las bases del formalismo de la mecánica cuántica durante la segunda mitad de la serie.
+Generar material educativo audiovisual para apoyar el curso de \href{http://www.fciencias.unam.mx/licenciatura/asignaturas/2016/1330}{Álgebra Lineal} de la Licenciatura en Física Biomédica de la UNAM, así como a l@s estudiantes de otras licenciaturas de la Facultad de Ciencias, con un enfoque particular hacia sentar las bases del formalismo de la mecánica cuántica.
 
 \section{Máximas}
 
@@ -143,8 +138,9 @@ Generar material educativo audiovisual para apoyar el curso de \href{http://www.
     \item No pensar en qué temas son más ``animables'', sino en cuáles se podrían beneficiar más de una animación para complementar su comprensión.
     \item Dentro de los temas anteriores, pensar en cuáles no tienen animaciones todavía, o cuáles tienen animaciones que se puedan mejorar significativamente.
     \item Dentro de los temas anteriores, dar prioridad a los que típicamente sean más difíciles de entender.
+    \item Procurar presentar las ideas en la secuencia más clara posible, motivando los conceptos adecuadamente siempre que se pueda.
     \item Procurar que las ideas principales se puedan comprender de forma intuitiva a través de la exposición audiovisual, independientemente del conocimiento previo.
-    \item Procurar pulir el contrapunto entre audio y video (guión, animaciones, colores, sincronización, etc.).
+    \item Procurar pulir el contrapunto entre audio y video (guión, animaciones, colores, sincronización, ...).
     \item Procurar reducir la ``densidad de información visual'' en las animaciones\footnote{Para ``medir'' la densidad de información visual de una escena, podemos imaginar cómo se vería la escena si todo lo que se plasma en ella se quedara ``embarrado''; entre menor sea la ``mancha'' final, mejor (sin exagerar).}, así como la ``grasita extra'' de los guiones.
     \item En vez de reproducir el material educativo del pasado con ``técnicas del futuro'', utilizar las técnicas del presente para \emph{crear el material educativo del futuro}.
 \end{itemize}
@@ -154,7 +150,7 @@ Generar material educativo audiovisual para apoyar el curso de \href{http://www.
 \begin{itemize}
     \item Siempre dirigirnos a el/la espectadora en primera persona.
     \item Enfocar al público en problemas concretos para motivar los conceptos y las discusiones.
-    \item Dejar una pregunta y un ejercicio al final de cada video para reforzar y expandir lo aprendido.
+    \item Dejar al menos una pregunta y un ejercicio al final de cada video para reforzar y expandir lo aprendido.
     \item Procurar complementar lo que se anima con referencias en la descripción (pero complementar ``de verdad'', es decir, con ejemplos que puedan ser muy distintos a lo presentado, pero que se sigan de ello o estén relacionados con el tema expuesto).
 \end{itemize}
 
@@ -164,7 +160,7 @@ Generar material educativo audiovisual para apoyar el curso de \href{http://www.
     % Ortogonalidad en espacios reales
     \item Producto escalar y bases ortogonales.
     \item Norma inducida y bases ortonormales.
-    \item Ortogonalización y ortonormalización (proceso de Gram-Schmidt).
+    \item Ortogonalización y ortonormalización (Teorema de Gram-Schmidt).
     \item Complementos ortogonales y sumas directas.
     % Operadores en espacios reales
     \item Operadores lineales, descomposición espectral y proyecciones ortogonales (introducción al Teorema espectral).
@@ -223,11 +219,13 @@ En donde haya signos de equivalencia ($\equiv$), lo que esté del lado izquierdo
 \section{Para los \emph{scripts} de Python...}
 
 \begin{itemize}
-    \item Incluir al inicio de cada escena (idealmente, sólo al inicio de cada archivo, cuando esté homogeneizado) la versión de manim en la que corre el archivo (e.g., ``Manim Community V0.6.0'').
+    \item Hacer un archivo por escena con formato de nombre ``Título\_del\_video-X.py'' donde X es el número de la escena, de acuerdo al guión; así, se pueden crear más opciones en el ``prompt'' de Manim para compilar por subescenas en vez de tener que compilar escenas completas cada vez.
+
+    \item Incluir al inicio de cada archivo la versión más actual de Manim en la que se ejecuta correctamente (e.g., ``Manim Community V0.6.0'').
     
-    \item Incluir al inicio de cada archivo las ``variables globales'' que utilicemos en varias escenas como, por ejemplo, los colores.
+    \item Incluir al inicio de cada archivo las ``variables globales'' que utilicemos en la escena como, por ejemplo, los colores, asumiendo que quienes intentarán reproducir el código \textbf{tendrán una instalación fresca de Manim}.
     
-    \item Investigar sobre el orden de aparición de las escenas en la terminal (procurar que aparezcan según el orden acordado).
+    \item Nombrar las clases de tal forma que las subescenas en el ``prompt'' de Manim aparezcan en el mismo orden en que aparecen en la escena.
     
     \item Cuando en duda, preguntarse, ¿qué sería lo mejor para quienes más adelante quieran experimentar con el código?
     
@@ -236,8 +234,6 @@ En donde haya signos de equivalencia ($\equiv$), lo que esté del lado izquierdo
 \section{Acuerdos de trabajo}
 
 \begin{itemize}
-    \item Sábado a las 12:00 subir el video actualizado a su respectivo hilo de Slack y el correspondiente script a github, y actualizar los guiones del proyecto de Overleaf.
-    
-   
+    \item Cada sábado a las 12:00, subir los avances de las animaciones de cada escena a su respectivo hilo de Slack y el correspondiente \emph{script} al repositorio, y actualizar los guiones en el repositorio.
 \end{itemize}
 \end{document}

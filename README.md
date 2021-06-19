@@ -8,7 +8,7 @@ Serie de videos de álgebra lineal sobre la teoría de espacios vectoriales con 
 
 ### Objetivo
 
-Generar material educativo audiovisual para apoyar el curso de Álgebra Lineal de la Licenciatura en Física Biomédica de la UNAM, así como a l@s estudiantes de otras licenciaturas de la Facultad de Ciencias, con un enfoque particular hacia sentar las bases del formalismo de la mecánica cuántica.
+Generar material educativo audiovisual para apoyar el curso de [Álgebra Lineal](http://www.fciencias.unam.mx/licenciatura/asignaturas/2016/1330) de la Licenciatura en Física Biomédica de la UNAM, así como a l@s estudiantes de otras licenciaturas de la Facultad de Ciencias, con un enfoque particular hacia sentar las bases del formalismo de la mecánica cuántica.
 
 ### Lista de temas animados
 
