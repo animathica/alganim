@@ -12,8 +12,9 @@ Generar material educativo audiovisual para apoyar el curso de [Álgebra Lineal]
 
 ### Lista de temas animados
 
-- Ortogonalización y ortonormalización (proceso de Gram-Schmidt) [en proceso]
-- Bases ortogonales y ortonormales [próximamente]
+- Producto escalar y bases ortogonales [próximamente]
+- Norma inducida y bases ortonormales [próximamente]
+- Ortogonalización y ortonormalización (Teorema de Gram-Schmidt) [en proceso]
 
 ## Acerca del código
 
