@@ -1482,9 +1482,9 @@ class SegundaEscena(ThreeDScene):
                 a_vec = Vector(direction = a, color = AZUL)
                 b_vec = Vector(direction = b, color = ROJO)
                 c_vec = Vector(direction = c, color = NARANJA)
-                a_vec_label = TexMobject(r"\vec{a}").move_to(1*RIGHT+2.4*UP)
+                a_vec_label = TexMobject(r"\vec{a}").move_to(0.8*RIGHT+2.3*UP)
                 a_vec_label[0].set_color(AZUL)
-                b_vec_label = TexMobject(r"\vec{b}").move_to(2*RIGHT+1*UP)
+                b_vec_label = TexMobject(r"\vec{b}").move_to(1.5*RIGHT+1.3*UP)
                 b_vec_label[0].set_color(ROJO)
                 c_vec_label = TexMobject(r"\vec{c}").move_to(-1.2*RIGHT+0.9*UP)
                 c_vec_label[0].set_color(NARANJA)
@@ -1503,9 +1503,10 @@ class SegundaEscena(ThreeDScene):
 
                 a_pro = projection_of_a_along_b(b, a)
                 a_vec_pro = Vector(direction = a_pro, color = YELLOW, buff=0)
-                a_vec_pro_label=TexMobject(r" \frac{\langle \ \vec{b}, \vec{a} \ \rangle}{||\vec{a}||}\hat{a} ").move_to(1.5*RIGHT+2.7*UP).scale(0.7)
-                a_vec_pro_labelc=TexMobject(r" -  ").move_to(1.7*RIGHT+0.5*DOWN).scale(0.7)
-                a_vec_pro_label.set_color(YELLOW)
+                a_vec_pro_label=TexMobject(r"-", r" \frac{\langle \ \vec{b}, \vec{a} \ \rangle}{||\vec{a}||}\hat{a} ").move_to(1.5*RIGHT+2.7*UP).scale(0.7)
+                a_vec_pro_label[0].set_color(BLACK)                
+                a_vec_pro_labelc=TexMobject(r" -  ").move_to(1.8*RIGHT+0.5*DOWN).scale(0.7)
+                a_vec_pro_label[1].set_color(YELLOW)
                 a_vec_pro_labelc.set_color(YELLOW)
                 a_ort = Vector(direction = b-a_pro, color = VERDE, buff=0)
                 a_ort_label=TexMobject(r"\vec{b}'")
@@ -1516,26 +1517,28 @@ class SegundaEscena(ThreeDScene):
                 #PROYECCION DE C SOBRE A 
                 c_pro = projection_of_a_along_b(c, a)
                 c_vec_pro = Vector(direction = c_pro, color = YELLOW, buff=0)
-                c_vec_pro_label=TexMobject(r" \frac{\langle \ \vec{c}, \vec{a} \ \rangle}{||\vec{a}||}\hat{a} ").move_to(0.2*RIGHT+1.5*UP).scale(0.7)
-                c_vec_pro_labelc=TexMobject(r" -  ").move_to(2.9*LEFT+0.6*DOWN).scale(0.7)
+                c_vec_pro_label=TexMobject(r"-", r" \frac{\langle \ \vec{c}, \vec{a} \ \rangle}{||\vec{a}||}\hat{a} ").move_to(0.2*RIGHT+1.65*UP).scale(0.7)
+                c_vec_pro_label[0].set_color(BLACK)  
+                c_vec_pro_labelc=TexMobject(r" -  ").move_to(2.8*LEFT+0.6*DOWN).scale(0.7)
                 c_vec_pro_labelc.set_color(YELLOW)
-                c_vec_pro_label.set_color(YELLOW)
+                c_vec_pro_label[1].set_color(YELLOW)
                 line_c_perp = DashedLine(c, c_pro, width=5, buff=0, color=YELLOW)
                 c_ort = Vector(direction = c-c_pro, color = MAGENTA, buff=0)
                 suma_c = Arrow(start = c, end = c-c_pro, color = YELLOW, buff=0)
                 t1 = Line(ORIGIN, [-1,-1,0], color = ROJO)
                 t2 = Line([0,-1,0], [-1,0,0], color = ROJO)
-                tache = VGroup(t1, t2).scale(0.3).move_to(0.6*LEFT+0.1*DOWN)
+                tache = VGroup(t1, t2).scale(0.3).move_to(0.6*LEFT+0.3*DOWN)
 
                 #PROYECCION DE C SOBRE B'
                 b_pro = projection_of_a_along_b(c, b-a_pro)
-                b_vec_pro = Vector(direction = b_pro, color = YELLOW, buff=0)
-                b_vec_pro_label=TexMobject(r" \frac{\langle \ \vec{c}, \vec{b'} \ \rangle}{||\vec{b'}||}\hat{b'} ").move_to(1.4*RIGHT+0.3*DOWN).scale(0.7)
-                b_vec_pro_labelc=TexMobject(r" -  ").move_to(3.2*LEFT+0.65*DOWN).scale(0.7)
-                b_vec_pro_label.set_color(YELLOW)
+                b_vec_pro = Vector(direction = b_pro, color = YELLOW, buff=0, max_tip_length_to_length_ratio = 0.4)
+                b_vec_pro_label=TexMobject(r"-", r" \frac{\langle \ \vec{c}, \vec{b'} \ \rangle}{||\vec{b'}||}\hat{b'} ").move_to(1.4*RIGHT+0.3*DOWN).scale(0.7)
+                b_vec_pro_label[0].set_color(BLACK)  
+                b_vec_pro_labelc=TexMobject(r" -  ").move_to(3.1*LEFT+0.65*DOWN).scale(0.7)
+                b_vec_pro_label[1].set_color(YELLOW)
                 b_vec_pro_labelc.set_color(YELLOW)
                 line_b_perp = DashedLine(c, b_pro, width=5, buff=0, color= YELLOW)
-                suma_b = Arrow(start = c-c_pro, end = c-c_pro-b_pro, color = YELLOW, buff=0)
+                suma_b = Arrow(start = c-c_pro, end = c-c_pro-b_pro, color = YELLOW, buff=0, max_tip_length_to_length_ratio = 0.4)
                 cb_ort = Vector(direction = c-c_pro-b_pro, color = MAGENTA, buff=0)
                 cb_ort.save_state()
                 cb_ort_label=TexMobject(r"\vec{c}\hspace{0.1cm}'")
@@ -1569,6 +1572,7 @@ class SegundaEscena(ThreeDScene):
                 self.wait()
                 self.play(Write(a_li))
                 self.play(Write(b_li))
+                self.add_foreground_mobject(c_vec)
                 self.play(Write(c_li))
                 self.wait(2)
                 self.play(FadeOut(a_li), FadeOut(b_li), FadeOut(c_li))
@@ -1580,9 +1584,9 @@ class SegundaEscena(ThreeDScene):
                 #SUBESPACIOS
                 
                 self.play(a_vec_label.set_opacity, 0, b_vec_label.set_opacity, 0, c_vec_label.set_opacity, 0)
-                self.move_camera(phi=25*DEGREES, theta=-25*DEGREES, gamma = 0*DEGREES, run_time=1)
-                self.subespacios(a,b,c,a_vec,b_vec,c_vec, -21.7, 23.5, 84*DEGREES, text3, text3_bg, MAGENTA)
-                self.move_camera(phi=85*DEGREES, theta=35*DEGREES, run_time = 1)
+                self.move_camera(phi=20*DEGREES, theta=-15*DEGREES, gamma = 0*DEGREES, run_time=1)
+                self.subespacios(a,b,c,a_vec,b_vec,c_vec, -21.7, 23.5, 84.5*DEGREES, text3, text3_bg, MAGENTA)
+                self.move_camera(phi=85*DEGREES, theta=40*DEGREES, run_time = 1)
                 self.play(a_vec_label.set_opacity, 1, b_vec_label.set_opacity, 1, c_vec_label.set_opacity, 1,
                         run_time=1.5)
                 
@@ -1590,7 +1594,7 @@ class SegundaEscena(ThreeDScene):
                 #PROYECCION DE B SOBRE A
                 
                 self.move_camera(phi=90*DEGREES, theta=0*DEGREES, gamma=0*DEGREES)
-                self.play(b_vec_label.move_to, 2.7*RIGHT+1.4*UP, a_vec_label.move_to, 0.85*RIGHT+2.2*UP)
+                #self.play(b_vec_label.move_to, 2.7*RIGHT+1.4*UP, a_vec_label.move_to, 0.85*RIGHT+2.2*UP)
                 self.add_foreground_mobject(plane1)
                 self.add_foreground_mobjects(y_axis, z_axis, a_vec, b_vec)
                 self.play(ShowCreation(plane1), FadeIn(y_axis), FadeIn(z_axis), c_vec.set_opacity, 0, c_vec_label.set_opacity, 0)
@@ -1600,7 +1604,7 @@ class SegundaEscena(ThreeDScene):
                 self.add_fixed_in_frame_mobjects(text2[0][-1])
                 self.play(Write(text2_bg), Write(text2[0][:7]), Write(text2[0][-1].move_to(2*DOWN+5.8*RIGHT)))
                 self.add_foreground_mobjects(luz, text1_bg, text1, text2_bg, text2[0][:7], text2[0][-1])
-                self.play(ShowCreation(luz), b_vec_label.set_opacity, 0)
+                self.play(ShowCreation(luz))
                 self.add_foreground_mobjects(a_vec_pro_label, a_vec_pro)
                 self.add_fixed_in_frame_mobjects(a_vec_pro_label)
                 self.play(GrowArrow(a_vec_pro), Write(a_vec_pro_label))
@@ -1608,20 +1612,21 @@ class SegundaEscena(ThreeDScene):
                 self.play(FadeOut(luz), b_vec_label.set_opacity, 1)
                 self.add_foreground_mobjects(a_vec_pro_labelc)
                 self.add_fixed_in_frame_mobjects(a_vec_pro_labelc)
-                self.play(Transform(a_vec_pro, suma_a), AnimationGroup(ApplyMethod(a_vec_pro_label.move_to, 2.5*RIGHT+0.5*DOWN), Write(a_vec_pro_labelc), lag_ratio = 0.5), run_time=3)
+                self.play(Transform(a_vec_pro, suma_a), AnimationGroup(ApplyMethod(a_vec_pro_label.move_to, 2.5*RIGHT+0.5*DOWN), Write(a_vec_pro_labelc), lag_ratio = 0.3), run_time=3)
+                #self.play(Transform(a_vec_pro, suma_a), a_vec_pro_label.move_to, 2.5*RIGHT+0.5*DOWN, a_vec_pro_label[0].set_color, YELLOW,  run_time=3)
                 self.add_foreground_mobject(a_ort_label)
                 self.add_foreground_mobject(a_ort)
                 self.add_fixed_in_frame_mobjects(a_ort_label)
                 self.play(GrowArrow(a_ort), Write(a_ort_label))
-                self.play(FadeOut(a_vec_pro),FadeOut(a_vec_pro_label), FadeOut(a_vec_pro_labelc))
+                self.play(FadeOut(a_vec_pro),FadeOut(a_vec_pro_label),FadeOut(a_vec_pro_labelc))
                 self.add_foreground_mobject(text2[0][7:10])
                 self.add_fixed_in_frame_mobjects(text2[0][7:10])
                 self.play(Write(text2[0][7:10]))
                 self.wait()
                 self.play(FadeOut(plane1), FadeOut(y_axis), FadeOut(z_axis))
                 self.play(c_vec.set_opacity, 1, c_vec_label.set_opacity, 1)
-                self.move_camera(phi=85*DEGREES, theta=35*DEGREES, run_time=2)
-                self.play(b_vec_label.move_to, 2*RIGHT+1*UP, a_vec_label.move_to, 1*RIGHT+2.4*UP, a_ort_label.move_to, 1*RIGHT+1.2*DOWN, text2[0][-1].move_to, 2*DOWN+6.6*RIGHT)
+                self.move_camera(phi=85*DEGREES, theta=40*DEGREES, run_time=2)
+                self.play(a_ort_label.move_to, 1*RIGHT+1.2*DOWN, text2[0][-1].move_to, 2*DOWN+6.6*RIGHT)
                 self.remove_foreground_mobjects(a_vec_pro_label, a_vec, b_vec_pro_label, b_vec, text2_bg, text2[0][:7], text2[0][-1])
                 
                 #PROYECCION DE C SOBRE A
@@ -1632,12 +1637,13 @@ class SegundaEscena(ThreeDScene):
                 self.play(FadeOut(line_c_perp))
                 self.wait(1.5)
                 self.add_fixed_in_frame_mobjects(c_vec_pro_labelc)
-                self.play(Transform(c_vec_pro, suma_c), AnimationGroup(ApplyMethod(c_vec_pro_label.move_to, 2.1*LEFT+0.6*DOWN), Write(c_vec_pro_labelc), lag_ratio = 0.5), run_time=3)
+                self.play(Transform(c_vec_pro, suma_c), AnimationGroup(ApplyMethod(c_vec_pro_label.move_to, 2.1*LEFT+0.6*DOWN), Write(c_vec_pro_labelc), lag_ratio = 0.3), run_time=3)
+                #self.play(Transform(c_vec_pro, suma_c), c_vec_pro_label.move_to, 2.1*LEFT+0.6*DOWN, c_vec_pro_label[0].set_color, YELLOW,  run_time=3)
                 self.play(GrowArrow(c_ort))
                 self.add_fixed_in_frame_mobjects(tache)
                 self.play(Write(tache))
                 self.wait()
-                self.play(FadeOut(c_ort), FadeOut(c_vec_pro_labelc), FadeOut(c_vec_pro_label), FadeOut(tache))
+                self.play(FadeOut(c_ort), FadeOut(c_vec_pro_label), FadeOut(tache), FadeOut(c_vec_pro_labelc))
             
                 
                 #PROYECCION DE C SOBRE B'
@@ -1650,13 +1656,14 @@ class SegundaEscena(ThreeDScene):
                 self.play(FadeOut(line_b_perp))
                 self.wait(1.5)
                 self.add_fixed_in_frame_mobjects(b_vec_pro_labelc)
-                self.play(Transform(b_vec_pro, suma_b), AnimationGroup(ApplyMethod(b_vec_pro_label.move_to, 2.3*LEFT+0.65*DOWN), Write(b_vec_pro_labelc), lag_ratio = 0.5), run_time=3)
+                self.play(Transform(b_vec_pro, suma_b), AnimationGroup(ApplyMethod(b_vec_pro_label.move_to, 2.3*LEFT+0.65*DOWN), Write(b_vec_pro_labelc), lag_ratio = 0.3), run_time=3)
+                #self.play(Transform(b_vec_pro, suma_b), b_vec_pro_label.move_to, 2.3*LEFT+0.65*DOWN, b_vec_pro_label[0].set_color, YELLOW,  run_time=3)
                 self.add_fixed_in_frame_mobjects(cb_ort_label)
                 self.play(GrowArrow(cb_ort), Write(cb_ort_label))
                 self.add_fixed_in_frame_mobjects(paloma)
                 self.play(Write(paloma))
                 self.wait()
-                self.play(FadeOut(b_vec_pro), FadeOut(b_vec_pro_label),FadeOut(paloma), FadeOut(c_vec_pro), FadeOut(b_vec_pro_labelc), FadeOut(b_vec), FadeOut(b_vec_label), FadeOut(c_vec), FadeOut(c_vec_label))
+                self.play(FadeOut(b_vec_pro), FadeOut(b_vec_pro_label),FadeOut(paloma), FadeOut(c_vec_pro), FadeOut(b_vec), FadeOut(b_vec_label), FadeOut(c_vec), FadeOut(c_vec_label), FadeOut(b_vec_pro_labelc))
                 self.add_fixed_in_frame_mobjects(text2[0][10:14])
                 self.play(Write(text2[0][10:14]))
                 self.wait()
@@ -1667,7 +1674,7 @@ class SegundaEscena(ThreeDScene):
                 self.play(a_vec_label.set_opacity, 0, a_ort_label.set_opacity, 0, cb_ort_label.set_opacity, 0)
                 self.move_camera(phi=50*DEGREES, theta=53*DEGREES, gamma=0*DEGREES, run_time=2)
                 self.subespacios(a,b-a_pro,c-c_pro-b_pro, a_vec, a_ort, cb_ort, -23.6, -42, 81.7*DEGREES, text5, text5_bg, TEAL_A)
-                self.move_camera(phi=85*DEGREES, theta=35*DEGREES, run_time=1)
+                self.move_camera(phi=85*DEGREES, theta=40*DEGREES, run_time=1)
                 self.play(a_vec.restore, a_ort.restore, cb_ort.restore, 
                         a_vec_label.set_opacity, 1, a_ort_label.set_opacity, 1, cb_ort_label.set_opacity, 1,
                         run_time=1.5)
@@ -1686,7 +1693,7 @@ class SegundaEscena(ThreeDScene):
                 b_vec = Vector(direction = b, color = ROJO)
                 c_vec = Vector(direction = c, color = NARANJA)
                 a_vec_norm = vector_normal(a)
-                a_n = Vector(direction = a_vec_norm, color=AZUL, buff=0)
+                a_n = Vector(direction = a_vec_norm, color=AZUL, buff=0, max_tip_length_to_length_ratio = 0.4)
 
                 #PROYECCION DE B SOBRE A 
                 a_pro = projection_of_a_along_b(b, a)
@@ -1696,7 +1703,7 @@ class SegundaEscena(ThreeDScene):
                 suma_a = Arrow(start = b, end = b-a_pro, color = YELLOW, buff=0)
                 a_ort = Vector(direction = b-a_pro, color = VERDE, buff=0)
                 a_ort_norm = vector_normal(b-a_pro)
-                a_ort_n = Vector(direction = a_ort_norm, color=VERDE, buff=0)
+                a_ort_n = Vector(direction = a_ort_norm, color=VERDE, buff=0, max_tip_length_to_length_ratio = 0.4)
 
                 #PROYECCION DE C SOBRE A 
                 c_pro = projection_of_a_along_b(c, a)
@@ -1706,15 +1713,15 @@ class SegundaEscena(ThreeDScene):
                 c_ort = Vector(direction = c-c_pro, color = MAGENTA, buff=0)
                 suma_c = Arrow(start = c, end = c-c_pro, color = YELLOW, buff=0)
 
-                #PROYECCION DE C SOBRE B
+                #PROYECCION DE C SOBRE B'
                 b_pro = projection_of_a_along_b(c, b-a_pro)
-                b_vec_pro = Vector(direction = b_pro, color = YELLOW, buff=0)
+                b_vec_pro = Vector(direction = b_pro, color = YELLOW, buff=0, max_tip_length_to_length_ratio = 0.4)
                 line_b = DashedLine(ORIGIN, b_pro, width=5, buff = 0, color= YELLOW)
                 line_b_perp = DashedLine(c, b_pro, width=5, buff=0, color= YELLOW)
-                suma_b = Arrow(start = c-c_pro, end = c-c_pro-b_pro, color = YELLOW, buff=0)
+                suma_b = Arrow(start = c-c_pro, end = c-c_pro-b_pro, color = YELLOW, buff=0, max_tip_length_to_length_ratio = 0.4)
                 cb_ort = Vector(direction = c-c_pro-b_pro, color = MAGENTA, buff=0)
                 cb_ort_norm = vector_normal(c-c_pro-b_pro)
-                cb_ort_n = Vector(direction = cb_ort_norm, color=MAGENTA, buff=0)
+                cb_ort_n = Vector(direction = cb_ort_norm, color=MAGENTA, buff=0, max_tip_length_to_length_ratio = 0.4)
                 ref=Dot(color=YELLOW,radius=0.003)
 
                 self.play(GrowArrow(a_vec))
@@ -1742,7 +1749,7 @@ class SegundaEscena(ThreeDScene):
                 self.play(FadeOut(c_ort))
             
                 
-                #PROYECCION DE C SOBRE B
+                #PROYECCION DE C SOBRE B'
                 self.play(Write(line_b_perp))
                 self.play(GrowArrow(b_vec_pro))
                 self.play(FadeOut(line_b), FadeOut(line_b_perp))
@@ -1776,12 +1783,12 @@ class SegundaEscena(ThreeDScene):
                 c_ort = Vector(direction = c-c_pro, color = MAGENTA, buff=0)
                 suma_c = Arrow(start = c, end = c-c_pro, color = YELLOW, buff=0)
 
-                #PROYECCION DE C SOBRE B
+                #PROYECCION DE C SOBRE B'
                 b_pro = projection_of_a_along_b(c, b-a_pro)
-                b_vec_pro = Vector(direction = b_pro, color = YELLOW, buff=0)
+                b_vec_pro = Vector(direction = b_pro, color = YELLOW, buff=0, max_tip_length_to_length_ratio = 0.4)
                 line_b = DashedLine(ORIGIN, b_pro, width=5, buff = 0)
                 line_b_perp = DashedLine(c, b_pro, width=5, buff=0)
-                suma_b = Arrow(start = c-c_pro, end = c-c_pro-b_pro, color = YELLOW, buff=0)
+                suma_b = Arrow(start = c-c_pro, end = c-c_pro-b_pro, color = YELLOW, buff=0, max_tip_length_to_length_ratio = 0.4)
                 cb_ort = Vector(direction = c-c_pro-b_pro, color = MAGENTA, buff=0)
 
                 self.play(GrowArrow(a_vec))
@@ -1807,7 +1814,7 @@ class SegundaEscena(ThreeDScene):
                 self.play(FadeOut(c_ort))
             
                 
-                #PROYECCION DE C SOBRE B
+                #PROYECCION DE C SOBRE B'
                 self.play(Write(line_b_perp))
                 self.play(GrowArrow(b_vec_pro))
                 self.play( FadeOut(line_b_perp))
@@ -1965,13 +1972,14 @@ class SegundaEscena(ThreeDScene):
                             UpdateFromFunc(c_vec1_suma,update_c_s), 
                             UpdateFromFunc(suma,update_sc),
                             UpdateFromAlphaFunc(plano_estela2, update_ps2),
-                            dotc.move_to, -3.5*c, run_time=1) 
+                            dotc.move_to, -4*c, run_time=1) 
                 self.play(c_vec1.restore, c_vec1_suma.restore, a_vec1_suma.restore, b_vec1_suma.restore, suma.restore, run_time = 0.5)
 
                 
 
 
                 self.move_camera(phi=cameraphi, theta=-0*DEGREES, gamma=0*DEGREES, run_time=2)
+                self.wait(1)
                 self.add_foreground_mobjects(a_vec1)
                 self.add(cubo1)
                 cubo1.generate_target()
@@ -2017,22 +2025,22 @@ class SegundaEscena(ThreeDScene):
         axes = ThreeDAxes(**axis_config)
         a = np.array([0.5, 1.5, 2])
         b = np.array([1, 2.3, 1])
-        c = np.array([2, 0.5, 1])  
+        c = np.array([2, 1, 1])  
         
 
 
         #self.set_camera_orientation(phi=75*DEGREES, theta=40*DEGREES)
-        #self.set_camera_orientation(phi=100*DEGREES, theta=35*DEGREES)
+        #self.set_camera_orientation(phi=100*DEGREES, theta=40*DEGREES)
         #self.set_camera_orientation(phi=95*DEGREES, theta=43*DEGREES)
-        self.set_camera_orientation(phi=85*DEGREES, theta=35*DEGREES)
+        self.set_camera_orientation(phi=85*DEGREES, theta=40*DEGREES)
         self.play(ShowCreation(axes))
         self.parte1(a,b,c)
-        self.set_camera_orientation(phi=85*DEGREES, theta=35*DEGREES)
+        self.set_camera_orientation(phi=85*DEGREES, theta=40*DEGREES)
         self.play(ShowCreation(axes))
         self.parte2(a,b,c)
        
 
-
+       
 
 
 
