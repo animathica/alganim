@@ -1,0 +1,180 @@
+\documentclass[12pt,dvipsnames]{article}
+\setcounter{section}{0}
+
+\usepackage{amsmath,amsthm,amssymb,amsbsy}
+\usepackage[spanish,es-tabla]{babel}
+\decimalpoint
+\usepackage{braket}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.5cm]{geometry} 
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{lmodern}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage{soul}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,breakable}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1em}
+
+\definecolor{NARANJA}{rgb}{1,0.467,0}
+\definecolor{VERDE}{rgb}{0.31,1,0}
+\definecolor{AZUL}{rgb}{0,0.53,1}
+\definecolor{ROJO}{rgb}{1,0,0}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=ROJO,
+    filecolor=magenta,      
+    urlcolor=AZUL,
+}
+ 
+\pgfplotsset{compat=1.15}
+ 
+\renewcommand{\figurename}{Figura}
+
+\newcommand{\anim}[2]{\textcolor{red}{\textbf{\hl{#1}}}\footnote{#2}}
+
+\renewcommand{\indexname}{Índice}
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand{\contentsname}{Contenidos}
+\renewcommand{\proofname}{Dem.}
+\renewcommand{\tablename}{Tabla.}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{cor}{Corolario}[section]
+\newtheorem{lem}{Lema}[section]
+\newtheorem{defi}{Definición}[section]
+\newtheorem{obs}{Observación}[section]
+\newtheorem{prop}{Propiedades.}[section]
+\newtheorem{ejem}{\textbf{\textit{$\circ \ \text{Ejemplo}$}}}[section]
+\newtheorem{axi}{Axioma}[section]
+
+\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
+
+\newtcolorbox{post}{colback=white,colframe=red!50!black,
+	colbacktitle=red!75!black, title= Postulado.}
+
+\newtcolorbox{enu}{colframe=white!85!black, colback=white, leftrule = 10mm, sharp corners, breakable}
+
+\newtcolorbox{solu}{colframe=black, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+\newtcolorbox{corre}{colframe=red, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+\newtcolorbox{enun}{colframe=gray, colback=white!90!black, leftrule = 1mm, rightrule = 1mm, toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+\newenvironment{sol}{\begin{figure}[H]
+		\begin{tikzpicture}
+		\filldraw[black] (0,0) circle (3pt);
+		\draw[line width = 0.5pt] (0,0) -- (4,0) node[above right]{\textbf{Solución:}};
+		\end{tikzpicture}
+\end{figure}}{\begin{figure}[H]
+		\begin{flushright}
+			\begin{tikzpicture}
+			\draw[line width = 0.5pt] (0,0)-- (4,0);
+			\filldraw (4,0) circle (3pt);
+			\end{tikzpicture}
+\end{flushright}\end{figure}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
+ 
+\begin{document}
+
+\title{Norma inducida y bases ortonormales}
+\date{}
+\maketitle
+%\tableofcontents
+
+\begin{obs}
+
+Las ideas principales detrás del Teorema de Gram-Schmidt son tres:
+\begin{enumerate}[label=(\roman*)]
+    
+    \item en espacios vectoriales de dimensión finita con producto escalar, los conjuntos l.i. se pueden ortogonalizar/ortonormalizar,
+    
+    \item el conjunto ortogonal/ortonormal obtenido a partir del conjunto l.i. genera al mismo subespacio vectorial que el conjunto l.i. y
+    
+    \item sigue siendo l.i.
+\end{enumerate}
+
+El objetivo es mostrar estas tres ideas geométricamente para generar la intuición necesaria para entender el teorema.
+\end{obs}
+
+\newpage
+\section{Primera escena}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Escena final}
+
+\begin{center}
+    Sea $V$ un espacio vectorial con producto escalar.
+\end{center}
+
+Ejercicio 2.1: Demuestra que
+\begin{align*}
+    \bigg\langle \bigg\{\vec{u}, \vec{v} - \frac{\langle \vec{v}, \vec{u}\rangle}{||\vec{u}||}\hat{u} \bigg\}\bigg\rangle = \langle \{\vec{u},\vec{v}\} \rangle
+\end{align*} para $\vec{u},\vec{v}\in V$ con $\vec{u},\vec{v}\neq\vec{0}$ y dibuja un ejemplo en $\mathbb{R}^2$.
+
+\vspace{5mm}
+
+Ejercicio 2.2: Demuestra que cualquier conjunto ortogonal de vectores no nulos es linealmente independiente.
+
+\vspace{5mm}
+
+Pregunta 2.1: ¿Qué sucedería si aplicáramos el proceso de Gram-Schmidt a un conjunto de vectores linealmente \emph{dependiente}?
+
+Pregunta 2.2: ¿Qué sucedería si, en el proceso de Gram-Schmidt modificado, normalizáramos a alguno de los vectores \emph{antes} de ortogonalizarlo en vez de  \emph{después}?
+
+\end{document}

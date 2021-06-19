@@ -1,0 +1,243 @@
+\documentclass[12pt,dvipsnames]{article}
+\setcounter{section}{0}
+
+\usepackage{amsmath,amsthm,amssymb,amsbsy}
+\usepackage[spanish,es-tabla]{babel}
+\decimalpoint
+\usepackage{braket}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.5cm]{geometry} 
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{lmodern}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,breakable}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1em}
+
+\definecolor{NARANJA}{rgb}{1,0.467,0}
+\definecolor{VERDE}{rgb}{0.31,1,0}
+\definecolor{AZUL}{rgb}{0,0.53,1}
+\definecolor{ROJO}{rgb}{1,0,0}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=ROJO,
+    filecolor=magenta,      
+    urlcolor=AZUL,
+}
+ 
+\pgfplotsset{compat=1.15}
+ 
+ \renewcommand{\figurename}{Figura}
+
+\renewcommand{\indexname}{Índice}
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand{\contentsname}{Contenidos}
+\renewcommand{\proofname}{Dem.}
+\renewcommand{\tablename}{Tabla.}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{cor}{Corolario}[section]
+\newtheorem{lem}{Lema}[section]
+\newtheorem{defi}{Definición}[section]
+\newtheorem{obs}{Observación}[section]
+\newtheorem{prop}{Propiedades.}[section]
+\newtheorem{ejem}{\textbf{\textit{$\circ \ \text{Ejemplo}$}}}[section]
+\newtheorem{axi}{Axioma}[section]
+
+\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
+
+\newtcolorbox{post}{colback=white,colframe=red!50!black,
+	colbacktitle=red!75!black, title= Postulado.}
+
+\newtcolorbox{enu}{colframe=white!85!black, colback=white, leftrule = 10mm, sharp corners, breakable}
+
+\newtcolorbox{solu}{colframe=black, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+\newtcolorbox{corre}{colframe=red, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+\newtcolorbox{enun}{colframe=gray, colback=white!90!black, leftrule = 1mm, rightrule = 1mm, toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+\newenvironment{sol}{\begin{figure}[H]
+		\begin{tikzpicture}
+		\filldraw[black] (0,0) circle (3pt);
+		\draw[line width = 0.5pt] (0,0) -- (4,0) node[above right]{\textbf{Solución:}};
+		\end{tikzpicture}
+\end{figure}}{\begin{figure}[H]
+		\begin{flushright}
+			\begin{tikzpicture}
+			\draw[line width = 0.5pt] (0,0)-- (4,0);
+			\filldraw (4,0) circle (3pt);
+			\end{tikzpicture}
+\end{flushright}\end{figure}}
+
+\title{Guiones de Animathica, tema: Topología (Compactos).}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
+ 
+\begin{document}
+
+\title{Espacios vectoriales con producto escalar}
+\date{}
+\maketitle
+%\tableofcontents
+
+\section{Objetivo}
+Generar material educativo audiovisual para apoyar el curso de \href{http://www.fciencias.unam.mx/licenciatura/asignaturas/2016/1330}{Álgebra Lineal} de la Licenciatura en Física Biomédica, así como a l@s estudiantes de la Licenciatura en Física, con un enfoque particular hacia sentar las bases del formalismo de la mecánica cuántica durante la segunda mitad de la serie.
+
+\section{Máximas}
+
+\begin{itemize}
+    \item No pensar en qué temas son más ``animables'', sino en cuáles se podrían beneficiar más de una animación para complementar su comprensión.
+    \item Dentro de los temas anteriores, pensar en cuáles no tienen animaciones todavía, o cuáles tienen animaciones que se puedan mejorar significativamente.
+    \item Dentro de los temas anteriores, dar prioridad a los que típicamente sean más difíciles de entender.
+    \item Procurar que las ideas principales se puedan comprender de forma intuitiva a través de la exposición audiovisual, independientemente del conocimiento previo.
+    \item Procurar pulir el contrapunto entre audio y video (guión, animaciones, colores, sincronización, etc.).
+    \item Procurar reducir la ``densidad de información visual'' en las animaciones\footnote{Para ``medir'' la densidad de información visual de una escena, podemos imaginar cómo se vería la escena si todo lo que se plasma en ella se quedara ``embarrado''; entre menor sea la ``mancha'' final, mejor (sin exagerar).}, así como la ``grasita extra'' de los guiones.
+    \item En vez de reproducir el material educativo del pasado con ``técnicas del futuro'', utilizar las técnicas del presente para \emph{crear el material educativo del futuro}.
+\end{itemize}
+
+\section{Ideas}
+
+\begin{itemize}
+    \item Siempre dirigirnos a el/la espectadora en primera persona.
+    \item Enfocar al público en problemas concretos para motivar los conceptos y las discusiones.
+    \item Dejar una pregunta y un ejercicio al final de cada video para reforzar y expandir lo aprendido.
+    \item Procurar complementar lo que se anima con referencias en la descripción (pero complementar ``de verdad'', es decir, con ejemplos que puedan ser muy distintos a lo presentado, pero que se sigan de ello o estén relacionados con el tema expuesto).
+\end{itemize}
+
+\section{Videos}
+
+\begin{enumerate}
+    % Ortogonalidad en espacios reales
+    \item Producto escalar y bases ortogonales.
+    \item Norma inducida y bases ortonormales.
+    \item Ortogonalización y ortonormalización (proceso de Gram-Schmidt).
+    \item Complementos ortogonales y sumas directas.
+    % Operadores en espacios reales
+    \item Operadores lineales, descomposición espectral y proyecciones ortogonales (introducción al Teorema espectral).
+    \item Funcionales lineales y operadores adjuntos
+    \item Operadores autoadjuntos y Teorema espectral.
+    % Espacios complejos
+    %\item Geometría del campo complejo.
+    % Producto escalar y ortogonalidad en espacios complejos.
+    % Operadores normales (Teorema espectral en espacios complejos)
+    % Extra
+    % \item Notación bra-ket (o "de Dirac")
+    % \item Presentación: Espacios vectoriales con producto escalar.
+\end{enumerate}
+
+\section{Paleta de colores}
+
+Esta es la paleta de colores que utilizo en mis notas del curso, pero podemos cambiar los colores si quieren. Lo importante es que sea un tema consistente que nos sirva como guía. Algo bueno a considerar sería que sea una paleta amigable con personas con daltonismo.
+
+Colores ``primarios'': \textcolor{AZUL}{Azul (\#0087FF)} y \textcolor{ROJO}{rojo (\#FF0000)}.
+
+Colores ``secundarios'': \textcolor{NARANJA}{Naranja (\#FF7700)} y \textcolor{VERDE}{verde (\#4FFF00)}.
+
+En la rara ocasión que requiero un quinto color, usualmente utilizo \textcolor{magenta}{magenta (\#FF00FF)} pero, como hemos discutido, esperemos no tener que llegar a eso. \hyperlink{https://doc.instantreality.org/tools/color_calculator/}{Les dejo una página} para convertir códigos de colores entre el sistema hexadecimal, rgb con decimales y rgb normalizado con decimales, ya que diferentes programas utilizan distintos sistemas.
+
+\section{Convenciones de notación}
+
+En donde haya signos de equivalencia ($\equiv$), lo que esté del lado izquierdo será la convención para los videos \textbf{antes del de notación bra-ket} y, lo que esté del lado derecho, para los videos \textbf{después del de notación bra-ket}.
+
+\begin{tcolorbox}
+\centering
+\begin{tabular}{cc}
+    \\
+    $\vec{u}\equiv\ket{u}, \vec{v}\equiv\ket{v}, ...$ & vectores (elementos de un conjunto vectorial $V$) \\ \\
+    $a\equiv\alpha,b\equiv\beta, ...$ & escalares (elementos de un campo $K$ que define un espacio vectorial) \\ \\
+    $ab\equiv \alpha\beta$ & producto entre los escalares $a$ y $b$ \\ \\
+    $\overline{a} \equiv \alpha^\ast$ & complejo conjugado del escalar $a$ \\ \\
+    $a\vec{u}\equiv\alpha\ket{u}$ & producto del vector $\vec{u}$ por el escalar $\alpha$ \\ \\
+    $(x_1,...\hspace{0.5mm},x_n) $ & coordenada como n-tupla \\ \\
+    $\begin{pmatrix}x_1&...&x_n\end{pmatrix}$ & vector como n-tupla \\ \\
+    $V + W$ & suma de los espacios vectoriales $V$ y $W$ \\ \\
+    $V \oplus W$ & suma directa de los espacios vectoriales $V$ y $W$ \\ \\
+    $\langle\mathbf{u},\mathbf{v}\rangle \equiv \braket{v|u}$ & producto escalar entre los vectores $\mathbf{u}$ y $\mathbf{v}$ \\ \\
+    $||\mathbf{u}||\equiv || \ket{u} ||$ & norma del vector $\mathbf{u}$ \\ \\
+    $\hat{u}$ & vector unitario \\ \\
+    $P_{\mathbf{u}}(\mathbf{v}) \equiv P_{\ket{u}}(\ket{v})$ & proyección escalar del vector $\mathbf{v}$ sobre el vector $\mathbf{u}$ \\ \\
+    $\mathbf{u}\perp\mathbf{v} \equiv \ket{u}\perp\ket{v}$ & ortogonalidad de los vectores $\mathbf{u}$ y $\mathbf{v}$ \\ \\
+    $\langle G \rangle$ & Espacio vectorial generado por el conjunto de vectores $G$ \\ \\
+    $l.i.$ & Conjunto linealmente independiente \\ \\
+    $l.d.$ & Conjunto linealmente dependiente \\ \\
+    $o.n.$ & Conjunto ortonormal \\ \\
+    $\text{dim}(V)$ & Dimensión del espacio vectorial $V$ \\ \\
+
+\end{tabular}
+\end{tcolorbox}
+
+\section{Para los \emph{scripts} de Python...}
+
+\begin{itemize}
+    \item Incluir al inicio de cada escena (idealmente, sólo al inicio de cada archivo, cuando esté homogeneizado) la versión de manim en la que corre el archivo (e.g., ``Manim Community V0.6.0'').
+    
+    \item Incluir al inicio de cada archivo las ``variables globales'' que utilicemos en varias escenas como, por ejemplo, los colores.
+    
+    \item Investigar sobre el orden de aparición de las escenas en la terminal (procurar que aparezcan según el orden acordado).
+    
+    \item Cuando en duda, preguntarse, ¿qué sería lo mejor para quienes más adelante quieran experimentar con el código?
+    
+\end{itemize}
+
+\section{Acuerdos de trabajo}
+
+\begin{itemize}
+    \item Sábado a las 12:00 subir el video actualizado a su respectivo hilo de Slack y el correspondiente script a github, y actualizar los guiones del proyecto de Overleaf.
+    
+   
+\end{itemize}
+\end{document}
