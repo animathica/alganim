@@ -164,25 +164,198 @@ Siendo el primer video de la serie, se dejarán varios ejercicios con la intenci
 \newpage
 \section{Primera escena}
 
+Sabemos que, dados un espacio vectorial de dimensión finita y una base para ese espacio, cualquier vector del espacio puede ser expresado mediante una combinación lineal única de los vectores de esa base. Esto es de gran utilidad para hacer cálculos con vectores. Sin embargo, consideremos la siguiente pregunta: dado un vector no nulo cualquiera y una base arbitraria, ¿cómo encontramos los coeficientes necesarios para expresar a nuestro vector como combinación lineal de dicha base?
+
+\begin{align*}
+    & & &\text{dim}(V)=k<\infty& & &\\
+    \\
+    \beta&=\{\vec{b}_1,...,\vec{b}_k\} \ \ \text{base de} \ \ V& & & & &\\
+    \\
+    \langle\beta&\rangle = V, \ \ \beta \ \ \text{es} \ \ l.i.& & & & & \\
+    \\
+    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& & & & & \\
+    \\
+    \\
+    \\
+    & \quad \quad \ \ \text{¿}c_1,...,c_k\text{?} & & & & &
+\end{align*}
+
+Veamos cómo podríamos representar este problema en el caso del espacio vectorial real $\mathbb{R}^2$. Tenemos a nuestro vector no nulo cualquiera y a nuestra base arbitraria. Como la base genera a todo el espacio y es linealmente independiente, sabemos que existe una combinación lineal única de sus elementos que da como resultado a nuestro vector. Sin embargo, no sabemos cómo encontrar a los coeficientes de dicha combinación lineal. Vamos primero a resolver este problema de manera general, y después volveremos a este espacio para representar la solución en este caso.
+
+Regresando al planteamiento general, este problema puede llegar a ser muy complicado, ya que nuestros vectores podrían ser funciones, n-tuplas, matrices, etc. y tendríamos que resolver un sistema de ecuaciones \textemdash mediante el método computacional de nuestra preferencia\textemdash, el cual aumentaría en complejidad a medida que aumente la dimensión del espacio. Sin embargo, se puede resolver de forma sencilla introduciendo una operación llamada \emph{producto escalar}.
+
 %%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%
 
 \newpage
 \section{Segunda escena}
+
+Un producto escalar en un espacio vectorial es una operación que toma un par ordenado de vectores del espacio y devuelve un escalar del campo, tal que cumple las siguientes propiedades:
+\begin{align*}
+    & &\text{Producto escalar}& &\\
+    & &\langle\cdot,\cdot\rangle:V\times V\to K & &\\
+    \\
+    \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in K\\
+    \\
+    \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle \\
+    \\
+    \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle\\
+    \\
+    \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle}\\
+    \\
+    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0}
+\end{align*}
+
+\noindent No es difícil demostrar que podemos resumir las primeras dos propiedades de la siguiente manera. Para referirnos a esta propiedad más sintetizada, decimos que el producto escalar es una operación \emph{lineal en su primera entrada}\footnote{Abajo, en esta parte, faltan unos corchetes que no sé cómo poner. En general, en las animaciones, las cosas deberían quedar mejor alineadas de lo que logro hacerlo aquí con el ambiente \emph{align*}.}. A la siguiente propiedad se le conoce como \emph{simetría conjugada} y, para referirnos a la última propiedad, decimos que el producto escalar es \emph{positivo definido}.
+
+\begin{align*}
+    & &\text{Producto escalar}& &\\
+    & &\langle\cdot,\cdot\rangle:V\times V\to K & &\\
+    \\
+    \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in K\\
+    \\
+    \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle \\
+                                          & &\langle a\vec{u}+\vec{w} , \vec{v} \rangle = a \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle\\
+    \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle &\text{\emph{Linealidad} en la primera entrada} \\
+    \\
+    \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle} &\text{Simetría \emph{conjugada}}\\
+    \\
+    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
+\end{align*}
+
+\noindent Juntando las propiedades de linealidad en la primera entrada y simetría conjugada, se puede demostrar que el producto escalar es una operación \emph{antilineal} en su otra entrada\footnote{Escribir ``Ver Ejercicio 1.1.'' como nota al pie.}. Además, dado que esta operación es positivo definida, se puede demostrar que el producto escalar de un vector consigo mismo es igual a cero si, y sólo si, dicho vector es igual al vector nulo del espacio; este importante hecho será usado a continuación en la solución de nuestro problema, por lo que hemos dejado su demostración como ejercicio al final del video\footnote{Escribir ``Ver Ejercicio 1.2.'' como nota al pie.}. En resumen, podemos decir que el producto escalar es una operación positivo definida de dos entradas, siendo una de ellas lineal y la otra, antilineal.
+
+\begin{align*}
+    & &\text{Producto escalar}& &\\
+    & &\langle\cdot,\cdot\rangle:V\times V\to K & &\\
+    \\
+    \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in K\\
+    \\
+    \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle \\
+                                          & &\langle a\vec{u}+\vec{w} , \vec{v} \rangle = a \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle\\
+    \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle &\text{\emph{Linealidad} en la primera entrada} \\
+                                       & & & &\langle \vec{u} , a\vec{w}+\vec{v} \rangle = \overline{a} \langle \vec{u} , \vec{w} \rangle + \langle \vec{u} , \vec{v} \rangle \\
+    \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle} &\text{Simetría \emph{conjugada}} & &\text{\emph{Antilinealidad} en la segunda entrada}\\
+    \\
+    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
+\end{align*}
+
+\noindent En particular, observemos que, si el campo sobre el cual está definido nuestro espacio vectorial es el de los números reales, entonces todos los escalares son iguales a sus complejos conjugados. Por ende, podemos demostrar que en espacios vectoriales reales el producto escalar es una operación simétrica y lineal en ambas entradas, o \emph{bilineal}\footnote{Escribir ``Ver Ejercicio 1.3.'' como nota al pie.}.
+
+\begin{align*}
+    & &\text{Producto escalar}& &\\
+    & &\langle\cdot,\cdot\rangle:V\times V\to \mathbb{R} & &\\
+    \\
+    \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in \mathbb{R}\\
+    \\
+    \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle \\
+                                          & &\langle a\vec{u}+\vec{w} , \vec{v} \rangle = a \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle\\
+    \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle &\text{\emph{Linealidad} en la primera entrada} \\
+                                       & & & &\langle \vec{u} , a\vec{w}+\vec{v} \rangle = a \langle \vec{u} , \vec{w} \rangle + \langle \vec{u} , \vec{v} \rangle \\
+    \langle \vec{u} , \vec{v} \rangle &= \langle \vec{v} , \vec{u} \rangle &\text{Simetría} & &\text{\emph{Linealidad} en la segunda entrada}\\
+    \\
+    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
+\end{align*}
+
+\newpage
+Para ver la importancia de esta \emph{nueva} operación en la solución del problema presentado al inicio del video, debemos introducir la definición de ortogonalidad. Decimos que dos vectores son \emph{ortogonales} si su producto escalar es cero. Notemos que, como el complejo conjugado de cero es él mismo, por la propiedad de simetría conjugada se sigue que la ortogonalidad es una propiedad simétrica.
+
+\[
+    \vec{u},\vec{v}\in V \ \text{son \emph{ortogonales}} \ (\vec{u}\perp\vec{v}) \ \text{si} \ \langle \vec{u} , \vec{v} \rangle = 0 \ \text{ó, equivalentemente,} \ \langle \vec{v} , \vec{u} \rangle = 0.
+\] 
+
+\noindent Así mismo, diremos que un conjunto de vectores es \emph{ortogonal} si cualesquiera dos vectores distintos del conjunto son ortogonales.
+
+\[
+    \text{O=}\{\vec{o}_1,...,\vec{o}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{o}_i , \vec{o}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
+\]
+
+\noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.}, entonces por el Ejercicio 1.2 vemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las siguientes condiciones\footnote{Tal vez quede mejor cambiando de lugar los dos casos de la expresión $\langle \vec{g}_j , \vec{g}_i \rangle$ aquí y en lo que sigue, pero no estoy seguro aún.}
+
+\begin{align*}
+    \Gamma=\{\vec{g}_1,...,\vec{g}_k\} \ \ \text{base \emph{ortogonal} de} \ \ V& & &\\
+    \\
+    \langle\Gamma\rangle = V, \ \ \langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i \end{cases}& & &\\
+\end{align*}
 
 %%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%
 
 \newpage
 \section{Tercera escena}
 
+Veamos qué sucede si, regresando a nuestro problema original, suponemos que $V$ es un espacio vectorial con producto escalar y que $\Gamma$ es una base ortogonal de $V$. Nuevamente, por ser $\Gamma$ una base, sabemos que existen coeficientes tales que la siguiente ecuación se cumple. ¿Pero cómo encontramos a estos coeficientes?
+
+\begin{align*}
+    \beta&=\{\vec{b}_1,...,\vec{b}_k\} \ \ \text{base de} \ \ V& &\Gamma=\{\vec{g}_1,...,\vec{g}_k\} \ \ \text{base \emph{ortogonal} de} \ \ V& & &\\
+    \\
+    \langle\beta&\rangle = V, \ \ \beta \ \ \text{es} \ \ l.i.& &\langle\Gamma\rangle = V, \ \ \langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i \end{cases}& & &\\
+    \\
+    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& &\quad \quad \quad \quad \vec{v}= d_1\vec{g}_1 + ... + d_k\vec{g}_k& & & \\
+    \\
+    \\
+    &\quad \quad \quad \quad \text{¿}c_i\text{?}& & \quad \quad \quad \quad \quad \quad \quad \quad \text{¿}d_i\text{?} & & &
+\end{align*}
+
+Observemos lo siguiente: si tomamos al $i$-ésimo elemento de la base ortogonal, aplicamos el producto escalar con ese elemento a ambos lados de la ecuación, usamos la propiedad de linealidad en la primer entrada del producto escalar y, finalmente, utilizamos el hecho de que nuestra base es ortogonal, y despejamos, podemos encontrar una expresión sumamente sencilla para el $i$-ésimo coeficiente: simplemente se obtiene a través de dos productos escalares y una división.
+
+\begin{align*}
+    & & & \quad \quad \vec{v}= d_1\vec{g}_1 + ... + d_k\vec{g}_k& & & \\
+    \cline{1-8}
+    & & &\langle \vec{v} , \vec{g}_i \rangle = \langle d_1\vec{g}_1 + ... + d_k\vec{g}_k , \vec{g_i} \rangle& & & \\
+    \cline{1-8}
+    & & &\langle \vec{v} , \vec{g}_i \rangle = \langle d_1\vec{g}_1,\vec{g}_i\rangle + ... + \langle d_k\vec{g}_k , \vec{g_i} \rangle& & & \\
+    \cline{1-8}
+    & & &\langle \vec{v} , \vec{g}_i \rangle = d_1\langle \vec{g}_1, \vec{g}_i\rangle + ... + d_k\langle \vec{g}_k , \vec{g_i} \rangle& & & \\
+    \cline{1-8}
+    & & &\langle \vec{v} , \vec{g}_i \rangle = \sum_{j=1}^k d_j\langle \vec{g}_j, \vec{g}_i\rangle& & & \\
+    \cline{1-8}
+    & & &\langle \vec{v} , \vec{g}_i \rangle = d_i \langle\vec{g}_i, \vec{g}_i\rangle& & & \\
+    \cline{1-8}
+    & & &\frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle} = d_i& & &
+\end{align*}
+
+Como esto es válido para toda $i$, tenemos el siguiente resultado para cualquier vector arbitrario de nuestro espacio vectorial con producto escalar:
+
+\begin{align*}
+    & &d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k
+    \\
+    \cline{1-8}
+    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& &\quad \quad \quad \quad \vec{v}= d_1\vec{g}_1 + ... + d_k\vec{g}_k& & & \\
+    \\
+    \\
+           &\quad \quad \quad \quad \text{¿}c_i\text{?}& &\quad \quad \quad \quad \quad \quad d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k& & &
+    \\
+    \cline{1-8}
+    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& &\quad \quad \quad \quad \vec{v}= \frac{\langle \vec{v} , \vec{g}_1 \rangle}{\langle \vec{g}_1 , \vec{g}_1 \rangle}\vec{g}_1 + ... + \frac{\langle \vec{v} , \vec{g}_k \rangle}{\langle \vec{g_k} , \vec{g_k} \rangle}\vec{g}_k& & & \\
+    \\
+    \\
+           &\quad \quad \quad \quad \text{¿}c_i\text{?}& &\quad \quad \quad \quad \quad \quad d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k& & &
+    \\
+    \cline{1-8}
+    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& &\quad \quad \quad \quad \vec{v}= \sum_{i=1}^k\frac{\langle \vec{v} , \vec{g}_i \rangle}{\langle \vec{g}_i , \vec{g}_i \rangle}\vec{g}_i & & &
+    \\
+    \\
+           &\quad \quad \quad \quad \text{¿}c_i\text{?}& &\quad \quad \quad \quad \quad \quad d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k& & &
+\end{align*}
+
+Por lo tanto, si un espacio vectorial de dimensión finita \emph{con producto escalar} tiene una base \emph{ortogonal}, ésta resuelve nuestro problema de encontrar coeficientes de manera sencilla, y es precisamente este resultado el que nos ayudará a encontrarle una interpretación geométrica a la operación de producto escalar\footnote{Escribir ``Como veremos en un video posterior, la existencia de bases ortogonales siempre está asegurada para este tipo de espacios; esto es consecuencia de un resultado conocido como el Teorema de Gram-Schmidt.'' como nota al pie.}, como veremos a continuación para un caso particular.
+
 %%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%
 
 \newpage
 \section{Cuarta escena}
 
+Regresemos a la representación geométrica de nuestro problema en el caso del espacio vectorial real $\mathbb{R}^2$. Como quizá ya lo estés sospechando, la operación conocida como \emph{producto punto} es un ejemplo de un producto escalar en este espacio. Observemos que un conjunto que contiene a los vectores con entradas $\begin{pmatrix} 1 & 0 \end{pmatrix}$ y $\begin{pmatrix} 0 & 1 \end{pmatrix}$ forma una base ortogonal de este espacio, pues cumple con las propiedades descritas anteriormente. Aplicando el resultado anterior, se sigue que los coeficientes necesarios para expresar a nuestro vector arbitrario como combinación lineal de esta base ortogonal son los siguientes.
+
+Ahora, observemos que cada término de la combinación lineal es un reescalamiento de uno de los vectores de la base. En otras palabras, cada término de la suma es igual a la componente de nuestro vector arbitrario que se encuentra en el subespacio generado por el elemento de la base que reescalamos. A dichas componentes se les conoce como las \emph{proyecciones vectoriales} de nuestro vector arbitrario sobre los elementos de nuestra base. En particular, esto nos dice que dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es el vector nulo. En particular, en el caso de los espacios reales, se sigue que el producto escalar de dos vectores es positivo si ambos apuntan en el mismo sentido, y negativo si apuntan en sentidos contrarios.
+
+El razonamiento anterior se puede aplicar también en el caso general. Por lo tanto, geométricamente, podemos interpretar al producto escalar como una operación que nos permite calcular las proyecciones vectoriales de unos vectores sobre otros con facilidad.
+
 %%%%%%%%%%%%% QUINTA ESCENA %%%%%%%%%%%
 
 \newpage
 \section{Quinta escena}
+
+Veamos que esta interpretación geométrica es consistente con las propiedades que definen al producto escalar. COMPLETAR\footnote{Esta escena servirá como la fundación del siguiente video, pues la interpretación geométrica de la norma inducida por el producto escalar se deberá seguir directamente de lo que se presente en esta escena. Por lo tanto, trabajaré esta escena en paralelo con el guión del segundo video ``Norma inducida y bases ortonormales''.}
 
 
 %%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%
@@ -199,10 +372,13 @@ Ejercicio 1.1 Demuestra que %Se hace referencia a este ejercicio en el video de 
     \langle \vec{u} + a\vec{w}, \vec{v}\rangle &= \langle \vec{u},\vec{v}\rangle + a\langle \vec{w}, \vec{v}\rangle, \\
     \\
     \langle \vec{u}, \vec{v} + a\vec{w}\rangle &= \langle \vec{u},\vec{v}\rangle + \overline{a}\langle \vec{u}, \vec{w}\rangle
-\end{align*} para todo $\vec{u},\vec{v},\vec{w}\in V$, $a\in K$ y dibuja un ejemplo no trivial ($\vec{u},\vec{v},\vec{w}\neq\vec{0}, a\neq 0$) en $\mathbb{R}^2$.
+\end{align*} para todo $\vec{u},\vec{v},\vec{w}\in V$, $a\in K$; luego, dibuja un ejemplo no trivial ($\vec{u},\vec{v},\vec{w}\neq\vec{0}, a\neq 0$) en $\mathbb{R}^2$. \\
 
-\vspace{5mm}
-Ejercicio 1.2 Demuestra que las siguientes condiciones son equivalentes. %Se hace referencia a este ejercicio en el video de Ortogonalización y ortonormalización
+Ejercicio 1.2 Para $\vec{v}\in V$, demuestra que $\langle \vec{v} , \vec{v} \rangle = 0$ si, y sólo si, $\vec{v}=\vec{0}$.
+
+Ejercicio 1.3 Demuestra que si $K=\mathbb{R}$, entonces el producto escalar en $V$ es bilineal.
+
+Ejercicio 1.4 Demuestra que las siguientes condiciones son equivalentes. %Se hace referencia a este ejercicio en el video de Ortogonalización y ortonormalización
 
 \begin{enumerate}[label=(\alph*)]
     \item $\langle \vec{u} , \vec{v} \rangle = 0$ para todo $\vec{u}\in V$.
@@ -212,15 +388,12 @@ Ejercicio 1.2 Demuestra que las siguientes condiciones son equivalentes. %Se hac
     \item $\langle \vec{v} , \vec{u} \rangle = 0$ para todo $\vec{u}\in V$.
 \end{enumerate}
 
-Ejercicio 1.3 Demuestra que todo conjunto ortogonal es linealmente independiente si, y sólo si, no contiene al vector nulo.
+Ejercicio 1.5 Demuestra que todo conjunto ortogonal es linealmente independiente si, y sólo si, no contiene al vector nulo. \\
 
-\vspace{5mm}
-Ejercicio 1.4 
+Ejercicio 1.6 Demuestra que, para un espacio vectorial de dimensión finita $k$, cualquier conjunto ortogonal de $k$ vectores que no contiene al vector nulo es una base. \\
 
-\vspace{5mm}
-Pregunta 1.1 ¿Cómo puedes interpretar la propiedad de simetría conjugada del producto escalar en un espacio vectorial complejo?\footnote{Ésta ni yo la sé responder en toda su profundida, pero me parece interesante pensarla.}
+Pregunta 1.1 ¿Cómo puedes interpretar la propiedad de simetría conjugada del producto escalar en un espacio vectorial complejo?\footnote{Ésta ni yo la sé responder en toda su profundida, pero me parece interesante pensarla.} \\
 
-\vspace{5mm}
 Pregunta 1.2 ¿El resultado de las bases ortogonales será válido en espacios vectoriales con producto escalar de dimensión \emph{infnita}? Argumenta\footnote{Respuesta: no porque, en general, las combinaciones lineales infinitas no están bien definidas; se tendrían que considerar cuestiones de convergencia.}.
 
 \end{document}
