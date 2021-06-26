@@ -52,7 +52,7 @@ class CodeWindow(VGroup):
         self.canvas = VGroup(rect, buttons, number_line_mob)
         self.canvas.shift(0.3*LEFT)
 
-class TerceraEscena(Scene):
+class Subescena_1(Scene):
     #Parámetros de CONFIG como asignación de los valores 
     #de los atributos
     config.x_min = -0.25,
@@ -97,7 +97,7 @@ class TerceraEscena(Scene):
 
         algoritmo_left_2_1 = Tex('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.6)
         algoritmo_left_2_2 = Tex('''\\texttt{de $I$, restarle sus proyecciones}''').scale(0.6)
-        algoritmo_left_2_3 = Tex('''\\texttt{sobre todos los vectores de }''', '''\\texttt{$\\Gamma$}''').scale(0.6)
+        algoritmo_left_2_3 = Tex('''\\texttt{sobre todos los vectores de }''', '''\\texttt{$\\Gamma$}''','''\\texttt{,}''').scale(0.6)
         algoritmo_left_2_3[1].set_color('#0087FF')
 
         algoritmo_left_2_4 = Tex('''\\texttt{y después agregarlo a }''','''\\texttt{$\\Gamma$}''','''.''').scale(0.6)
@@ -323,6 +323,40 @@ class TerceraEscena(Scene):
             *[FadeOut(mob) for mob in self.mobjects]
         )
 
+    #-------------------------------
+    
+    #Animaciones subescena 1
+    def construct(self):
+        self.parte_1()
+
+class Subescena_2(Scene):
+    #Parámetros de CONFIG como asignación de los valores 
+    #de los atributos
+    config.x_min = -0.25,
+    config.x_max = 1,
+    config.x_axis_width = 5,
+    config.x_tick_frequency = 10,
+    config.x_leftmost_tick = None,  # Change if different from x_min
+    config.x_labeled_nums = [],
+    config.x_axis_label = "$x$",
+    config.y_min = -1.5,
+    config.y_max = 1.5,
+    config.y_axis_height = 3*1.5,
+    config.y_tick_frequency = 0.5,
+    config.y_bottom_tick = None,  # Change if different from y_min
+    config.y_labeled_nums = [-1,1],
+    config.y_axis_label = "$y$",
+    config.axes_color = BLUE,
+    config.graph_origin = 4.5*LEFT+0.7*DOWN,
+    config.exclude_zero_label = True,
+    config.default_graph_colors = [BLUE, GREEN, YELLOW],
+    config.default_derivative_color = GREEN,
+    config.default_input_color = YELLOW,
+    config.default_riemann_start_color = BLUE,
+    config.default_riemann_end_color = GREEN,
+    config.area_opacity = 0.8,
+    config.num_rects = 50,
+    config.num_graph_anchor_points = 3000
 
     def parte_2(self):
         #------------------------------------------------------------------- Teorema de Gram-Schmidt
@@ -405,18 +439,18 @@ class TerceraEscena(Scene):
             "$\\rangle$", #2
             "$ = \\langle I\\rangle = \\langle$",#3
             "$N$",#4
-            "$\\rangle$", #5
+            "$\\rangle$.", #5
             )
 
         tex_7_0 = Tex("$\\Gamma$",
                                 " es un conjunto ",
                                 "ortogonal",
-                                "; "
+                                ", "
                             ).next_to(tex_7_2)
         tex_7_1 = Tex("$N$",
                                 " es un conjunto ",
                                 "ortonormal",
-                                "."
+                                ","
                             ).next_to(tex_7_0,RIGHT)
 
         tex_7_0[0].set_color('#0087FF')
@@ -482,8 +516,6 @@ class TerceraEscena(Scene):
             *[FadeOut(mob) for mob in self.mobjects]
         )
     #-------------------------------
-
-    #animaciones
+    # Animaciones subescena 2
     def construct(self):
-        self.parte_1()
         self.parte_2()
