@@ -145,6 +145,7 @@ Generar material educativo audiovisual para apoyar el curso de \href{http://www.
     \item En vez de reproducir el material educativo del pasado con ``técnicas del futuro'', utilizar las técnicas del presente para \emph{crear el material educativo del futuro}.
 \end{itemize}
 
+\newpage
 \section{Ideas}
 
 \begin{itemize}
@@ -219,13 +220,11 @@ En donde haya signos de equivalencia ($\equiv$), lo que esté del lado izquierdo
 \section{Para los \emph{scripts} de Python...}
 
 \begin{itemize}
-    \item Hacer un archivo por escena con formato de nombre ``Título\_del\_video-X.py'' donde X es el número de la escena, de acuerdo al guión; así, se pueden crear más opciones en el ``prompt'' de Manim para compilar por subescenas en vez de tener que compilar escenas completas cada vez.
+    \item Hacer un archivo por escena con formato de nombre ``A\_d\_T\_E\#.py'' (Abreviación del Título del video correspondiente) donde \# es el número de la escena, de acuerdo al guión; así, se pueden crear más opciones en el ``prompt'' de Manim para compilar por subescenas en vez de tener que compilar escenas completas cada vez. Las subescenas de cada archivo llevarán por nombre simplemente ``SE\#'' donde \# es el número de la subescena. Así aparecerán en el ``prompt'' de Manim en el mismo orden en que aparecen en la escena.
 
     \item Incluir al inicio de cada archivo la versión más actual de Manim en la que se ejecuta correctamente (e.g., ``Manim Community V0.6.0'').
     
     \item Incluir al inicio de cada archivo las ``variables globales'' que utilicemos en la escena como, por ejemplo, los colores, asumiendo que quienes intentarán reproducir el código \textbf{tendrán una instalación fresca de Manim}.
-    
-    \item Nombrar las clases de tal forma que las subescenas en el ``prompt'' de Manim aparezcan en el mismo orden en que aparecen en la escena.
     
     \item Cuando en duda, preguntarse, ¿qué sería lo mejor para quienes más adelante quieran experimentar con el código?
     
