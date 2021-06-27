@@ -139,9 +139,9 @@
     Las ideas principales a presentar en este video son:
 
     \begin{enumerate}[label=(\roman*)]
-        \item Por definición, un producto escalar positivo en un espacio vectorial induce una norma en ese espacio. Aunque no todas las normas provienen de un producto escalar positivo definido\footnote{Colocar ejemplos de normas no inducidas por productos escalares positivo definidos en la descripción.}, en esta serie de videos nos enfocaremos en este tipo de normas.
+        \item Por definición, un producto escalar en un espacio vectorial induce una norma en ese espacio. Aunque no todas las normas provienen de un producto escalar\footnote{Podríamos colocar ejemplos de normas no inducidas por productos escalares positivo definidos en la descripción del video.}, en esta serie de videos nos enfocaremos en este tipo de normas.
 
-        \item La norma nos da una noción de \emph{magnitud} de un vector, y nos permite hacer comparaciones entre vectores en este sentido.
+        \item La norma nos da una noción de \emph{magnitud} de un vector, y nos permite hacer comparaciones entre vectores en este sentido. La interpretación geométrica de la norma es consistente con la de la norma inducida que, a su vez, es consistente con la intepretación geométrica del producto escalar vista en el video anterior.
 
         \item Todo vector no nulo puede ser reescalado de tal forma que el vector resultante tenga norma unitaria. A este tipo de vectores se les conoce como vectores unitarios. En particular, un conjunto en el que todos los vectores son unitarios y ortogonales entre sí se conoce como conjunto ortonormal.
 
@@ -154,10 +154,76 @@
 \newpage
 \section{Primera escena}
 
+Por definición, \emph{todos} los espacios vectoriales deben tener una operación llamada \emph{suma} o \emph{adición vectorial} y otra llamada \emph{producto de un vector por un escalar} o, simplemente, \emph{reescalamiento}. Por lo tanto, decimos que estas son las operaciones \emph{esenciales} de los espacios vectoriales. Sin embargo, puede que un espacio vectorial tenga, además, \emph{otras} operaciones, que doten al espacio de una estructura adicional. Un ejemplo es la operación de producto escalar, la cual introduce nociones de ortogonalidad y proyecciones en nuestro espacio, como vimos en el video anterior. En este video veremos otra operación conocida como \emph{norma}, así como las nociones que introduce en nuestro espacio, y la forma en que se relaciona con el producto escalar.
+
+Una norma en un espacio vectorial es una operación que toma a un vector del espacio y devuelve un escalar del campo, tal que cumple las siguientes propiedades:
+
+\begin{align*}
+     & & &\quad \text{Norma}& \\
+     & & &||\cdot||:V\to K& \\
+     \\
+     \forall \ \vec{u}\in V, \ \forall \ a\in K, \\
+     \\
+     ||a\vec{u}|| = |a| \ ||\vec{u}||\\
+     \\
+     ||\vec{u}|| = 0 \iff \vec{u} = \vec{0}\\
+     \\
+     ||\vec{u}+\vec{v}|| \le ||\vec{u}|| + ||\vec{v}||
+\end{align*}
+
+La primera propiedad se conoce como \emph{escalabilidad absoluta} y, como su nombre lo indica, nos dice que la norma de un vector reescalado es proporcional al valor absoluto del escalar y a la norma del vector original. En términos geométricos, recordando que el cambio de signo corresponde a una inversión de sentido y que, en particular, en el caso de un espacio vectorial complejo, el producto de un vector por escalares complejos de igual valor absoluto corresponde a rotaciones, concluimos que la norma debe ser invariante bajo rotaciones\footnote{Díganme si esto tiene sentido para ustedes, o si hace falta explicarlo mejor.}. La siguiente propiedad se conoce como \emph{distinción del vector nulo}, y nos dice que el vector nulo es el único vector del espacio que tiene permitido tener norma nula. La última propiedad se llama la \emph{desigualdad del triángulo}, dado que nos recuerda a la clásica desigualdad entre la hipotenusa y la suma de los catetos de un triángulo cualquiera. 
+
+\begin{align*}
+     & & &\quad \text{Norma}& \\
+     & & &||\cdot||:V\to K& \\
+     \\
+     \forall \ \vec{u}\in V, \ \forall \ a\in K, \\
+     \\
+     ||a\vec{u}|| = |a| \ ||\vec{u}|| & &\text{Escalabilidad absoluta}\\
+     \\
+     ||\vec{u}|| = 0 \iff \vec{u} = \vec{0} & &\text{Distinción del vector nulo}\\
+     \\
+     ||\vec{u}+\vec{v}|| \le ||\vec{u}|| + ||\vec{v}|| & &\text{Desigualdad del triángulo}
+\end{align*}
+
+Además, no es difícil demostrar, a partir de las últimas dos propiedades, que la norma es positivo definida\footnote{Escribir ``Ver Ejercico 2.1.'' como nota al pie.}. A un espacio vectorial con una función que cumpla estas propiedades se le conoce como un \emph{espacio normado}.
+
+Hasta ahora, hemos visto que tanto la norma como el producto escalar son operaciones positivo definidas que distinguen al vector nulo\footnote{Escribir ``Ver Ejericicio 1.2.'' como nota al pie.}. Sin embargo, estas no son las únicas relaciones existentes entre estas dos operaciones. Observemos lo siguiente: supongamos que tenemos un espacio vectorial con producto escalar y que definimos una función de la siguiente manera
+
+\begin{align*}
+    & &(V,K) \\
+    \\
+    & &\langle \cdot , \cdot \rangle : V\times V\to K \ \text{es un producto escalar en} \ V\\
+    \\
+    ||\vec{v}||:=\sqrt{\langle \vec{v} , \vec{v} \rangle} \quad \forall \ \vec{v}\in V
+\end{align*}
+
+Entonces, se sigue de las propiedades del producto escalar que nuestra función va del espacio al campo y cumple las siguientes propiedades
+
+\begin{align*}
+    & &(V,K) \\
+    \\
+    & &\langle \cdot , \cdot \rangle : V\times V\to K \ \text{es un producto escalar en} \ V\\
+    \\
+    ||\vec{v}||:=\sqrt{\langle \vec{v} , \vec{v} \rangle} \quad \forall \ \vec{v}\in V\\
+    \\
+    ||\cdot||:V\to K\\
+    \\
+    \forall \ \vec{u}\in V, \ \forall \ a\in K,\\
+    \\
+    ||a\vec{u}|| = \sqrt{\langle a\vec{u} , a\vec{u} \rangle} = \sqrt{a\overline{a}\langle \vec{u} , \vec{u} \rangle} = \sqrt{a\overline{a}} \sqrt{\langle \vec{u} , \vec{u} \rangle} = |a| \ ||\vec{u}||\\
+    \\
+    ||\vec{u}|| = 0 \iff \sqrt{\langle \vec{u} , \vec{u} \rangle} = 0 \iff \langle \vec{u} , \vec{u} \rangle = 0 \iff \vec{u} = \vec{0}
+\end{align*}
+
+\noindent En otras palabras, nuestra función ya cumple dos de las propiedades de norma. Más aún, se puede demostrar que también cumple la desigualdad del triángulo\footnote{Podríamos colocar referencias a la desigualdad de Cauchy-Schwarz y a la desigualdad del triángulo en la descripción del video pues, personalmente, no creo que valga tanto la pena ahondar en todo eso en este video.}. Es decir que, en general, siempre que tengamos un espacio vectorial con un producto escalar, ¡podemos definir una norma en ese espacio \emph{a partir} del producto escalar de la misma manera en que lo hicimos anteriormente! A esto se le conoce como una \emph{norma inducida por un producto escalar}. A pesar de que no todas las normas en un espacio normado tengan que ser inducidas por un producto escalar, dado que esta serie de videos trata sobre la teoría de espacios vectoriales con producto escalar, nos enfocaremos principalmente en este tipo de normas durante el resto de la serie\footnote{Podríamos colocar referencias a normas no inducidas por productos escalares en la descripción del video y añadir una nota al pie que diga ``Ver referencias [N-1], [N-2], etc. en la descripción del video sobre normas no inducidas por productos escalares.''.}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Segunda escena}
+
+Teniendo en mente la interpretación geométrica del producto escalar vista en el video anterior, hagamos ahora una interpretación geométrica de la norma inducida.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -171,6 +237,8 @@ Hablar sobre la notación $\frac{1}{||\vec{u}||}\vec{u}\equiv \frac{\vec{u}}{||\
 \newpage
 \section{Cuarta escena}
 
+Regresemos ahora al problema por el cual introdujimos la operación de producto escalar. Tenemos un espacio vectorial de dimensión finita y queremos encontrar los coeficientes necesarios para expresar a un vector no nulo arbitrario como combinación lineal de una base cualquiera. Supongamos ahora que nuestro espacio tiene producto escalar \textemdash y, por ende, una norma inducida\textemdash \ y que $N$ es una base ortogonal de $V$. Entonces, por un procedimiento análogo al que realizamos en el video anterior con una base ortogonal, obtenemos que el cálculo de los coefcientes buscados se efectúa simplemente a través de un producto escalar.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
@@ -180,9 +248,9 @@ Hablar sobre la notación $\frac{1}{||\vec{u}||}\vec{u}\equiv \frac{\vec{u}}{||\
 %    Sea $V$ un espacio vectorial con producto escalar.
 %\end{center}
 
-Ejercicio 2.1 Demuestra que todo conjunto ortonormal es linealmente independiente. \\
+Ejercicio 2.1 Sean $V$ un espacio vectorial normado y $\vec{u}\in V$. Demuestra que $||\vec{u}||>0$ si $\vec{u}\neq \vec{0}$, es decir, que la norma es positivo definida.
 
-Ejercicio 2.2 \\
+Ejercicio 2.2 Demuestra que todo conjunto ortonormal es linealmente independiente. \\
 
 Ejercicio 2.¿3? Una \emph{métrica} o \emph{función de distancia} en un conjunto $X$ es una función $f(\cdot, \cdot ):X\times X\to [0,\infty)$ que cumple las siguientes propiedades:
 \begin{enumerate}[label=(\roman*)]
