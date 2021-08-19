@@ -52,7 +52,7 @@ class CodeWindow(VGroup):
         self.canvas = VGroup(rect, buttons, number_line_mob)
         self.canvas.shift(0.3*LEFT)
 
-class Subescena_1(Scene):
+class SE1(Scene):
     #Parámetros de CONFIG como asignación de los valores 
     #de los atributos
     config.x_min = -0.25,
@@ -128,7 +128,7 @@ class Subescena_1(Scene):
                             algoritmo_left_3_3, #14
         ).arrange(0.35*DOWN, aligned_edge=LEFT).move_to(left_corner)
 
-        canvas_GM = CodeWindow(text = algo_left, buff = 0.6, color = "#303030", fill_color = "#303030", stroke_width=0, fill_opacity = 0.5).canvas
+        canvas_GS = CodeWindow(text = algo_left, buff = 0.6, color = "#303030", fill_color = "#303030", stroke_width=0, fill_opacity = 0.5).canvas
 
         linea = Line((0,2.5,0),(0,-2,0))
 
@@ -136,13 +136,13 @@ class Subescena_1(Scene):
 
         global right_corner
         right_corner = 3.7*RIGHT
-        proceso_GMM = Tex('''\\textbf{Gram-Schmidt \\textit{modificado}}''').scale(0.6)
+        proceso_GMM = Tex('''\\textbf{Proceso de Gram-Schmidt \\textit{modificado}}''').scale(0.6)
         proceso_GMM.set_color('#4FFF00')
 
         algoritmo_right_1_1 = Tex('''\\texttt{1.- Tomar a un vector de $I$,}''').scale(0.6)
         algoritmo_right_1_2 = Tex('''\\texttt{\\textit{normalizarlo} }''', '''\\texttt{y agregarlo a}''').scale(0.6)
         algoritmo_right_1_2[0].set_color('#4FFF00')
-        algoritmo_right_1_3 = Tex('''\\texttt{un nuevo conjunto }''','''\\texttt{$N$}.''').scale(0.6)
+        algoritmo_right_1_3 = Tex('''\\texttt{un nuevo conjunto }''','''\\texttt{$N$}''','''.''').scale(0.6)
         algoritmo_right_1_3[1].set_color('#4FFF00')
 
         algoritmo_right_2_1 = Tex('''\\texttt{2.- Tomar a otro de los vectores}''').scale(0.6)
@@ -177,7 +177,7 @@ class Subescena_1(Scene):
                             algoritmo_right_3_3, #14
         ).arrange(0.35*DOWN, aligned_edge=LEFT).move_to(right_corner)
 
-        canvas_GMM = CodeWindow(text = algo_right, buff = 0.6, color = "#303030", fill_color = "#303030", stroke_width=0, fill_opacity = 0.5).canvas
+        canvas_GSM = CodeWindow(text = algo_right, buff = 0.6, color = "#303030", fill_color = "#303030", stroke_width=0, fill_opacity = 0.5).canvas
 
         conclusiones = (Tex(
             "\\quad¡", #0
@@ -206,118 +206,129 @@ class Subescena_1(Scene):
         conclusiones[14].set_color('#4FFF00')
         conclusiones[16].set_color('#4FFF00')
 
-        #-----Animación de la primera ventana-----
+        #-----Animación de la cabecera-----
+
         self.play(Write(seaL))
-        self.play(Create(canvas_GM[0]), run_time = 2)
-        self.play(Create(canvas_GM[1]), run_time = 1)
+        self.wait(0.5)
 
-        self.add(canvas_GM[2][0])
-        self.wait(0.4)
+        #-----Animación de la primera ventana-----
+        self.play(Create(canvas_GS[0]), run_time = 0.5)
+        self.play(Create(canvas_GS[1]), run_time = 0.5)
 
-        self.add(canvas_GM[2][1])
-        self.wait(0.4)
+        self.add(canvas_GS[2][0])
+        self.wait(0.2)
 
-        self.add(canvas_GM[2][2])
+        self.add(canvas_GS[2][1])
+        self.wait(0.2)
+
+        self.add(canvas_GS[2][2])
         self.play(Write(algo_left[2]))
-        self.add(canvas_GM[2][3])
+        self.add(canvas_GS[2][3])
         self.play(Write(algo_left[3]))
-        self.wait(2)
+        self.wait(1)
 
-        self.add(canvas_GM[2][4])
-        self.wait(0.4)
-        self.add(canvas_GM[2][5])
-        self.wait(0.4)
+        self.add(canvas_GS[2][4])
+        self.wait(0.2)
+        self.add(canvas_GS[2][5])
+        self.wait(0.2)
 
-        self.add(canvas_GM[2][6])
+        self.add(canvas_GS[2][6])
         self.play(Write(algo_left[6]))
-        self.add(canvas_GM[2][7])
+        self.add(canvas_GS[2][7])
         self.play(Write(algo_left[7]))
-        self.add(canvas_GM[2][8])
+        self.add(canvas_GS[2][8])
         self.play(Write(algo_left[8]))
-        self.add(canvas_GM[2][9])
+        self.add(canvas_GS[2][9])
         self.play(Write(algo_left[9]))
-        self.wait(2)
+        self.wait(1)
 
-        self.add(canvas_GM[2][10])
-        self.wait(0.4)
-        self.add(canvas_GM[2][11])
-        self.wait(0.4)
+        self.add(canvas_GS[2][10])
+        self.wait(0.2)
+        self.add(canvas_GS[2][11])
+        self.wait(0.2)
 
-        self.add(canvas_GM[2][12])
+        self.add(canvas_GS[2][12])
         self.play(Write(algo_left[12]))
-        self.add(canvas_GM[2][13])
+        self.add(canvas_GS[2][13])
         self.play(Write(algo_left[13]))
-        self.add(canvas_GM[2][14])
+        self.add(canvas_GS[2][14])
         self.play(Write(algo_left[14]))
-        self.wait(2)
+        self.wait(0.5)
 
         self.play(Write(algo_left[0]),
-                run_time = 1
+                run_time = 0.5
         )
+
+        self.wait(2)
 
         #-----Animación de la segunda ventana -----
 
-        self.play(Create(canvas_GMM[0]), run_time = 2)
-        self.play(Create(canvas_GMM[1]), run_time = 1)
+        self.play(Create(canvas_GSM[0]), run_time = 0.5)
+        self.play(Create(canvas_GSM[1]), run_time = 0.5)
 
-        self.add(canvas_GMM[2][0])
-        self.wait(0.4)
+        self.add(canvas_GSM[2][0])
+        self.wait(0.2)
 
-        self.add(canvas_GMM[2][1])
-        self.wait(0.4)
+        self.add(canvas_GSM[2][1])
+        self.wait(0.2)
 
-        self.add(canvas_GMM[2][2])
-        self.play(Write(algo_right[2]))
-        self.add(canvas_GMM[2][3])
-        self.play(Write(algo_right[3]))
-        self.add(canvas_GMM[2][4])
-        self.play(Write(algo_right[4]))
-        self.wait(2)
+        self.add(canvas_GSM[2][2])
+        self.play(Write(algo_right[2]), run_time = 0.85)
+        self.add(canvas_GSM[2][3])
+        self.play(Write(algo_right[3]), run_time = 0.85)
+        self.add(canvas_GSM[2][4])
+        self.play(Write(algo_right[4]), run_time = 0.85)
+        self.wait(1)
 
-        self.add(canvas_GMM[2][5])
-        self.wait(0.4)
+        self.add(canvas_GSM[2][5])
+        self.wait(0.2)
        
-        self.add(canvas_GMM[2][6])
-        self.play(Write(algo_right[6]))
-        self.add(canvas_GMM[2][7])
-        self.play(Write(algo_right[7]))
-        self.add(canvas_GMM[2][8])
-        self.play(Write(algo_right[8]))
-        self.add(canvas_GMM[2][9])
-        self.play(Write(algo_right[9]))
-        self.add(canvas_GMM[2][10])
-        self.play(Write(algo_right[10]))
-        self.wait(2)
+        self.add(canvas_GSM[2][6])
+        self.play(Write(algo_right[6]), run_time = 0.85)
+        self.add(canvas_GSM[2][7])
+        self.play(Write(algo_right[7]), run_time = 0.85)
+        self.add(canvas_GSM[2][8])
+        self.play(Write(algo_right[8]), run_time = 0.85)
+        self.add(canvas_GSM[2][9])
+        self.play(Write(algo_right[9]), run_time = 0.85)
+        self.add(canvas_GSM[2][10])
+        self.play(Write(algo_right[10]), run_time = 0.85)
+        self.wait(1)
         
-        self.add(canvas_GMM[2][11])
-        self.wait(0.4)
+        self.add(canvas_GSM[2][11])
+        self.wait(0.2)
 
-        self.add(canvas_GMM[2][12])
-        self.play(Write(algo_right[12]))
-        self.add(canvas_GMM[2][13])
-        self.play(Write(algo_right[13]))
-        self.add(canvas_GMM[2][14])
-        self.play(Write(algo_right[14]))
-        self.wait(2)
+        self.add(canvas_GSM[2][12])
+        self.play(Write(algo_right[12]), run_time = 0.85)
+        self.add(canvas_GSM[2][13])
+        self.play(Write(algo_right[13]), run_time = 0.85)
+        self.add(canvas_GSM[2][14])
+        self.play(Write(algo_right[14]), run_time = 0.85)
+        self.wait(0.5)
 
         self.play(Write(algo_right[0]),
-                run_time = 1
+                run_time = 0.5
         )
+        self.wait(2)
 
         #------------------------------- CONCLUSIONES   
 
         self.play(
             FadeIn(conclusiones[:5]),
-            run_time = 2
+            run_time = 1
         )
+        self.wait()
         self.play(
             FadeIn(conclusiones[13:]),
-            run_time = 2
+            run_time = 1
         )
+        self.wait()
         self.play(
             FadeIn(conclusiones[6:12]),
-            run_time = 2
+            run_time = 1
         )
+
+        self.wait(5)
 
         self.play(
             *[FadeOut(mob) for mob in self.mobjects]
@@ -329,7 +340,7 @@ class Subescena_1(Scene):
     def construct(self):
         self.parte_1()
 
-class Subescena_2(Scene):
+class SE2(Scene):
     #Parámetros de CONFIG como asignación de los valores 
     #de los atributos
     config.x_min = -0.25,
@@ -361,38 +372,51 @@ class Subescena_2(Scene):
     def parte_2(self):
         #------------------------------------------------------------------- Teorema de Gram-Schmidt
         tex_8 = Tex("Teorema de Gram-Schmidt").scale(0.9).to_edge(UP)
-        tex_1 = MathTex("\\text{dim}(V)=k<\\infty").scale(0.6).next_to(tex_8, DOWN)
 
         tex_4_1 = MathTex("\\Gamma", #0
-                            " = \\{\\vec{g}_1,..., \\vec{g}_k\\}" #1
-                            ).scale(0.6).next_to(tex_1,DOWN)
+                            " = \\{\\vec{g}_1,", #1
+                            "...", #2
+                            ",", #3
+                            "\\vec{g}_k", #4
+                            "\\}" #5
+                            ).scale(0.7).move_to(5*LEFT+1.5*UP)
         tex_4_2 = Tex("$\\Gamma$", #0
-                                " es l.i." #1
-                                ).scale(0.6).next_to(tex_4_1,DOWN)
+                                " es l.i. y ", #1
+                                "ortogonal" #2
+                                ).scale(0.7).next_to(tex_4_1,DOWN)
         tex_4 = VGroup(tex_4_1, tex_4_2)
         tex_4[0][0].set_color('#0087FF')
         tex_4[1][0].set_color('#0087FF')
+        tex_4[1][2].set_color('#0087FF')
         tex_4.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
-        tex_4.align_to(tex_1,LEFT)
 
-        tex_2_1 = MathTex("I= \\{\\vec{v}_1,..., \\vec{v}_k\\},\\,k<\\infty").scale(0.6).next_to(tex_4[0],10*LEFT)
-        tex_2_2 = Tex("$I$ es l.i.").scale(0.6).next_to(tex_2_1,DOWN)
+        tex_2_1 = MathTex("I= \\{\\vec{v}_1,..., \\vec{v}_k\\}", #0
+                            ", \\", #1
+                            "k<\\infty" #2
+                            ).scale(0.7).next_to(tex_8,2*DOWN)
+        tex_2_2 = Tex("$I$ es l.i.").scale(0.7).next_to(tex_2_1,DOWN)
         tex_2 = VGroup(tex_2_1, tex_2_2)
         tex_2.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
 
         
-        tex_6_1 = MathTex("N",
-                            " = \\{\\hat{n}_1,..., \\hat{n}_k\\}"
-                            ).scale(0.6).next_to(tex_4[0], 10*RIGHT)
-        tex_6_2 = Tex("$N$",
-                            " es l.i."
-                            ).scale(0.6).next_to(tex_6_1,DOWN)
+        tex_6_1 = MathTex("N", #0
+                            " = \\{\\hat{n}_1,", #1
+                            "...", #2
+                            ",", #3
+                            "\\hat{n}_k", #4
+                            "\\}" #5
+                            ).scale(0.7).next_to(tex_4[0], 26*RIGHT)
+        tex_6_2 = Tex("$N$", #0
+                        " es ", #1
+                        "ortonormal" #2
+                        ).scale(0.7).next_to(tex_6_1,DOWN)
         tex_6 = VGroup(tex_6_1, tex_6_2)
         tex_6[0][0].set_color('#4FFF00')
         tex_6[1][0].set_color('#4FFF00')
+        tex_6[1][2].set_color('#4FFF00')
         tex_6.arrange(0.4*DOWN, center=False, aligned_edge=LEFT)
 
-        tex_3_1 = MathTex("\\vec{g}_1:=\\vec{v}_1").scale(0.6).next_to(tex_4,2.5*DOWN)
+        tex_3_1 = MathTex("\\vec{g}_1:=\\vec{v}_1").scale(0.7).next_to(tex_4,2.5*DOWN)
         tex_3_2 = MathTex("""\\vec{g}_j:=
                         \\vec{v}_j
                         -
@@ -400,12 +424,12 @@ class Subescena_2(Scene):
                         \\dfrac{\\langle\\vec{v}_j, \\vec{g}_i\\rangle}
                         {\\left\\Vert\\vec{g}_i\\right\\Vert}
                         \\hat{g}_i
-                        """).scale(0.6).next_to(tex_3_1,2.5*DOWN)
+                        """).scale(0.7)
         tex_3 = VGroup(tex_3_1, tex_3_2)
-        tex_3.arrange(5*DOWN, center=False, aligned_edge=LEFT)
+        tex_3.arrange(4.65*DOWN, center=False, aligned_edge=LEFT)
         tex_3.align_to(tex_4,LEFT)
 
-        tex_5_1 = MathTex("\\hat{n}_1:=\\dfrac{\\vec{v}_1}{\\left\\Vert\\vec{v}_1\\right\\Vert}").scale(0.6).next_to(tex_6,1.5*DOWN)
+        tex_5_1 = MathTex("\\hat{n}_1:=\\dfrac{\\vec{v}_1}{\\left\\Vert\\vec{v}_1\\right\\Vert}").scale(0.7).next_to(tex_6,1.5*DOWN)
         tex_5_2 = MathTex("""\\hat{n}_j:=
                         \\dfrac{
                         \\vec{v}_j
@@ -423,15 +447,14 @@ class Subescena_2(Scene):
                         \\hat{n}_i
                         \\right\\Vert
                         }
-                        """).scale(0.6).next_to(tex_5_1,1.5*DOWN)
+                        """).scale(0.7).next_to(tex_5_1,1.5*DOWN)
         tex_5 = VGroup(tex_5_1, tex_5_2)
         tex_5.arrange(1*DOWN, center=False, aligned_edge=LEFT)
         tex_5.align_to(tex_6,LEFT)
-        tex_5[1].shift(0.3*DOWN)
+        tex_5[1].shift(0.15*DOWN)
 
-        intervalo_j = MathTex("1<j\\leq k").scale(0.6).next_to(tex_5, LEFT)
-        intervalo_j.align_to(tex_2,LEFT)
-        intervalo_j.shift(0.7*DOWN)
+        intervalo_j = MathTex("1<j\\leq k").scale(0.7)
+        intervalo_j.shift(1.8*DOWN)
 
 
         tex_7_2 = Tex("$\\langle$", #0
@@ -439,7 +462,7 @@ class Subescena_2(Scene):
             "$\\rangle$", #2
             "$ = \\langle I\\rangle = \\langle$",#3
             "$N$",#4
-            "$\\rangle$.", #5
+            "$\\rangle$", #5
             )
 
         tex_7_0 = Tex("$\\Gamma$",
@@ -466,51 +489,60 @@ class Subescena_2(Scene):
 
         tex_7_0_1.next_to(tex_7_2, 4*UP)
 
-        tex_7 = VGroup(tex_7_2, tex_7_0_1[0], tex_7_0_1[1]).scale(0.6).move_to(3*DOWN)
+        tex_7 = VGroup(tex_7_2).scale(0.7).move_to(3.5*DOWN)
 
 
 
 
         # Animació del texto del Teorema de GM
-        self.wait(2)
-        self.play(FadeIn(tex_2), run_time = 2)
-        self.wait(2)
+        self.play(Write(tex_2[0][0]), run_time = 1.5)
+        self.play(Write(tex_2[0][1]))
+        self.play(Write(tex_2[0][2]))
+        self.wait()
+        self.play(Write(tex_2[1]))
+        self.wait(1.5)
         self.play(Write(tex_3[0]))
-        self.wait(2)
-        self.play(Write(tex_3[1]))
-        self.wait(2)
-        self.play(FadeIn(intervalo_j))
-        self.wait(1)
-        self.play(FadeIn(tex_4), run_time = 2)
+        self.wait()
+        self.play(Write(tex_3[1]), run_time = 3.5)
+        self.play(Write(intervalo_j))
+        self.wait(1.5)
+        self.play(Write(tex_4[0]), run_time = 1.5)
+        self.wait(0.5)
         for _ in range(2):
             self.play(
                 ApplyMethod(tex_3[1].set_color, '#0087FF', rate_func=there_and_back),
+                ApplyMethod(tex_4[0][2].set_color, '#0087FF', rate_func=there_and_back),
+                ApplyMethod(tex_4[0][4].set_color, '#0087FF', rate_func=there_and_back),
                 ApplyMethod(intervalo_j.set_color, '#0087FF', rate_func=there_and_back),
-                run_time = 2
+                run_time = 1.5
             )
+        self.wait()
+        self.play(Write(tex_4[1]), run_time = 2)
         self.wait(2)
+
         self.play(Write(tex_5[0]))
-        self.wait(2)
-        self.play(Write(tex_5[1]))
-        self.wait(2)
-        self.play(FadeIn(tex_6), run_time = 2)
-        self.wait(2)
+        self.wait()
+        self.play(Write(tex_5[1]), run_time = 3.5)
+        self.wait()
+        self.play(Write(tex_6[0]), run_time = 1.5)
+        self.wait(0.5)
         for _ in range(2):
             self.play(
                 ApplyMethod(tex_5[1].set_color, '#4FFF00', rate_func=there_and_back),
+                ApplyMethod(tex_6[0][2].set_color, '#4FFF00', rate_func=there_and_back),
+                ApplyMethod(tex_6[0][4].set_color, '#4FFF00', rate_func=there_and_back),
                 ApplyMethod(intervalo_j.set_color, '#4FFF00', rate_func=there_and_back),
-                run_time = 2
+                run_time = 1.5
             )
-        self.wait(1)
-        self.play(Write(tex_7[1]))
-        self.wait(1)
-        self.play(Write(tex_7[2]))
-        self.wait(1)
-        self.play(GrowFromCenter(tex_7[0]),
+        self.wait()
+        self.play(Write(tex_6[1]), run_time = 2)
+        self.wait(1.5)
+
+        self.play(Write(tex_7),
                 run_time = 2)
-        self.wait(1)
+        self.wait(2.5)
         self.play(Write(tex_8))
-        self.wait(2)
+        self.wait(13)
 
         self.play(
             *[FadeOut(mob) for mob in self.mobjects]
