@@ -4,3 +4,7 @@
 *.log
 *.out
 *.synctex*
+# Adiciones para manejo de manim
+__pycache__/
+*.DS_Store
+media/
