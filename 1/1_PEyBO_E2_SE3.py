@@ -26,6 +26,73 @@ TEAL_E = "#49A88F"
 MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
 
+class Subescena1(Scene):
+    #-------------------------------------------------------Propiedades del producto escalar en un campo K
+     def propiedades(self):
+         t1 = MathTex("\langle\cdot, \cdot\\rangle:V\\times V\\to K ")
+         p1 = MathTex("(1) \\forall \ \\vec{u}, \\vec{v}, \\vec{w}&\in V, \ \\forall \ a\in K\\").scale(.5)
+         p2 = MathTex(" (2) \langle\\vec{u}+\\vec{w},\\vec{v}\\rangle &= \langle \\vec{u} , \\vec{v} \\rangle + \langle \\vec{w} , \\vec{v} \\rangle \\").scale(.5)
+         p3 = MathTex(" (3) \langle a\\vec{u} , \\vec{v} \\rangle &= a \langle \\vec{u} , \\vec{v} \\rangle\\").scale(.5)
+         p4 = MathTex(" (4) \langle \\vec{u} , \\vec{v} \\rangle &= \overline{ \langle \\vec{v} , \\vec{u} \\rangle}\\").scale(.5)
+         p5 = MathTex(" (5) \langle \\vec{u}, \\vec{u} \\rangle > 0 \ &\ \\text{si} \ \ \\vec{u}\\neq\\vec{0}").scale(.5)
+         text_10_bg = VGroup(p1, p2, p3, p4, p5, color=WHITE, fill_color=BLACK, fill_opacity=1).arrange(direction=DOWN, buff=0.15)
+         g1 =VGroup(p1, p2, p3, color=WHITE, fill_color=BLACK, fill_opacity=1)
+         b1 = Brace(g1, direction=RIGHT).scale(1.3)
+         t2 = MathTex("\langle a\\vec{u}+\\vec{w} , \\vec{v} \\rangle = a \langle \\vec{u} , \\vec{v} \\rangle + \langle \\vec{w} , \\vec{v} \\rangle\ ").scale(.5)
+         g2 = VGroup(g1, p4, color=WHITE, fill_color=BLACK, fill_opacity=1).arrange(direction=DOWN, buff=0.1)
+         b2 = Brace(g2, direction=LEFT)
+         #-----------------------------------------------------------Producto escalar en el campo de los Reales 
+         t3 = MathTex("K =\mathbb R").scale(2)
+         t4 = MathTex("\langle\cdot, \cdot\\rangle:V\\times V\\to \mathbb R").scale(.9)
+         
+
+
+         #ANIMACIONES# 
+         t1.move_to(2*UP)
+         self.wait(2)
+         self.play(Write(t1))
+         self.wait(3)
+         self.play(FadeOut(t1))
+         self.play(FadeIn(text_10_bg))
+         self.wait(5)
+         self.play(FadeOut(text_10_bg))
+         self.play(FadeIn(g1))
+         self.play(Write(b1))
+         t2.next_to(b1, direction=RIGHT)
+         self.play(FadeIn(t2))
+         self.wait(3)
+         self.play(FadeIn(g2))
+         self.play(Write(b2))
+         self.play(FadeOut(b1, b2, t2))
+         self.play(Write(p5))
+         self.wait(4)
+         self.play(FocusOn(p5))
+         self.wait(5)
+         self.play(FadeOut(text_10_bg, p5))
+         #Animaciones-Reales#
+         self.play(Write(t3))
+         self.wait(3)
+         t4.move_to(2*UP)
+         self.play(ReplacementTransform(t3, t4))
+         
+
+         
+
+        def construct(self):
+            self.propiedades()
+
+#-------------------------------------------Definición de ortogonalidad
+class Subescena2(Scene):
+ 
+
+     def ortogonalidad(self):
+
+
+      def construct(self):
+            self.ortogonalidad()
+
+            
+
 # MathTex(r"\alpha") -> Código en LaTeX
 # Tex("blabla") -> texto normal
 # SurroundingRectangle(self, mobject, color=YELLOW, buff=SMALL_BUFF, **kwargs)
