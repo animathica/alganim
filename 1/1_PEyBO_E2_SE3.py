@@ -131,65 +131,65 @@ class Subescena_3(Scene):
                     right_bracket="\\big)").shift(4*LEFT)
         vec_u_label = MathTex(r"\vec{u} = ").next_to(vec_u, LEFT)                    
 
-        tresvecs = VGroup(vec_u, vec_u_label, vec_v, vec_v_label, vec_w, vec_w_label).scale(0.7).shift(4*RIGHT + UP) # SE QUEDA
-        
-        recordemos = Text("Recordemos que:").next_to(tresvecs,DOWN).scale(0.5)
+        tresvecs = VGroup(vec_u, vec_u_label, vec_v, vec_v_label, vec_w, vec_w_label).scale(0.7).shift(4*RIGHT + 3*UP) # SE QUEDA
 
-        # Recordando la suma de vectores
+
+        # Demostración: S
+        obj_1 = MathTex(r"  \langle\vec{u}+\vec{w},\vec{v}\rangle ").scale(0.8).shift(UP)
+        obj_2 = MathTex(r" &= (\vec{u}+\vec{w})\cdot \vec{v} =").next_to(obj_1,0.5*RIGHT).scale(0.8).shift(0.2*LEFT)
         umw_entries = [["u_{1} + w_{1}"], ["u_{2} + w_{2}"]] 
         vec_umw = Matrix(umw_entries,
                     left_bracket="\\big(",
-                    right_bracket="\\big)").next_to(recordemos,DOWN).shift(RIGHT)
-        vec_umw_label = MathTex(r"\vec{u} + \vec{w} = ").next_to(vec_umw, LEFT)  
-        umw = VGroup(vec_umw_label, vec_umw).scale(0.7)     
-        
-        # Demostración: S
-        obj_1 = MathTex(r"  \langle\vec{u}+\vec{w},\vec{v}\rangle ").scale(0.8).shift(UP)
-        obj_2 = MathTex(r" &= (\vec{u}+\vec{w})\cdot \vec{v} ").next_to(obj_1,RIGHT).scale(0.8)
-        obj_3 = MathTex(r" &= (u_1+w_1)v_1 + (u_2+w_2)v_2 ").next_to(obj_2,DOWN).scale(0.8)
-        obj_4 = MathTex(r" &= u_1v_1 + w_1v_1 + u_2v_2 + w_2v_2").next_to(obj_2,DOWN).scale(0.8)
-        obj_5 = MathTex(r" &= u_1v_1 + u_2v_2 + w_1v_1 + w_2v_2").next_to(obj_2,DOWN).scale(0.8)
-        obj_5 = MathTex(r" &= u_1v_1 + u_2v_2 + w_1v_1 + w_2v_2").next_to(obj_2,DOWN).scale(0.8)
-        obj_6 = MathTex(r" &= (u_1v_1 + u_2v_2) + (w_1v_1 + w_2v_2)").next_to(obj_2,DOWN).scale(0.8)
-        obj_7 = MathTex(r" &= \vec{u}\cdot \vec{v} + \vec{w}\cdot \vec{v} ").next_to(obj_3,DOWN).scale(0.8)
-        obj_8 = MathTex(r" &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle ").next_to(obj_7,DOWN).scale(0.8)
-        
-        objs = VGroup(obj_1, obj_2, obj_6, obj_7, obj_8)
+                    right_bracket="\\big)").next_to(obj_2,RIGHT).scale(0.6).shift(0.6*LEFT)
+        dot = MathTex(r" \cdot").next_to(vec_umw, RIGHT)
+        otro_v = vec_v.copy().next_to(dot, RIGHT) 
 
-        final  = MathTex(r"\langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle ").shift(UP)
-        final.scale(0.8).move_to(obj_8)
-        asi = Text("Así,").next_to(final, UP).scale(0.5)
-        g_final = VGroup(asi, final).shift(UP)
+        vecs_col = VGroup(vec_umw,dot, otro_v)
+        obj_3 = MathTex(r" &= (u_1+w_1)v_1 + (u_2+w_2)v_2 ").next_to(obj_2,1.6*DOWN).scale(0.8)
+        obj_4 = MathTex(r" &= u_1v_1 + w_1v_1 + u_2v_2 + w_2v_2").next_to(obj_3,DOWN).scale(0.8)
+        obj_5 = MathTex(r" &= u_1v_1 + u_2v_2 + w_1v_1 + w_2v_2").next_to(obj_4,DOWN).scale(0.8)
+        obj_6 = MathTex(r" &= (u_1v_1 + u_2v_2) + (w_1v_1 + w_2v_2)").move_to(obj_5).scale(0.8).shift(0.2*RIGHT)
+        obj_7 = MathTex(r" &= \vec{u}\cdot \vec{v} + \vec{w}\cdot \vec{v} ").next_to(obj_6,DOWN).scale(0.8).shift(LEFT)
+        obj_8 = MathTex(r" &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle ").next_to(obj_7,0.2*RIGHT).scale(0.8)
+        
+        
 
+        srct_1 = SurroundingRectangle(obj_1)
+        srct_2 = SurroundingRectangle(obj_8)
+
+        obj_9 = obj_1.copy().move_to(obj_1)
+        obj_10 = obj_8.copy().move_to(obj_8)
+
+        objs = VGroup(obj_1, obj_2, obj_3, obj_4, obj_5, obj_6, obj_7, obj_8, obj_9, obj_10, srct_1, srct_2, tresvecs,vecs_col)
         #####################
         ## ANIMACIONES DEMO 1 ###
         #####################
         self.play(Write(tresvecs))
         self.wait(1)
-        self.play(Write(recordemos))
-        self.play(Write(umw))
-
-        self.play(FadeOut(tresvecs),FadeOut(recordemos), FadeOut(umw))
 
         # Animación de la demostración. Se quedan fijos los pasos que pasan del P.E. al P.P.
         # los pasos algebráicos se animan con transformaciones.
         self.play(Write(obj_1))
         self.play(Write(obj_2))
+        self.play(Write(vec_umw), Write(dot), Write(otro_v))
         self.play(Write(obj_3))
         self.wait(1)
-        self.play(ReplacementTransform(obj_3, obj_4))
+        self.play(Write(obj_4))
         self.wait(1)
-        self.play(ReplacementTransform(obj_4, obj_5))
+        self.play(Write(obj_5))
         self.wait(1)
-        self.play(ReplacementTransform(obj_5, obj_6))
+        self.play(ReplacementTransform(obj_5,obj_6))
         self.wait(1)
         self.play(Write(obj_7))
         self.play(Write(obj_8))
         self.wait(1)
+        
+        self.play(Write(srct_1), Write(srct_2))
+        self.add(obj_9,obj_10)
+        self.play(obj_10.animate.shift(1.5*DOWN+0.7*LEFT))
+        self.play(obj_9.animate.next_to(obj_10,LEFT))
+        
         self.play(FadeOut(objs))
-        self.play(Write(g_final))
-        self.wait(1)
-        self.play(FadeOut(g_final))
 
 
     def demo_2(self):
@@ -201,43 +201,48 @@ class Subescena_3(Scene):
         entries_v = [["v_{1}"], ["v_{2}"]] 
         vec_v = Matrix(entries_v,
                     left_bracket="\\big(",
-                    right_bracket="\\big)").shift(LEFT)
+                    right_bracket="\\big)").shift(2*LEFT)
         vec_v_label = MathTex(r"\vec{v} = ").next_to(vec_v, LEFT)
         entries_u = [["u_{1}"], ["u_{2}"]] 
         vec_u = Matrix(entries_u,
                     left_bracket="\\big(",
-                    right_bracket="\\big)").shift(4*LEFT)
-        vec_u_label = MathTex(r"\vec{u} = ").next_to(vec_u, LEFT)          
+                    right_bracket="\\big)").next_to(vec_v_label,1.8*LEFT)
+        vec_u_label = MathTex(r"\vec{u} = ").next_to(vec_u, LEFT)  
                
+        
 
-        dosvecs = VGroup(vec_u, vec_u_label, vec_v, vec_v_label).scale(0.7).shift(4*RIGHT + UP)
-        scalar_a = MathTex(r",\ a \in \mathbb{R}").next_to(dosvecs,RIGHT).scale(0.7)  # SE QUEDA
+        dosvecs = VGroup(vec_u, vec_u_label, vec_v, vec_v_label).scale(0.7).shift(6*RIGHT + 3*UP)
+        scalar_a = MathTex(r",\ a \in \mathbb{R}").next_to(dosvecs,0.5*RIGHT).scale(0.7)  # SE QUEDA
+        
 
-        # Recordamos multiplicación por un escalar
-        recordemos = Text("Recordemos que:").next_to(dosvecs,1.5*DOWN).scale(0.5)
+        # Objetos para la demostración
 
-        au_entries = [["a\ u_1"], ["a\ u_2"]] 
+        obj_1 = MathTex(r"  \langle a\vec{u}},\vec{v}\rangle ").scale(0.8).shift(UP)
+        obj_2 = MathTex(r" &= (a\vec{u})\cdot \vec{v}\ = ").next_to(obj_1,RIGHT).scale(0.8)
+
+        au_entries = [["au_1"], ["au_2"]] 
         vec_au = Matrix(au_entries,
                     left_bracket="\\big(",
-                    right_bracket="\\big)").next_to(recordemos,DOWN).shift(2*RIGHT)
-        vec_au_label = MathTex(r"a\vec{u} = ").next_to(vec_au, LEFT)  
-        au = VGroup(vec_au_label, vec_au).scale(0.7)     
+                    right_bracket="\\big)").next_to(obj_2 ,RIGHT).scale(0.7)  
+        dot = MathTex(r" \cdot").next_to(vec_au, RIGHT)
+        otro_v = vec_v.copy().next_to(dot, RIGHT) 
         
-        # Objetos para la demostración
-        obj_1 = MathTex(r"  \langle a\vec{u}},\vec{v}\rangle ").scale(0.8).shift(UP)
-        obj_2 = MathTex(r" &= (a\vec{u})\cdot \vec{v} ").next_to(obj_1,RIGHT).scale(0.8)
-        obj_3 = MathTex(r" &= (au_1)v_1 + (au_2)v_2 ").next_to(obj_2,DOWN).scale(0.8)
-        obj_4 = MathTex(r" &= a(u_1v_1) + a(u_2v_2)").next_to(obj_2,DOWN).scale(0.8)
-        obj_5 = MathTex(r" &= a(u_1v_1 + u_2v_2)").next_to(obj_2,DOWN).scale(0.8)
-        obj_6 = MathTex(r" &= a(\vec{u}\cdot \vec{v})").next_to(obj_3,DOWN).scale(0.8)
-        obj_7 = MathTex(r" &= a \langle \vec{u} , \vec{v} \rangle").next_to(obj_6,DOWN).scale(0.8)
-        
-        objs = VGroup(obj_1, obj_2, obj_5, obj_6, obj_7)
+        obj_3 = MathTex(r" &= (au_1)v_1 + (au_2)v_2 ").next_to(obj_2,1.6*DOWN).shift(0.6*RIGHT).scale(0.8)
+        obj_4 = MathTex(r" &= a(u_1v_1) + a(u_2v_2)").next_to(obj_3,DOWN).scale(0.8)
+        obj_5 = MathTex(r" &= a(u_1v_1 + u_2v_2)").next_to(obj_4,DOWN).scale(0.8).shift(0.3*LEFT)
+        obj_6 = MathTex(r" &= a(\vec{u}\cdot \vec{v})").next_to(obj_5,DOWN).scale(0.8).shift(0.6*LEFT)
+        obj_7 = MathTex(r" &= a \langle \vec{u} , \vec{v} \rangle").next_to(obj_6,RIGHT).scale(0.8)
 
-        final  = MathTex(r"\langle a\vec{u}},\vec{v}\rangle &= a \langle \vec{u} , \vec{v} \rangle")
-        final.scale(0.8).move_to(obj_7)
-        asi = Text("Así,").next_to(final, 1.5*UP).scale(0.5)
-        g_final = VGroup(asi, final)
+        obj_8 = obj_1.copy().move_to(obj_1)
+        obj_9 = obj_7.copy().move_to(obj_7)
+
+        objs = VGroup(obj_1, obj_2, obj_3, obj_4, obj_5, obj_6, obj_7, obj_8, obj_9, vec_au, dot, otro_v, scalar_a)
+
+        
+        srct_1 = SurroundingRectangle(obj_1)
+        srct_2 = SurroundingRectangle(obj_7)
+        srects = VGroup(srct_1,srct_2)
+
         
         #####################
         ## ANIMACIONES DEMO 2 ###
@@ -245,27 +250,27 @@ class Subescena_3(Scene):
         self.play(Write(dosvecs))
         self.play(Write(scalar_a))
         self.wait(1)
-        self.play(Write(recordemos))
-        self.play(Write(au))
-
-        self.play(FadeOut(dosvecs),FadeOut(recordemos), FadeOut(au), FadeOut(scalar_a))
         
         # Animación de la demostración
         self.play(Write(obj_1))
         self.play(Write(obj_2))
+        self.play(Write(vec_au), Write(dot), Write(otro_v))
         self.play(Write(obj_3))
         self.wait(1)
-        self.play(ReplacementTransform(obj_3, obj_4))
+        self.play(Write(obj_4))
         self.wait(1)
-        self.play(ReplacementTransform(obj_4, obj_5))
+        self.play(Write(obj_5))
         self.wait(1)
         self.play(Write(obj_6))
         self.play(Write(obj_7))
         self.wait(1)
-        self.play(FadeOut(objs))
-        self.play(Write(g_final))
+
+        self.play(Write(srct_1), Write(srct_2))
+        self.add(obj_8,obj_9)
+        self.play(obj_9.animate.shift(DOWN+0.5*LEFT))
+        self.play(obj_8.animate.next_to(obj_9,LEFT))
         self.wait(1)
-        self.play(FadeOut(g_final))
+        self.play(FadeOut(srects), FadeOut(objs), FadeOut(dosvecs))
 
 
     def demo_3(self):
@@ -274,6 +279,8 @@ class Subescena_3(Scene):
         de la tercer propiedad del producto punto
         '''
         #----------- OBJETOS
+        
+        # Vectores utilizados para la demostración
         entries_v = [["v_{1}"], ["v_{2}"]] 
         vec_v = Matrix(entries_v,
                     left_bracket="\\big(",
@@ -285,63 +292,65 @@ class Subescena_3(Scene):
                     right_bracket="\\big)").shift(4*LEFT)
         vec_u_label = MathTex(r"\vec{u} = ").next_to(vec_u, LEFT)          
                
-
-        dosvecs = VGroup(vec_u, vec_u_label, vec_v, vec_v_label).scale(0.7).shift(4*RIGHT + UP)
-        scalar_a = MathTex(r",\ a \in \mathbb{R}").next_to(dosvecs,RIGHT).scale(0.7)  # SE QUEDA
-
-        # Recordamos multiplicación por un escalar
-        recordemos = Text("Recordemos que:").next_to(dosvecs,1.5*DOWN).scale(0.5)
-
-        au_entries = [["a\ u_1"], ["a\ u_2"]] 
-        vec_au = Matrix(au_entries,
-                    left_bracket="\\big(",
-                    right_bracket="\\big)").next_to(recordemos,DOWN).shift(2*RIGHT)
-        vec_au_label = MathTex(r"a\vec{u} = ").next_to(vec_au, LEFT)  
-        au = VGroup(vec_au_label, vec_au).scale(0.7)     
+        dosvecs = VGroup(vec_u, vec_u_label, vec_v, vec_v_label).scale(0.7).shift(6*RIGHT + 3*UP)
         
-        # Objetos para la demostración
-        obj_1 = MathTex(r"  \langle a\vec{u}},\vec{v}\rangle ").scale(0.8).shift(UP)
-        obj_2 = MathTex(r" &= (a\vec{u})\cdot \vec{v} ").next_to(obj_1,RIGHT).scale(0.8)
-        obj_3 = MathTex(r" &= (au_1)v_1 + (au_2)v_2 ").next_to(obj_2,DOWN).scale(0.8)
-        obj_4 = MathTex(r" &= a(u_1v_1) + a(u_2v_2)").next_to(obj_2,DOWN).scale(0.8)
-        obj_5 = MathTex(r" &= a(u_1v_1 + u_2v_2)").next_to(obj_2,DOWN).scale(0.8)
-        obj_6 = MathTex(r" &= a(\vec{u}\cdot \vec{v})").next_to(obj_3,DOWN).scale(0.8)
-        obj_7 = MathTex(r" &= a \langle \vec{u} , \vec{v} \rangle").next_to(obj_6,DOWN).scale(0.8)
-        
-        objs = VGroup(obj_1, obj_2, obj_5, obj_6, obj_7)
+        # Objetos para la demostración, lado izquierdo
+        obj_1 = MathTex(r"  \langle \vec{u}},\vec{v}\rangle ").shift(1.5*UP+0.5*RIGHT).scale(0.8)
+        obj_2 = MathTex(r" &= \vec{u}\cdot \vec{v}").next_to(obj_1,0.5*RIGHT).scale(0.8)
+        obj_3 = MathTex(r" &= u_1v_1 + u_2v_2").next_to(obj_2,0.5*RIGHT).scale(0.8)
+        srct_1 = SurroundingRectangle(obj_3)
 
-        final  = MathTex(r"\langle a\vec{u}},\vec{v}\rangle &= a \langle \vec{u} , \vec{v} \rangle")
-        final.scale(0.8).move_to(obj_7)
-        asi = Text("Así,").next_to(final, 1.5*UP).scale(0.5)
-        g_final = VGroup(asi, final)
-        
+        rhs = VGroup(obj_1,obj_2,obj_3, srct_1)
+
+        # Objetos para la demostración, lado derecho
+        obj_4 = MathTex(r" \overline{ \langle \vec{v} , \vec{u} \rangle} ").scale(0.8).shift(0.5*RIGHT)
+        obj_5 = MathTex(r" &= \overline{ (\vec{v}\cdot \vec{u})}").next_to(obj_4,0.5*RIGHT).scale(0.8)
+        obj_6 = MathTex(r" &= \overline{ (v_1u_1 + v_2u_2)}").next_to(obj_5,0.5*RIGHT).scale(0.8)
+        obj_7 = MathTex(r" &= v_1u_1 + v_2u_2").next_to(obj_4,RIGHT).shift(0.5*DOWN+0.2*LEFT).scale(0.8)
+        obj_8 = MathTex(r" &= u_1v_1 + u_2v_2").move_to(obj_7).scale(0.8)
+        srct_2 = SurroundingRectangle(obj_8)
+
+        lhs = VGroup(obj_4,obj_5, obj_6, obj_7, obj_8, srct_2)
+
+        # Objetos para establecer la igualdad
+        obj_9 = obj_8.copy().move_to(obj_8)
+        obj_10 = MathTex(r"  \langle \vec{u}},\vec{v}\rangle").next_to(obj_9,LEFT).shift(2*DOWN).scale(0.8)
+        obj_11 = MathTex(r"  = ").next_to(obj_9,RIGHT).shift(2*DOWN).scale(0.8)
+        obj_12 = MathTex(r"  \overline{ \langle \vec{v} , \vec{u} \rangle ").next_to(obj_11,RIGHT).scale(0.8)
+
+        igualdad = VGroup(obj_10, obj_11, obj_12)
         #####################
-        ## ANIMACIONES DEMO 2 ###
+        ## ANIMACIONES DEMO 3 ###
         #####################
-        self.play(Write(dosvecs))
-        self.play(Write(scalar_a))
         self.wait(1)
-        self.play(Write(recordemos))
-        self.play(Write(au))
-
-        self.play(FadeOut(dosvecs),FadeOut(recordemos), FadeOut(au), FadeOut(scalar_a))
-        
-        # Animación de la demostración
+        self.play(Write(dosvecs))
+        self.wait(1)
         self.play(Write(obj_1))
         self.play(Write(obj_2))
         self.play(Write(obj_3))
-        self.wait(1)
-        self.play(ReplacementTransform(obj_3, obj_4))
-        self.wait(1)
-        self.play(ReplacementTransform(obj_4, obj_5))
-        self.wait(1)
+        self.play(Write(srct_1))
+
+        self.wait(2)
+        self.play(Write(obj_4))
+        self.play(Write(obj_5))
         self.play(Write(obj_6))
         self.play(Write(obj_7))
-        self.wait(1)
-        self.play(FadeOut(objs))
-        self.play(Write(g_final))
-        self.wait(1)
-        self.play(FadeOut(g_final))
+        self.play(obj_7.animate.scale(1.2))
+        self.play(obj_7.animate.scale(1/1.2))
+        self.play(ReplacementTransform(obj_7, obj_8))
+        self.add(obj_9)
+        self.play(Write(srct_2))
+        self.play(obj_9.animate.shift(2*DOWN))
+        self.play(Write(obj_10))
+        self.play(Write(obj_11),Write(obj_12))
+        self.play(FadeOut(obj_9))
+
+        self.play(obj_10.animate.shift(1.2*RIGHT), obj_11.animate.shift(1.6*LEFT), obj_12.animate.shift(1.6*LEFT))
+
+        self.wait(2)
+
+        self.play(FadeOut(dosvecs), FadeOut(rhs), FadeOut(lhs), FadeOut(igualdad))
+
 
     def demo_4(self):
         '''
@@ -349,75 +358,61 @@ class Subescena_3(Scene):
         de la cuarta propiedad del producto punto
         '''
         #----------- OBJETOS
-        entries_v = [["v_{1}"], ["v_{2}"]] 
-        vec_v = Matrix(entries_v,
-                    left_bracket="\\big(",
-                    right_bracket="\\big)").shift(LEFT)
-        vec_v_label = MathTex(r"\vec{v} = ").next_to(vec_v, LEFT)
-        entries_u = [["u_{1}"], ["u_{2}"]] 
+        linea_1 = Line(start = 7*LEFT + 0.5*UP, end = LEFT + 0.5*UP, buff= 0.5)
+        linea_2 = Line(start = 4*UP + 1.5*LEFT, end = 4*DOWN + 1.5*LEFT, buff= 0.5)
+
+        entries_u = [["u_{1}"], ["u_{2}"]]
         vec_u = Matrix(entries_u,
                     left_bracket="\\big(",
-                    right_bracket="\\big)").shift(4*LEFT)
-        vec_u_label = MathTex(r"\vec{u} = ").next_to(vec_u, LEFT)          
-               
+                    right_bracket="\\big)")
+        vec_u_label = MathTex(r"\vec{u} = ").next_to(vec_u, LEFT)
+        u = VGroup(vec_u_label,vec_u).shift(1*RIGHT + 3*UP).scale(0.8)
 
-        dosvecs = VGroup(vec_u, vec_u_label, vec_v, vec_v_label).scale(0.7).shift(4*RIGHT + UP)
-        scalar_a = MathTex(r",\ a \in \mathbb{R}").next_to(dosvecs,RIGHT).scale(0.7)  # SE QUEDA
+        nonzero = MathTex(r" u_1, u_2 \neq 0,\ u_1,u_2 \in \mathbb{R} ").next_to(vec_u,RIGHT).scale(0.8)
 
-        # Recordamos multiplicación por un escalar
-        recordemos = Text("Recordemos que:").next_to(dosvecs,1.5*DOWN).scale(0.5)
+        # Objetos para la aclaración
+        a_en_R = MathTex(r" \text{Si } a\in \mathbb{R},\ a\neq 0 \text{ entonces } a^2>0").shift(3*RIGHT+1*UP).scale(0.8)
 
-        au_entries = [["a\ u_1"], ["a\ u_2"]] 
-        vec_au = Matrix(au_entries,
-                    left_bracket="\\big(",
-                    right_bracket="\\big)").next_to(recordemos,DOWN).shift(2*RIGHT)
-        vec_au_label = MathTex(r"a\vec{u} = ").next_to(vec_au, LEFT)  
-        au = VGroup(vec_au_label, vec_au).scale(0.7)     
-        
         # Objetos para la demostración
-        obj_1 = MathTex(r"  \langle a\vec{u}},\vec{v}\rangle ").scale(0.8).shift(UP)
-        obj_2 = MathTex(r" &= (a\vec{u})\cdot \vec{v} ").next_to(obj_1,RIGHT).scale(0.8)
-        obj_3 = MathTex(r" &= (au_1)v_1 + (au_2)v_2 ").next_to(obj_2,DOWN).scale(0.8)
-        obj_4 = MathTex(r" &= a(u_1v_1) + a(u_2v_2)").next_to(obj_2,DOWN).scale(0.8)
-        obj_5 = MathTex(r" &= a(u_1v_1 + u_2v_2)").next_to(obj_2,DOWN).scale(0.8)
-        obj_6 = MathTex(r" &= a(\vec{u}\cdot \vec{v})").next_to(obj_3,DOWN).scale(0.8)
-        obj_7 = MathTex(r" &= a \langle \vec{u} , \vec{v} \rangle").next_to(obj_6,DOWN).scale(0.8)
-        
-        objs = VGroup(obj_1, obj_2, obj_5, obj_6, obj_7)
+        obj_1 = MathTex(r"  \langle \vec{u}},\vec{u}\rangle ").shift(RIGHT).scale(0.8)
+        obj_2 = MathTex(r" &= \vec{u}\cdot \vec{u}").next_to(obj_1,0.5*RIGHT).scale(0.8)
+        obj_3 = MathTex(r" &= u_1u_1 + u_2u_2").next_to(obj_2,0.5*RIGHT).scale(0.8)
+        obj_4 = MathTex(r" &= u_1^2 + u_2^2").next_to(obj_2,0.5*RIGHT).scale(0.8)
 
-        final  = MathTex(r"\langle a\vec{u}},\vec{v}\rangle &= a \langle \vec{u} , \vec{v} \rangle")
-        final.scale(0.8).move_to(obj_7)
-        asi = Text("Así,").next_to(final, 1.5*UP).scale(0.5)
-        g_final = VGroup(asi, final)
-        
-        #####################
-        ## ANIMACIONES DEMO 2 ###
-        #####################
-        self.play(Write(dosvecs))
-        self.play(Write(scalar_a))
-        self.wait(1)
-        self.play(Write(recordemos))
-        self.play(Write(au))
 
-        self.play(FadeOut(dosvecs),FadeOut(recordemos), FadeOut(au), FadeOut(scalar_a))
-        
-        # Animación de la demostración
+
+        obj_5 = MathTex(r"  u_1^2 + u_2^2").shift(2*RIGHT+2*DOWN).scale(0.8)
+        obj_6 = MathTex(r" > u_2^2").next_to(obj_5, 0.5*RIGHT).scale(0.8)
+        obj_7 = MathTex(r" > 0").next_to(obj_6, 0.5*RIGHT).scale(0.8)
+        obj_8 = obj_1.copy().move_to(obj_5)
+
+        srct_1 = SurroundingRectangle(obj_1)
+        srct_2 = SurroundingRectangle(obj_4)
+
+        grupo = VGroup(u, nonzero, a_en_R, obj_1, obj_2, obj_4, srct_1, srct_2, obj_8, obj_7)
+
+        # Vectores utilizados para la demostración
+
+        #####################
+        ## ANIMACIONES DEMO 4 ###
+        #####################
+        self.add(linea_1,linea_2)
+        self.play(Write(u),Write(nonzero))
+        self.play(Write(a_en_R))
         self.play(Write(obj_1))
         self.play(Write(obj_2))
         self.play(Write(obj_3))
-        self.wait(1)
-        self.play(ReplacementTransform(obj_3, obj_4))
-        self.wait(1)
-        self.play(ReplacementTransform(obj_4, obj_5))
-        self.wait(1)
+        self.play(ReplacementTransform(obj_3,obj_4))
+        self.play(Write(obj_5))
         self.play(Write(obj_6))
         self.play(Write(obj_7))
-        self.wait(1)
-        self.play(FadeOut(objs))
-        self.play(Write(g_final))
-        self.wait(1)
-        self.play(FadeOut(g_final))
-    
+        self.play(FadeOut(obj_6))
+        self.play(obj_7.animate.next_to(obj_5, 0.5*RIGHT))
+        self.play(Write(srct_1),Write(srct_2))
+        self.wait()
+        self.play(ReplacementTransform(obj_5,obj_8))
+        self.wait()
+        self.play(FadeOut(grupo))
 
     def construct(self): # Cambiar a construct
         '''
@@ -425,6 +420,7 @@ class Subescena_3(Scene):
         se definen en el método principal (construct). Siempre que queramos ver/omitir una de las pruebas
         podemos descomentar/comentar la línea donde se invoca la función.
         '''
+
         #-------------- DEFINICIÓN DEL PP EN ABSTRACTO: OPERACION Y PROPS (OBJETOS)
         pe_def = MathTex(r" \langle\cdot,\cdot\rangle:",r"V", r"\times ", r"V",r"\to ",r"K").shift(2*UP)
         pe_def_1 = MathTex(r" \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in K ").next_to(pe_def, 1.1*DOWN)
@@ -541,3 +537,7 @@ class Subescena_3(Scene):
         self.play(pe_def_2.animate.set_opacity(1))
         self.play(pe_def_3.animate.set_opacity(1))
         self.play(pe_def_4.animate.set_opacity(1))
+        
+        self.play(
+            *[FadeOut(mob) for mob in self.mobjects],
+            run_time = 1)
