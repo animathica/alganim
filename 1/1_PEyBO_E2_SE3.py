@@ -84,8 +84,33 @@ class Subescena1(Scene):
 #-------------------------------------------Definición de ortogonalidad
 class Subescena2(Scene):
  
+ def ortogonalidad(self):
+     
+       o1 = MathTex("\\vec{u},\\vec{v}\in V \ \\text{son \emph{ortogonales}} \ (\\vec{u}\perp\\vec{v}) \ \\text{si} \ \langle \\vec{u} , \\vec{v} \\rangle = 0 \ \\text{ó, equivalentemente,} \ \langle \\vec{v} , \\vec{u} \\rangle = 0.").scale(.5)
+       o2 = MathTex("\\text{O=}\{\\vec{o}_1,...,\\vec{o}_k\}\subseteq V \ \\text{es \emph{ortogonal} si} \ \langle \\vec{o}_i , \\vec{o}_j \\rangle = 0 \ \\text{para} \ i\\neq j, \ \\text{con} \ 1\le i,j\le k.").scale(.5)
+       o3 = MathTex("  \Gamma=\{\\vec{g}_1,...,\\vec{g}_k\}" ).scale(.5)
+       o4 = Tex("Base").scale(.5)
+       o5 = Tex("de V")
+       o6 = Tex("\\textit{ortogonal}").scale(.5)
 
-     def ortogonalidad(self):
+
+
+
+       self.wait(8)
+       self.play(Write(o1))
+       self.wait(9)
+       self.play(FadeOut(o1))
+       self.wait(4)
+       self.play(Write(o2))
+       self.wait(3)
+       self.play(FadeOut(o2))
+       self.play(Write(o3))
+       o4.next_to(o3, direction=RIGHT)
+       self.play(Write(o4))
+       self.play()
+       o6.next_to(o4)
+       self.play(ApplyMethod(o6.set_color, '#1FFF00', rate_func=there_and_back))
+       self.wait(2)
 
 
       def construct(self):
