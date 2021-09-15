@@ -144,6 +144,12 @@ class Subescena_3(Scene):
         srct_2 = SurroundingRectangle(obj_9)
 
         objs = VGroup(obj_1_dup, obj_2, obj_3, obj_4, obj_5, obj_6, obj_7, obj_8, obj_9, srct_1, srct_2)
+
+        # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+        p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+        paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).shift(2*LEFT+1.4*DOWN)
         #####################
         ## ANIMACIONES DEMO 1 ###
         #####################
@@ -162,6 +168,7 @@ class Subescena_3(Scene):
         self.play(ReplacementTransform(obj_2, obj_1_dup))
         self.play(Write(srct_1), Write(srct_2))
         self.wait(2)
+        self.play(paloma.animate.set_opacity(1))
         self.play(FadeOut(objs))
 
 
@@ -193,7 +200,11 @@ class Subescena_3(Scene):
 
         srects = VGroup(srct_1,srct_2)
 
+        # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+        p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
         
+        paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).shift(2.9*LEFT+2*DOWN)
         #####################
         ## ANIMACIONES DEMO 2 ###
         #####################
@@ -213,6 +224,7 @@ class Subescena_3(Scene):
         self.play(ReplacementTransform(inter, inter2))
         self.play(Write(srct_1), Write(srct_2))
         self.wait(2)
+        self.play(paloma.animate.set_opacity(1))
         self.play(FadeOut(srects), FadeOut(objs) )
 
 
@@ -237,6 +249,12 @@ class Subescena_3(Scene):
         srct_2 = SurroundingRectangle(obj_7)
 
         objs = VGroup(obj_1_dup, grupo, srct_1, srct_2, obj_7)
+        
+        # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+        p1 = Line(ORIGIN, [0.95,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+        paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).shift(3.1*LEFT+2.6*DOWN)
 
         #####################
         ## ANIMACIONES DEMO 3 ###
@@ -257,66 +275,56 @@ class Subescena_3(Scene):
         self.play(ReplacementTransform(obj_2, obj_1_dup))
         self.play(Write(srct_1),Write(srct_2))
         self.wait(2)
+        self.play(paloma.animate.set_opacity(1))
         self.play(FadeOut(objs))
 
-
     def demo_4(self):
-        '''
-        Función que contiene todos los objetos y animaciones para mostrar en pantalla la demostración
-        de la cuarta propiedad del producto punto
-        '''
-        #----------- OBJETOS
-        # Objetos para la aclaración
-        nonzero = MathTex(r" u_1, u_2 \neq 0,\ u_1,u_2 \in \mathbb{R} ").shift(3*UP+3*RIGHT).scale(0.8)
-        a_en_R = MathTex(r" \text{Si } a\in \mathbb{R},\ a\neq 0 \Rightarrow a^2>0").shift(3*RIGHT+1.5*UP).scale(0.8)
 
-        # Objetos para la demostración
-        obj_1 = MathTex(r"  \langle \vec{u}},\vec{u}\rangle ").shift(1.5*RIGHT).scale(0.8)
-        obj_2 = MathTex(r" \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}\cdot \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}").move_to(obj_1).scale(0.8)
-        obj_1_dup = MathTex(r"  \langle \vec{u}},\vec{u}\rangle ").scale(0.8).move_to(obj_2).shift(0.5*RIGHT)
-        obj_3 = MathTex(r" &= u_1u_1 + u_2u_2").next_to(obj_2,0.2*RIGHT).scale(0.8)
-        obj_4 = MathTex(r" &= u_1^2 + u_2^2").next_to(obj_2,0.2*RIGHT).scale(0.8)
-        obj_5 = MathTex(r"  u_1^2 + u_2^2").shift(2.5*RIGHT+2*DOWN).scale(0.8)
-        obj_6 = MathTex(r" > u_2^2").next_to(obj_5, 0.5*RIGHT).scale(0.8)
-        obj_7 = MathTex(r" > 0").next_to(obj_6, 0.8*RIGHT).scale(0.8)
-        obj_8 = obj_1.copy().move_to(obj_5)
+        c_nonzero = MathTex(r" \forall \ c \in \mathbb{R}, c\neq0 &\Rightarrow c^2>0").shift(3*UP+3*RIGHT).scale(0.8)
+        
+        #----------- OBJETOS       
+        obj_1 = MathTex(r" \vec{u}\neq \vec{0} ").scale(0.8).shift(1.5*UP+1*RIGHT)
+        obj_2 = MathTex(r" \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \neq \begin{pmatrix} 0 \\ 0 \end{pmatrix}").scale(0.7).move_to(obj_1)
+        obj_1_dup = MathTex(r" \vec{u}\neq \vec{0}").scale(0.8).move_to(obj_2).shift(0.5*RIGHT)
+        obj_3 = MathTex(r" \Rightarrow u_1 \ \text{ó} \ u_2 \neq 0").next_to(obj_2, 0.8*RIGHT).scale(0.8).shift(0.3*LEFT)
+        obj_4 = MathTex(r" \Rightarrow u_1^2 + u_2^2 > 0").scale(0.8)
+        obj_5 = MathTex(r" \Rightarrow u_1u_1 + u_2u_2 > 0").scale(0.8)
+        obj_6 = MathTex(r" \Rightarrow \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} > 0")\
+            .scale(0.8)
+        
+        grupo = VGroup(obj_3, obj_4, obj_5, obj_6).arrange(1.5*DOWN, center=False, aligned_edge=LEFT)
 
-        igualdad = VGroup(obj_1_dup,obj_4)
-        srct_1 = SurroundingRectangle(igualdad)
+        obj_7 = MathTex(r" \Rightarrow \langle \vec{u} , \vec{u} \rangle > 0 ").move_to(obj_6).scale(0.8).shift(0.65*LEFT)
 
+        srct_1 = SurroundingRectangle(obj_1_dup)
+        srct_2 = SurroundingRectangle(obj_7)
+
+        objs = VGroup(obj_1_dup, grupo, srct_1, srct_2, obj_7, c_nonzero)
+
+        # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+        p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+        paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).shift(2.5*LEFT+3.2*DOWN)
 
         #####################
         ## ANIMACIONES DEMO 4 ###
         #####################
-        self.play(Write(nonzero))
-        self.play(Write(a_en_R))
-
+        self.play(Write(c_nonzero))
         self.play(Write(obj_1))
-        self.play(ReplacementTransform(obj_1,obj_2))
+        self.play(ReplacementTransform(obj_1, obj_2))
         self.play(Write(obj_3))
-        self.wait(1)
-        self.play(ReplacementTransform(obj_3,obj_4))
-        self.play(ReplacementTransform(obj_2,obj_1_dup))
+        self.play(Write(obj_4))
         self.play(Write(obj_5))
         self.play(Write(obj_6))
-        self.play(Write(obj_7))
-        self.play(FadeOut(obj_6))
-        self.play(obj_7.animate.next_to(obj_5, 0.5*RIGHT))
-       
-        #--- OBJETOS INTRUSOS PORQUE SE MOVIÓ el obj_7
-        final = VGroup(obj_8, obj_7)
-        srct_2 = SurroundingRectangle(final)
-        grupo = VGroup( nonzero, a_en_R, obj_1_dup, obj_2, obj_4, srct_2, obj_8, obj_7)
-        #--- OBJETOS INTRUSOS PORQUE SE MOVIÓ el obj_7
-        
-        self.play(Write(srct_1))
-        self.wait()
-        self.play(FadeOut(srct_1))
         self.wait(1)
-        self.play(ReplacementTransform(obj_5,obj_8))
-        self.play(Write(srct_2))
+        self.play(ReplacementTransform(obj_6, obj_7))
         self.wait(2)
-        self.play(FadeOut(grupo))
+        self.play(ReplacementTransform(obj_2, obj_1_dup))
+        self.play(Write(srct_1),Write(srct_2))
+        self.wait(2)
+        self.play(paloma.animate.set_opacity(1))
+        self.play(FadeOut(objs))
 
         
     def construct(self): # Cambiar a construct
@@ -333,7 +341,7 @@ class Subescena_3(Scene):
             .shift(0.15*RIGHT)
         pe_def_3 = MathTex(r"  \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle ").next_to(pe_def_2.get_center(), 1.5*DOWN).shift(0.45*LEFT)
         pe_def_4 = MathTex(r"  \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle} ").next_to(pe_def_3.get_center(), 1.5*DOWN)
-        pe_def_5 = MathTex(r" \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} ").next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.45*LEFT)
+        pe_def_5 = MathTex(r" \vec{u}\neq \vec{0} \Rightarrow \langle \vec{u} , \vec{u} \rangle > 0 ").next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.4*RIGHT)
 
         #VGroup que contiene las propiedades que debe satisfacer el P.E. en abstracto
         pe_group_2 = VGroup(pe_def_1, pe_def_2, pe_def_3, pe_def_4, pe_def_5).scale(0.8).shift(0.5*DOWN)
@@ -350,14 +358,6 @@ class Subescena_3(Scene):
         linea_1 = Line(start = 7*LEFT + 0.5*UP, end = LEFT + 0.5*UP, buff= 0.5)
         linea_2 = Line(start = 4*UP + 1.5*LEFT, end = 4*DOWN + 1.5*LEFT, buff= 0.5)
 
-        #------------- CHECKMARKS PARA PONER CUANDO SE CONCLUYA UNA DEMOSTRACION
-        p1 = Line(ORIGIN, [1,1,0], color = VERDE)
-        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE)
-        
-        paloma_1 = VGroup(p1,p2).scale(0.2).set_opacity(0)
-        paloma_2 = VGroup(p1,p2).copy().set_opacity(0)
-        paloma_3 = VGroup(p1,p2).copy().set_opacity(0)
-        paloma_4 = VGroup(p1,p2).copy().set_opacity(0)
 
         
 
@@ -390,14 +390,8 @@ class Subescena_3(Scene):
         self.play(pe_def_3.animate.set_opacity(1))
         self.play(pe_def_4.animate.next_to(pe_def_3.get_center(), 1.5*DOWN).scale(0.8))
         self.play(pe_def_4.animate.set_opacity(1))
-        self.play(pe_def_5.animate.next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.25*LEFT).scale(0.8))
+        self.play(pe_def_5.animate.next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.27*RIGHT).scale(0.8))
         self.play(pe_def_5.animate.set_opacity(1))
-
-        #------- ACOMODO DE LAS PALOMAS JUNTO A LAS PROPIEDADES, ABAJO A LA IZQ
-        self.play(paloma_1.animate.next_to(pe_def_2, 1.1*RIGHT))
-        self.play(paloma_2.animate.next_to(pe_def_3, 1.1*RIGHT))
-        self.play(paloma_3.animate.next_to(pe_def_4, 1.1*RIGHT))
-        self.play(paloma_4.animate.next_to(pe_def_5, 1.1*RIGHT))
 
         #######################
         # ANIM PREVIAS A DEM 1 #
@@ -405,7 +399,7 @@ class Subescena_3(Scene):
 
         self.play(pe_def_3.animate.set_opacity(0.3), pe_def_4.animate.set_opacity(0.3),
         pe_def_4.animate.set_opacity(0.3), pe_def_5.animate.set_opacity(0.3))
-        self.play(pe_def_2.animate.scale(1.2))
+        self.play(pe_def_2.animate.scale(1.1))
 
         self.demo_1() # Llamamos a la animación completa de la primer demostración
 
@@ -413,8 +407,7 @@ class Subescena_3(Scene):
         # ANIM PREVIAS A DEM 2 #
         #######################
 
-        self.play(pe_def_2.animate.scale(1/1.2))
-        self.play(paloma_1.animate.set_opacity(1))
+        self.play(pe_def_2.animate.scale(1/1.1))
         self.play(pe_def_2.animate.set_opacity(0.3))
         self.play(pe_def_3.animate.set_opacity(1).scale(1.2))
 
@@ -424,10 +417,9 @@ class Subescena_3(Scene):
         # ANIM PREVIAS A DEM 3 #
         #######################
 
-        self.play(pe_def_3.animate.scale(1/1.2))
-        self.play(paloma_2.animate.set_opacity(1))
+        self.play(pe_def_3.animate.scale(1/1.1))
         self.play(pe_def_3.animate.set_opacity(0.3))
-        self.play(pe_def_4.animate.set_opacity(1).scale(1.2))
+        self.play(pe_def_4.animate.set_opacity(1).scale(1.1))
 
         self.demo_3() # Llamamos a la animación completa de la tercera demostración
 
@@ -436,10 +428,9 @@ class Subescena_3(Scene):
         # ANIM PREVIAS A DEM 4 #
         #######################
 
-        self.play(pe_def_4.animate.scale(1/1.2))
-        self.play(paloma_3.animate.set_opacity(1))
+        self.play(pe_def_4.animate.scale(1/1.1))
         self.play(pe_def_4.animate.set_opacity(0.3))
-        self.play(pe_def_5.animate.set_opacity(1).scale(1.2))
+        self.play(pe_def_5.animate.set_opacity(1).scale(1.1))
 
         self.demo_4() # Llamamos a la animación completa de la cuarta demostración
 
@@ -448,8 +439,7 @@ class Subescena_3(Scene):
         #####################
         # ANIMACIONES FINALES
         #####################
-        self.play(pe_def_5.animate.scale(1/1.2))
-        self.play(paloma_4.animate.set_opacity(1))
+        self.play(pe_def_5.animate.scale(1/1.1))
 
         self.play(pe_def_2.animate.set_opacity(1))
         self.play(pe_def_3.animate.set_opacity(1))
