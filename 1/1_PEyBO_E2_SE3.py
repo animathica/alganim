@@ -84,17 +84,25 @@ class Subescena2(Scene):
     
      def ortogonalidad(self):
      
-       o1 = MathTex("\\vec{u},\\vec{v}\in V \ \\text{son \emph{ortogonales}} \ (\\vec{u}\perp\\vec{v}) \ \\text{si} \ \langle \\vec{u} , \\vec{v} \\rangle = 0 \ \\text{ó, equivalentemente,} \ \langle \\vec{v} , \\vec{u} \\rangle = 0.").scale(.5)
+     o1 = MathTex("\\vec{u},\\vec{v}\in V \ \\text{son \emph{ortogonales}} \ (\\vec{u}\perp\\vec{v}) \ \\text{si} \ \langle \\vec{u} , \\vec{v} \\rangle = 0 \ \\text{ó, equivalentemente,} \ \langle \\vec{v} , \\vec{u} \\rangle = 0.").scale(.5)
        o2 = MathTex("\\text{O=}\{\\vec{o}_1,...,\\vec{o}_k\}\subseteq V \ \\text{es \emph{ortogonal} si} \ \langle \\vec{o}_i , \\vec{o}_j \\rangle = 0 \ \\text{para} \ i\\neq j, \ \\text{con} \ 1\le i,j\le k.").scale(.5)
        o3 = MathTex("  \Gamma=\{\\vec{g}_1,...,\\vec{g}_k\}" ).scale(.5)
        o4 = Tex("Base ", "\\textit{ortogonal}", " de V").scale(.5)
-       o5 =MathTex("\langle\Gamma\\rangle = V, \ \ \langle \\vec{g}_j , \\vec{g}_i \\rangle =  \\begin{cases}"
-                   "\langle\\vec{g_i}, \\vec{g}_i\\rangle\\neq0 \ \ \\text{si} \ \ j = i "
-                   "\\ \quad 0 \quad" 
-                   "\\text{si} \ \ j\\neq i"
-                   " \end{cases}").scale(.5)
+      
+       o5 = MathTex(r"\langle\Gamma\rangle = V, ").scale(.5)
+       o5_c1 = Tex("$\\langle \\vec{g}_i, \\vec{g}_i\\rangle$", "si","$j = i$").scale(.6)
+       o5_c2 = Tex("$0$", " si", " $j \\neq i$").scale(.6)
+       for i, item in enumerate(o5_c2):
+          item.align_to(o5_c1[i], LEFT)
+       o5_c1g = VGroup(*o5_c1)
+       o5_c2g = VGroup(*o5_c2)
+       o5_c2g.next_to(o5_c1g, DOWN)
+       o5_g = VGroup(o5_c1g, o5_c2g)
+       b3 = Brace(o5_g, .1*LEFT)
+       P_ij = b3.get_text("$\\langle \\vec{g}_i, \\vec{g}_j\\rangle$ =").scale(.6)
+       gj_gi = VGroup(P_ij, b3, o5_g)
        
-
+       gamma_Prop = VGroup(o5, gj_gi).arrange(direction=RIGHT, buff=0.20, center=False)
 
 
        self.wait(8)
@@ -114,6 +122,8 @@ class Subescena2(Scene):
        self.play(o4[1].animate.set_color(WHITE))
        self.wait(2)
        self.play(Write(o5))
+       self.play(Write(gamma_Prop))
+       
        
 
      def construct(self):
