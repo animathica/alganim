@@ -1,0 +1,157 @@
+\documentclass[12pt,dvipsnames]{article}
+\setcounter{section}{0}
+
+\usepackage{amsmath,amsthm,amssymb,amsbsy}
+\usepackage[spanish,es-tabla]{babel}
+\decimalpoint
+\usepackage{braket}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.5cm]{geometry} 
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{lmodern}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,breakable}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1em}
+
+\definecolor{NARANJA}{rgb}{1,0.467,0}
+\definecolor{VERDE}{rgb}{0.31,1,0}
+\definecolor{AZUL}{rgb}{0,0.53,1}
+\definecolor{ROJO}{rgb}{1,0,0}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=ROJO,
+    filecolor=magenta,      
+    urlcolor=AZUL,
+}
+ 
+\pgfplotsset{compat=1.15}
+ 
+ \renewcommand{\figurename}{Figura}
+
+\renewcommand{\indexname}{Índice}
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand{\contentsname}{Contenidos}
+\renewcommand{\proofname}{Dem.}
+\renewcommand{\tablename}{Tabla.}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{cor}{Corolario}[section]
+\newtheorem{lem}{Lema}[section]
+\newtheorem{defi}{Definición}[section]
+\newtheorem{obs}{Observación}[section]
+\newtheorem{prop}{Propiedades.}[section]
+\newtheorem{ejem}{\textbf{\textit{$\circ \ \text{Ejemplo}$}}}[section]
+\newtheorem{axi}{Axioma}[section]
+
+\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
+
+\newtcolorbox{post}{colback=white,colframe=red!50!black,
+	colbacktitle=red!75!black, title= Postulado.}
+
+\newtcolorbox{enu}{colframe=white!85!black, colback=white, leftrule = 10mm, sharp corners, breakable}
+
+\newtcolorbox{solu}{colframe=black, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+\newtcolorbox{corre}{colframe=red, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+\newtcolorbox{enun}{colframe=gray, colback=white!90!black, leftrule = 1mm, rightrule = 1mm, toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+\newenvironment{sol}{\begin{figure}[H]
+		\begin{tikzpicture}
+		\filldraw[black] (0,0) circle (3pt);
+		\draw[line width = 0.5pt] (0,0) -- (4,0) node[above right]{\textbf{Solución:}};
+		\end{tikzpicture}
+\end{figure}}{\begin{figure}[H]
+		\begin{flushright}
+			\begin{tikzpicture}
+			\draw[line width = 0.5pt] (0,0)-- (4,0);
+			\filldraw (4,0) circle (3pt);
+			\end{tikzpicture}
+\end{flushright}\end{figure}}
+
+%%%%%%%%%%%% TÍTULO Y OBSERVACIONES %%%%%%%%%%%%
+ 
+\begin{document}
+
+\title{Propiedades del producto escalar}
+\date{}
+\maketitle
+%\tableofcontents
+
+\begin{obs}
+    Resumen de la idea principal del video.
+\end{obs}
+
+\begin{obs}
+    Desgloce de las ideas principales de cada escena.
+\end{obs}
+
+%%%%%%%%%%%%% PRIMERA ESCENA %%%%%%%%%%%
+
+\newpage
+\section{Primera escena}
+
+Próximamente...
+
+%%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%
+
+\newpage
+\section{Escena final}
+
+Próximamente...
+
+\end{document}
