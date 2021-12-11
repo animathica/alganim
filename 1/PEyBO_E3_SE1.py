@@ -46,7 +46,7 @@ class Subescena_1(Scene):
       ortogonal
       '''
 
-      ###### OBJETOS 
+      ###### OBJETOS
       gamma_c_og = MathTex(r"\Gamma \text{ es un conjunto \textit{ortogonal}}")\
          .scale(0.6).shift(4.5*RIGHT + DOWN)
 
@@ -59,7 +59,7 @@ class Subescena_1(Scene):
 
       ppunto = VGroup(ppunto_2, ppunto_3, ppunto_4, ppunto_5)\
          .arrange(DOWN, center=False, aligned_edge=LEFT)
-      
+
 
       # Se declaran los vectores que aparecen en el grid para usarlos posteriormente
       # y dibujar su generado
@@ -102,13 +102,14 @@ class Subescena_1(Scene):
          vert4 = t*(g1+g2)
          New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA_CLARO, opacity = 1)
          obj.become(New_plano)
-         #self.bring_to_back(obj)   
+         #self.bring_to_back(obj)
 
    def base_ortogonal(self):
-      
-      gamma_li = MathTex(r"\vec{g}_1\ \text{y}\ \vec{g}_2\ ",  r" \text{son \textit{linealmente independientes},}").shift(4.5*RIGHT+2.5*UP).scale(0.6)
-      gamma_li[1].next_to(gamma_li,DOWN)
-      gamma_li[0].shift(2*RIGHT)
+
+      gamma_li = MathTex(r"\vec{g}_1\ \text{y}\ \vec{g}_2\ \text{son \textit{l. i.} ,}").shift(4.5*RIGHT+2*UP).scale(0.6)
+    #  gamma_li[1].next_to(gamma_li,DOWN)
+     # gamma_li[0].shift(2*RIGHT)
+
 
       ld_g1 = DashedLine(-4*g1, 7*g1).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
       ld_g2 = DashedLine(-2*g2, 3.5*g2).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
@@ -118,9 +119,11 @@ class Subescena_1(Scene):
       gamma_b_og = MathTex(r"\Rightarrow \Gamma \text{ es una }", r"\textit{base ortogonal}}").scale(0.6).shift(4.5*RIGHT + DOWN)
 
 
-      self.play(Write(gamma_li))
       self.play(Create(ld_g1))
       self.play(Create(ld_g2))
+      self.wait(1)
+      self.play(Write(gamma_li))
+      self.wait(1)
       self.play(Write(gamma_gen))
       self.wait(2)
       # Animación del espacio generado
@@ -130,100 +133,70 @@ class Subescena_1(Scene):
       self.play(gamma_b_og[1].animate.set_color(WHITE), runtime = 1)
       self.play(FadeOut(gamma_li), FadeOut(ld_g1), FadeOut(ld_g2), FadeOut(gamma_gen), FadeOut(gamma_b_og))
 
-   def calc_c1(self):
-      '''
-      Función que generará los pasos algebráicos para calcular el primero de los coeficientes
-      '''
-      #### OBJETOS
-      vg1_1 = MathTex(r" \langle \vec{v}, \vec{g}_1 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
-      ppig = MathTex(r"= ").scale(0.6).next_to(vg1_1,RIGHT)
-
-      pp1 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix} \cdot \
-         \begin{pmatrix} 1 \\ -1 \end{pmatrix}").scale(0.6).next_to(ppig,RIGHT)
-      pp2 = MathTex(r" (-8)(1) + (-4)(-1)").scale(0.6).move_to(pp1).shift(0.2*RIGHT)
-      pp3 = MathTex(r" -8 + 4").scale(0.6).move_to(pp2).shift(0.7*LEFT)
-      pp4 = MathTex(r" -4\ ,").scale(0.6).move_to(pp2).shift(LEFT)
 
 
-      vg1_2 = MathTex(r" \langle \vec{v}, \vec{g}_1 \rangle").shift(3*RIGHT + 2*UP).scale(0.6)
-      ppl_1 = MathTex(r" = \langle c_1\vec{g}_1 + c_2\vec{g}_2\
-         , \vec{g}_1 \rangle").scale(0.6).next_to(vg1_2,RIGHT)
-      ppl_ig = MathTex(r"= ").scale(0.6)
-      ppl_2 = MathTex(r" c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
+
+
+
+
+   def construct(self):
+
+      ###########
+      # OBJETOS #
+      ###########
+
+      #### OBJETOS calc_c1 (genera los pasos algebráicos para calcular el primero de los coeficientes)
+      vg1_11 = MathTex(r" \langle \vec{v}, \vec{g}_1 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
+      ppig1 = MathTex(r"= ").scale(0.6).next_to(vg1_11,RIGHT)
+
+      pp11 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix} \cdot \
+         \begin{pmatrix} 1 \\ -1 \end{pmatrix}").scale(0.6).next_to(ppig1,RIGHT)
+      pp21 = MathTex(r" (-8)(1) + (-4)(-1)").scale(0.6).move_to(pp11).shift(0.2*RIGHT)
+      pp31 = MathTex(r" -8 + 4").scale(0.6).move_to(pp21).shift(0.7*LEFT)
+      pp41 = MathTex(r" -4\ ,").scale(0.6).move_to(pp21).shift(LEFT)
+
+
+      vg1_21 = MathTex(r" \langle \vec{v}, \vec{g}_1 \rangle").shift(3*RIGHT + 2*UP).scale(0.6)
+      ppl_11 = MathTex(r" = \langle c_1\vec{g}_1 + c_2\vec{g}_2\
+         , \vec{g}_1 \rangle").scale(0.6).next_to(vg1_21,RIGHT)
+      ppl_ig1 = MathTex(r"= ").scale(0.6)
+      ppl_21 = MathTex(r" c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
          c_2\langle \vec{g}_2, \vec{g}_1 \rangle").scale(0.6)
-      ppl_3 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
+      ppl_31 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
          c_2 (0)").scale(0.6)
-      ppl_4 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
+      ppl_41 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
           0").scale(0.6)
-      ppl_5 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle").scale(0.6)  
-      ppl_ig2 = MathTex(r"= ").scale(0.6)  
-      ppl_6 = MathTex(r" c_1 \begin{pmatrix} 1 \\ -1 \end{pmatrix} \cdot \
+      ppl_51 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle").scale(0.6)
+      ppl_ig21 = MathTex(r"= ").scale(0.6)
+      ppl_61 = MathTex(r" c_1 \begin{pmatrix} 1 \\ -1 \end{pmatrix} \cdot \
          \begin{pmatrix} 1 \\ -1 \end{pmatrix}").scale(0.6)
-      ppl_7 = MathTex(r" c_1 \big((1)(1)+(-1)(-1)\big)").scale(0.6)
-      ppl_8 = MathTex(r"  c_1 \big( 2 \big)").scale(0.6)   
-      ppl_9 = MathTex(r" = 2c_1\ ,").scale(0.6)
+      ppl_71 = MathTex(r" c_1 \big((1)(1)+(-1)(-1)\big)").scale(0.6)
+      ppl_81 = MathTex(r"  c_1 \big( 2 \big)").scale(0.6)
+      ppl_91 = MathTex(r" = 2c_1\ ,").scale(0.6)
 
-      ppl = VGroup(ppl_1, ppl_ig, ppl_ig2, ppl_9).arrange(DOWN, center = False, aligned_edge=LEFT)
+      ppl1 = VGroup(ppl_11, ppl_ig1, ppl_ig21, ppl_91).arrange(DOWN, center = False, aligned_edge=LEFT)
 
-      ppl_2.next_to(ppl_ig, RIGHT)
-      ppl_3.move_to(ppl_2).shift(0.25*LEFT)
-      ppl_4.move_to(ppl_2).shift(0.5*LEFT)
-      ppl_5.move_to(ppl_2).shift(0.85*LEFT)
+      ppl_21.next_to(ppl_ig1, RIGHT)
+      ppl_31.move_to(ppl_21).shift(0.25*LEFT)
+      ppl_41.move_to(ppl_21).shift(0.5*LEFT)
+      ppl_51.move_to(ppl_21).shift(0.85*LEFT)
 
-      ppl_ig2.shift(0.3*DOWN)
-      ppl_9.shift(0.4*DOWN)
-      ppl_6.next_to(ppl_ig2, RIGHT)
-      ppl_7.move_to(ppl_6).shift(0.2*RIGHT)
-      ppl_8.move_to(ppl_6).shift(0.8*LEFT)
+      ppl_ig21.shift(0.3*DOWN)
+      ppl_91.shift(0.4*DOWN)
+      ppl_61.next_to(ppl_ig21, RIGHT)
+      ppl_71.move_to(ppl_61).shift(0.2*RIGHT)
+      ppl_81.move_to(ppl_61).shift(0.8*LEFT)
 
-      c1_eq = MathTex(r"\Rightarrow -4 = 2c_1 \Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
-      c1_1 = MathTex(r" c_1 = \frac{-4}{2} ").next_to(c1_eq).scale(0.6).shift(0.4*LEFT)
-      c1 = MathTex(r" c_1 = -2 ").next_to(c1_eq).scale(0.6).shift(0.4*LEFT)
-      
-      srct_1 = SurroundingRectangle(c1, color = AMARILLO)
+      c1_eq1 = MathTex(r"\Rightarrow -4 = 2c_1 \Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
+      c1_11 = MathTex(r" c_1 = - ", r" \frac{4}{2} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+      c11 = MathTex(r" c_1 = - " , r" 2 ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
 
-      ##### ANIMACIONES calc_c1
+      srct_11 = SurroundingRectangle(c11, color = AMARILLO)
 
-      self.play(Write(vg1_1))
-      self.play(Write(ppig),Write(pp1))
-      self.play(ReplacementTransform(pp1,pp2))
-      self.wait()
-      self.play(ReplacementTransform(pp2,pp3))
-      self.wait()
-      self.play(ReplacementTransform(pp3,pp4))
-      self.wait()
 
-      self.play(Write(vg1_2))
-      self.play(Write(ppl_1))
-      self.play(Write(ppl_ig),Write(ppl_2))
-      self.wait()
-      self.play(ReplacementTransform(ppl_2,ppl_3))
-      self.wait()
-      self.play(ReplacementTransform(ppl_3,ppl_4))
-      self.wait()
-      self.play(ReplacementTransform(ppl_4,ppl_5))
-      self.play(Write(ppl_ig2),Write(ppl_6))
-      self.wait()
-      self.play(ReplacementTransform(ppl_6, ppl_7))
-      self.wait()
-      self.play(ReplacementTransform(ppl_7, ppl_8))
-      self.play(Write(ppl_9))
-      
-      self.wait()
-      self.play(Write(c1_eq))
-      self.play(Write(c1_1))
-      self.play(ReplacementTransform(c1_1, c1))
-      self.play(Write(srct_1))
 
-      self.play(FadeOut(vg1_1),FadeOut(vg1_2),FadeOut(pp3), FadeOut(ppl),
-       FadeOut(c1_eq), FadeOut(c1), FadeOut(srct_1), FadeOut(ppig), FadeOut(pp4),
-       FadeOut(ppl_5), FadeOut(ppl_8))
-   
-   def calc_c2(self):
-      '''
-      Función que generará los pasos algebráicos para calcular el segundo de los coeficientes
-      '''
-      #### OBJETOS
+
+      #### OBJETOS calc_c2 ( generan pasos algebráicos para calcular el segundo de los coeficientes)
       vg1_1 = MathTex(r" \langle \vec{v}, \vec{g}_2 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
       ppig = MathTex(r"= ").scale(0.6).next_to(vg1_1,RIGHT)
 
@@ -243,12 +216,12 @@ class Subescena_1(Scene):
       ppl_3 = MathTex(r"  c_1 (0)", r"+" r"\
          c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
       ppl_4 = MathTex(r" 0 + c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
-      ppl_5 = MathTex(r"  c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)  
-      ppl_ig2 = MathTex(r"= ").scale(0.6)  
+      ppl_5 = MathTex(r"  c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
+      ppl_ig2 = MathTex(r"= ").scale(0.6)
       ppl_6 = MathTex(r" c_2 \begin{pmatrix} -2 \\ -2 \end{pmatrix} \cdot \
          \begin{pmatrix} -2 \\ -2 \end{pmatrix}").scale(0.6)
       ppl_7 = MathTex(r" c_2 \big((-2)(-2)+(-2)(-2)\big)").scale(0.5)
-      ppl_8 = MathTex(r"  c_2 \big( 8 \big)").scale(0.6)   
+      ppl_8 = MathTex(r"  c_2 \big( 8 \big)").scale(0.6)
       ppl_9 = MathTex(r" = 8c_2\ ,").scale(0.6)
 
       ppl = VGroup(ppl_1, ppl_ig, ppl_ig2, ppl_9).arrange(DOWN, center = False, aligned_edge=LEFT)
@@ -264,57 +237,15 @@ class Subescena_1(Scene):
       ppl_7.move_to(ppl_6).shift(0.2*RIGHT)
       ppl_8.move_to(ppl_6).shift(0.8*LEFT)
 
-      c1_eq = MathTex(r"\Rightarrow 24 = 8c_2 \Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
-      c1_1 = MathTex(r" c_2 = \frac{24}{8} ").next_to(c1_eq).scale(0.6).shift(0.4*LEFT)
-      c1 = MathTex(r" c_2 = 3 ").next_to(c1_eq).scale(0.6).shift(0.4*LEFT)
-      
-      srct_1 = SurroundingRectangle(c1, color = AMARILLO)
-
-      ##### ANIMACIONES calc_c2
-
-      self.play(Write(vg1_1))
-      self.play(Write(ppig),Write(pp1))
-      self.play(ReplacementTransform(pp1,pp2))
-      self.wait()
-      self.play(ReplacementTransform(pp2,pp3))
-      self.wait()
-      self.play(ReplacementTransform(pp3,pp4))
-      self.wait()
-
-      self.play(Write(vg1_2))
-      self.play(Write(ppl_1))
-      self.play(Write(ppl_ig),Write(ppl_2))
-      self.wait()
-      self.play(ReplacementTransform(ppl_2,ppl_3))
-      self.wait()
-      self.play(ReplacementTransform(ppl_3,ppl_4))
-      self.wait()
-      self.play(ReplacementTransform(ppl_4,ppl_5))
-      self.play(Write(ppl_ig2),Write(ppl_6))
-      self.wait()
-      self.play(ReplacementTransform(ppl_6, ppl_7))
-      self.wait()
-      self.play(ReplacementTransform(ppl_7, ppl_8))
-      self.play(Write(ppl_9))
-      
-      self.wait()
-      self.play(Write(c1_eq))
-      self.play(Write(c1_1))
-      self.play(ReplacementTransform(c1_1, c1))
-      self.play(Write(srct_1))
-
-      self.play(FadeOut(vg1_1),FadeOut(vg1_2),FadeOut(pp3), FadeOut(ppl),
-       FadeOut(c1_eq), FadeOut(c1), FadeOut(srct_1), FadeOut(ppig), FadeOut(pp4),
-       FadeOut(ppl_5), FadeOut(ppl_8))
+      c1_eq2 = MathTex(r"\Rightarrow 24 = 8c_2 \Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
+      c1_12 = MathTex(r" c_2 = ", r" \frac{24}{8} ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
+      c12 = MathTex(r" c_2 = " , r" 3 ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
 
 
-   def construct(self):
+      srct_1 = SurroundingRectangle(c12, color = AMARILLO)
 
-      ###########
-      # OBJETOS #
-      ###########
-         
-      # Separación de la pantalla en grid y pizarrón
+       # Separación de la pantalla en grid y pizarrón
+
       grid = NumberPlane(x_range = [-9,9,1],y_range = [-7,4,1],
          background_line_style={"stroke_width": 1, "stroke_opacity": 0.5}).scale(0.5)
       borde_der = Line(start = [4.5,2.75,0], end = [4.5,-2.75,0], stroke_width = 1)
@@ -322,7 +253,7 @@ class Subescena_1(Scene):
       borde_sup = Line(start = [-4.5,2.75,0], end = [4.5,2.75,0], stroke_width = 1 )
       borde_inf = Line(start = [-4.5,-2.75,0], end = [4.5,-2.75,0], stroke_width = 1 )
       lilgrid = VGroup(grid, borde_sup, borde_der, borde_inf, borde_izq).shift(2.5*LEFT).shift(0.75*UP)
-      
+
       dot = Dot().shift(3*LEFT+0.5*UP) #OBJETO DE JUGUETE PARA UBICAR COORDENADAS
 
       # Textos del nuevo planteamiento del problema
@@ -331,7 +262,7 @@ class Subescena_1(Scene):
 
       gamma_tex = MathTex(r" \Gamma = \{ \vec{g}_1, \vec{g}_2\} = \Bigg\{\begin{pmatrix} 1 \\ -1 \end{pmatrix},\
           \begin{pmatrix} -2 \\ -2 \end{pmatrix} \Bigg\}").next_to(vec_obj_tex, DOWN).scale(0.4).shift(1*RIGHT + 0.5*UP)
-      
+
       gamma_b_og = MathTex(r"\text{ una base \textit{ortogonal}}").next_to(gamma_tex, DOWN).scale(0.4).shift(0.3*UP)
 
       comblin_abs = MathTex(r" \vec{v} " , r"=" ,r"c_1" ,r"\vec{g}_1" ,r"+" ,r"c_2", r"\vec{g}_2")\
@@ -340,12 +271,12 @@ class Subescena_1(Scene):
       print("LCA", len(comblin_abs))
       comblin_R2 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"c_1\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ c_2 \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
          .move_to(comblin_abs).scale(0.4)
-      
+
       print("LCR", len(comblin_R2))
 
-      coefs_incog = MathTex(r" \text{¿} c_1, c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
-      c2_incog = MathTex(r"  c_1 = -2,\   \text{¿}c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
-      no_incog = MathTex(r" c_1 = -2,\   c_2 = 3").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
+      coefs_incog = MathTex(r"  \text{¿}", r"c_1, " , r" c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
+      c2_incog = MathTex( r" ", r"c_1 = -2,  ", r"\text{¿}c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
+      no_incog = MathTex( r" ", r" c_1 = -2, ", r"\   c_2 = 3").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
 
 
       grupo_intro = VGroup(vec_obj_tex, gamma_tex, comblin_abs, comblin_R2, coefs_incog)
@@ -381,13 +312,13 @@ class Subescena_1(Scene):
       # ValueTrackers y funciones de Updater para transformar los vectores de la base con re-escalamientos
 
       t_1 = ValueTracker(1)
-      t_2 = ValueTracker(1) 
+      t_2 = ValueTracker(1)
 
       def upd_g1(obj):
          newvec = Arrow((0, 0, 0), t_1.get_value()*g1, buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4)\
             .shift(2.5*LEFT+1.5*UP)
          obj.become(newvec)
-      
+
       def upd_g2(obj):
          newvec_2 = Arrow((0, 0, 0), t_2.get_value()*g2, buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4)\
             .shift(2.5*LEFT+1.5*UP)
@@ -403,10 +334,10 @@ class Subescena_1(Scene):
 
       comblin_abs_c  = MathTex(r" (-2) \vec{g}_1 + (3) \vec{g}_2")\
          .next_to(c2, DOWN).scale(0.5).shift(2*LEFT+DOWN)
-      
+
       comblin_R2_c = MathTex(r" = (-2) \begin{pmatrix} 1 \\ -1 \end{pmatrix} + (3) \begin{pmatrix} -2\\ -2 \end{pmatrix}")\
          .next_to(comblin_abs_c,RIGHT).scale(0.5).shift(1.5*LEFT)
-      
+
       comblin_R2_c1 = MathTex(r" =  \begin{pmatrix} -2 \\ 2 \end{pmatrix} + (3) \begin{pmatrix} -2\\ -2 \end{pmatrix}")\
          .scale(0.6)
 
@@ -418,7 +349,7 @@ class Subescena_1(Scene):
          .scale(0.6)
 
       confirm = VGroup(comblin_R2_c, comblin_R2_c1, comblin_R2_c2, suma).arrange(DOWN, center = False, aligned_edge=LEFT)
-      
+
       ###############
       # ANIMACIONES #
       ###############
@@ -432,8 +363,10 @@ class Subescena_1(Scene):
       self.wait()
       self.play(Write(gamma_tex))
       self.wait()
-      self.play(FadeIn(vec_g1),FadeIn(vec_g2))
-      self.play(FadeIn(g1_label),FadeIn(g2_label)) # Agregar labels gamma
+      self.play(Write(vec_g1), Write(vec_g2))
+      self.play(FadeIn(g1_label), FadeIn(g2_label))
+
+      self.add_foreground_mobjects(vec_g1 , vec_g2, g1_label, g2_label)
 
       self.play(Write(comblin_abs))
       self.wait()
@@ -443,7 +376,7 @@ class Subescena_1(Scene):
       ReplacementTransform(comblin_abs[2],comblin_R2[2]), ReplacementTransform(comblin_abs[3],comblin_R2[3]),
       ReplacementTransform(comblin_abs[4],comblin_R2[4]), ReplacementTransform(comblin_abs[5],comblin_R2[5]),
       ReplacementTransform(comblin_abs[6],comblin_R2[6]))
-   
+
       self.play(ReplacementTransform(v_label,v_label2))
 
       # Transformar label v_obj
@@ -452,10 +385,85 @@ class Subescena_1(Scene):
       self.conj_ortognal()
       self.base_ortogonal()
       self.play(Write(gamma_b_og))
-      self.calc_c1()
+
+      ##### ANIMACIONES calc_c1   (genera los pasos algebráicos para calcular el primero de los coeficientes)
+
+      self.play(Write(vg1_11))
+      self.play(Write(ppig1),Write(pp11))
+      self.play(ReplacementTransform(pp11,pp21))
+      self.wait()
+      self.play(ReplacementTransform(pp21,pp31))
+      self.wait()
+      self.play(ReplacementTransform(pp31,pp41))
+      self.wait()
+
+      self.play(Write(vg1_21))
+      self.play(Write(ppl_11))
+      self.play(Write(ppl_ig1),Write(ppl_21))
+      self.wait()
+      self.play(ReplacementTransform(ppl_21,ppl_31))
+      self.wait()
+      self.play(ReplacementTransform(ppl_31,ppl_41))
+      self.wait()
+      self.play(ReplacementTransform(ppl_41,ppl_51))
+      self.play(Write(ppl_ig21),Write(ppl_61))
+      self.wait()
+      self.play(ReplacementTransform(ppl_61, ppl_71))
+      self.wait()
+      self.play(ReplacementTransform(ppl_71, ppl_81))
+      self.play(Write(ppl_91))
+
+      self.wait()
+      self.play(Write(c1_eq1))
+      self.play(Write(c1_11))
+      self.play(ReplacementTransform(c1_11, c11))
+      self.play(Write(srct_11))
+
       self.play(ReplacementTransform(coefs_incog,c2_incog))
-      self.calc_c2()
+
+      self.play(FadeOut(vg1_11),FadeOut(vg1_21),FadeOut(pp31), FadeOut(ppl1),
+       FadeOut(c1_eq1), FadeOut(c11), FadeOut(srct_11), FadeOut(ppig1), FadeOut(pp41),
+       FadeOut(ppl_51), FadeOut(ppl_81))
+
+      #Animaciones calc_C2 (genera los pasos algebráicos para calcular el segundo de los coeficientes)
+
+      self.play(Write(vg1_1))
+      self.play(Write(ppig),Write(pp1))
+      self.play(ReplacementTransform(pp1,pp2))
+      self.wait()
+      self.play(ReplacementTransform(pp2,pp3))
+      self.wait()
+      self.play(ReplacementTransform(pp3,pp4))
+      self.wait()
+
+      self.play(Write(vg1_2))
+      self.play(Write(ppl_1))
+      self.play(Write(ppl_ig),Write(ppl_2))
+      self.wait()
+      self.play(ReplacementTransform(ppl_2,ppl_3))
+      self.wait()
+      self.play(ReplacementTransform(ppl_3,ppl_4))
+      self.wait()
+      self.play(ReplacementTransform(ppl_4,ppl_5))
+      self.play(Write(ppl_ig2),Write(ppl_6))
+      self.wait()
+      self.play(ReplacementTransform(ppl_6, ppl_7))
+      self.wait()
+      self.play(ReplacementTransform(ppl_7, ppl_8))
+      self.play(Write(ppl_9))
+
+      self.wait()
+      self.play(Write(c1_eq2))
+      self.play(Write(c1_12))
+      self.play(ReplacementTransform(c1_12, c12))
+      self.play(Write(srct_1))
+
       self.play(ReplacementTransform(c2_incog, no_incog))
+
+
+      self.play(FadeOut(vg1_1),FadeOut(vg1_2),FadeOut(pp3), FadeOut(ppl),
+       FadeOut(c1_eq2), FadeOut(c12), FadeOut(srct_1), FadeOut(ppig), FadeOut(pp4),
+       FadeOut(ppl_5), FadeOut(ppl_8))
 
       self.wait()
       self.play(Write(c1), Write(c2))
@@ -480,7 +488,7 @@ class Subescena_1(Scene):
       self.play(Write(c2g2_label_1))
 
       self.play(Write(comblin_R2_c1))
-      
+
       self.wait()
       self.play(ReplacementTransform(c1g1_label_1, c1g1_label_2))
       self.play(Write(comblin_R2_c2))
