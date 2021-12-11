@@ -145,7 +145,7 @@ class Subescena_1(Scene):
       # OBJETOS #
       ###########
 
-      #### OBJETOS calc_c1 (genera los pasos algebráicos para calcular el primero de los coeficientes)
+      #### OBJETOS calc_c1
       vg1_11 = MathTex(r" \langle \vec{v}, \vec{g}_1 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
       ppig1 = MathTex(r"= ").scale(0.6).next_to(vg1_11,RIGHT)
 
@@ -196,7 +196,7 @@ class Subescena_1(Scene):
 
 
 
-      #### OBJETOS calc_c2 ( generan pasos algebráicos para calcular el segundo de los coeficientes)
+      #### OBJETOS calc_c2
       vg1_1 = MathTex(r" \langle \vec{v}, \vec{g}_2 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
       ppig = MathTex(r"= ").scale(0.6).next_to(vg1_1,RIGHT)
 
@@ -386,7 +386,7 @@ class Subescena_1(Scene):
       self.base_ortogonal()
       self.play(Write(gamma_b_og))
 
-      ##### ANIMACIONES calc_c1   (genera los pasos algebráicos para calcular el primero de los coeficientes)
+      ##### ANIMACIONES calc_c1
 
       self.play(Write(vg1_11))
       self.play(Write(ppig1),Write(pp11))
@@ -425,7 +425,6 @@ class Subescena_1(Scene):
        FadeOut(c1_eq1), FadeOut(c11), FadeOut(srct_11), FadeOut(ppig1), FadeOut(pp41),
        FadeOut(ppl_51), FadeOut(ppl_81))
 
-      #Animaciones calc_C2 (genera los pasos algebráicos para calcular el segundo de los coeficientes)
 
       self.play(Write(vg1_1))
       self.play(Write(ppig),Write(pp1))
