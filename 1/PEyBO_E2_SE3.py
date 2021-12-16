@@ -119,13 +119,30 @@ class Subescena2(Scene):
 
      def ortogonalidad(self):
      
-       o1 = MathTex("\\vec{u},\\vec{v}\in V \ \\text{son \emph{ortogonales}} \ ", " \\vec{u}\perp\\vec{v}) \ \\text{si} \ \langle \\vec{u} , \\vec{v} \\rangle = 0 \ ", "\\text{ó, equivalentemente,} \ \langle \\vec{v} , \\vec{u} \\rangle = 0.").scale(.5)
-       o2 = MathTex("\\text{O=}\{\\vec{o}_1,...,\\vec{o}_k\}\subseteq V \ \\text{es \emph{ortogonal} si} \ \langle \\vec{o}_i , \\vec{o}_j \\rangle = 0 \ \\text{para} \ i\\neq j, \ \\text{con} \ 1\le i,j\le k.").scale(.5)
+       o1 = MathTex("\\vec{u},\\vec{v}\in V \ \\text{son \emph{ortogonales}} \ ").scale(.5)
+       o1_2 = MathTex(" (\\vec{u}\perp\\vec{v}) \ \\text{si} \ \langle \\vec{u} , \\vec{v} \\rangle = 0 \ ").scale(.5)
+       o1_3 = MathTex("\\text{ó, equivalentemente,} \ \langle \\vec{v} , \\vec{u} \\rangle = 0.").scale(.5)
+
+       go_1=VGroup(o1, o1_2, o1_3).arrange(direction=RIGHT, center=True)
+       o1_2.next_to(o1, RIGHT)
+       o1_3.next_to(o1_2, RIGHT)
+       go_1.move_to(3*UP)
+
+
+       o2 = MathTex("\\text{O=}\{\\vec{o}_1,...,\\vec{o}_k\}\subseteq V ").scale(.5)
+       o2_2=MathTex("\\text{es \emph{ortogonal} si} \ \langle \\vec{o}_i , \\vec{o}_j \\rangle = 0 ").scale(.5)
+       o2_3= MathTex(" \\text{para} \ i\\neq j, \ \\text{con} \ 1\le i,j\le k.").scale(.5)
+
+       go_2 =VGroup(o2, o2_2, o2_3).arrange(direction=RIGHT, center=True)
+       go_2.move_to(2*UP)
+
+
+      
        o3 = MathTex("  \Gamma=\{\\vec{g}_1,...,\\vec{g}_k\}" ).scale(.5)
-       o4 = Tex("Base ", "\\textit{ortogonal}", " de V").scale(.5)
+       o4 = Tex("Base  \\textit{ortogonal} de V").scale(.5)
        o5 = MathTex(r"\langle\Gamma\rangle = V, ").scale(.5)
-       o5_c1 = Tex("$\\langle \\vec{g}_i, \\vec{g}_i\\rangle$", "si","$j = i$").scale(.6)
-       o5_c2 = Tex("$0$", " si", " $j \\neq i$").scale(.6)
+       o5_c1 = Tex("$\\langle \\vec{g}_i, \\vec{g}_i\\rangle$~", "si~","$j = i$").scale(.6)
+       o5_c2 = Tex("$0$~", " si~", " $j \\neq i$").scale(.6)
        for i, item in enumerate(o5_c2):
           item.align_to(o5_c1[i], LEFT)
        o5_c1g = VGroup(*o5_c1)
@@ -137,30 +154,29 @@ class Subescena2(Scene):
        gj_gi = VGroup(P_ij, b3, o5_g).arrange(direction=RIGHT, buff=.15)
        
        gamma_Prop = VGroup(o5, gj_gi).arrange(direction=RIGHT, buff=0.20, center=True)
-
-
+       
+        
        self.wait(8)
-       self.play(Write(o1))
-       self.wait(9)
-       self.play(FadeOut(o1))
-       self.wait(4)
-       self.play(Write(o2))
-       self.wait(3)
-       self.play(FadeOut(o2))
-       o3.move_to(2*UP, aligned_edge=ORIGIN)
+       for element in go_1:
+         self.play(Write(element), run_time=2)
+        
+       for element in go_2:
+         self.play(Write(element), run_time=2)
+
+       o3.move_to(1.25*UP, aligned_edge=RIGHT)
        self.play(Write(o3))
-       o4.move_to(2*UP)
+       o4.move_to(3*UP)
        o4.next_to(o3, direction=RIGHT)
        self.play(Write(o4))
-       self.play(o4[1].animate.set_color(VERDE))
-       self.play(o4[1].animate.set_color(WHITE))
        self.wait(2)
        gamma_Prop[0].move_to(2*LEFT)
+
        self.play(Write(gamma_Prop[0]))
        self.play(Write(gamma_Prop[1]))
 
      def construct(self):
       self.ortogonalidad()
+ 
 
 class Subescena_3(Scene):
     '''
