@@ -27,12 +27,12 @@ MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
 
 class Subescena1(Scene):
-        
+
     #-------------------------------------------------------Propiedades del producto escalar en un campo K
      def propiedades(self):
          t1 =  MathTex("\langle\cdot, \cdot\\rangle:V\\times V\\to K ")
 
-         p1 =  MathTex("\\forall \\vec{u}, \\vec{v}, \\vec{w}&\in V").scale(.7)
+         p1 =  MathTex("\\forall \ \\vec{u}, \\vec{v}, \\vec{w}&\in V").scale(.7)
 
 
          p2 = MathTex("  \langle\\vec{u}+\\vec{w},\\vec{v}\\rangle").scale(.7)
@@ -45,9 +45,9 @@ class Subescena1(Scene):
 
          p4 = MathTex("  \langle \\vec{u} , \\vec{v} \\rangle").scale(.7)
          p4_2= MathTex("= \overline{ \langle \\vec{v} , \\vec{u} \\rangle}\\").scale(.7)
-         
 
-         p5 = MathTex(" \\vec{u}\\neq \\vec{0}").scale(.7) 
+
+         p5 = MathTex(" \\vec{u}\\neq \\vec{0}").scale(.7)
          p5_2= MathTex("\Rightarrow \langle \\vec{u} , \\vec{u} \\rangle > 0 ").scale(.7)
 
          g1 = VGroup( p2, p3, p4, p5, p2_2, p3_2, p4_2, p5_2 ).arrange(direction=DOWN, aligned_edge = LEFT).shift(RIGHT+0.3*DOWN)
@@ -56,20 +56,20 @@ class Subescena1(Scene):
          p4.next_to(p4_2, LEFT)
          p5.next_to(p5_2, LEFT)
 
-  
+
          g3 =VGroup(p2, p2_2, p3, p3_2, color=WHITE)
          b1 = Brace(g3, direction=RIGHT)
          t2 = MathTex("\langle a\\vec{u}+\\vec{w} , \\vec{v} \\rangle = a \langle \\vec{u} , \\vec{v} \\rangle + \langle \\vec{w} , \\vec{v} \\rangle\ ").scale(.6)
          t3 = MathTex("\langle \\vec{u} , a\\vec{w}+\\vec{v} \\rangle = \overline{a} \langle \\vec{u} , \\vec{w} \\rangle + \langle \\vec{u} , \\vec{v} \\rangle \\").scale(.6)
-         t4 = Tex("Linealidad en la entrada izquierda").scale(.56)
-         t5 = Tex("Antilinealidad en la entrada derecha").scale(.55)
+         t4 = Tex("\\textit{Linealidad} en la entrada izquierda").scale(.56)
+         t5 = Tex("\\textit{Antilinealidad} en la entrada derecha").scale(.55)
          t6 = Tex("Positivo definido").scale(.55)
          g4 = VGroup(g3,p4, color=WHITE)
          b2 = Brace(g4, direction=LEFT)
-        
 
 
-         #ANIMACIONES# 
+
+         #ANIMACIONES#
          t1.next_to(g1, 10*UP)
          self.play(Write(t1))
          p1.next_to(t1, DOWN).shift(.2*LEFT)
@@ -87,10 +87,10 @@ class Subescena1(Scene):
          t4.next_to(t2, DOWN)
          self.play(Write(t4))
          self.wait(28)
-         self.play(FadeIn(p4))
-         b2.next_to(p3, LEFT*2*UP).shift(1.5*LEFT)
+         #self.play(FadeIn(p4))
+         b2.next_to(p3, LEFT*2*UP).shift(1.2*LEFT)
          self.play(Write(b2))
-         t3.next_to(b2, direction=LEFT)
+         t3.next_to(b2, direction=LEFT).shift(0.2*LEFT)
          self.play(Write(t3))
          t5.next_to(t3, DOWN)
          self.play(Write(t5))
@@ -103,12 +103,6 @@ class Subescena1(Scene):
          self.wait(18)
          self.play(FadeOut(g1))
          self.play(FadeOut(t1,p1))
-
-         
-
-         
-
-         
 
      def construct(self):
             self.propiedades()
