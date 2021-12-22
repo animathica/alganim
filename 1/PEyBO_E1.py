@@ -213,9 +213,10 @@ class Subescena_1(Scene):
 
     def construct(self):
         self.parte_1()
-#-------------------------------------------------------------------------------------------------------  
+
+#-------------------------------------------------------------------------------------------------------
 class Subescena_2(Scene):
-    #Parámetros de CONFIG como asignación de los valores 
+    #Parámetros de CONFIG como asignación de los valores
     #de los atributos
     config.x_min = -0.25,
     config.x_max = 1,
@@ -252,12 +253,12 @@ class Subescena_2(Scene):
         Text14_2[0][1:12].set_color(MAGENTA_CLARO)
         Text14_2.bg = SurroundingRectangle(Text14_2,color=WHITE,fill_color=BLACK,fill_opacity=1)
         Text14_2.group = VGroup(Text14_2.bg, Text14_2)
-        Text14_3 = Tex('''$\\langle\\vec{b}_1,\\vec{b}_2\\rangle = \\mathbb{R}^2$''').move_to(1.5*DOWN + 3.5*LEFT)
+        Text14_3 = Tex('''$\\langle\\vec{b}_1,\\vec{b}_2\\rangle$''').move_to(1.5*DOWN + 3.5*LEFT)
         Text14_3[0][1:4].set_color(MAGENTA_CLARO)
         Text14_3[0][5:8].set_color(MAGENTA_CLARO)
         Text14_3[0][-2:].set_color(MAGENTA_CLARO)
         Text14_3.bg = SurroundingRectangle(Text14_3,color=WHITE,fill_color=BLACK,fill_opacity=1)
-        Text14_3.group = VGroup(Text14_3.bg, Text14_3) 
+        Text14_3.group = VGroup(Text14_3.bg, Text14_3)
         #------------------------------------Animación del generado
         def gen1(Vec1,Vec2,Lab1,Lab2):
             self.play(FadeOut(VGroup(Lab1,Lab2)))
@@ -301,7 +302,7 @@ class Subescena_2(Scene):
             def upd_for_linea(obj):
                 t = vt1.get_value()
                 new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(t*B1,t*B2,0), color = MAGENTA).set_fill(opacity=0.5)
-                obj.become(new_linea)  
+                obj.become(new_linea)
             # Primera línea numérica
             Num_Lin_1 = NumberLine(rotation = PI/2, include_numbers = False, label_direction = RIGHT,
                                      x_range=[-9, 9, 1], numbers_to_exclude = [-9,9], tick_size=0.3, numbers_with_elongated_ticks=[0]).scale(0.15)
@@ -327,11 +328,11 @@ class Subescena_2(Scene):
             FLECHA_1 = Arrow(Num_Lin_1.number_to_point(0),np.array([2,Num_Lin_1.number_to_point(0)[1],0]),buff=0)
             # Linea con que se colorea segunda recta numérica.
             LINEA_2 = Line(Num_Lin_2.number_to_point(1),Num_Lin_2.number_to_point(1.001))
-            # Flecha para segunda recta numérica. 
+            # Flecha para segunda recta numérica.
             FLECHA_2 = Arrow(Num_Lin_2.number_to_point(0),np.array([4,Num_Lin_2.number_to_point(0)[1],0]),buff=0)
-            # Valores para primera recta numérica. 
+            # Valores para primera recta numérica.
             Coef_1 = (MathTex("c_2")).next_to(FLECHA_2.get_end(),RIGHT)
-            # Valores para segunda recta numérica. 
+            # Valores para segunda recta numérica.
             Coef_2 = (MathTex("c_1")).next_to(FLECHA_1.get_end(),RIGHT)
             def upd_for_coef_1(obj):
                 t = vt1.get_value()
@@ -512,7 +513,7 @@ class Subescena_2(Scene):
             self.play(FadeOut(VGroup(Plano1,Plano2)),FadeOut(Text14_3.group),FadeOut(VGroup(VecRCL,Punto,LINEA_1,LINEA_2,Num_Lin_1,Num_Lin_2,Inf_1,MInf_1,Inf_2,MInf_2,ParInf1,ParInf2,ParSup1,ParSup2)))
             self.play(Write(VGroup(Lab1,Lab2)))
 
-        #------------------------------------Animación en la que se buscan los escalares 
+        #------------------------------------Animación en la que se buscan los escalares
         def encontrar_escalares(vec1, vec_obj1, text_A, vec2, vec_obj2, text_B, vec_objetivo, text_vec_objetivo):
             '''
             vec: numpy array
@@ -533,14 +534,14 @@ class Subescena_2(Scene):
             minf = Tex("$ - \\infty $").move_to(number_line.get_start()+0.25*DOWN).scale(0.6)
             # Flechas que apuntan al valor de los escalares
             pointer_vec_1 = Arrow(start=ORIGIN, end=RIGHT, max_tip_length_to_length_ratio=0.4)
-            label_1 = MathTex("c_1").set_color(AZUL).add_updater(lambda m: m.next_to(pointer_vec_1, 0.3*LEFT))
+            label_1 = MathTex("c_1").add_updater(lambda m: m.next_to(pointer_vec_1, 0.3*LEFT)) #MODIF
             pointer_vec_2 = Arrow(start=ORIGIN, end=LEFT, max_tip_length_to_length_ratio=0.4)
-            label_2 = MathTex("c_2").set_color(ROJO).add_updater(lambda m: m.next_to(pointer_vec_2, 0.3*RIGHT))
+            label_2 = MathTex("c_2").add_updater(lambda m: m.next_to(pointer_vec_2, 0.3*RIGHT)) #MODIF
             # ValueTrackers para vector 1 y vector 2, respectivamente. Son utilizados para modificar muchos objetos
             # simultáneamente
             t1 = ValueTracker(1)
             t2 = ValueTracker(1)
-            # Updaters para los sliders sobre la recta real 
+            # Updaters para los sliders sobre la recta real
             # Flecha para c_1
             pointer_vec_1.add_updater(
                 lambda m: m.next_to(
@@ -563,7 +564,7 @@ class Subescena_2(Scene):
             # Box que contiene a la recta numérica
             sliders_box = Rectangle(width=2.5, height=3.9, fill_color=BLACK, fill_opacity=1).move_to(np.array([5.51,-2,0]))
             sliders = VGroup(sliders_box, complete_number_line)
-            # ---------------------------------------- Vectores en el plano    
+            # ---------------------------------------- Vectores en el plano
             # Texto de los escalares
             label1 = MathTex("c_1")
             label2 = MathTex("c_2")
@@ -587,7 +588,7 @@ class Subescena_2(Scene):
             fantasma_flecha1 = DashedArrow(vec2, vec1_plus_vec2, buff = 0, stroke_opacity = 0.5, color = col1)
             fantasma_flecha2 = DashedArrow(vec1, vec1_plus_vec2, buff = 0, stroke_opacity = 0.5, color = col2)
 
-            
+
             # Updaters
             def upd_for_vec1(obj):
                 new_vec = Arrow((0,0,0), t1.get_value()*vec1, buff=0, color = col1)
@@ -603,10 +604,10 @@ class Subescena_2(Scene):
 
             def upd_for_text1(obj):
                 obj.move_to(vec_obj1.get_end()+dist_1)
-                
+
             def upd_for_text2(obj):
                 obj.move_to(vec_obj2.get_end()+dist_2)
-            
+
             def upd_for_text3(obj):
                 obj.move_to(vec_AplusB.get_end()+dist_3)
 
@@ -645,7 +646,7 @@ class Subescena_2(Scene):
             c = np.linalg.solve(A,b) #Vector de coeficientes
 
             # ---------------------------------------- Animaciones
-            
+
             self.add_foreground_mobjects(label1,label2)
             self.play(FadeIn(label1.next_to(text_A, 0.5*LEFT)),
             FadeIn(label2.next_to(text_B, 0.5*LEFT)),
@@ -657,43 +658,43 @@ class Subescena_2(Scene):
             )
             self.play(FadeIn(sliders))
             # Moviendo solo el primer coeficiente
-            self.play(t1.animate.set_value(0.5), 
+            self.play(t1.animate.set_value(0.5),
             run_time = 1.3)
-            self.play(t1.animate.set_value(0.9), 
+            self.play(t1.animate.set_value(0.9),
             run_time = 1.3)
             # Moviendo solo el segundo coeficiente
-            self.play(t2.animate.set_value(1.2), 
+            self.play(t2.animate.set_value(1.2),
             run_time = 0.5)
-            self.play(t2.animate.set_value(1.0), 
+            self.play(t2.animate.set_value(1.0),
             run_time = 0.5)
             #Moviendo ambos coeficientes de forma simultánea
-            self.play(t1.animate.set_value(1.6), 
+            self.play(t1.animate.set_value(1.6),
             t2.animate.set_value(-0.8),
             run_time = 0.5)
-            self.play(t1.animate.set_value(-0.5), 
+            self.play(t1.animate.set_value(-0.5),
             t2.animate.set_value(-1),
             run_time = 0.5)
-            self.play(t1.animate.set_value(-1), 
+            self.play(t1.animate.set_value(-1),
             t2.animate.set_value(-1.8),
             run_time = 0.5)
-            self.play(t1.animate.set_value(0.5), 
+            self.play(t1.animate.set_value(0.5),
             t2.animate.set_value(-0.5),
             FadeOut(text_vec_objetivo),
             run_time = 0.5)
-            self.play(t1.animate.set_value(0.6), 
+            self.play(t1.animate.set_value(0.6),
             t2.animate.set_value(1.9),
             run_time = 0.5)
-            self.play(t1.animate.set_value(0.6), 
+            self.play(t1.animate.set_value(0.6),
             t2.animate.set_value(2.1),
             run_time = 0.5)
-            self.play(t1.animate.set_value(0.4), 
+            self.play(t1.animate.set_value(0.4),
             t2.animate.set_value(2.1),
             run_time = 0.2)
-            self.play(t1.animate.set_value(0.4), 
+            self.play(t1.animate.set_value(0.4),
             t2.animate.set_value(1.9),
             run_time = 0.2)
             # Valores correctos de los coeficientes
-            self.play(t1.animate.set_value(c[0]), 
+            self.play(t1.animate.set_value(c[0]),
             t2.animate.set_value(c[1]),
             run_time = 1.0)
             fantasma_flecha1.remove_updater(upd_for_fantasma_flecha1)
@@ -715,9 +716,9 @@ class Subescena_2(Scene):
                     FadeIn(text_vec_objetivo),
                     run_time = 3
             )
-            self.play(Circumscribe(label1, fade_out=True), 
+            self.play(Circumscribe(label1, fade_out=True),
                     Circumscribe(label2, fade_out=True),
-                    Flash(dot1), 
+                    Flash(dot1),
                     Flash(dot2),
                     run_time = 3
             )
@@ -740,9 +741,9 @@ class Subescena_2(Scene):
         vecA = Arrow((0, 0, 0), vec_A, buff=0,color=AZUL)
         vecB = Arrow((0, 0, 0), vec_B, buff=0,color=ROJO)
 
-        text_vec = MathTex("\\vec{v}").move_to(vec_.get_end()+0.4*vec/(np.linalg.norm(vec)))
-        text_A = MathTex("\\vec{b}_1").move_to(vecA.get_end()+0.4*vec_A/(np.linalg.norm(vec_A)))
-        text_B = MathTex("\\vec{b}_2").move_to(vecB.get_end()+0.4*vec_B/(np.linalg.norm(vec_B)))
+        text_vec = MathTex("\\vec{v}", color = NARANJA ).move_to(vec_.get_end()+0.4*vec/(np.linalg.norm(vec)))
+        text_A = MathTex("\\vec{b}_1", color= AZUL).move_to(vecA.get_end()+0.4*vec_A/(np.linalg.norm(vec_A)))
+        text_B = MathTex("\\vec{b}_2", color = ROJO).move_to(vecB.get_end()+0.4*vec_B/(np.linalg.norm(vec_B)))
 
         # Ejes para mostrar independencia lineal de b_1 y b_2
         Eje1 = DashedLine(-5*vec_A,5*vec_A, color = MAGENTA, buff = 0)
@@ -772,9 +773,10 @@ class Subescena_2(Scene):
         self.play(Write(text_vec))
         encontrar_escalares(vec_A, vecA, text_A, vec_B, vecB, text_B, vec, text_vec)
         self.wait(0.5)
-        
+
     def construct(self):
         self.parte_2()
+        
 #-------------------------------------------------------------------------------------------------------
 class Subescena_3(Scene):
     def parte_3(self):
