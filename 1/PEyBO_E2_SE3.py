@@ -50,7 +50,7 @@ class Subescena1(Scene):
          p5 = MathTex(" \\vec{u}\\neq \\vec{0}").scale(.7)
          p5_2= MathTex("\Rightarrow \langle \\vec{u} , \\vec{u} \\rangle > 0 ").scale(.7)
 
-         g1 = VGroup( p2, p3, p4, p5, p2_2, p3_2, p4_2, p5_2 ).arrange(direction=DOWN, aligned_edge = LEFT).shift(RIGHT+0.3*DOWN)
+         g1 = VGroup( p2, p2_2, p3, p3_2, p4, p4_2, p5, p5_2 ).arrange(buff=.15, direction=DOWN, aligned_edge = LEFT, ).shift(RIGHT+0.3*DOWN)
          p2.next_to(p2_2, LEFT)
          p3.next_to(p3_2, LEFT)
          p4.next_to(p4_2, LEFT)
