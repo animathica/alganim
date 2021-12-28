@@ -40,51 +40,6 @@ class Subescena_1(Scene):
     ilustrar la solución del problema en un caso particular.
    '''
 
-   def conj_ortognal(self):
-      '''
-      Función que generará  los pasos algebráicos para demostrar que la base seleccionada
-      ortogonal
-      '''
-
-      ###### OBJETOS
-      gamma_c_og = MathTex(r"\Gamma \text{ es un conjunto \textit{ortogonal}}")\
-         .scale(0.6).shift(4.5*RIGHT + DOWN)
-
-      ppunto_1 = MathTex(r" \langle \vec{g}_1, \vec{g}_2 \rangle").shift(3*RIGHT + 2*UP).scale(0.6)
-      ppunto_2 = MathTex(r" = \begin{pmatrix} 1 \\ -1 \end{pmatrix} \cdot \
-          \begin{pmatrix} -2 \\ -2 \end{pmatrix}").next_to(ppunto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
-      ppunto_3 = MathTex(r"= (1)(-2) + (-1)(-2)").scale(0.6)
-      ppunto_4 = MathTex(r"= 0 ").scale(0.6)
-      ppunto_5 = MathTex(r"= \langle \vec{g}_2 , \vec{g}_1 \rangle ").scale(0.6)
-
-      ppunto = VGroup(ppunto_2, ppunto_3, ppunto_4, ppunto_5)\
-         .arrange(DOWN, center=False, aligned_edge=LEFT)
-
-
-      # Se declaran los vectores que aparecen en el grid para usarlos posteriormente
-      # y dibujar su generado
-      g1 = np.array([1,-1,0])
-      g2 = np.array([-2,-2,0])
-
-      vec_g1 = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO).shift(2.5*LEFT)
-      g1_label = MathTex(r"\vec{g}_1").move_to(vec_g1.get_end()+(0.4/(np.linalg.norm(g1)))*g1).scale(0.7)
-
-      vec_g2 = Arrow((0, 0, 0), (-1,-1,0), buff = 0, color = AZUL).shift(2.5*LEFT)
-      g2_label = MathTex(r"\vec{g}_2").move_to(vec_g2.get_end()+(0.4/(np.linalg.norm(g2)))*g2).scale(0.7)
-
-      ########## ANIMACIONES conj_ortog
-
-      self.play(Write(ppunto_1))
-      self.play(Write(ppunto_2))
-      self.play(Write(ppunto_3))
-      self.play(Write(ppunto_4))
-      self.play(Write(ppunto_5))
-
-      self.wait()
-      self.play(Write(gamma_c_og))
-
-      self.play(FadeOut(ppunto), FadeOut(gamma_c_og), FadeOut(ppunto_1))
-
    def gen_plano(self, vec1, vec2):
 
       origen = np.array([0,0,0])
@@ -104,46 +59,48 @@ class Subescena_1(Scene):
          obj.become(New_plano)
          #self.bring_to_back(obj)
 
-   def base_ortogonal(self):
-
-      gamma_li = MathTex(r"\vec{g}_1\ \text{y}\ \vec{g}_2\ \text{son \textit{l. i.} ,}").shift(4.5*RIGHT+2*UP).scale(0.6)
-    #  gamma_li[1].next_to(gamma_li,DOWN)
-     # gamma_li[0].shift(2*RIGHT)
-
-
-      ld_g1 = DashedLine(-4*g1, 7*g1).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
-      ld_g2 = DashedLine(-2*g2, 3.5*g2).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
-
-      gamma_gen = MathTex(r"\langle \Gamma \rangle = \mathbb{R}^2,").shift(4.5*RIGHT+0.5*UP).scale(0.6)
-
-      gamma_b_og = MathTex(r"\Rightarrow \Gamma \text{ es una }", r"\textit{base ortogonal}}").scale(0.6).shift(4.5*RIGHT + DOWN)
-
-
-      self.play(Create(ld_g1))
-      self.play(Create(ld_g2))
-      self.wait(1)
-      self.play(Write(gamma_li))
-      self.wait(1)
-      self.play(Write(gamma_gen))
-      self.wait(2)
-      # Animación del espacio generado
-      self.play(Write(gamma_b_og))
-      self.play(gamma_b_og[1].animate.set_color(MAGENTA), runtime = 1)
-      self.wait()
-      self.play(gamma_b_og[1].animate.set_color(WHITE), runtime = 1)
-      self.play(FadeOut(gamma_li), FadeOut(ld_g1), FadeOut(ld_g2), FadeOut(gamma_gen), FadeOut(gamma_b_og))
-
-
-
-
-
-
-
    def construct(self):
 
       ###########
       # OBJETOS #
       ###########
+
+      ###### OBJETOS conj_ortogonal
+      gamma_c_og = MathTex(r"\Gamma \text{ es }", r"\text{un conjunto \textit{ortogonal}}")\
+         .scale(0.6).shift(4.5*RIGHT + DOWN)
+
+
+      ppunto_1 = MathTex(r" \langle \vec{g}_1, \vec{g}_2 \rangle").shift(3*RIGHT + 2*UP).scale(0.6)
+      ppunto_2 = MathTex(r" = \begin{pmatrix} 1 \\ -1 \end{pmatrix} \cdot \
+          \begin{pmatrix} -2 \\ -2 \end{pmatrix}").next_to(ppunto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
+      ppunto_3 = MathTex(r"= (1)(-2) + (-1)(-2)").scale(0.6)
+      ppunto_4 = MathTex(r"= 0 ").scale(0.6)
+      ppunto_5 = MathTex(r"= \langle \vec{g}_2 , \vec{g}_1 \rangle ").scale(0.6)
+
+      ppunto = VGroup(ppunto_2, ppunto_3, ppunto_4, ppunto_5)\
+         .arrange(DOWN, center=False, aligned_edge=LEFT)
+
+
+         # Se declaran los vectores que aparecen en el grid para usarlos posteriormente
+         # y dibujar su generado
+      g1 = np.array([1,-1,0])
+      g2 = np.array([-2,-2,0])
+
+      vec_g1 = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO).shift(2.5*LEFT)
+      g1_label = MathTex(r"\vec{g}_1").move_to(vec_g1.get_end()+(0.4/(np.linalg.norm(g1)))*g1).scale(0.7)
+
+      vec_g2 = Arrow((0, 0, 0), (-1,-1,0), buff = 0, color = AZUL).shift(2.5*LEFT)
+      g2_label = MathTex(r"\vec{g}_2").move_to(vec_g2.get_end()+(0.4/(np.linalg.norm(g2)))*g2).scale(0.7)
+
+      # OBJETOS base_ortogonal
+      gamma_li = MathTex(r"\vec{g}_1\ \text{y}\ \vec{g}_2\ \text{son \textit{l. i.} ,}").shift(4.5*RIGHT+2*UP).scale(0.6)
+
+      ld_g1 = DashedLine(-2*g1, 3.5*g1).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
+      ld_g2 = DashedLine(-1*g2, 1.75*g2).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
+
+      gamma_gen = MathTex(r"\langle \Gamma \rangle = \mathbb{R}^2,").shift(4.5*RIGHT+0.5*UP).scale(0.6)
+
+      gamma_b_og = MathTex(r" \text{ una }", r"\textit{base ortogonal}}").scale(0.6).next_to(gamma_c_og[0], RIGHT).shift(0.03*DOWN+0.1*LEFT)
 
       #### OBJETOS calc_c1
       vg1_11 = MathTex(r" \langle \vec{v}, \vec{g}_1 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
@@ -193,9 +150,6 @@ class Subescena_1(Scene):
 
       srct_11 = SurroundingRectangle(c11, color = AMARILLO)
 
-
-
-
       #### OBJETOS calc_c2
       vg1_1 = MathTex(r" \langle \vec{v}, \vec{g}_2 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
       ppig = MathTex(r"= ").scale(0.6).next_to(vg1_1,RIGHT)
@@ -211,11 +165,11 @@ class Subescena_1(Scene):
       ppl_1 = MathTex(r" = \langle c_1\vec{g}_1 + c_2\vec{g}_2\
          , \vec{g}_2 \rangle").scale(0.6).next_to(vg1_2,RIGHT)
       ppl_ig = MathTex(r"= ").scale(0.6)
-      ppl_2 = MathTex(r" c_1 \langle \vec{g}_1, \vec{g}_2 \rangle", r"+" r"\
+      ppl_2 = MathTex(r" c_1", r"\langle \vec{g}_1, \vec{g}_2 \rangle", r"+" r"\
          c_2\langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
-      ppl_3 = MathTex(r"  c_1 (0)", r"+" r"\
+      ppl_3 = MathTex(r"  c_1" ,r"(0)", r"+" r"\
          c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
-      ppl_4 = MathTex(r" 0 + c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
+      ppl_4 = MathTex(r" 0" ,r" ",r"+" ,r"c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
       ppl_5 = MathTex(r"  c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
       ppl_ig2 = MathTex(r"= ").scale(0.6)
       ppl_6 = MathTex(r" c_2 \begin{pmatrix} -2 \\ -2 \end{pmatrix} \cdot \
@@ -263,8 +217,6 @@ class Subescena_1(Scene):
       gamma_tex = MathTex(r" \Gamma = \{ \vec{g}_1, \vec{g}_2\} = \Bigg\{\begin{pmatrix} 1 \\ -1 \end{pmatrix},\
           \begin{pmatrix} -2 \\ -2 \end{pmatrix} \Bigg\}").next_to(vec_obj_tex, DOWN).scale(0.4).shift(1*RIGHT + 0.5*UP)
 
-      gamma_b_og = MathTex(r"\text{ una base \textit{ortogonal}}").next_to(gamma_tex, DOWN).scale(0.4).shift(0.3*UP)
-
       comblin_abs = MathTex(r" \vec{v} " , r"=" ,r"c_1" ,r"\vec{g}_1" ,r"+" ,r"c_2", r"\vec{g}_2")\
          .shift(2.5*DOWN).scale(0.5)
 
@@ -291,6 +243,8 @@ class Subescena_1(Scene):
          .scale(0.7)
       v_label2 = MathTex(r"c_1",r"\vec{g}_1", r"+", r"c_2", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
          .scale(0.5).shift(RIGHT+0.1*DOWN)
+      v_label3 = MathTex(r"-2",r"\vec{g}_1", r"+", r"3", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
+         .scale(0.5).shift(RIGHT+0.1*DOWN)   
 
       vec_g1 = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
       g1_label = MathTex(r"\vec{g}_1").move_to(vec_g1.get_end()+(0.4/(np.linalg.norm(g1)))*g1).scale(0.5)
@@ -303,12 +257,15 @@ class Subescena_1(Scene):
       c2g2_label_1 = MathTex(r"c_2\vec{g}_2 = 3\vec{g_2}").move_to(np.array([-3,-3,0])+(0.4/(np.linalg.norm(3*g2)))*3*g2).scale(0.5)\
          .shift(1.5*LEFT+1.75*UP)
 
-      c1g1_label_2 = MathTex(r"\begin{pmatrix} 2 \\ -2 \end{pmatrix}").move_to(np.array([-1,1,0])+(0.5/(np.linalg.norm(-2*g1)))*(-2)*g1).scale(0.4)\
+      c1g1_label_2 = MathTex(r"\begin{pmatrix} -2 \\ 2 \end{pmatrix}").move_to(np.array([-1,1,0])+(0.5/(np.linalg.norm(-2*g1)))*(-2)*g1).scale(0.4)\
          .shift(2.5*LEFT+1.5*UP)
 
       c2g2_label_2 = MathTex(r"\begin{pmatrix} -6 \\ -6 \end{pmatrix}").move_to(np.array([-3,-3,0])+(0.5/(np.linalg.norm(3*g2)))*3*g2).scale(0.4)\
          .shift(1.5*LEFT+1.75*UP)
 
+      # Vectores fantasma para mostrar paralelogramo
+      ghost1 = Arrow((0, 0, 0), (-1,1,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).set_opacity(0.3).shift(5.5*LEFT+1.5*DOWN)
+      ghost2 = Arrow((0, 0, 0), (-3,-3,0), buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4).set_opacity(0.3).shift(3.5*LEFT+2.5*UP)
       # ValueTrackers y funciones de Updater para transformar los vectores de la base con re-escalamientos
 
       t_1 = ValueTracker(1)
@@ -359,6 +316,7 @@ class Subescena_1(Scene):
       self.wait()
       self.play(FadeIn(vec_obj))
       self.play(FadeIn(v_label)) # Agregar label v_obj
+      self.add_foreground_mobjects(vec_obj,v_label)
 
       self.wait()
       self.play(Write(gamma_tex))
@@ -382,9 +340,42 @@ class Subescena_1(Scene):
       # Transformar label v_obj
       self.play(Write(coefs_incog))
 
-      self.conj_ortognal()
-      self.base_ortogonal()
+      ########## ANIMACIONES conj_ortog
+
+      self.play(Write(ppunto_1))
+      self.play(Write(ppunto_2))
+      self.play(Write(ppunto_3))
+      self.play(Write(ppunto_4))
+      self.play(Write(ppunto_5))
+
+      self.wait()
+      self.play(Write(gamma_c_og))
+      self.wait()
+      self.play(gamma_c_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7))
+
+
+      self.play(FadeOut(ppunto), FadeOut(ppunto_1))
+
+
+      # ANIMACIONES base_ortogonal
+      self.play(Create(ld_g1))
+      self.play(Create(ld_g2))
+      self.wait(1)
+      self.play(Write(gamma_li))
+      self.wait(2)
+      self.play( FadeOut(ld_g1), FadeOut(ld_g2))
+      self.play(Write(gamma_gen))
+      self.wait(2)
+         # Animación del espacio generado
+      self.play(gamma_c_og.animate.shift(9.5*RIGHT+2.75*UP).scale(1/0.7))
+      self.wait()
+      self.play(FadeOut(gamma_c_og[1]))
       self.play(Write(gamma_b_og))
+      self.wait()
+      self.play(FadeOut(gamma_c_og[0]), gamma_b_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7))
+      self.play(FadeOut(gamma_li), FadeOut(gamma_gen))
+
+
 
       ##### ANIMACIONES calc_c1
 
@@ -482,7 +473,6 @@ class Subescena_1(Scene):
          run_time = 2
       )
 
-
       self.play(Write(c1g1_label_1))
       self.play(Write(c2g2_label_1))
 
@@ -490,6 +480,13 @@ class Subescena_1(Scene):
 
       self.wait()
       self.play(ReplacementTransform(c1g1_label_1, c1g1_label_2))
-      self.play(Write(comblin_R2_c2))
-      self.wait()
       self.play(ReplacementTransform(c2g2_label_1, c2g2_label_2))
+
+      self.play(FadeIn(ghost1),FadeIn(ghost2))
+      self.play(ReplacementTransform(v_label2, v_label3))
+      self.add_foreground_mobjects(v_label3)
+      
+      self.wait()
+      self.play(Write(comblin_R2_c2))
+      self.play(Write(suma))
+      
