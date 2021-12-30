@@ -2,6 +2,7 @@
 
 from typing_extensions import runtime
 from manim import *
+from alganim import DashedArrow
 
 
 #####################################################################################
@@ -40,30 +41,213 @@ class Subescena_1(Scene):
     ilustrar la solución del problema en un caso particular.
    '''
 
-   def gen_plano(self, vec1, vec2):
-
-      origen = np.array([0,0,0])
-      g1 = np.array([0.5,-0.5,0])
-      g2 = np.array([-1,-1,0])
-
-      plano_1 = Polygon(origen, g1, g2, g1+g2, stroke_width = 0).shift(2.5*LEFT+1.5*UP)
-      plano_2  = Polygon(origen, g1, g2, origen, stroke_width=0).shift(2.5*LEFT+1.5*UP)
-
-      vt1 = ValueTracker(1)
-
-      # Función que rellena plano.
-      def upd_for_plano(obj):
-         t = vt1.get_value()
-         vert4 = t*(g1+g2)
-         New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA_CLARO, opacity = 1)
-         obj.become(New_plano)
-         #self.bring_to_back(obj)
-
    def construct(self):
+
+      def gen_simple(Vec1,Vec2):
+         # Copias de vectores.
+         Copia1 = Vec1.copy()
+         # Coordenadas de vectores
+         A1 = Vec1.get_end()[0]
+         A2 = Vec1.get_end()[1]
+         B1 = Vec2.get_end()[0]
+         B2 = Vec2.get_end()[1]
+
+         # Vectores para el paralelogramo.
+         Vec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+A1*RIGHT+A2*UP, buff=0, color = Vec1.get_color()).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+         Vec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+B1*RIGHT+B2*UP, buff=0, color = Vec2.get_color()).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+         # Vector resultante de la combinación lineal.
+         VecRCL = DashedArrow((0,0,0), (A1+B1)*RIGHT+(A2+B2)*UP, buff=0, color = MAGENTA).set_fill(opacity=1).shift(2.5*LEFT+1.5*UP)
+         
+         self.play(Create(Vec2c))
+         self.play(Create(VecRCL))
+
+         # ValueTrackers
+         vt1 = ValueTracker(1)
+
+         # Primera función para cambios de Vec2.
+         def upd_for_vec2_1(obj):
+               t = vt1.get_value()
+               NewVec2 = Arrow((0,0,0),(t*B1,t*B2,0),buff=0, color = Vec2.get_color()).shift(2.5*LEFT+1.5*UP).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVec2)
+         # Primera función para cambios de Vec2c.
+         def upd_for_vec2c_1(obj):
+               t = vt1.get_value()
+               NewVec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+(t*B1,t*B2,0), buff=0, color = Vec2.get_color()).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVec2c)
+         # Primera función para cambios de VecRCL.
+         def upd_for_vecrcl_1(obj):
+               t = vt1.get_value()
+               NewVecRCL = DashedArrow((0,0,0),(A1+B1*t)*RIGHT+(A2+B2*t)*UP, buff=0, color = MAGENTA).set_fill(opacity=1).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVecRCL)
+         
+         # Primera línea usada.
+         Linea1 = Line(Vec2c.get_end()+(0.001,0.001,0), Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+         # Segunda línea usada.
+         Linea2 = Line(Vec2.get_end(), Vec2.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+        
+         # Función para cambiar tamaño de las líneas.
+         def upd_for_linea(obj):
+               t = vt1.get_value()
+               new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(t*B1,t*B2,0), color = MAGENTA).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+               obj.become(new_linea)
+
+         # Animación del movimiento del primer vector
+         self.play(Create(Linea2))
+         self.bring_to_back(Linea1)
+         self.bring_to_back(Linea2)
+         Vec2.add_updater(upd_for_vec2_1)
+         Vec2c.add_updater(upd_for_vec2c_1)
+         VecRCL.add_updater(upd_for_vecrcl_1)
+         Linea1.add_updater(upd_for_linea)
+         Linea2.add_updater(upd_for_linea)
+         self.play(vt1.animate.set_value(4),run_time=1.3) # HERE 
+         Linea1.remove_updater(upd_for_linea)
+         self.play(vt1.animate.set_value(1))
+         self.play(vt1.animate.set_value(-3.5),run_time=1.3) # HERE 
+         Linea2.remove_updater(upd_for_linea)
+         self.play(vt1.animate.set_value(1),run_time=1)
+         Vec2.remove_updater(upd_for_vec2_1)
+         Vec2c.remove_updater(upd_for_vec2c_1)
+         VecRCL.remove_updater(upd_for_vecrcl_1)
+         
+         self.play(Create(Vec1c))
+         # Primera función para cambios de Vec1.
+         def upd_for_vec1_1(obj):
+               t = vt1.get_value()
+               NewVec1 = Arrow((0,0,0),(t*A1,t*A2,0),buff=0, color = Vec1.get_color()).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVec1)
+         # Primera función para cambios de Vec1c.
+         def upd_for_vec1c_1(obj):
+               t = vt1.get_value()
+               NewVec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+(t*A1,t*A2,0), buff=0, color = Vec1.get_color()).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVec1c)
+         # Segunda función para cambios de VecRCL.
+         def upd_for_vecrcl_2(obj):
+               t = vt1.get_value()
+               NewVecRCL = DashedArrow((0,0,0),(A1*t+B1)*RIGHT+(A2*t+B2)*UP, buff=0, color = MAGENTA).set_fill(opacity=1).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVecRCL)
+
+         # Rectangulos usados para rellenar plano.
+         Vertice1 = Linea1.get_end()
+         Vertice2 = Linea2.get_end()
+         Vertice3 = Linea2.get_end()+(0.05*A1,0.025*A2,0)
+         Vertice4 = Linea1.get_end()+(0.05*A1,0.025*A2,0)
+         Vertice5 = Linea2.get_end()-(0.05*A1,0.025*A2,0)
+         Vertice6 = Linea1.get_end()-(0.05*A1,0.025*A2,0)
+         Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=1)
+         Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=1)
+
+         # Función que rellena plano.
+         def upd_for_plano(obj):
+               t = vt1.get_value()
+               vert1 = Linea1.get_end()
+               vert2 = Linea2.get_end()
+               vert3 = Linea2.get_end()+((t-1)*A1,(t-1)*A2,0)
+               vert4 = Linea1.get_end()+((t-1)*A1,(t-1)*A2,0)
+               New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA_CLARO, opacity = 1)
+               obj.become(New_plano)
+               self.bring_to_back(obj)
+
+         Vec1.add_updater(upd_for_vec1_1)
+         Vec1c.add_updater(upd_for_vec1c_1)
+         VecRCL.add_updater(upd_for_vecrcl_2)
+         Plano1.add_updater(upd_for_plano)
+
+         # Animación del movimiento del segundo vector y creación del plano
+         self.play(Create(Plano1), run_time = 0.05)
+         self.play(Create(Plano2), run_time = 0.05)
+         self.play(vt1.animate.set_value(8),run_time=1.3) # HERE 
+         Plano1.remove_updater(upd_for_plano)
+         self.play(vt1.animate.set_value(1))
+         Plano2.add_updater(upd_for_plano)
+         self.bring_to_back(Plano2)
+         self.play(vt1.animate.set_value(-8),run_time=1.3) # HERE 
+         Plano2.remove_updater(upd_for_plano)
+         self.play(vt1.animate.set_value(1),run_time=1.3)
+         self.play(FadeOut(Linea1), FadeOut(Linea2))
+         Vec1.remove_updater(upd_for_vec1_1)
+         Vec1c.remove_updater(upd_for_vec1c_1)
+         VecRCL.remove_updater(upd_for_vecrcl_2)
+
+
+         self.wait(0.65)
+         self.play(FadeOut(Vec1c), FadeOut(Vec2c))
+         self.remove_foreground_mobject(VecRCL)
+         self.play(FadeOut(VGroup(Plano1,Plano2)),FadeOut(VGroup(VecRCL)))
 
       ###########
       # OBJETOS #
       ###########
+
+   ###### OBJETOS  Sección introductoria, planteamiento del problema
+
+      grid = NumberPlane(x_range = [-9,9,1],y_range = [-7,4,1],
+         background_line_style={"stroke_width": 1, "stroke_opacity": 0.5}).scale(0.5)
+      borde_der = Line(start = [4.5,2.75,0], end = [4.5,-2.75,0], stroke_width = 1)
+      borde_izq = Line(start = [-4.5,2.75,0], end = [-4.5,-2.75,0], stroke_width = 1 )
+      borde_sup = Line(start = [-4.5,2.75,0], end = [4.5,2.75,0], stroke_width = 1 )
+      borde_inf = Line(start = [-4.5,-2.75,0], end = [4.5,-2.75,0], stroke_width = 1 )
+      lilgrid = VGroup(grid, borde_sup, borde_der, borde_inf, borde_izq).shift(2.5*LEFT).shift(0.75*UP)
+
+      cuadro_1 = Polygon([2.05,8,0],[2.05,-8,0],[10,8,0],[10,-8,0], color  = BLACK, fill_opacity = 1)
+      cuadro_2 = Polygon([-7.05,8,0],[-7.05,-8,0],[-8,-8,0],[-8.5,8,0], color  = BLACK, fill_opacity = 1)
+      cuadro_3 = Polygon([-7.05,-2.06,0],[2.05,-2.06,0],[2.05,-5,0],[-7.05,-5,0], color  = BLACK, fill_opacity = 1)
+      cuadro_4 = Polygon([-7.05,3.55,0],[2.05,3.55,0],[2.05,6,0],[-7.05,6,0], color  = BLACK, fill_opacity = 1)
+
+      marco = VGroup(cuadro_1, cuadro_2, cuadro_3, cuadro_4)
+      # Textos planteamiento del problema
+      vec_obj_tex = MathTex(r" \vec{v} = \begin{pmatrix} -8 \\ -4 \end{pmatrix}").shift(6*LEFT+2.5*DOWN).scale(0.4)
+
+      gamma_tex = MathTex(r" \Gamma = \{ \vec{g}_1, \vec{g}_2\} = \Bigg\{\begin{pmatrix} 1 \\ -1 \end{pmatrix},\
+          \begin{pmatrix} -2 \\ -2 \end{pmatrix} \Bigg\}").next_to(vec_obj_tex, DOWN).scale(0.4).shift(1*RIGHT + 0.5*UP)
+
+      comblin_abs = MathTex(r" \vec{v} " , r"=" ,r"c_1" ,r"\vec{g}_1" ,r"+" ,r"c_2", r"\vec{g}_2")\
+         .shift(2.5*DOWN).scale(0.5)
+
+      print("LCA", len(comblin_abs))
+      comblin_R2 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"c_1\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ c_2 \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+         .move_to(comblin_abs).scale(0.4)
+
+      print("LCR", len(comblin_R2))
+
+      coefs_incog = MathTex(r"  \text{¿}", r"c_1, " , r" c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
+      c2_incog = MathTex( r" ", r"c_1 = -2,  ", r"\text{¿}c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
+      no_incog = MathTex( r" ", r" c_1 = -2, ", r"\   c_2 = 3").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
+
+
+      grupo_intro = VGroup(vec_obj_tex, gamma_tex, comblin_abs, comblin_R2, coefs_incog)
+
+      # Vectores que se muestran en el NumberPlane
+
+      vec_obj = Arrow((0, 0, 0), (-4,-2,0), buff = 0, color = NARANJA, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
+      v_label = MathTex(r"\vec{v}").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
+         .scale(0.7)
+      v_label2 = MathTex(r"c_1",r"\vec{g}_1", r"+", r"c_2", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
+         .scale(0.5).shift(RIGHT+0.1*DOWN)
+      v_label3 = MathTex(r"-2",r"\vec{g}_1", r"+", r"3", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
+         .scale(0.5).shift(RIGHT+0.1*DOWN)   
+
+      vec_g1 = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
+      g1_label = MathTex(r"\vec{g}_1").move_to(vec_g1.get_end()+(0.4/(np.linalg.norm(g1)))*g1).scale(0.5)
+
+      vec_g2 = Arrow((0, 0, 0), (-1,-1,0), buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
+      g2_label = MathTex(r"\vec{g}_2").move_to(vec_g2.get_end()+(0.4/(np.linalg.norm(g2)))*g2).scale(0.5)
+
+      c1g1_label_1 = MathTex(r"c_1\vec{g}_1 = -2\vec{g}_1").move_to(np.array([-1,1,0])+(0.4/(np.linalg.norm(-2*g1)))*(-2)*g1).scale(0.5)\
+         .shift(2.5*LEFT+1.5*UP)
+      c2g2_label_1 = MathTex(r"c_2\vec{g}_2 = 3\vec{g_2}").move_to(np.array([-3,-3,0])+(0.4/(np.linalg.norm(3*g2)))*3*g2).scale(0.5)\
+         .shift(1.5*LEFT+1.75*UP)
+
+      c1g1_label_2 = MathTex(r"\begin{pmatrix} -2 \\ 2 \end{pmatrix}").move_to(np.array([-1,1,0])+(0.5/(np.linalg.norm(-2*g1)))*(-2)*g1).scale(0.4)\
+         .shift(2.5*LEFT+1.5*UP)
+
+      c2g2_label_2 = MathTex(r"\begin{pmatrix} -6 \\ -6 \end{pmatrix}").move_to(np.array([-3,-3,0])+(0.5/(np.linalg.norm(3*g2)))*3*g2).scale(0.4)\
+         .shift(1.5*LEFT+1.75*UP)
+      
+      g1_gen = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4)
+      
+      g2_gen = Arrow((0, 0, 0), (-1,-1,0), buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4)
+
 
       ###### OBJETOS conj_ortogonal
       gamma_c_og = MathTex(r"\Gamma \text{ es }", r"\text{un conjunto \textit{ortogonal}}")\
@@ -83,20 +267,15 @@ class Subescena_1(Scene):
 
          # Se declaran los vectores que aparecen en el grid para usarlos posteriormente
          # y dibujar su generado
-      g1 = np.array([1,-1,0])
-      g2 = np.array([-2,-2,0])
 
-      vec_g1 = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO).shift(2.5*LEFT)
-      g1_label = MathTex(r"\vec{g}_1").move_to(vec_g1.get_end()+(0.4/(np.linalg.norm(g1)))*g1).scale(0.7)
-
-      vec_g2 = Arrow((0, 0, 0), (-1,-1,0), buff = 0, color = AZUL).shift(2.5*LEFT)
-      g2_label = MathTex(r"\vec{g}_2").move_to(vec_g2.get_end()+(0.4/(np.linalg.norm(g2)))*g2).scale(0.7)
+      g1_n = np.array([1,-1,0])
+      g2_n = np.array([-2,-2,0])
 
       # OBJETOS base_ortogonal
       gamma_li = MathTex(r"\vec{g}_1\ \text{y}\ \vec{g}_2\ \text{son \textit{l. i.} ,}").shift(4.5*RIGHT+2*UP).scale(0.6)
 
-      ld_g1 = DashedLine(-2*g1, 3.5*g1).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
-      ld_g2 = DashedLine(-1*g2, 1.75*g2).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
+      ld_g1 = DashedLine(-2*g1_n, 3.5*g1_n).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
+      ld_g2 = DashedLine(-1*g2_n, 1.75*g2_n).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
 
       gamma_gen = MathTex(r"\langle \Gamma \rangle = \mathbb{R}^2,").shift(4.5*RIGHT+0.5*UP).scale(0.6)
 
@@ -198,76 +377,11 @@ class Subescena_1(Scene):
 
       srct_1 = SurroundingRectangle(c12, color = AMARILLO)
 
-       # Separación de la pantalla en grid y pizarrón
-
-      grid = NumberPlane(x_range = [-9,9,1],y_range = [-7,4,1],
-         background_line_style={"stroke_width": 1, "stroke_opacity": 0.5}).scale(0.5)
-      borde_der = Line(start = [4.5,2.75,0], end = [4.5,-2.75,0], stroke_width = 1)
-      borde_izq = Line(start = [-4.5,2.75,0], end = [-4.5,-2.75,0], stroke_width = 1 )
-      borde_sup = Line(start = [-4.5,2.75,0], end = [4.5,2.75,0], stroke_width = 1 )
-      borde_inf = Line(start = [-4.5,-2.75,0], end = [4.5,-2.75,0], stroke_width = 1 )
-      lilgrid = VGroup(grid, borde_sup, borde_der, borde_inf, borde_izq).shift(2.5*LEFT).shift(0.75*UP)
-
-      dot = Dot().shift(3*LEFT+0.5*UP) #OBJETO DE JUGUETE PARA UBICAR COORDENADAS
-
-      # Textos del nuevo planteamiento del problema
-
-      vec_obj_tex = MathTex(r" \vec{v} = \begin{pmatrix} -8 \\ -4 \end{pmatrix}").shift(6*LEFT+2.5*DOWN).scale(0.4)
-
-      gamma_tex = MathTex(r" \Gamma = \{ \vec{g}_1, \vec{g}_2\} = \Bigg\{\begin{pmatrix} 1 \\ -1 \end{pmatrix},\
-          \begin{pmatrix} -2 \\ -2 \end{pmatrix} \Bigg\}").next_to(vec_obj_tex, DOWN).scale(0.4).shift(1*RIGHT + 0.5*UP)
-
-      comblin_abs = MathTex(r" \vec{v} " , r"=" ,r"c_1" ,r"\vec{g}_1" ,r"+" ,r"c_2", r"\vec{g}_2")\
-         .shift(2.5*DOWN).scale(0.5)
-
-      print("LCA", len(comblin_abs))
-      comblin_R2 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"c_1\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ c_2 \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
-         .move_to(comblin_abs).scale(0.4)
-
-      print("LCR", len(comblin_R2))
-
-      coefs_incog = MathTex(r"  \text{¿}", r"c_1, " , r" c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
-      c2_incog = MathTex( r" ", r"c_1 = -2,  ", r"\text{¿}c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
-      no_incog = MathTex( r" ", r" c_1 = -2, ", r"\   c_2 = 3").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
-
-
-      grupo_intro = VGroup(vec_obj_tex, gamma_tex, comblin_abs, comblin_R2, coefs_incog)
-
-      # Vectores que se muestran en el NumberPlane
-      v = np.array([-4,-2,0])
-      g1 = np.array([0.5,-0.5,0])
-      g2 = np.array([-1,-1,0])
-
-      vec_obj = Arrow((0, 0, 0), (-4,-2,0), buff = 0, color = NARANJA, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
-      v_label = MathTex(r"\vec{v}").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
-         .scale(0.7)
-      v_label2 = MathTex(r"c_1",r"\vec{g}_1", r"+", r"c_2", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
-         .scale(0.5).shift(RIGHT+0.1*DOWN)
-      v_label3 = MathTex(r"-2",r"\vec{g}_1", r"+", r"3", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
-         .scale(0.5).shift(RIGHT+0.1*DOWN)   
-
-      vec_g1 = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
-      g1_label = MathTex(r"\vec{g}_1").move_to(vec_g1.get_end()+(0.4/(np.linalg.norm(g1)))*g1).scale(0.5)
-
-      vec_g2 = Arrow((0, 0, 0), (-1,-1,0), buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
-      g2_label = MathTex(r"\vec{g}_2").move_to(vec_g2.get_end()+(0.4/(np.linalg.norm(g2)))*g2).scale(0.5)
-
-      c1g1_label_1 = MathTex(r"c_1\vec{g}_1 = -2\vec{g}_1").move_to(np.array([-1,1,0])+(0.4/(np.linalg.norm(-2*g1)))*(-2)*g1).scale(0.5)\
-         .shift(2.5*LEFT+1.5*UP)
-      c2g2_label_1 = MathTex(r"c_2\vec{g}_2 = 3\vec{g_2}").move_to(np.array([-3,-3,0])+(0.4/(np.linalg.norm(3*g2)))*3*g2).scale(0.5)\
-         .shift(1.5*LEFT+1.75*UP)
-
-      c1g1_label_2 = MathTex(r"\begin{pmatrix} -2 \\ 2 \end{pmatrix}").move_to(np.array([-1,1,0])+(0.5/(np.linalg.norm(-2*g1)))*(-2)*g1).scale(0.4)\
-         .shift(2.5*LEFT+1.5*UP)
-
-      c2g2_label_2 = MathTex(r"\begin{pmatrix} -6 \\ -6 \end{pmatrix}").move_to(np.array([-3,-3,0])+(0.5/(np.linalg.norm(3*g2)))*3*g2).scale(0.4)\
-         .shift(1.5*LEFT+1.75*UP)
-
       # Vectores fantasma para mostrar paralelogramo
       ghost1 = Arrow((0, 0, 0), (-1,1,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).set_opacity(0.3).shift(5.5*LEFT+1.5*DOWN)
       ghost2 = Arrow((0, 0, 0), (-3,-3,0), buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4).set_opacity(0.3).shift(3.5*LEFT+2.5*UP)
+      
       # ValueTrackers y funciones de Updater para transformar los vectores de la base con re-escalamientos
-
       t_1 = ValueTracker(1)
       t_2 = ValueTracker(1)
 
@@ -311,62 +425,88 @@ class Subescena_1(Scene):
       # ANIMACIONES #
       ###############
 
-      self.add(lilgrid)
+      self.play(Create(lilgrid))
+      self.add(marco)
+      self.add_foreground_mobjects(marco)
+      self.add_foreground_mobjects(vec_obj_tex)
       self.play(Write(vec_obj_tex))
       self.wait()
       self.play(FadeIn(vec_obj))
       self.play(FadeIn(v_label)) # Agregar label v_obj
+      
+
       self.add_foreground_mobjects(vec_obj,v_label)
 
       self.wait()
+      self.add_foreground_mobjects(gamma_tex)
       self.play(Write(gamma_tex))
       self.wait()
       self.play(Write(vec_g1), Write(vec_g2))
       self.play(FadeIn(g1_label), FadeIn(g2_label))
-
       self.add_foreground_mobjects(vec_g1 , vec_g2, g1_label, g2_label)
 
+      
+
+      self.add_foreground_mobjects(comblin_abs)
       self.play(Write(comblin_abs))
       self.wait()
+      
 
-      # Transformación CUIDADOSA de la combinación lineal
+      # # Transformación CUIDADOSA de la combinación lineal
+      
       self.play(ReplacementTransform(comblin_abs[0],comblin_R2[0]), ReplacementTransform(comblin_abs[1],comblin_R2[1]),
       ReplacementTransform(comblin_abs[2],comblin_R2[2]), ReplacementTransform(comblin_abs[3],comblin_R2[3]),
       ReplacementTransform(comblin_abs[4],comblin_R2[4]), ReplacementTransform(comblin_abs[5],comblin_R2[5]),
       ReplacementTransform(comblin_abs[6],comblin_R2[6]))
+      self.add_foreground_mobjects(comblin_R2)
 
       self.play(ReplacementTransform(v_label,v_label2))
 
-      # Transformar label v_obj
+      # # Transformar label v_obj
+      self.add_foreground_mobjects(coefs_incog)
       self.play(Write(coefs_incog))
+      
 
       ########## ANIMACIONES conj_ortog
 
+      self.add_foreground_mobjects(ppunto_1)
       self.play(Write(ppunto_1))
+      self.add_foreground_mobjects(ppunto_2)
       self.play(Write(ppunto_2))
+      self.add_foreground_mobjects(ppunto_3)
       self.play(Write(ppunto_3))
+      self.add_foreground_mobjects(ppunto_4)
       self.play(Write(ppunto_4))
+      self.add_foreground_mobjects(ppunto_5)
       self.play(Write(ppunto_5))
 
+
       self.wait()
+      self.add_foreground_mobjects(gamma_c_og)
       self.play(Write(gamma_c_og))
       self.wait()
       self.play(gamma_c_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7))
 
 
-      self.play(FadeOut(ppunto), FadeOut(ppunto_1))
+      self.play(FadeOut(ppunto_1), FadeOut(ppunto_2), FadeOut(ppunto_3),
+      FadeOut(ppunto_4), FadeOut(ppunto_5))
 
 
-      # ANIMACIONES base_ortogonal
+      # # ANIMACIONES base_ortogonal
       self.play(Create(ld_g1))
       self.play(Create(ld_g2))
       self.wait(1)
+      self.add_foreground_mobjects(gamma_li)
       self.play(Write(gamma_li))
       self.wait(2)
       self.play( FadeOut(ld_g1), FadeOut(ld_g2))
+      self.play(FadeOut(vec_obj),FadeOut(g1_label), FadeOut(g2_label), FadeOut(v_label2))
+      gen_simple(g1_gen, g2_gen)  # Animación del espacio generado
+      self.play(FadeOut(marco))
       self.play(Write(gamma_gen))
-      self.wait(2)
-         # Animación del espacio generado
+      self.play(FadeIn(vec_obj))
+      self.add_foreground_mobjects(g1_label,g2_label,v_label2)
+      self.play(Write(g1_label), Write(g2_label), Write(v_label2))
       self.play(gamma_c_og.animate.shift(9.5*RIGHT+2.75*UP).scale(1/0.7))
       self.wait()
       self.play(FadeOut(gamma_c_og[1]))
@@ -374,8 +514,6 @@ class Subescena_1(Scene):
       self.wait()
       self.play(FadeOut(gamma_c_og[0]), gamma_b_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7))
       self.play(FadeOut(gamma_li), FadeOut(gamma_gen))
-
-
 
       ##### ANIMACIONES calc_c1
 
@@ -489,4 +627,3 @@ class Subescena_1(Scene):
       self.wait()
       self.play(Write(comblin_R2_c2))
       self.play(Write(suma))
-      
