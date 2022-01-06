@@ -52,7 +52,7 @@ class Escena4(ThreeDScene):
         # Resultado del producto de los vectores.
         Resultado = DecimalNumber(producto_punto(VecA,VecB))
         Resultado.next_to(Texto_Producto, RIGHT, buff = 0.2, aligned_edge=Resultado.get_bottom())
-        #Resultado.add_updater( lambda x: x.set_value(producto_punto(VecA,VecB)) )
+        Resultado.add_updater( lambda x: x.set_value(producto_punto(VecA,VecB)) )
         Espacio_vacio = Tex(''' - - ''').set_color(BLACK)
         Espacio_vacio.next_to(Resultado, RIGHT, buff = 0, aligned_edge=Espacio_vacio.get_bottom())
         Texto_Producto_bg = SurroundingRectangle(VGroup(Texto_Producto,Resultado,Espacio_vacio), \
@@ -370,16 +370,16 @@ class Escena4(ThreeDScene):
         VecA.add_updater(upd_for_vecA)
         VecB.add_updater(upd_for_vecB)
         self.add_foreground_mobject(Texto_Producto)
-        self.play(ReplacementTransform(Texto_Producto_bg,Texto_Coordenadas_bg))
-        self.remove_foreground_mobject(Texto_Producto)
-        self.play(ReplacementTransform( Texto_Producto[0][0], Texto_Coordenadas_A ) \
-            , ReplacementTransform( Texto_Producto[0][2], Texto_Coordenadas_B ) \
-                , ReplacementTransform(Texto_Producto[0][1], Operador) \
-                    , ReplacementTransform(Texto_Producto[0][3], Aprox) \
-                        , ReplacementTransform(Resultado, Resultado_2))
-        self.add_foreground_mobjects(Texto_Coordenadas)
-        self.add_foreground_mobjects(Texto_Coordenadas_A \
-            , Texto_Coordenadas_B, Operador, Aprox, Resultado_2)
+        #self.play(ReplacementTransform(Texto_Producto_bg,Texto_Coordenadas_bg))
+        #self.remove_foreground_mobject(Texto_Producto)
+        #self.play(ReplacementTransform( Texto_Producto[0][0], Texto_Coordenadas_A ) \
+        #    , ReplacementTransform( Texto_Producto[0][2], Texto_Coordenadas_B ) \
+        #        , ReplacementTransform(Texto_Producto[0][1], Operador) \
+        #            , ReplacementTransform(Texto_Producto[0][3], Aprox) \
+        #                , ReplacementTransform(Resultado, Resultado_2))
+        #self.add_foreground_mobjects(Texto_Coordenadas)
+        #self.add_foreground_mobjects(Texto_Coordenadas_A \
+        #    , Texto_Coordenadas_B, Operador, Aprox, Resultado_2)
         self.play(VT_A.animate.set_value(1.3),run_time=2)
         self.play(VT_A.animate.set_value(0.2),run_time=2)
         self.play(VT_A.animate.set_value(1),run_time=2)
