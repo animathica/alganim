@@ -272,7 +272,7 @@ class Subescena_1(Scene):
       g2_n = np.array([-2,-2,0])
 
       # OBJETOS base_ortogonal
-      gamma_li = MathTex(r"\vec{g}_1\ \text{y}\ \vec{g}_2\ \text{son \textit{l. i.} ,}").shift(4.5*RIGHT+2*UP).scale(0.6)
+      gamma_li = MathTex(r"\vec{g}_1\ \text{y}\ \vec{g}_2\ \text{son \textit{l.i.} ,}").shift(4.5*RIGHT+2*UP).scale(0.6)
 
       ld_g1 = DashedLine(-2*g1_n, 3.5*g1_n).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
       ld_g2 = DashedLine(-1*g2_n, 1.75*g2_n).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
