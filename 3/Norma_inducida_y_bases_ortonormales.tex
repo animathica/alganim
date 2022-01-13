@@ -141,7 +141,7 @@
     \begin{enumerate}[label=(\roman*)]
         \item La norma es una operación que, de estar presente en un espacio vectorial, nos da una noción de \emph{magnitud} de un vector, y nos permite hacer comparaciones entre vectores en este sentido. 
 
-        \item Por definición, un producto escalar en un espacio vectorial induce una norma en ese espacio. Aunque no todas las normas provienen de un producto escalar\footnote{Podríamos colocar ejemplos de normas no inducidas por productos escalares positivo definidos en la descripción del video.}, en esta serie de videos nos enfocaremos en este tipo de normas. A partir de la interpretación geométrica del producto escalar, podemos ver que la interpretación geométrica de la norma inducida es consistente con la de norma.
+        \item Por definición, un producto escalar en un espacio vectorial induce una norma en ese espacio. Aunque no todas las normas provienen de un producto escalar\footnote{Podríamos colocar ejemplos de normas no inducidas por productos escalares positivo definidos en la descripción del video.}, en esta serie de videos nos enfocaremos en este tipo de normas. 
 
         \item Todo vector no nulo puede ser reescalado de tal forma que el vector resultante tenga norma unitaria. A este tipo de vectores se les conoce como vectores unitarios. En particular, una base en la que todos los vectores son unitarios y ortogonales entre sí se conoce como una base ortonormal.
 
@@ -158,13 +158,13 @@ Considerando que la serie está enfocada en abordar la descomposición espectral
 \newpage
 \section{Primera escena}
 
-Por definición, \emph{todos} los espacios vectoriales deben tener una operación llamada \emph{suma} o \emph{adición vectorial} y otra llamada \emph{producto de un vector por un escalar} o, simplemente, \emph{reescalamiento}\footnote{Podríamos aprovechar la mención de ambas operaciones para implícitamente introducir su interpretación geométrica en el plano real y complejo, siguiendo las notas del curso.}. Por lo tanto, decimos que estas son las operaciones \emph{esenciales} de los espacios vectoriales. Sin embargo, puede que un espacio vectorial tenga, además, \emph{otras} operaciones, que doten al espacio de una estructura adicional. Un ejemplo es la operación de producto escalar, la cual introduce nociones de ortogonalidad y proyecciones en un espacio vectorial, como vimos en el video anterior. En este video veremos otra operación conocida como \emph{norma}, así como las nociones que introduce en un espacio, y la forma en que se relaciona con el producto escalar.
+Por definición, \emph{todos} los espacios vectoriales deben tener una operación llamada \emph{suma} o \emph{adición vectorial} y otra llamada \emph{producto de un vector por un escalar} o, simplemente, \emph{reescalamiento}\footnote{Podríamos aprovechar la mención de ambas operaciones para implícitamente introducir su interpretación geométrica en el plano real y complejo, siguiendo las notas del curso.}. Por ello, decimos que estas son las operaciones \emph{esenciales} de los espacios vectoriales. Sin embargo, puede que un espacio vectorial tenga, además, \emph{otras} operaciones, que doten al espacio de una estructura adicional. Un ejemplo es la operación de producto escalar, la cual introduce nociones de ortogonalidad y proyecciones en un espacio vectorial, como vimos en el video anterior. En este video veremos otra operación conocida como \emph{norma}, así como las nociones que introduce en un espacio, y la forma en que se relaciona con el producto escalar.
 
-Una norma en un espacio vectorial es una operación que toma a un vector del espacio y devuelve un escalar del campo, tal que cumple las siguientes propiedades:
+Una norma en un espacio vectorial es una operación que a cada vector del espacio le asigna número real, tal que cumple las siguientes propiedades:
 
 \begin{align*}
      & & &\quad \text{Norma}& \\
-     & & &||\cdot||:V\to K& \\
+     & & &||\cdot||:V\to \mathbb{R}& \\
      \\
      \forall \ \vec{u}\in V, \ \forall \ a\in K, \\
      \\
@@ -175,11 +175,11 @@ Una norma en un espacio vectorial es una operación que toma a un vector del esp
      ||\vec{u}+\vec{v}|| \le ||\vec{u}|| + ||\vec{v}||
 \end{align*}
 
-La primera propiedad, conocida como \emph{escalabilidad absoluta}, nos dice que la norma de un vector reescalado es igual a la norma del vector original multiplicada por el \emph{valor absoluto} del escalar y, por ende, que es directamente proporcional al valor absoluto del escalar. Recordando la interpretación geométrica del producto de un vector por un escalar en el plano real o complejo, se sigue que la norma de un vector está relacionada con la longitud de la flecha que lo representa. Más aún, recordando que el cambio de signo corresponde a una inversión de sentido y, más generalmente, en el caso del plano complejo, que el producto de un vector por cualquier escalar de valor absoluto uno corresponde a una rotación en el plano, concluimos que la norma debe ser invariante bajo este tipo de rotaciones\footnote{Díganme si esto tiene sentido para ustedes, o si hace falta explicarlo mejor.}. Por lo tanto, en estos casos, la norma de un vector se interpreta precisamente como la longitud de la flecha que lo representa.
+La primera propiedad, conocida como \emph{escalabilidad absoluta}, nos dice que la norma de un vector reescalado es directamente proporcional al \emph{valor absoluto} del escalar en cuestión. En particular, se sigue que la norma de un vector no cambia si lo reescalamos por cualquier escalar con valor absoluto uno. Recordando al interpretación geométrica del producto de un vector por un escalar se sigue que, en espacios vectoriales reales, la norma de un vector es invariante bajo inversiones de sentido y, más generalmente, que en espacios vectoriales complejos, la norma es invariante bajo rotaciones. Entonces, se sigue que la norma de un vector está relacionada con la longitud de la flecha que lo representa.
 
-La siguiente propiedad se conoce como \emph{distinción del vector nulo}, y nos dice que el vector nulo es el único vector del espacio que tiene norma nula. Esto es consistente con la interpretación anterior en el plano real o complejo, pues el vector nulo es el único representado por una flecha de longitud cero.
+La siguiente propiedad se conoce como \emph{distinción del vector nulo}, y nos dice que el vector nulo es el único vector del espacio que tiene norma nula. Esto es consistente con la interpretación anterior, pues el vector nulo es el único representado geométricamente por un punto, que podemos considerar como una flecha de longitud cero.
 
-La última propiedad se llama la \emph{desigualdad del triángulo}, dado que nos recuerda a la desigualdad existente entre los lados de un triángulo. Recordando la interpretación geométrica de la suma vectorial en el plano real o complejo, es decir, la llamada \emph{Ley del paralelogramo}, vemos que es exactamente esta desigualdad a la que se refiere.
+La última propiedad se conoce como la \emph{desigualdad del triángulo}, dado que nos recuerda a la desigualdad existente entre los lados de un triángulo aplicada al que se obtiene mediante la \emph{Ley del paralelogramo} cuando sumamos dos vectores.
 
 \begin{align*}
      & & &\quad \text{Norma}& \\
@@ -194,7 +194,7 @@ La última propiedad se llama la \emph{desigualdad del triángulo}, dado que nos
      ||\vec{u}+\vec{v}|| \le ||\vec{u}|| + ||\vec{v}|| & &\text{Desigualdad del triángulo}
 \end{align*}
 
-Por último, no es difícil demostrar, a partir de las tres propiedades anteriores, que la norma es positivo definida\footnote{Escribir ``Ver Ejercico 2.1.'' como nota al pie.}. Una vez más, esto es consistente con nuestra interpretación de la norma en el plano real o complejo, pues no existen flechas con \emph{longitud negativa}. La intuición obtenida a partir de esta interpretación de la norma se puede extender a espacios vectoriales reales y complejos de diversa índole. 
+Por último, no es difícil demostrar, a partir de las tres propiedades anteriores, que la norma es positivo definida\footnote{Escribir ``Ver Ejercico 2.1.'' como nota al pie.}. Una vez más, esto es consistente con nuestra interpretación de la norma de un vector como la longitud de la flecha que lo representa, pues no existen flechas con \emph{longitud negativa}.
 
 A un espacio vectorial con una función que cumpla estas propiedades se le conoce como un \emph{espacio normado}. En general, la norma nos da una noción de la \emph{magnitud} de un vector, en el sentido de qué tan ``cerca'' o ``lejos'' está del vector nulo del espacio, así como una escala con la cual comparar a diferentes vectores. Más aún, a partir de cualquier norma se puede definir una \emph{métrica inducida}, lo que nos da una noción de distancia entre vectores\footnote{Escribir ``Ver Ejercicio 2.2.'' como nota al pie.}, aunque esto vas más allá del enfoque de esta serie de videos.
 
@@ -214,7 +214,7 @@ Hasta ahora, hemos visto que tanto la norma como el producto escalar son operaci
     ||\vec{v}||:=\sqrt{\langle \vec{v} , \vec{v} \rangle} \quad \forall \ \vec{v}\in V
 \end{align*}
 
-Entonces, se sigue de las propiedades del producto escalar que nuestra función va del espacio al campo y cumple las siguientes propiedades
+Entonces, se sigue de las propiedades del producto escalar que nuestra función asigna a cada vector del espacio un número real y, además, que cumple las siguientes propiedades
 
 \begin{align*}
     & &(V,K) \\
@@ -234,27 +234,23 @@ Entonces, se sigue de las propiedades del producto escalar que nuestra función 
 
 \noindent En otras palabras, nuestra función ya cumple dos de las propiedades de norma. Más aún, se puede demostrar que también cumple la desigualdad del triángulo\footnote{Podríamos colocar referencias a la desigualdad de Cauchy-Schwarz y a la desigualdad del triángulo en la descripción del video pues, personalmente, no creo que valga tanto la pena ahondar en todo eso en este video.}. Es decir que, en general, siempre que tengamos un espacio vectorial con un producto escalar, ¡podemos definir una norma en ese espacio \emph{a partir} del producto escalar de la misma manera en que lo hicimos anteriormente! A esto se le conoce como una \emph{norma inducida por un producto escalar}. A pesar de que no todas las normas en un espacio vectorial tengan que ser inducidas por un producto escalar, dado que esta serie de videos trata sobre la teoría de espacios vectoriales \emph{con} producto escalar, nos enfocaremos principalmente en este tipo de normas durante el resto de la serie\footnote{Podríamos colocar referencias a normas no inducidas por productos escalares en la descripción del video y añadir una nota al pie que diga ``Ver referencias [N-1], [N-2], etc. en la descripción del video sobre normas no inducidas por productos escalares.''.}.
 
-Teniendo en mente la interpretación geométrica del producto escalar vista en el video anterior, hagamos ahora una interpretación geométrica de la norma inducida.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Tercera escena}
 
-Supongamos que en un espacio vectorial normado tenemos un vector no nulo, y lo queremos reescalar de tal forma que su norma sea igual a uno. Dado que la norma es positivo definida y nuestro vector es distinto al vector nulo, sabemos que su norma es positiva. Luego, por la propiedad de escalabilidad absoluta se sigue que el escalar que buscamos es igual al inverso multiplicativo de la norma del vector.
+Supongamos que en un espacio vectorial normado tenemos un vector no nulo, y lo queremos reescalar de tal forma que su norma sea igual a uno. Dado que la norma es positivo definida y nuestro vector es distinto al vector nulo, sabemos que su norma es positiva. Observemos que, si reescalamos al vector por el inverso multiplicativo de su norma entonces, por la propiedad de escalabilidad absoluta de la norma, se sigue que el vector reescalado tiene norma igual a uno. Este proceso de reescalar a un vector no nulo por el inverso multiplicativo de su norma para convertirlo en un vector de norma uno se conoce como \emph{normalización}, y a los vectores con norma uno se les conoce como vectores \emph{normales} o \emph{unitarios}.
 
-A los vectores con norma igual a uno, los cuales suelen denotarse con un ``sombrero'' o ``gorro'' en vez de una flecha, se les conoce como \emph{vectores normales} o \emph{vectores unitarios}, y al proceso de reescalar a un vector no nulo por el inverso multiplicativo de su norma para convertirlo en un vector unitario se le conoce como \emph{normalización}.
-
-Un conjunto de vectores unitarios se conoce como un conjunto normal, y un conjunto \emph{ortogonal} de vectores unitarios, como un \emph{conjunto ortonormal}. En particular, si una base cumple con ser un conjunto ortonormal, decimos que es una \emph{base ortonormal}. Dado que se puede demostrar que todo conjunto ortonormal es linealmente independiente\footnote{Escribir ``Ver Ejercicio 2.3.'' como nota al pie.} se sigue que, en un espacio vectorial de dimensión finita con producto escalar, cualquier conjunto ortonormal con tantos vectores como la dimensión del espacio es una base ortonormal del espacio. Este tipo de bases son de gran utilidad, como veremos a continuación.
+Decimos que un conjunto es \emph{normal} si todos sus vectores son normales, y que es \emph{ortonormal} si es ortogonal y normal. Es decir, un conjunto ortonormal es un conjunto de vectores de norma uno que son ortogonales entre sí. En particular, si una base cumple con ser un conjunto ortonormal, decimos que es una \emph{base ortonormal}. Dado que se puede demostrar que todo conjunto ortonormal finito es linealmente independiente\footnote{Escribir ``Ver Ejercicio 2.3.'' como nota al pie.} se sigue que, en un espacio vectorial de dimensión finita con producto escalar, cualquier conjunto ortonormal con tantos vectores como la dimensión del espacio es una base ortonormal del espacio. Este tipo de bases son de gran utilidad, como veremos a continuación.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Cuarta escena}
 
-Regresemos ahora al problema por el cual introdujimos la operación de producto escalar, y veamos cómo entra la norma en nuestra discusión: tenemos un espacio vectorial de dimensión finita y queremos encontrar los coeficientes necesarios para expresar a un vector no nulo arbitrario como combinación lineal de una base. En el video anterior vimos que, si suponemos que nuestro espacio tiene producto escalar y que existe una base ortogonal, entonces los coeficientes se obtienen de la siguiente manera. Ahora, si consideramos la norma inducida por este producto escalar y suponemos que existe una base \emph{ortonormal} entonces, por un procedimiento análogo al realizado anteriormente, tenemos el siguiente resultado\footnote{Escribir ``Ver Ejercicio 2.4.'' como nota al pie.}. Es decir, obtenemos que el cálculo de los coeficientes buscados se efectúa simplemente a través de un producto escalar. Por ende, las bases ortonormales son de gran utilidad.
+Regresemos ahora al problema por el cual introdujimos la operación de producto escalar, y veamos cómo entra la norma en nuestra discusión: tenemos un espacio vectorial de dimensión finita y queremos encontrar los coeficientes necesarios para expresar a un vector no nulo arbitrario como combinación lineal de una base. En el video anterior vimos que, si suponemos que nuestro espacio tiene producto escalar y que existe una base ortogonal, entonces los coeficientes se obtienen de la siguiente manera. Ahora, si consideramos la norma inducida por este producto escalar y suponemos que existe una base \emph{ortonormal} entonces, dado que dicha base en particular es ortogonal, podemos aplicar el mismo resultado. Más aún, como un vector tiene norma uno si, y sólo si, el producto escalar de dicho vector consigo mismo es uno, en este caso, el resultado anterior se simplifica de la siguiente manera. Es decir, obtenemos que el cálculo de los coeficientes buscados se efectúa simplemente a través de un producto escalar. Por ende, las bases ortonormales son de gran utilidad.
 
-En el siguiente video, abordaremos la cuestión de cuándo es válido suponer la existencia de bases ortogonales y ortonormales en espacios vectoriales de dimensión finita con producto escalar, así como la forma en la que se obtienen este tipo de bases.
+En el siguiente video, veremos cómo podemos obtener conjuntos ortogonales y ortonormales a partir de un conjunto linealmente independiente. Como consecuencia de esto, veremos además que las bases ortogonales y ortonormales siempre existen en espacios vectoriales de dimensión finita con producto escalar, lo que justifica \emph{a posteriori} toda la discusión contenida en este video y en el video previo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -278,14 +274,15 @@ Ejercicio 2.2 Una \emph{métrica} o \emph{función de distancia} en un conjunto 
 
 \noindent Demuestra que si $(V,K)$ es un espacio vectorial con norma $||\cdot||$, entonces la función dada por $d(\vec{x},\vec{y})=||\vec{x}-\vec{y}||$ para todo $\vec{x},\vec{y}\in V$ es una métrica en $V$. Por lo tanto, toda norma \emph{induce} una métrica. En particular, se sigue que todo producto escalar positivo definido induce una métrica; sin embargo, existen métricas que no son inducidas por normas ni productos escalares. \\
 
-Ejercicio 2.3 Demuestra que todo conjunto ortonormal es linealmente independiente. \\
+Ejercicio 2.3 Demuestra que todo conjunto ortonormal finito es linealmente independiente. \\
 
-Ejercicio 2.4 Sea $V$ un espacio vectorial de dimensión finita $k$ con producto escalar, y consideremos la norma inducida. Demuestra que si $N=\{\hat{n}_1,...,\hat{n}_k\}$ es una base \emph{ortonormal} de $V$, entonces
-\[
-    \vec{v} = \sum_{i=1}^k \langle \vec{v} , \hat{n}_i \rangle \hat{n}_i
-\]
-para todo $\vec{v}\in V$. \\
-
-Pregunta 2.5
+%Ejercicio 2.4 Sea $V$ un espacio vectorial de dimensión finita $k$ con producto escalar, y consideremos la norma inducida. Supongamos que $N=\{\hat{n}_1,...,\hat{n}_k\}$ es una base \emph{ortonormal} de $V$. Demuestra que para todo $\vec{v}\in V$, tenemos que
+%\[
+%    \vec{v} = \sum_{i=1}^k \langle \vec{v} , \hat{n}_i \rangle \hat{n}_i;
+%\]
+%más aún, demuestra que
+%\[
+%    \big \langle \langle \vec{v} , \hat{n}_i \rangle \hat{n}_i, \langle \vec{v} , \vec{n}_j \rangle \vec{n}_j \big \rangle = 0 \ \ \text{si} \ \ i\neq j.
+%\] 
 
 \end{document}
