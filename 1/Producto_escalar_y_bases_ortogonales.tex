@@ -196,7 +196,7 @@ Un producto escalar en un espacio vectorial es una operación que toma un par or
     \\
     \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle}\\
     \\
-    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0}
+    \vec{u}\neq\vec{0} \ &\Rightarrow \ \langle \vec{u}, \vec{u} \rangle > 0
 \end{align*}
 
 \noindent No es difícil demostrar que podemos resumir las primeras dos propiedades de la siguiente manera. Para referirnos a esta propiedad más sintetizada, decimos que el producto escalar es una operación \emph{lineal en la entrada izquierda}\footnote{Abajo, en esta parte, faltan unos corchetes que no sé cómo poner. En general, en las animaciones, las cosas deberían quedar mejor alineadas de lo que logro hacerlo aquí con el ambiente \emph{align*}.}. A la siguiente propiedad se le conoce como \emph{simetría conjugada} y, para referirnos a la última propiedad, decimos que el producto escalar es \emph{positivo definido}.
@@ -213,7 +213,8 @@ Un producto escalar en un espacio vectorial es una operación que toma un par or
     \\
     \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle} &\text{Simetría \emph{conjugada}}\\
     \\
-    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
+    \vec{u}\neq\vec{0} \ &\Rightarrow \ \langle \vec{u}, \vec{u} \rangle > 0
+ &\text{Positivo definido}
 \end{align*}
 
 \noindent Juntando las propiedades de linealidad en la entrada izquierda y simetría conjugada, se puede demostrar que el producto escalar es una operación \emph{antilineal} en la entrada derecha\footnote{Escribir ``Ver Ejercicio 1.1.'' como nota al pie.}. Además, dado que esta operación es positivo definida, se puede demostrar que el producto escalar de un vector consigo mismo es igual a cero si, y sólo si, dicho vector es igual al vector nulo del espacio; este importante hecho será usado más adelante, por lo que hemos dejado su demostración como ejercicio al final del video\footnote{Escribir ``Ver Ejercicio 1.2.'' como nota al pie.}. En resumen, podemos decir que el producto escalar es una operación de dos entradas que es positivo definida, tiene una entrada lineal y una entrada antilineal.
@@ -230,7 +231,7 @@ Un producto escalar en un espacio vectorial es una operación que toma un par or
                                        & & & &\langle \vec{u} , a\vec{w}+\vec{v} \rangle = \overline{a} \langle \vec{u} , \vec{w} \rangle + \langle \vec{u} , \vec{v} \rangle \\
     \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle} &\text{Simetría \emph{conjugada}} & &\text{\emph{Antilinealidad} en la entrada derecha}\\
     \\
-    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
+    \vec{u}\neq\vec{0} \ &\Rightarrow \ \langle \vec{u}, \vec{u} \rangle > 0 &\text{Positivo definido}
 \end{align*}
 
 %\noindent En particular, observemos que, si el campo sobre el cual está definido nuestro espacio vectorial es el de los números reales, entonces todos los escalares son iguales a sus complejos conjugados. Por ende, podemos demostrar que en espacios vectoriales reales el producto escalar es una operación simétrica y lineal en ambas entradas, o \emph{bilineal}\footnote{Escribir ``Ver Ejercicio 1.3.'' como nota al pie.}.
@@ -349,7 +350,7 @@ Este resultado nos dice que cualquier vector del espacio se puede descomponer co
 
 Hemos visto que, en espacios vectoriales de dimensión finita con producto escalar, las bases ortogonales nos ayudan a resolver nuestro problema de encontrar coeficientes de manera sencilla; sin embargo, ¡aún no hemos justificado que si quiera \emph{existan}! Resulta que la existencia de bases ortogonales en espacios vectoriales de dimensión finita con producto escalar está asegurada, pero esto lo veremos en un video posterior cuando hablemos del Teorema de Gram-Schmidt.
 
-Por lo pronto, observemos que el resultado general que hemos obtenido gracias al producto escalar y a las bases ortogonales nos permite hacer una interpretación geométrica del producto escalar de la siguiente manera. Si tenemos dos vectores $\vec{u}$ y $\vec{v}$ en cualquier espacio de dimensión finita con producto escalar, podemos suponer que $\vec{v}$ es un elemento de una base ortogonal del espacio. En este caso, sabemos que la componente de $\vec{u}$ que vive en el subespacio generador por $\vec{v}$ está dada por la siguiente expresión. Por lo tanto, en general, el producto escalar de un vector $\vec{u}$ sobre un vector $\vec{v}$ nos habla de la proyección vectorial de $\vec{u}$ sobre $\vec{v}$, pues su resultado es un número proporcional al escalar por el cual debemos reescalar a $\vec{v}$ para obtener a la componente de $\vec{u}$ que vive en el subespacio generado por $\vec{v}$. 
+Por lo pronto, observemos que el resultado general que hemos obtenido gracias al producto escalar y a las bases ortogonales nos permite hacer una interpretación geométrica del producto escalar de la siguiente manera. Si tenemos dos vectores $\vec{u}$ y $\vec{v}$ en cualquier espacio de dimensión finita con producto escalar y $\vec{v}$ es distinto del vector nulo, entonces podemos suponer que es un elemento de una base ortogonal del espacio. En este caso, sabemos que la componente de $\vec{u}$ que vive en el subespacio generador por $\vec{v}$ está dada por la siguiente expresión. Por lo tanto, en general, el producto escalar de un vector $\vec{u}$ sobre un vector no nulo $\vec{v}$ nos habla de la proyección vectorial de $\vec{u}$ sobre $\vec{v}$, pues su resultado es un número proporcional al escalar por el cual debemos reescalar a $\vec{v}$ para obtener a la componente de $\vec{u}$ que vive en el subespacio generado por $\vec{v}$. 
 
 En particular, $\vec{u}$ es ortogonal a $\vec{v}$ si, y sólo si, la proyección vectorial de $\vec{u}$ sobre $\vec{v}$ es igual al vector nulo. Recordando que la relación de ortogonalidad es simétrica, esto también es equivalente a que la proyección vectorial de $\vec{v}$ sobre $\vec{u}$ sea igual al vector nulo. En otras palabras, dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es nula.
 

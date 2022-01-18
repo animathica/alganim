@@ -234,12 +234,41 @@ Entonces, se sigue de las propiedades del producto escalar que nuestra función 
 
 \noindent En otras palabras, nuestra función ya cumple dos de las propiedades de norma. Más aún, se puede demostrar que también cumple la desigualdad del triángulo\footnote{Podríamos colocar referencias a la desigualdad de Cauchy-Schwarz y a la desigualdad del triángulo en la descripción del video pues, personalmente, no creo que valga tanto la pena ahondar en todo eso en este video.}. Es decir que, en general, siempre que tengamos un espacio vectorial con un producto escalar, ¡podemos definir una norma en ese espacio \emph{a partir} del producto escalar de la misma manera en que lo hicimos anteriormente! A esto se le conoce como una \emph{norma inducida por un producto escalar}. A pesar de que no todas las normas en un espacio vectorial tengan que ser inducidas por un producto escalar, dado que esta serie de videos trata sobre la teoría de espacios vectoriales \emph{con} producto escalar, nos enfocaremos principalmente en este tipo de normas durante el resto de la serie\footnote{Podríamos colocar referencias a normas no inducidas por productos escalares en la descripción del video y añadir una nota al pie que diga ``Ver referencias [N-1], [N-2], etc. en la descripción del video sobre normas no inducidas por productos escalares.''.}.
 
+A los vectores con norma igual a uno se les conoce como vectores \emph{normales} o \emph{unitarios}, y se les suele denotar con este símbolo. Observemos que, considerando la norma inducida, podemos reescribir a la proyección vectorial de un vector $\vec{u}$ sobre un vector no nulo $\vec{v}$ como sigue:
+
+\begin{align*}
+    \frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v} &= \frac{\langle \vec{u} , \vec{v} \rangle}{\big(\sqrt{\langle \vec{v} , \vec{v} \rangle}\big)^2} \vec{v} \\ \\
+                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||^2} \vec{v} \\ \\
+                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \bigg( \frac{1}{||\vec{v}||} \vec{v} \bigg) \\ \\
+                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}.
+\end{align*}
+
+\noindent Es decir, la componente del vector $\vec{u}$ que vive en el subespacio generado por el vector no nulo $\vec{v}$ se obtiene reescalando al vector unitario en el mismo sentido y dirección que $\vec{v}$ por el producto escalar de $\vec{u}$ con $\vec{v}$ entre la norma de $\vec{v}$.
+
+\[
+    \frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v} = \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}.
+\] 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Tercera escena}
 
-Supongamos que en un espacio vectorial normado tenemos un vector no nulo, y lo queremos reescalar de tal forma que su norma sea igual a uno. Dado que la norma es positivo definida y nuestro vector es distinto al vector nulo, sabemos que su norma es positiva. Observemos que, si reescalamos al vector por el inverso multiplicativo de su norma entonces, por la propiedad de escalabilidad absoluta de la norma, se sigue que el vector reescalado tiene norma igual a uno. Este proceso de reescalar a un vector no nulo por el inverso multiplicativo de su norma para convertirlo en un vector de norma uno se conoce como \emph{normalización}, y a los vectores con norma uno se les conoce como vectores \emph{normales} o \emph{unitarios}.
+Supongamos que en un espacio vectorial normado tenemos un vector no nulo, y lo queremos reescalar de tal forma que su norma sea igual a uno. Dado que la norma es positivo definida y nuestro vector es distinto al vector nulo, sabemos que su norma es positiva. Observemos que, si reescalamos al vector por el inverso multiplicativo de su norma entonces, por la propiedad de escalabilidad absoluta de la norma, se sigue que el vector reescalado tiene norma igual a uno. 
+
+\[
+    \vec{v}\in V, \vec{v}\neq \vec{0} \Rightarrow ||\vec{v}||>0.
+\] 
+
+\begin{align*}
+                \frac{1}{||\vec{v}||} \vec{v} \\ \\
+                \hline \\
+                \bigg|\bigg|\frac{1}{||\vec{v}||} \vec{v} \bigg|\bigg| &= \bigg| \frac{1}{||\vec{v}||} \bigg| \ ||\vec{v}|| \\ \\
+                                                                       &= \frac{1}{||\vec{v}||} ||\vec{v}|| \\ \\
+                                                                       &=1.
+\end{align*}
+
+\noindent Este proceso de reescalar a un vector no nulo por el inverso multiplicativo de su norma para convertirlo en un vector de norma uno se conoce como \emph{normalización}.
 
 Decimos que un conjunto es \emph{normal} si todos sus vectores son normales, y que es \emph{ortonormal} si es ortogonal y normal. Es decir, un conjunto ortonormal es un conjunto de vectores de norma uno que son ortogonales entre sí. En particular, si una base cumple con ser un conjunto ortonormal, decimos que es una \emph{base ortonormal}. Dado que se puede demostrar que todo conjunto ortonormal finito es linealmente independiente\footnote{Escribir ``Ver Ejercicio 2.3.'' como nota al pie.} se sigue que, en un espacio vectorial de dimensión finita con producto escalar, cualquier conjunto ortonormal con tantos vectores como la dimensión del espacio es una base ortonormal del espacio. Este tipo de bases son de gran utilidad, como veremos a continuación.
 
