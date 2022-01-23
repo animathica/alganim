@@ -30,27 +30,28 @@ class Subescena1(Scene):
 
     #-------------------------------------------------------Propiedades del producto escalar en un campo K
      def propiedades(self):
-         t1 =  MathTex("\langle\cdot, \cdot\\rangle:V\\times V\\to K ")
+         
+         t1 =  MathTex("\langle\cdot, \cdot\\rangle:V\\times V\\to K ").scale(.8).shift(LEFT)
 
-         p1 =  MathTex("\\forall \ \\vec{u}, \\vec{v}, \\vec{w}&\in V").scale(.7)
-
-
-         p2 = MathTex("  \langle\\vec{u}+\\vec{w},\\vec{v}\\rangle").scale(.7)
-         p2_2 = MathTex(" = \langle \\vec{u} , \\vec{v} \\rangle + \langle \\vec{w} , \\vec{v} \\rangle \\").scale(.7)
+         p1 =  MathTex("\\forall \ \\vec{u}, \\vec{v}, \\vec{w}&\in V, \ \\forall \ a\in K ").scale(.6)
 
 
-         p3 = MathTex("  \langle a\\vec{u} , \\vec{v} \\rangle").scale(.7)
-         p3_2 = MathTex("&= a \langle \\vec{u} , \\vec{v} \\rangle\\").scale(.7)
+         p2 = MathTex("  \langle\\vec{u}+\\vec{w},\\vec{v}\\rangle").scale(.6)
+         p2_2 = MathTex(" = \langle \\vec{u} , \\vec{v} \\rangle + \langle \\vec{w} , \\vec{v} \\rangle \\").scale(.6)
 
 
-         p4 = MathTex("  \langle \\vec{u} , \\vec{v} \\rangle").scale(.7)
-         p4_2= MathTex("= \overline{ \langle \\vec{v} , \\vec{u} \\rangle}\\").scale(.7)
+         p3 = MathTex("  \langle a\\vec{u} , \\vec{v} \\rangle").scale(.6)
+         p3_2 = MathTex("&= a \langle \\vec{u} , \\vec{v} \\rangle\\").scale(.6)
 
 
-         p5 = MathTex(" \\vec{u}\\neq \\vec{0}").scale(.7)
-         p5_2= MathTex("\Rightarrow \langle \\vec{u} , \\vec{u} \\rangle > 0 ").scale(.7)
+         p4 = MathTex("  \langle \\vec{u} , \\vec{v} \\rangle").scale(.6)
+         p4_2= MathTex("= \overline{ \langle \\vec{v} , \\vec{u} \\rangle}\\").scale(.6)
 
-         g1 = VGroup( p2, p2_2, p3, p3_2, p4, p4_2, p5, p5_2 ).arrange(buff=.15, direction=DOWN, aligned_edge = LEFT, ).shift(RIGHT+0.3*DOWN)
+
+         p5 = MathTex(" \\vec{u}\\neq \\vec{0}").scale(.6)
+         p5_2= MathTex("\Rightarrow \langle \\vec{u} , \\vec{u} \\rangle > 0 ").scale(.6)
+
+         g1 = VGroup( p2, p2_2, p3, p3_2, p4, p4_2, p5, p5_2 ).arrange(buff=.13, direction=DOWN, aligned_edge = LEFT).shift(RIGHT+0.3*DOWN)
          p2.next_to(p2_2, LEFT)
          p3.next_to(p3_2, LEFT)
          p4.next_to(p4_2, LEFT)
@@ -64,21 +65,27 @@ class Subescena1(Scene):
          t4 = Tex("\\textit{Linealidad} en la entrada izquierda").scale(.56)
          t5 = Tex("\\textit{Antilinealidad} en la entrada derecha").scale(.55)
          t6 = Tex("Positivo definido").scale(.55)
+         t7 = Tex("Simetria conjugada").scale(.55)
          g4 = VGroup(g3,p4, color=WHITE)
          b2 = Brace(g4, direction=LEFT)
 
 
 
          #ANIMACIONES#
-         t1.next_to(g1, 10*UP)
+         t1.next_to(g1, 6*UP).shift(.45*LEFT)
          self.play(Write(t1))
-         p1.next_to(t1, DOWN).shift(.2*LEFT)
+         p1.next_to(t1, DOWN)
          self.play(Write(p1))
          self.wait(3)
          self.wait(23)
          g1.move_to(.1*UP)
          for element in g1:
           self.play(Write(element),run_time=2.3)
+         t6.next_to(p5_2, RIGHT)
+         t7.next_to(p4_2, RIGHT) 
+         self.play(Write(t7))
+         self.play(Write(t6))
+         
          b1.next_to(p2_2, RIGHT*UP).shift(1.5*RIGHT+.3*DOWN)
          self.play(Write(b1))
          self.wait()
@@ -86,26 +93,24 @@ class Subescena1(Scene):
          self.play(FadeIn(t2))
          t4.next_to(t2, DOWN)
          self.play(Write(t4))
+                          
          self.wait(28)
-         #self.play(FadeIn(p4))
+         self.play(FadeIn(p4))
          b2.next_to(p3, LEFT*2*UP).shift(1.2*LEFT)
          self.play(Write(b2))
          t3.next_to(b2, direction=LEFT).shift(0.2*LEFT)
          self.play(Write(t3))
          t5.next_to(t3, DOWN)
          self.play(Write(t5))
-         self.wait(7)
-         t6.next_to(p5, DOWN).shift(1.1*RIGHT)
-         self.play(Write(t6))
-         self.play(FocusOn(p5))
-         self.wait(16)
-         self.play(FadeOut(b1, b2, t2, t3,t4,t5,t6))
+         self.wait(23)
+         self.play(FadeOut(b1, b2, t2, t3,t4,t5,t6,t7))
          self.wait(18)
          self.play(FadeOut(g1))
          self.play(FadeOut(t1,p1))
 
      def construct(self):
             self.propiedades()
+
 
 #-------------------------------------------Definición de ortogonalidad
 class Subescena2(Scene):
@@ -133,7 +138,7 @@ class Subescena2(Scene):
 
       
        o3 = MathTex("  \Gamma=\{\\vec{g}_1,...,\\vec{g}_k\}" ).scale(.5)
-       o4 = Tex("Base  \\textit{ortogonal} de V").scale(.5)
+       o4 = Tex("base  \\textit{ortogonal} de V").scale(.5)
        o5 = MathTex(r"\langle\Gamma\rangle = V, ").scale(.5)
        o5_c1 = Tex("$\\langle \\vec{g}_i, \\vec{g}_i\\rangle$~", "si~","$j = i$").scale(.6)
        o5_c2 = Tex("$0$~", " si~", " $j \\neq i$").scale(.6)
