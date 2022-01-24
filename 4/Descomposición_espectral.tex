@@ -1,0 +1,189 @@
+\documentclass[12pt,dvipsnames]{article}
+\setcounter{section}{0}
+
+\usepackage{amsmath,amsthm,amssymb,amsbsy}
+\usepackage[spanish,es-tabla]{babel}
+\decimalpoint
+\usepackage{braket}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.5cm]{geometry} 
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{lmodern}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage{soul}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,breakable}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1em}
+
+\definecolor{NARANJA}{rgb}{1,0.467,0}
+\definecolor{VERDE}{rgb}{0.31,1,0}
+\definecolor{AZUL}{rgb}{0,0.53,1}
+\definecolor{ROJO}{rgb}{1,0,0}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=ROJO,
+    filecolor=magenta,      
+    urlcolor=AZUL,
+}
+ 
+\pgfplotsset{compat=1.15}
+ 
+\renewcommand{\figurename}{Figura}
+
+\newcommand{\anim}[2]{\textcolor{red}{\textbf{\hl{#1}}}\footnote{#2}}
+
+\renewcommand{\indexname}{Índice}
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand{\contentsname}{Contenidos}
+\renewcommand{\proofname}{Dem.}
+\renewcommand{\tablename}{Tabla.}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{cor}{Corolario}[section]
+\newtheorem{lem}{Lema}[section]
+\newtheorem{defi}{Definición}[section]
+\newtheorem{obs}{Observación}[section]
+\newtheorem{prop}{Propiedades.}[section]
+\newtheorem{ejem}{\textbf{\textit{$\circ \ \text{Ejemplo}$}}}[section]
+\newtheorem{axi}{Axioma}[section]
+
+\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
+
+\newtcolorbox{post}{colback=white,colframe=red!50!black,
+	colbacktitle=red!75!black, title= Postulado.}
+
+\newtcolorbox{enu}{colframe=white!85!black, colback=white, leftrule = 10mm, sharp corners, breakable}
+
+\newtcolorbox{solu}{colframe=black, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+\newtcolorbox{corre}{colframe=red, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+\newtcolorbox{enun}{colframe=gray, colback=white!90!black, leftrule = 1mm, rightrule = 1mm, toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+\newenvironment{sol}{\begin{figure}[H]
+		\begin{tikzpicture}
+		\filldraw[black] (0,0) circle (3pt);
+		\draw[line width = 0.5pt] (0,0) -- (4,0) node[above right]{\textbf{Solución:}};
+		\end{tikzpicture}
+\end{figure}}{\begin{figure}[H]
+		\begin{flushright}
+			\begin{tikzpicture}
+			\draw[line width = 0.5pt] (0,0)-- (4,0);
+			\filldraw (4,0) circle (3pt);
+			\end{tikzpicture}
+\end{flushright}\end{figure}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
+ 
+\begin{document}
+
+\title{Descomposición espectral \\ (Introducción al Teorema espectral)}
+\date{}
+\maketitle
+%\tableofcontents
+
+\begin{obs}
+    Las ideas principales a presentar en este video son:
+
+    \begin{enumerate}[label=(\roman*)]
+        \item Dado un operador lineal en un espacio vectorial con producto escalar, decimos que el operador descompone espectralmente a un vector del espacio si la imagen del vector bajo el operador se obtiene proyectándolo en los eigenespacios del operador, reescalando por los eigenvalores correspondientes, y sumando las componentes reescaladas. Si un operador es diagonalizable, entonces es fácil entender cómo actúa sobre cualquier vector del espacio algebráicamente, pero esta condición no es suficiente para que el operador descomponga espectralmente a los vectores del espacio. Esto se debe a que la base de sus eigenvectores puede no ser ortogonal, y ortogonalizar la base no siempre funciona, pues no está asegurado que la base ortogonal que se obtiene se componga exclusivamente de eigenvectores del operador. El objetivo del video es dar una caracterización de los operadores en espacios con producto escalar que se pueden descomponer espectralmente.
+
+        \item 
+
+        \item 
+    \end{enumerate}
+\end{obs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% PRIMERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Primera escena (Presentación del problema e introducción)}
+
+Supongamos que, en un espacio vectorial con producto escalar, tenemos un operador lineal, y que conocemos su espectro, esto es, el conjunto de sus eigenvalores. Sabemos que a cada uno de los eigenvalores le corresponde un eigenespacio, y que el operador actúa sobre cada uno de estos subespacios reescalando a todos los vectores que se encuentran en él por el eigenvalor correspondiente.
+
+Ahora, consideremos cómo actúa nuestro operador sobre un vector arbitrario del espacio. Dado que nuestro espacio vectorial tiene producto escalar, nos gustaría pensar que podemos simplemente poyectar nuestro vector sobre cada eigenespacio, reescalar cada componente por el eigenvalor correspondiente, y volverlos a sumar para obtener su imagen; a esto le llamamos una descomposición espectral del vector. Sin embargo, esto no siempre coincide con las imágenes que realmente obtenemos al aplicar el operador. Nuestro objetivo en este video será entender por qué esto no siempre sucede y averiguar en qué casos sí es posible que un operador lineal descomponga espectralmente a los vectores de su dominio.
+
+Volviendo al problema, observemos que esta discrepancia puede ocurrir aún si suponemos que nuestro operador es diagonalizable, es decir, que existe una base del espacio compuesta por eigenvectores del operador. Esto se debe a que, si la base de eigenvectores no es ortogonal, entonces algunos eigenvectores pueden tener componentes no nulas a lo largo de otros eigenespacios distintos al que pertenecen. Esta idea parece confusa al principio, pero podemos visualizarla geométricamente como sigue.
+
+Por ende, una primera aproximación a la solución de nuestro problema podría ser ortogonalizar la base de eigenvectores. Sin embargo, recordemos que en el proceso de ortogonalización de Gram-Schmidt definimos nuevos vectores como combinación lineal de los vectores de nuestro conjunto linealmente independiente -en nuestro caso, la base de eigenvectores- y, por la distributividad del producto de un vector por un escalar con respecto a la suma vectorial, tenemos que cualquier combinación lineal de dos eigenvectores con eigenvalores distintos no puede ser un eigenvector de nuestro operador. Esto no contradice nuestro ejemplo anterior pues, a pesar de que algún eigenvector pueda tener proyecciones no nulas sobre otros con eigenvalor distinto, por independencia lineal sabemos que no es posible expresarlo como combinación lineal de los demás. De lo anterior, podemos concluir que nuestro problema no se puede "arreglar" con un proceso de ortogonalización.
+
+Conversamente, cualquier combinación lineal de eigenvectores correspondientes a un mismo eigenvalor sí será un eigenvector con el mismo eigenvalor; esto es precisamente lo que da cabida a la idea de eigenespacio. Por ende, al menos siempre será posible ortogonalizar las bases de cada eigenespacio aunque, nuevamente, esto no nos asegura que al unir las bases ortogonales de cada eigenespacio obtengamos una base ortogonal para todo el espacio. Sin embargo, si de alguna manera fuese posible construir una base ortogonal del espacio a partir de bases ortogonales de los eigenespacios de nuestro operador, entonces sí sería válida la descomposición espectral. Por ende, la descomponibilidad espectral es una característica intrínseca de cierto tipo de operadores lineales diagonalizables. Durante el resto del video, daremos una caracterización de este tipo de operadores pero, para eso, debemos primero aprender algunos conceptos útiles.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Segunda escena (Complementos ortogonales y proyecciones ortogonales)}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Tercera escena (Caracterización de la descomponibilidad espectral)}
+
+\begin{align*}
+    T = \lambda_1P_1 + \lambda_2P_2 + ... + \lambda_rPr &\iff E_{\lambda_i}^\perp = \bigoplus_{i=1}^r E_{\lambda_i} \\
+                                                        &\iff \exists \text{ base \emph{ortogonal} de } V \text{ compuesta por eigenvectores de } T.
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Escena final}
+
+
+
+\end{document}
