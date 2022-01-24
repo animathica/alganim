@@ -12,9 +12,10 @@ Generar material educativo audiovisual para apoyar el curso de [Álgebra Lineal]
 
 ### Lista de temas animados
 
-- Producto escalar y bases ortogonales [en proceso]
-- Norma inducida y bases ortonormales [próximamente]
+- Producto escalar y bases ortogonales [en posproducción]
+- Norma inducida y bases ortonormales [en producción]
 - [Ortogonalización y ortonormalización (Teorema de Gram-Schmidt)](https://www.youtube.com/watch?v=7oO6xXpaTLk)
+- Descomposición espectral (Introducción al Teorema espectral) [en preproducción]
 
 ## Acerca del código
 
