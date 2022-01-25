@@ -83,8 +83,7 @@ class Subescena1(Scene):
           self.play(Write(element),run_time=2.3)
          t6.next_to(p5_2, RIGHT)
          t7.next_to(p4_2, RIGHT) 
-         self.play(Write(t7))
-         self.play(Write(t6))
+        
          
          b1.next_to(p2_2, RIGHT*UP).shift(1.5*RIGHT+.3*DOWN)
          self.play(Write(b1))
@@ -92,15 +91,15 @@ class Subescena1(Scene):
          t2.next_to(b1, direction=RIGHT)
          self.play(FadeIn(t2))
          t4.next_to(t2, DOWN)
-         self.play(Write(t4))
-                          
+         self.play(Write(t4)                
          self.wait(28)
-         self.play(FadeIn(p4))
          b2.next_to(p3, LEFT*2*UP).shift(1.2*LEFT)
          self.play(Write(b2))
          t3.next_to(b2, direction=LEFT).shift(0.2*LEFT)
          self.play(Write(t3))
          t5.next_to(t3, DOWN)
+         self.play(Write(t7))
+         self.play(Write(t6))
          self.play(Write(t5))
          self.wait(23)
          self.play(FadeOut(b1, b2, t2, t3,t4,t5,t6,t7))
