@@ -26,7 +26,7 @@ TEAL_E = "#49A88F"
 MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
 
-class Subescena1(Scene):
+class Subescena1(MovingCameraScene):
 
     #-------------------------------------------------------Propiedades del producto escalar en un campo K
      def propiedades(self):
@@ -72,17 +72,17 @@ class Subescena1(Scene):
 
 
          #ANIMACIONES#
-         t1.next_to(g1, 6*UP).shift(.45*LEFT)
+         self.play(self.camera.frame.animate.move_to(UP))
+         t1.next_to(g1, 7*UP).shift(.45*LEFT)
          self.play(Write(t1))
          p1.next_to(t1, DOWN)
          self.play(Write(p1))
          self.wait(3)
-         self.wait(23)
          g1.move_to(.1*UP)
          for element in g1:
           self.play(Write(element),run_time=2.3)
-         t6.next_to(p5_2, RIGHT)
-         t7.next_to(p4_2, RIGHT) 
+         t6.next_to(p5_2, 3.2*RIGHT)
+         t7.next_to(p4_2, 5.6*RIGHT) 
         
          
          b1.next_to(p2_2, RIGHT*UP).shift(1.5*RIGHT+.3*DOWN)
@@ -91,15 +91,15 @@ class Subescena1(Scene):
          t2.next_to(b1, direction=RIGHT)
          self.play(FadeIn(t2))
          t4.next_to(t2, DOWN)
-         self.play(Write(t4)                
-         self.wait(28)
+         self.play(Write(t4))               
+         self.wait(3)
+         self.play(Write(t7))
+         self.play(Write(t6))
          b2.next_to(p3, LEFT*2*UP).shift(1.2*LEFT)
          self.play(Write(b2))
          t3.next_to(b2, direction=LEFT).shift(0.2*LEFT)
          self.play(Write(t3))
          t5.next_to(t3, DOWN)
-         self.play(Write(t7))
-         self.play(Write(t6))
          self.play(Write(t5))
          self.wait(23)
          self.play(FadeOut(b1, b2, t2, t3,t4,t5,t6,t7))
@@ -112,7 +112,7 @@ class Subescena1(Scene):
 
 
 #-------------------------------------------Definición de ortogonalidad
-class Subescena2(Scene):
+class Subescena2(MovingCameraScene):
  
 
      def ortogonalidad(self):
@@ -139,8 +139,8 @@ class Subescena2(Scene):
        o3 = MathTex("  \Gamma=\{\\vec{g}_1,...,\\vec{g}_k\}" ).scale(.5)
        o4 = Tex("base  \\textit{ortogonal} de V").scale(.5)
        o5 = MathTex(r"\langle\Gamma\rangle = V, ").scale(.5)
-       o5_c1 = Tex("$\\langle \\vec{g}_i, \\vec{g}_i\\rangle$~", "si~","$j = i$").scale(.6)
-       o5_c2 = Tex("$0$~", " si~", " $j \\neq i$").scale(.6)
+       o5_c1 = Tex("$\\langle \\vec{g}_i, \\vec{g}_i\\rangle > 0 \\ $~", "si~","$j = i,$").scale(.6)
+       o5_c2 = Tex("$0 \\ $~", " si~", " $j \\neq i.$").scale(.6)
        for i, item in enumerate(o5_c2):
           item.align_to(o5_c1[i], LEFT)
        o5_c1g = VGroup(*o5_c1)
@@ -151,10 +151,11 @@ class Subescena2(Scene):
        P_ij = b3.get_text("$\\langle \\vec{g}_i, \\vec{g}_j\\rangle$ =").scale(.6)
        gj_gi = VGroup(P_ij, b3, o5_g).arrange(direction=RIGHT, buff=.15)
        
-       gamma_Prop = VGroup(o5, gj_gi).arrange(direction=RIGHT, buff=0.20, center=True)
+       gamma_Prop = VGroup(o5, gj_gi).arrange(direction=RIGHT, buff=0.75, center=True)
        
         
-       self.wait(8)
+       self.wait()
+       self.play(self.camera.frame.animate.move_to(1.5*UP))
        for element in go_1:
          self.play(Write(element), run_time=2)
         
