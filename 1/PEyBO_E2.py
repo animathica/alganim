@@ -26,7 +26,7 @@ TEAL_E = "#49A88F"
 MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
 
-class Subescena1(MovingCameraScene):
+class SE1(MovingCameraScene):
 
     #-------------------------------------------------------Propiedades del producto escalar en un campo K
      def propiedades(self):
@@ -112,7 +112,7 @@ class Subescena1(MovingCameraScene):
 
 
 #-------------------------------------------Definición de ortogonalidad
-class Subescena2(MovingCameraScene):
+class SE2(MovingCameraScene):
  
 
      def ortogonalidad(self):
@@ -177,7 +177,7 @@ class Subescena2(MovingCameraScene):
       self.ortogonalidad()
  
 
-class Subescena_3(Scene):
+class SE3(Scene):
     '''
     La escena esta organizada de la siguiente forma: se definen cuatro funciones, cada una de ellas
     incluye la prueba de una de las propiedades. Al ejecutar cada una de estas funciones se anima la
