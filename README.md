@@ -1,21 +1,21 @@
 # alganim
 
-Repositorio con el material utilizado para crear los videos sobre Álgebra Lineal del canal de YouTube [Animathica](https://www.youtube.com/channel/UCzkyH2bxpesubzc87VxqDiA).
+Repositorio con el material utilizado para crear los videos sobre álgebra lineal del canal de YouTube [Animathica](https://www.youtube.com/channel/UCzkyH2bxpesubzc87VxqDiA).
 
-## Espacios vectoriales con producto escalar
-
-Serie de videos de álgebra lineal sobre la teoría de espacios vectoriales con producto escalar, con un enfoque especial hacia entender la descomposición espectral.
-
-### Objetivo
+## Objetivo
 
 Generar material educativo audiovisual para apoyar el curso de [Álgebra Lineal](http://www.fciencias.unam.mx/licenciatura/asignaturas/2016/1330) de la Licenciatura en Física Biomédica de la UNAM, así como a estudiantes de otras licenciaturas de la Facultad de Ciencias.
 
-### Lista de temas animados
+## Serie: Producto escalar y descomposición espectral
 
-- Producto escalar y bases ortogonales [en posproducción]
-- Norma inducida y bases ortonormales [en producción]
-- [Ortogonalización y ortonormalización (Teorema de Gram-Schmidt)](https://www.youtube.com/watch?v=7oO6xXpaTLk)
-- Descomposición espectral (Introducción al Teorema espectral) [en preproducción]
+Serie de videos de álgebra lineal sobre la teoría de espacios vectoriales con producto escalar, con un enfoque especial hacia entender la descomposición espectral.
+
+### Videos de la serie
+
+1. Producto escalar y bases ortogonales [en posproducción]
+2. Norma inducida y bases ortonormales [en producción]
+3. [Ortogonalización y ortonormalización (Teorema de Gram-Schmidt)](https://www.youtube.com/watch?v=7oO6xXpaTLk)
+4. Descomposición espectral (Introducción al Teorema espectral) [en preproducción]
 
 ## Acerca del código
 
