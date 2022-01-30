@@ -169,6 +169,7 @@ e1p2 = split [24..81] ejercicio1      -- Separamos el final del ejercicio.
 e1p3 :: SVG
 e1p3 = split [82..200] ejercicio1      -- Separamos el final del ejercicio.
 
+ejercicio2 :: SVG    -- Definimos el SVG del primer ejercicio con los atributos deseados.
 ejercicio2 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
             withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
                 latex "Ejercicio 1.2 Sea $\\vec{v}\\in V$. Demuestra que $\\langle \\vec{v}, \\vec{v} \\rangle = 0$ si, y sólo si, $\\vec{v}=\\vec{0}$."

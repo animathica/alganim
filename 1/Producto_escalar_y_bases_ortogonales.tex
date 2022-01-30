@@ -260,13 +260,13 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
 \noindent Así mismo, diremos que un conjunto de vectores es \emph{ortogonal} si cualesquiera dos vectores distintos del conjunto son ortogonales.
 
 \[
-    \text{O=}\{\vec{o}_1,...,\vec{o}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{o}_i , \vec{o}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
+    \Gamma=\{\vec{g}_1,...,\vec{g}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{g}_i , \vec{g}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
 \]
 
 \noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las siguientes condiciones\footnote{Tal vez quede mejor cambiando de lugar los dos casos de la expresión $\langle \vec{g}_j , \vec{g}_i \rangle$ aquí y en lo que sigue, pero no estoy seguro aún.}
 
 \begin{align*}
-    \Gamma=\{\vec{g}_1,...,\vec{g}_k\} \ \ \text{base \emph{ortogonal} de} \ \ V& & &\\
+    \Gamma=\{\vec{g}_1,...,\vec{g}_k\} \text{ es base \emph{ortogonal} de } V \text{ si}& & &\\
     \\
     \langle\Gamma\rangle = V, \ \ \langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i, \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i. \end{cases}& & &\\
 \end{align*}
@@ -276,7 +276,7 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
 \newpage
 \section{Tercera escena}
 
-\subsection*{Subescena 1} \label{Ssec: Subescena 1}
+\subsection*{SE1}
 
 %Regresemos a la representación geométrica de nuestro problema en el caso del espacio vectorial real $\mathbb{R}^2$. Como quizá ya lo estés sospechando, la operación conocida como \emph{producto punto} es un ejemplo de un producto escalar en este espacio. Observemos que un conjunto que contiene a los vectores con entradas $\begin{pmatrix} 1 & 0 \end{pmatrix}$ y $\begin{pmatrix} 0 & 1 \end{pmatrix}$ forma una base ortogonal de este espacio, pues cumple con las propiedades descritas anteriormente. Aplicando el resultado anterior, se sigue que los coeficientes necesarios para expresar a nuestro vector arbitrario como combinación lineal de esta base ortogonal son los siguientes.
 
@@ -284,7 +284,9 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
 
 %El razonamiento anterior se puede aplicar también en el caso general. Por lo tanto, geométricamente, podemos interpretar al producto escalar como una operación que nos permite calcular las proyecciones vectoriales de unos vectores sobre otros con facilidad.
 
-\subsection*{Subescena 2} \label{Ssec: Subescena 2}
+Hacer alguna mención sobre la generalización del producto punto a $\mathbb{R}^3$ y, más generalmente, $\mathbb{R}^n$ y $\mathbb{C}^n$.
+
+\subsection*{SE2}
 
 %%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%
 
@@ -345,7 +347,6 @@ Como esto es válido para toda $i$, tenemos el siguiente resultado para cualquie
     \\
            &\quad \quad \quad \quad \text{¿}c_i\text{?}& &\quad \quad \quad \quad \quad \quad d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k& & &
 \end{align*}
-
 Este resultado nos dice que cualquier vector del espacio se puede descomponer como una suma de componentes ortogonales entre sí, pues cada término de la suma es un reescalamiento de un elemento de la base ortogonal\footnote{Escribir ``Ver Ejercicio 1.7''.}.
 
 Hemos visto que, en espacios vectoriales de dimensión finita con producto escalar, las bases ortogonales nos ayudan a resolver nuestro problema de encontrar coeficientes de manera sencilla; sin embargo, ¡aún no hemos justificado que si quiera \emph{existan}! Resulta que la existencia de bases ortogonales en espacios vectoriales de dimensión finita con producto escalar está asegurada, pero esto lo veremos en un video posterior cuando hablemos del Teorema de Gram-Schmidt.
