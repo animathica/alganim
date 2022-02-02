@@ -195,6 +195,7 @@ class Subescena_1(Scene):
       cuadro_4 = Polygon([-7.05,3.55,0],[2.05,3.55,0],[2.05,6,0],[-7.05,6,0], color  = BLACK, fill_opacity = 1)
 
       marco = VGroup(cuadro_1, cuadro_2, cuadro_3, cuadro_4)
+
       # Textos planteamiento del problema
       vec_obj_tex = MathTex(r" \vec{v} = \begin{pmatrix} -8 \\ -4 \end{pmatrix}").shift(6*LEFT+2.5*DOWN).scale(0.4)
 
@@ -204,16 +205,19 @@ class Subescena_1(Scene):
       comblin_abs = MathTex(r" \vec{v} " , r"=" ,r"c_1" ,r"\vec{g}_1" ,r"+" ,r"c_2", r"\vec{g}_2")\
          .shift(2.5*DOWN).scale(0.5)
 
-      print("LCA", len(comblin_abs))
+      # Objetos para indicar que no conocemos los coeficientes c_1, c_2
+      coefs_incog = MathTex(r"  \text{¿}", r"c_1, " , r" c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.4).shift(0.2*UP)
+      c2_incog = MathTex( r" ", r"c_1 = -2,  ", r"\text{¿}c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.4).shift(0.2*UP)
+      no_incog = MathTex( r" ", r" c_1 = -2, ", r"\   c_2 = 3").next_to(comblin_abs, DOWN).scale(0.4).shift(0.2*UP)
+
+      # Objetos para la ecuación en términos de 2-tuplas, cada vez con menos incognitos
       comblin_R2 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"c_1\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ c_2 \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
-         .move_to(comblin_abs).scale(0.4)
-
-      print("LCR", len(comblin_R2))
-
-      coefs_incog = MathTex(r"  \text{¿}", r"c_1, " , r" c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
-      c2_incog = MathTex( r" ", r"c_1 = -2,  ", r"\text{¿}c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
-      no_incog = MathTex( r" ", r" c_1 = -2, ", r"\   c_2 = 3").next_to(comblin_abs, DOWN).scale(0.5).shift(0.2*DOWN)
-
+         .next_to(coefs_incog, DOWN).scale(0.4).shift(0.4*UP)
+      comblin_R2_1 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"(-2)\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ c_2 \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+         .next_to(coefs_incog, DOWN).scale(0.4).shift(0.4*UP)
+      comblin_R2_2 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"(-2)\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ (3) \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+         .next_to(coefs_incog, DOWN).scale(0.4).shift(0.4*UP)
+      
 
       grupo_intro = VGroup(vec_obj_tex, gamma_tex, comblin_abs, comblin_R2, coefs_incog)
 
@@ -324,7 +328,9 @@ class Subescena_1(Scene):
       ppl_81.move_to(ppl_61).shift(0.8*LEFT)
 
       c1_eq1 = MathTex(r"\Rightarrow -4 = 2c_1 \Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
-      c1_11 = MathTex(r" c_1 = - ", r" \frac{4}{2} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+      c1_11 = MathTex(r" c_1 = ", r" \frac{-4}{2} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+      c1_fbk1 = MathTex(r" c_1 = ", r" \frac{\langle \vec{v}, \vec{g}_1 \rangle}{\langle \vec{g}_1 , \vec{g}_1 \rangle} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+      c1_11_r = MathTex(r" c_1 = ", r" \frac{-4}{2} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
       c11 = MathTex(r" c_1 = - " , r" 2 ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
 
       srct_11 = SurroundingRectangle(c11, color = AMARILLO)
@@ -372,6 +378,8 @@ class Subescena_1(Scene):
 
       c1_eq2 = MathTex(r"\Rightarrow 24 = 8c_2 \Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
       c1_12 = MathTex(r" c_2 = ", r" \frac{24}{8} ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
+      c1_fbk2 = MathTex(r" c_2 = ", r" \frac{\langle \vec{v}, \vec{g}_2 \rangle}{\langle \vec{g}_2, \vec{g}_2 \rangle} ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
+      c1_12_r = MathTex(r" c_2 = ", r" \frac{24}{8} ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
       c12 = MathTex(r" c_2 = " , r" 3 ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
 
 
@@ -421,6 +429,12 @@ class Subescena_1(Scene):
 
       confirm = VGroup(comblin_R2_c, comblin_R2_c1, comblin_R2_c2, suma).arrange(DOWN, center = False, aligned_edge=LEFT)
 
+   # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+      p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+      p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+      paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).next_to(comblin_R2_2,RIGHT)
+
       ###############
       # ANIMACIONES #
       ###############
@@ -444,28 +458,22 @@ class Subescena_1(Scene):
       self.play(Write(vec_g1), Write(vec_g2))
       self.play(FadeIn(g1_label), FadeIn(g2_label))
       self.add_foreground_mobjects(vec_g1 , vec_g2, g1_label, g2_label)
-
       
-
       self.add_foreground_mobjects(comblin_abs)
       self.play(Write(comblin_abs))
       self.wait()
-      
 
-      # # Transformación CUIDADOSA de la combinación lineal
-      
-      self.play(ReplacementTransform(comblin_abs[0],comblin_R2[0]), ReplacementTransform(comblin_abs[1],comblin_R2[1]),
-      ReplacementTransform(comblin_abs[2],comblin_R2[2]), ReplacementTransform(comblin_abs[3],comblin_R2[3]),
-      ReplacementTransform(comblin_abs[4],comblin_R2[4]), ReplacementTransform(comblin_abs[5],comblin_R2[5]),
-      ReplacementTransform(comblin_abs[6],comblin_R2[6]))
-      self.add_foreground_mobjects(comblin_R2)
-
-      self.play(ReplacementTransform(v_label,v_label2))
-
-      # # Transformar label v_obj
       self.add_foreground_mobjects(coefs_incog)
       self.play(Write(coefs_incog))
+      self.wait()
+
+      self.add_foreground_mobjects(comblin_R2)
+      self.play(Write(comblin_R2))
+      self.wait()
       
+      self.play(ReplacementTransform(v_label,v_label2))
+
+   
 
       ########## ANIMACIONES conj_ortog
 
@@ -545,15 +553,30 @@ class Subescena_1(Scene):
       self.wait()
       self.play(Write(c1_eq1))
       self.play(Write(c1_11))
-      self.play(ReplacementTransform(c1_11, c11))
+
+       # Flashback
+      self.play(ReplacementTransform(c1_11, c1_fbk1))
+      self.wait()
+      self.play(ReplacementTransform(c1_fbk1, c1_11_r))
+      self.play(ReplacementTransform(c1_11_r, c11))
       self.play(Write(srct_11))
 
+      # Actualización de los coeficientes incógnitos y la ecuación en tuplas
+
       self.play(ReplacementTransform(coefs_incog,c2_incog))
+      self.add_foreground_mobjects(c2_incog) 
+      self.play(ReplacementTransform(comblin_R2[0],comblin_R2_1[0]), ReplacementTransform(comblin_R2[1],comblin_R2_1[1]),
+      ReplacementTransform(comblin_R2[2],comblin_R2_1[2]), ReplacementTransform(comblin_R2[3],comblin_R2_1[3]),
+      ReplacementTransform(comblin_R2[4],comblin_R2_1[4]), ReplacementTransform(comblin_R2[5],comblin_R2_1[5]),
+      ReplacementTransform(comblin_R2[6],comblin_R2_1[6]))
+      self.add_foreground_mobjects(comblin_R2_1)
+      
 
       self.play(FadeOut(vg1_11),FadeOut(vg1_21),FadeOut(pp31), FadeOut(ppl1),
        FadeOut(c1_eq1), FadeOut(c11), FadeOut(srct_11), FadeOut(ppig1), FadeOut(pp41),
        FadeOut(ppl_51), FadeOut(ppl_81))
 
+      ##### ANIMACIONES calc_c2
 
       self.play(Write(vg1_1))
       self.play(Write(ppig),Write(pp1))
@@ -583,10 +606,21 @@ class Subescena_1(Scene):
       self.wait()
       self.play(Write(c1_eq2))
       self.play(Write(c1_12))
-      self.play(ReplacementTransform(c1_12, c12))
+
+      # Flashback
+      self.play(ReplacementTransform(c1_12, c1_fbk2))
+      self.wait()
+      self.play(ReplacementTransform(c1_fbk2, c1_12_r))
+      self.play(ReplacementTransform(c1_12_r, c12))
       self.play(Write(srct_1))
 
-      self.play(ReplacementTransform(c2_incog, no_incog))
+      self.play(ReplacementTransform(c2_incog,no_incog))
+      self.add_foreground_mobjects(no_incog) 
+      self.play(ReplacementTransform(comblin_R2_1[0],comblin_R2_2[0]), ReplacementTransform(comblin_R2_1[1],comblin_R2_2[1]),
+      ReplacementTransform(comblin_R2_1[2],comblin_R2_2[2]), ReplacementTransform(comblin_R2_1[3],comblin_R2_2[3]),
+      ReplacementTransform(comblin_R2_1[4],comblin_R2_2[4]), ReplacementTransform(comblin_R2_1[5],comblin_R2_2[5]),
+      ReplacementTransform(comblin_R2_1[6],comblin_R2_2[6]))
+      self.add_foreground_mobjects(comblin_R2_2)
 
 
       self.play(FadeOut(vg1_1),FadeOut(vg1_2),FadeOut(pp3), FadeOut(ppl),
@@ -627,3 +661,6 @@ class Subescena_1(Scene):
       self.wait()
       self.play(Write(comblin_R2_c2))
       self.play(Write(suma))
+      self.play(Create(paloma))
+      self.add_foreground_mobjects(paloma)
+      self.play(paloma.animate.set_opacity(1))
