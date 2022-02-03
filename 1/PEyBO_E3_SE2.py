@@ -43,6 +43,7 @@ class Escena4(ThreeDScene):
 
         # Vectores con los que se trabaja en el video
         A1, A2, B1, B2 = 1, 3, 4, 2
+        #A1, A2, B1, B2 = -2, -2, 1, 1
         VecA = Arrow((0,0,0), (A1,A2,0), color = AZUL, buff = 0)
         VecB = Arrow((0,0,0), (B1,B2,0), color = ROJO, buff = 0)
 
@@ -271,13 +272,18 @@ class Escena4(ThreeDScene):
             , stroke_width=5 , buff = 0.05).set_color(GRIS)
 
         # Rayo que delimita el desplazamiento del vector A sin que cambie el producto escalar.
-        Rayo_extremo_1 = DashedLine((proyeccion(VecA,VecB)[0],proyeccion(VecA,VecB)[1],0)\
-            ,(A1-10*B2,A2+10*B1,0)\
+        Rayo_extremo_1 = DashedLine((A1-10*B2,A2+10*B1,0)\
+            ,(proyeccion(VecA,VecB)[0],proyeccion(VecA,VecB)[1],0)\
+                , stroke_width=5 , buff = 0.05).set_color(AMARILLO)
+
+        # Rayo que delimita el desplazamiento del vector A sin que cambie el producto escalar, por abajo.
+        Rayo_extremo_1_2 = DashedLine((A1+10*B2,A2-10*B1,0)\
+            ,(proyeccion(VecA,VecB)[0],proyeccion(VecA,VecB)[1],0)\
                 , stroke_width=5 , buff = 0.05).set_color(AMARILLO)
 
         # Rayo que delimita el desplazamiento del vector B sin que cambie el producto escalar.
-        Rayo_extremo_2 = DashedLine((proyeccion(VecB,VecA)[0],proyeccion(VecB,VecA)[1],0)\
-            ,(B1+10*A2,B2-10*A1,0)\
+        Rayo_extremo_2 = DashedLine((B1+10*A2,B2-10*A1,0)\
+            ,(proyeccion(VecB,VecA)[0],proyeccion(VecB,VecA)[1],0)\
                 , stroke_width=5 , buff = 0.05).set_color(AMARILLO)
 
         # ValueTracker usado para girar el vector A.
@@ -372,11 +378,14 @@ class Escena4(ThreeDScene):
         self.add_foreground_mobject(Texto_Producto)
         self.play(ReplacementTransform(Texto_Producto_bg,Texto_Coordenadas_bg))
         self.remove_foreground_mobject(Texto_Producto)
-        self.play(ReplacementTransform( Texto_Producto[0][0], Texto_Coordenadas_A ) \
-            , ReplacementTransform( Texto_Producto[0][2], Texto_Coordenadas_B ) \
-                , ReplacementTransform(Texto_Producto[0][1], Operador) \
-                    , ReplacementTransform(Texto_Producto[0][3], Aprox) \
-                        , ReplacementTransform(Resultado, Resultado_2))
+        #self.play(ReplacementTransform( Texto_Producto[0][0], Texto_Coordenadas_A ) \
+        #    , ReplacementTransform( Texto_Producto[0][2], Texto_Coordenadas_B ) \
+        #        , ReplacementTransform(Texto_Producto[0][1], Operador) \
+        #            , ReplacementTransform(Texto_Producto[0][3], Aprox) \
+        #                , ReplacementTransform(Resultado, Resultado_2))
+        self.play(FadeOut(VGroup(Texto_Producto[0][0],Texto_Producto[0][2],Texto_Producto[0][1],\
+            Texto_Producto[0][3],Resultado)),Write(VGroup(Texto_Coordenadas_A,\
+                Texto_Coordenadas_B,Operador,Aprox)))
         self.add_foreground_mobjects(Texto_Coordenadas)
         self.add_foreground_mobjects(Texto_Coordenadas_A \
             , Texto_Coordenadas_B, Operador, Aprox, Resultado_2)
@@ -415,9 +424,11 @@ class Escena4(ThreeDScene):
         VecA.add_updater(upd_for_vecA_2)
         self.wait()
         self.play(VT_A_2.animate.set_value(1),run_time=2)
+        self.play(Create(Rayo_extremo_1_2))
+        self.play(VT_A_2.animate.set_value(2),run_time=2)
         self.play(VT_A_2.animate.set_value(0),run_time=2)
         self.wait()
-        self.play(FadeOut(Rayo_extremo_1))
+        self.play(FadeOut(VGroup(Rayo_extremo_1,Rayo_extremo_1_2)))
         self.wait()
         self.play(FadeOut(VecSombra_1))
         self.wait()
@@ -445,3 +456,6 @@ class Escena4(ThreeDScene):
         self.play(Write(self.grid))
         self.Signo()
 
+#if __name__ == '__main__':
+#    import os
+#    os.system('manim -pql D:/dariortizq/Dario/Animathica/alganim/1/PEyBO_E3_SE2.py --disable_caching')
