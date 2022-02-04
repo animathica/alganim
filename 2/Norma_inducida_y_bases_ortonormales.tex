@@ -284,14 +284,19 @@ Entonces, se sigue de las propiedades del producto escalar que nuestra función 
 
 Ahora, volvamos a la expresión de la proyección vectorial de un vector $\vec{u}$ sobre un vector no nulo $\vec{v}$ que vimos al final del video anterior
 \[
+\vec{u},\vec{v}\in V, \vec{v}\neq \vec{0}
+\] 
+
+\[
 \frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v} 
 \] 
 Observemos que, considerando la norma inducida, podemos reescribir esta expresión como sigue:
 \begin{align*}
+    \vec{u},\vec{v}\in V, \vec{v}&\neq \vec{0} \\ \\
     \frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v} &= \frac{\langle \vec{u} , \vec{v} \rangle}{\big(\sqrt{\langle \vec{v} , \vec{v} \rangle}\big)^2} \vec{v} \\ \\
                                                                                         &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||^2} \vec{v} \\ \\
                                                                                         &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \bigg( \frac{1}{||\vec{v}||} \vec{v} \bigg) \\ \\
-                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}.
+                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}
 \end{align*}
 Es decir, la componente del vector $\vec{u}$ que vive en el subespacio generado por el vector no nulo $\vec{v}$ se obtiene reescalando al vector unitario en la misma dirección y sentido que $\vec{v}$ por el producto escalar de $\vec{u}$ con $\vec{v}$ entre la norma de $\vec{v}$.
 \[
@@ -300,7 +305,7 @@ Es decir, la componente del vector $\vec{u}$ que vive en el subespacio generado 
 
 \subsection{SE2 (Conjuntos y bases ortonormales)}
 
-En un espacio vectorial con producto escalar y normado, decimos que un conjunto es \emph{ortonormal} si es ortogonal y normal. Es decir, un conjunto ortonormal es un conjunto de vectores de norma uno que son ortogonales entre sí. 
+En un espacio vectorial con producto escalar y normado, decimos que un conjunto es \emph{ortonormal} si es ortogonal y normal. Es decir, un conjunto ortonormal es un conjunto de vectores ortogonales entre sí de norma uno.
 \[
     \text{N}=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal} si} \ \langle \vec{n}_i , \vec{n}_j \rangle = 0 \text{ para } i\neq j \text{ con } 1\le i,j\le k \text{ y } ||\vec{n}_i||=1 \text{ para } 1\le i\le k.
 \]
@@ -316,7 +321,7 @@ por lo que podemos caracterizar a un conjunto ortonormal como sigue.
 En particular, si una base cumple con ser un conjunto ortonormal, decimos que es una \emph{base ortonormal}. Dado que se puede demostrar que todo conjunto ortonormal finito es linealmente independiente\footnote{Escribir ``Ver Ejercicio 2.3.'' como nota al pie.} se sigue que, en un espacio vectorial de dimensión finita con producto escalar, cualquier conjunto ortonormal con tantos vectores como la dimensión del espacio es una base ortonormal del espacio. 
 \begin{align*}
     N=\{\vec{n}_1,...,\vec{n}_k\} \text{ es base \emph{ortonormal} de } V \text{ si}& & &\\
-    \text{dim}(V)=k, \langle \vec{n}_i , \vec{n}_j \rangle = \begin{cases} 1 &\text{si } i=j \\ 0 &\text{si } i\neq j. \end{cases}
+    \langle \vec{n}_i , \vec{n}_j \rangle = \begin{cases} 1 &\text{si } i=j \\ 0 &\text{si } i\neq j, \end{cases} \quad \text{dim}(V)=k.
 \end{align*}
 Este tipo de bases son de gran utilidad, como veremos a continuación.
 

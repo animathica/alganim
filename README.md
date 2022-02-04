@@ -14,7 +14,7 @@ Serie de videos de álgebra lineal sobre la teoría de espacios vectoriales con 
 
 1. Producto escalar y bases ortogonales [en posproducción]
 2. Norma inducida y bases ortonormales [en producción]
-3. Ortogonalización y ortonormalización (Teorema de Gram-Schmidt) [finalizado](https://www.youtube.com/watch?v=7oO6xXpaTLk)
+3. Ortogonalización y ortonormalización (Teorema de Gram-Schmidt) [[finalizado]](https://www.youtube.com/watch?v=7oO6xXpaTLk)
 4. Descomposición espectral (Introducción al Teorema espectral) [en preproducción]
 
 ## Acerca del código
