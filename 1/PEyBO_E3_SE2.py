@@ -43,7 +43,7 @@ class Escena4(ThreeDScene):
 
         # Vectores con los que se trabaja en el video
         A1, A2, B1, B2 = 1, 3, 4, 2
-        #A1, A2, B1, B2 = -2, -2, 1, 1
+        #A1, A2, B1, B2 = -2, -2, 1, -1
         VecA = Arrow((0,0,0), (A1,A2,0), color = AZUL, buff = 0)
         VecB = Arrow((0,0,0), (B1,B2,0), color = ROJO, buff = 0)
 
@@ -61,36 +61,34 @@ class Escena4(ThreeDScene):
         Texto_Producto_group = VGroup(Texto_Producto_bg,Texto_Producto,Resultado)
 
         # Texto para coordenadas de los vectores
-        Coma_2 = Tex(''',l''').move_to(DOWN*2+RIGHT*1)
-        Coma_2[0][1].set_color(BLACK)
-        Texto_Coord_B_1 = DecimalNumber(VecB.get_end()[0]).next_to(Coma_2,LEFT,buff=0.4)
-        Texto_Coord_B_2 = DecimalNumber(VecB.get_end()[1]).next_to(Coma_2,RIGHT,buff=0.1)
-        Parentesis_Derecho_2 = Tex(''')''').next_to(Texto_Coord_B_2,RIGHT,buff=0.4)
+        Parentesis_Izquierdo_1 = Tex('''\\Big(''').move_to(DOWN*2+LEFT*2)
+        Texto_Coord_A_2 = DecimalNumber(VecA.get_end()[1]).next_to(Parentesis_Izquierdo_1,RIGHT*0.6,\
+            aligned_edge=Parentesis_Izquierdo_1.get_bottom(),buff=0.4)
+        Texto_Coord_A_1 = DecimalNumber(VecA.get_end()[0]).next_to(Texto_Coord_A_2,UP)
+        Parentesis_Derecho_1 = Tex('''\\Big)''').next_to(Parentesis_Izquierdo_1,RIGHT*3.5,buff=0.4)
+        Operador = Tex('''$\\cdot$''').next_to(Parentesis_Derecho_1,RIGHT,buff=0.1)
+        Parentesis_Izquierdo_2 = Tex('''\\Big(''').next_to(Operador,RIGHT,buff=0.1)
+        Texto_Coord_B_2 = DecimalNumber(VecB.get_end()[1]).next_to(Parentesis_Izquierdo_2,RIGHT*0.45,\
+            aligned_edge=Parentesis_Izquierdo_2.get_bottom(),buff=0.4)
+        Texto_Coord_B_1 = DecimalNumber(VecB.get_end()[0]).next_to(Texto_Coord_B_2,UP)
+        Parentesis_Derecho_2 = Tex('''\\Big)''').next_to(Parentesis_Izquierdo_2,RIGHT*3.5,buff=0.4)
         Aprox = Tex('''$\\approx$''').next_to(Parentesis_Derecho_2,RIGHT,buff=0.1)
-        Parentesis_Izquierdo_2 = Tex('''(''').next_to(Texto_Coord_B_1,LEFT,buff=0.1)
-        Operador = Tex('''$\\cdot$''').next_to(Parentesis_Izquierdo_2,LEFT,buff=0.1)
         Resultado_2 = DecimalNumber(producto_punto(VecA,VecB)).next_to(Parentesis_Derecho_2,RIGHT, buff=0.7)
-        Parentesis_Derecho_1 = Tex(''')''').next_to(Operador,LEFT,buff=0.1)
-        Texto_Coord_A_2 = DecimalNumber(VecA.get_end()[1]).next_to(Parentesis_Derecho_1,LEFT,buff=0.4)
-        Coma_1 = Tex(''',l''').next_to(Texto_Coord_A_2,LEFT,buff=0)
-        Coma_1[0][1].set_color(BLACK)
-        Texto_Coord_A_1 = DecimalNumber(VecA.get_end()[0]).next_to(Coma_1,LEFT,buff=0.4)
-        Parentesis_Izquierdo_1 = Tex('''(''').next_to(Texto_Coord_A_1,LEFT,buff=0.1)
         Resultado_2.add_updater( lambda x: x.set_value(producto_punto(VecA,VecB)) )
         Texto_Coord_A_1.add_updater( lambda x: x.set_value(VecA.get_end()[0]) )
         Texto_Coord_A_2.add_updater( lambda x: x.set_value(VecA.get_end()[1]) )
         Texto_Coord_B_1.add_updater( lambda x: x.set_value(VecB.get_end()[0]) )
         Texto_Coord_B_2.add_updater( lambda x: x.set_value(VecB.get_end()[1]) )
-        Espacio_vacio_2 = Tex(''' - - - - ''').set_color(BLACK)
+        Espacio_vacio_2 = Tex(''' - - ''').set_color(BLACK)
         Espacio_vacio_2.next_to(Resultado_2, RIGHT, buff = 0, aligned_edge=Espacio_vacio_2.get_bottom())
         Texto_Coordenadas_A = VGroup(Parentesis_Izquierdo_1, Texto_Coord_A_1 \
-            , Coma_1, Texto_Coord_A_2, Parentesis_Derecho_1)
+            , Texto_Coord_A_2, Parentesis_Derecho_1)
         Texto_Coordenadas_B = VGroup(Parentesis_Izquierdo_2, Texto_Coord_B_1 \
-            , Coma_2, Texto_Coord_B_2, Parentesis_Derecho_2)
+            , Texto_Coord_B_2, Parentesis_Derecho_2)
         Texto_Coordenadas_bg = SurroundingRectangle(VGroup(Parentesis_Izquierdo_1 \
             , Parentesis_Izquierdo_2,Texto_Coord_A_1,Texto_Coord_A_2,Operador,Texto_Coord_B_1 \
                 , Texto_Coord_B_2,Parentesis_Derecho_1, Parentesis_Derecho_2, Resultado_2 \
-                , Coma_1, Coma_2, Espacio_vacio_2), color = WHITE, fill_color = BLACK, fill_opacity = 1)
+                , Espacio_vacio_2), color = WHITE, fill_color = BLACK, fill_opacity = 1)
         Texto_Coordenadas = VGroup(Texto_Coordenadas_bg, Texto_Coordenadas_A \
             , Texto_Coordenadas_B, Operador, Aprox, Resultado_2)
 
@@ -286,6 +284,11 @@ class Escena4(ThreeDScene):
             ,(proyeccion(VecB,VecA)[0],proyeccion(VecB,VecA)[1],0)\
                 , stroke_width=5 , buff = 0.05).set_color(AMARILLO)
 
+        # Rayo que delimita el desplazamiento del vector B sin que cambie el producto escalar, por abajo.
+        Rayo_extremo_2_2 = DashedLine((B1-10*A2,B2+10*A1,0)\
+            ,(proyeccion(VecB,VecA)[0],proyeccion(VecB,VecA)[1],0)\
+                , stroke_width=5 , buff = 0.05).set_color(AMARILLO)
+
         # ValueTracker usado para girar el vector A.
         VT_A_3 = ValueTracker(np.arctan(A2/A1))
 
@@ -423,9 +426,11 @@ class Escena4(ThreeDScene):
         self.wait()
         VecA.add_updater(upd_for_vecA_2)
         self.wait()
+        self.play(VT_A_2.animate.set_value(-0.5),run_time=2)
         self.play(VT_A_2.animate.set_value(1),run_time=2)
         self.play(Create(Rayo_extremo_1_2))
         self.play(VT_A_2.animate.set_value(2),run_time=2)
+        self.play(VT_A_2.animate.set_value(3.5),run_time=2)
         self.play(VT_A_2.animate.set_value(0),run_time=2)
         self.wait()
         self.play(FadeOut(VGroup(Rayo_extremo_1,Rayo_extremo_1_2)))
@@ -435,9 +440,12 @@ class Escena4(ThreeDScene):
         self.play(Create(Rayo_extremo_2))
         self.wait()
         VecB.add_updater(upd_for_vecB_2)
+        self.play(VT_B_2.animate.set_value(-1),run_time=2)
         self.play(VT_B_2.animate.set_value(1),run_time=2)
+        self.play(Create(Rayo_extremo_2_2))
+        self.play(VT_B_2.animate.set_value(2),run_time=2)
         self.play(VT_B_2.animate.set_value(0),run_time=2)
-        self.play(FadeOut(Rayo_extremo_2))
+        self.play(FadeOut(VGroup(Rayo_extremo_2,Rayo_extremo_2_2)))
         self.wait()
         self.play(Create(VecSombra_1))
         self.wait()
@@ -456,6 +464,6 @@ class Escena4(ThreeDScene):
         self.play(Write(self.grid))
         self.Signo()
 
-#if __name__ == '__main__':
-#    import os
-#    os.system('manim -pql D:/dariortizq/Dario/Animathica/alganim/1/PEyBO_E3_SE2.py --disable_caching')
+if __name__ == '__main__':
+    import os
+    os.system('manim -pql D:/dariortizq/Dario/Animathica/alganim/1/PEyBO_E3_SE2.py --disable_caching')
