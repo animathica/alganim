@@ -464,6 +464,6 @@ class Escena4(ThreeDScene):
         self.play(Write(self.grid))
         self.Signo()
 
-if __name__ == '__main__':
-    import os
-    os.system('manim -pql D:/dariortizq/Dario/Animathica/alganim/1/PEyBO_E3_SE2.py --disable_caching')
+#if __name__ == '__main__':
+#    import os
+#    os.system('manim -pqh D:/dariortizq/Dario/Animathica/alganim/1/PEyBO_E3_SE2.py --disable_caching')
