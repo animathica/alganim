@@ -43,7 +43,6 @@ class Escena4(ThreeDScene):
 
         # Vectores con los que se trabaja en el video
         A1, A2, B1, B2 = 1, 3, 4, 2
-        #A1, A2, B1, B2 = -2, -2, 1, -1
         VecA = Arrow((0,0,0), (A1,A2,0), color = AZUL, buff = 0)
         VecB = Arrow((0,0,0), (B1,B2,0), color = ROJO, buff = 0)
 
@@ -381,11 +380,6 @@ class Escena4(ThreeDScene):
         self.add_foreground_mobject(Texto_Producto)
         self.play(ReplacementTransform(Texto_Producto_bg,Texto_Coordenadas_bg))
         self.remove_foreground_mobject(Texto_Producto)
-        #self.play(ReplacementTransform( Texto_Producto[0][0], Texto_Coordenadas_A ) \
-        #    , ReplacementTransform( Texto_Producto[0][2], Texto_Coordenadas_B ) \
-        #        , ReplacementTransform(Texto_Producto[0][1], Operador) \
-        #            , ReplacementTransform(Texto_Producto[0][3], Aprox) \
-        #                , ReplacementTransform(Resultado, Resultado_2))
         self.play(FadeOut(VGroup(Texto_Producto[0][0],Texto_Producto[0][2],Texto_Producto[0][1],\
             Texto_Producto[0][3],Resultado)),Write(VGroup(Texto_Coordenadas_A,\
                 Texto_Coordenadas_B,Operador,Aprox)))
