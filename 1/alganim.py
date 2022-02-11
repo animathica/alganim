@@ -1,5 +1,6 @@
 from manim import *
 from manim.mobject.geometry import ArrowTriangleFilledTip
+import warnings
 
 class DashedArrow(DashedLine):
     """An arrow.
@@ -89,3 +90,56 @@ class DashedArrow(DashedLine):
                 family=False,
             )
         return self
+
+
+### Esta es la función de proyección ortogonal, ya general.
+def OrthogonalProjection(VectorA, VectorB, color="#FFFF00", n_rays=25, dashed=True):
+    # Vector A will be projected onto vector B.
+    # Coordinates of each vector.
+    Ax,Ay,_ = VectorA.get_end()
+    Bx,By,_ = VectorB.get_end()
+    # If vectors are orthogonal, there is no projection.
+    if np.dot((Ax,Ay),(Bx,By)) == 0:
+        warnings.warn("Vectors are orthogonal.")
+        return
+    # Coordinates of a vector orthogonal to B, in the desired direction.
+    if np.linalg.norm((Ax+By,Ay-Bx)) < np.linalg.norm((Ax-By,Ay+Bx)):
+        Ox,Oy = -By,Bx
+    else:
+        Ox,Oy = By,-Bx
+    # List where each of the rays will be stored.
+    rays = []
+    # List where the coordinates of each ray will be stored.
+    rayCoordinates = []
+    # Computation of the projection and its norm.
+    Px = ((Ax*Bx + Ay*By)/(Bx**2 + By**2)) * Bx
+    Py = ((Ax*Bx + Ay*By)/(Bx**2 + By**2)) * By
+    projectionNorm = np.linalg.norm((Px,Py))
+    # Computation of each of the rays' coordinates.
+    h = 1 if np.dot((Ax,Ay),(Bx,By)) > 0 else \
+         - 1.3*(np.linalg.norm((Px,Py))/np.linalg.norm((Bx,By)))
+    for i in range(0,n_rays+1):
+        Rx = 0 + h*i*(Bx/n_rays)
+        Ry = 0 + h*i*(By/n_rays)
+        rayNorm = np.linalg.norm((Rx,Ry))
+        if rayNorm < projectionNorm:
+            inter = line_intersection(((0,0),(Ax,Ay)),\
+                ((Rx,Ry),(Rx + Ox,Ry + Oy)))
+            rayCoordinates.append([inter[0],inter[1]])                
+        else:
+            rayCoordinates.append((Rx,Ry))
+    # Generating each ray.
+    for i in rayCoordinates:
+                if dashed:
+                    ray = DashedLine( [i[0]+10*Ox,i[1]+10*Oy,0], [i[0],i[1],0], \
+                        stroke_width=5, buff = 0.05).set_color(color)
+                else:
+                    ray = Line( [i[0]+10*Ox,i[1]+10*Oy,0], [i[0],i[1],0], \
+                        stroke_width=5, buff = 0.05).set_color(color)
+                rays.append(ray)
+    # Creating a group containing the rays.
+    rayGroup = VGroup()
+    for i in rays:
+        rayGroup.add(i)
+    # The function returns they rays, they still need to be animated.
+    return(rayGroup)
