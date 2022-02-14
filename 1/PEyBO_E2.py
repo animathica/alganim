@@ -31,6 +31,7 @@ class SE1(MovingCameraScene):
     #-------------------------------------------------------Propiedades del producto escalar en un campo K
      def propiedades(self):
          
+         t0 = Tex("Producto escalar").scale(.8)
          t1 =  MathTex("\langle\cdot, \cdot\\rangle:V\\times V\\to K ").scale(.8).shift(LEFT)
 
          p1 =  MathTex("\\forall \ \\vec{u}, \\vec{v}, \\vec{w}&\in V, \ \\forall \ a\in K ").scale(.6)
@@ -73,6 +74,8 @@ class SE1(MovingCameraScene):
 
          #ANIMACIONES#
          self.play(self.camera.frame.animate.move_to(UP))
+         t0.move_to(3.5*UP).shift(.2*LEFT)
+         self.play(Write(t0))
          t1.next_to(g1, 7*UP).shift(.45*LEFT)
          self.play(Write(t1))
          p1.next_to(t1, DOWN)
