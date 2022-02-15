@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from re import S
 from typing_extensions import runtime
 from manim import *
 from alganim import DashedArrow
@@ -664,3 +665,57 @@ class Subescena_1(Scene):
       self.play(Create(paloma))
       self.add_foreground_mobjects(paloma)
       self.play(paloma.animate.set_opacity(1))
+      self.wait(3)
+
+      self.play(FadeOut(vec_g1), FadeOut(vec_g2))
+      self.play(
+            *[FadeOut(mob) for mob in self.mobjects],
+            run_time=1)
+
+
+      ###### OBJETOS  Sección Final
+
+      esunprod = Tex(" es un producto escalar en ").scale(0.7).shift(2*RIGHT)
+
+      pe_r2_a = MathTex(r"= u_1v_1 + u_2v_2").next_to(esunprod, LEFT).scale(0.9)
+      pe_r2_b = MathTex(r"= \sum_{i=1}^2 u_i v_i" ).next_to(esunprod, LEFT).scale(0.9)
+      pe_r3= MathTex(r"= \sum_{i = 1}^3 u_i v_i").next_to(esunprod, LEFT).scale(0.9)
+      pe_rn= MathTex(r"= \sum_{i = 1}^n u_i", r" v_i").next_to(esunprod, LEFT).scale(0.9)
+      pe_cn= MathTex(r"= \sum_{i = 1}^n u_i ",r"\bar{v}_i").next_to(esunprod, LEFT).scale(0.9)
+
+      dos_tupla = MathTex(r" \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}").next_to(pe_r2_a, LEFT).scale(0.9)
+      tres_tupla = MathTex(r" \begin{pmatrix} u_1 \\ u_2 \\ u_3 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix}").next_to(pe_r3, LEFT).scale(0.9)
+      n_tupla = MathTex(r" \begin{pmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \\  \vdots \\ v_n \end{pmatrix}").next_to(pe_rn, LEFT).scale(0.9)
+      erre2 = MathTex(r"\mathbb{R}^2").next_to(esunprod, RIGHT).scale(0.9)
+      erre3 = MathTex(r"\mathbb{R}^3").next_to(esunprod, RIGHT).scale(0.9)
+      erren = MathTex(r"\mathbb{R}^n").next_to(esunprod, RIGHT).scale(0.9)
+      cn = MathTex(r"\mathbb{C}^n").next_to(esunprod, RIGHT).scale(0.9)
+
+      ##### ANIMACIONES Sección Final
+
+      self.play(Write(dos_tupla), Write(pe_r2_a), Write(esunprod), Write(erre2))
+      self.wait()
+
+      # R2 notación sigma
+      self.play(ReplacementTransform(pe_r2_a,pe_r2_b),dos_tupla.animate.next_to(pe_r2_b, LEFT), runtime = 2)
+      self.wait()
+
+      #R3
+      self.play(ReplacementTransform(dos_tupla,tres_tupla), ReplacementTransform(pe_r2_b,pe_r3)\
+         , ReplacementTransform(erre2, erre3), runtime = 2)
+      self.wait()
+
+      #RN
+      self.play(ReplacementTransform(tres_tupla,n_tupla), ReplacementTransform(pe_r3,pe_rn)\
+         , ReplacementTransform(erre3, erren), runtime = 2)
+      self.wait()
+      
+      #CN
+      self.play( ReplacementTransform(pe_rn[1],pe_cn[1])\
+         , ReplacementTransform(erren, cn), runtime = 2)
+      self.wait()
+
+      self.play(
+            *[FadeOut(mob) for mob in self.mobjects],
+            run_time=1)
+
