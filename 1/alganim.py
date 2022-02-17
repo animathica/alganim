@@ -141,5 +141,5 @@ def OrthogonalProjection(VectorA, VectorB, color="#FFFF00", n_rays=25, dashed=Tr
     rayGroup = VGroup()
     for i in rays:
         rayGroup.add(i)
-    # The function returns they rays, they still need to be animated.
+    # The function returns the rays, they still need to be animated.
     return(rayGroup)
