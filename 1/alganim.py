@@ -169,15 +169,14 @@ def Span1d(x,y,number_tips=10):
     return span
 
 class spanArrow(Arrow):
-    def __init__(self, direction=RIGHT, buff=0, **kwargs):
+    def __init__(self, direction=RIGHT, buff=0, number_tips=5, **kwargs):
         self.buff = buff
         if len(direction) == 2:
             direction = np.hstack([direction, 0])
         super().__init__(ORIGIN, direction, buff=buff, **kwargs)
-        self.add_tips()
+        self.add_tips(number_tips)
 
-    def add_tips(self):
-        number_tips=5
+    def add_tips(self,number_tips):
         x,y = self.get_end()[0],self.get_end()[1]
         for i in range(1,number_tips):
             tip = ArrowTriangleFilledTip(color=self.get_color())
