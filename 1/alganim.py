@@ -143,3 +143,44 @@ def OrthogonalProjection(VectorA, VectorB, color="#FFFF00", n_rays=25, dashed=Tr
         rayGroup.add(i)
     # The function returns the rays, they still need to be animated.
     return(rayGroup)
+
+def Span1d(x,y,number_tips=10):
+
+    x,y = x/np.linalg.norm((x,y)),y/np.linalg.norm((x,y))
+    X,Y = 10*x,10*y
+
+    span = VGroup()
+
+    spanLine = Line((-X,-Y,0),(X,Y,0),
+                        tip_length=0.2,
+                        stroke_color=[BLUE],
+                    )
+    
+    span.add(spanLine)
+
+    for i in range(number_tips):
+        spanTip1 = ArrowTriangleFilledTip()
+        spanTip1.move_to((x*(i+1),y*(i+1),0)).rotate(np.arctan(y/x)+PI)
+        span.add(spanTip1)
+        spanTip2 = ArrowTriangleFilledTip()
+        spanTip2.move_to((-x*(i+1),-y*(i+1),0)).rotate(np.arctan(y/x))
+        span.add(spanTip2)
+
+    return span
+
+class spanArrow(Arrow):
+    def __init__(self, direction=RIGHT, buff=0, **kwargs):
+        self.buff = buff
+        if len(direction) == 2:
+            direction = np.hstack([direction, 0])
+        super().__init__(ORIGIN, direction, buff=buff, **kwargs)
+        self.add_tips()
+
+    def add_tips(self):
+        number_tips=5
+        x,y = self.get_end()[0],self.get_end()[1]
+        for i in range(1,number_tips):
+            tip = ArrowTriangleFilledTip(color=self.get_color())
+            tip.move_to(((x/number_tips)*i,(y/number_tips)*i,0)).rotate(np.arctan(y/x)+PI)
+            self.add(tip)
+        return self
