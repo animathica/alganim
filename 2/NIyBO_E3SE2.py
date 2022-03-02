@@ -5,7 +5,7 @@ from manim import *
 
 
 #####################################################################################
-###############################  Segunda escena  ####################################
+###############################  Tercera escena  ####################################
 ###############################  versión: Manim Community v0.14.0   ##################
 #####################################################################################
 
@@ -46,11 +46,10 @@ class Subescena2(MovingCameraScene):
 
 
 
-       texto3 = MathTex(r"N=\{\vec{n}_1,...,\vec{n}_k\}" ).scale(.5)
-       texto4 = MathTex(r"\text{ es base \emph{ortonormal} de } V \text{ si}").scale(.5)
+       texto3 = MathTex(r"N=\{\vec{n}_1,...,\vec{n}_k\}",r"\text{ es base \emph{ortonormal} de } V \text{ si}").scale(.5)
        texto5 = MathTex(r"\text{dim}(V)=k.").scale(.5)
-       texto5_c1 = Tex("$\\langle \\vec{n}_i, \\vec{n}_i\\rangle = 1 \\ $~", "si~","$i = j$").scale(.6)
-       texto5_c2 = Tex("$0 \\ $~", " si~", " $i \\neq j,$").scale(.6)
+       texto5_c1 = Tex("$\\langle \\vec{n}_i, \\vec{n}_i\\rangle = 1 \\ $~", "si~","$i = j$").scale(.5)
+       texto5_c2 = Tex("$0 \\ $~", " si~", " $i \\neq j,$").scale(.5)
        for i, item in enumerate(texto5_c2):
           item.align_to(texto5_c1[i], LEFT)
        texto5_c1g = VGroup(*texto5_c1)
@@ -58,14 +57,13 @@ class Subescena2(MovingCameraScene):
        texto5_c2g.next_to(texto5_c1g, DOWN)
        texto5_g = VGroup(texto5_c1g, texto5_c2g)
        b3 = Brace(texto5_g, .1*LEFT)
-       P_ij = b3.get_text("$\\langle \\vec{n}_i, \\vec{n}_j\\rangle$ =").scale(.6)
+       P_ij = b3.get_text("$\\langle \\vec{n}_i, \\vec{n}_j\\rangle$ =").scale(.5)
        nj_ni = VGroup(P_ij, b3, texto5_g).arrange(direction=RIGHT, buff=.15)
 
        N_ort = VGroup(nj_ni, texto5).arrange(direction=RIGHT, buff=0.75, center=True)
 
-       texto3.move_to(1.75*UP, aligned_edge=RIGHT)
-       texto4.move_to(3*UP)
-       texto4.next_to(texto3, direction=RIGHT)
+       texto3.move_to(1*LEFT)
+       texto3.move_to(1.6*UP, aligned_edge=RIGHT)
 
        self.wait()
        self.play(self.camera.frame.animate.move_to(1.5*UP))
@@ -83,9 +81,8 @@ class Subescena2(MovingCameraScene):
        self.wait(2)
        self.play(Write(texto3))
 
-       self.play(Write(texto4))
        self.wait(2)
-       N_ort[0].move_to(2*LEFT)
+       N_ort[0].move_to(1*LEFT)
 
 
        self.play(Write(N_ort[0]))
