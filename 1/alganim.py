@@ -1,9 +1,6 @@
 from manim import *
 from manim.mobject.geometry import ArrowTriangleFilledTip
 import warnings
-from numpy import double
-
-from sqlalchemy import false
 
 class DashedArrow(DashedLine):
     """An arrow.
@@ -219,3 +216,4 @@ class DoubleSpanArrow(DoubleArrow):
             tip.move_to((mx+((X2-mx)/number_tips)*i*2,my+((Y2-my)/number_tips)*i*2,0)).rotate(self.tip.tip_angle+PI)
             self.add(tip)
         return self
+        
