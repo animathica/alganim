@@ -1,6 +1,9 @@
 from manim import *
 from manim.mobject.geometry import ArrowTriangleFilledTip
 import warnings
+from numpy import double
+
+from sqlalchemy import false
 
 class DashedArrow(DashedLine):
     """An arrow.
@@ -168,7 +171,7 @@ def Span1d(x,y,number_tips=10):
 
     return span
 
-class spanArrow(Arrow):
+class SpanArrow(Arrow):
     def __init__(self, direction=RIGHT, buff=0, number_tips=5, **kwargs):
         self.buff = buff
         if len(direction) == 2:
@@ -178,8 +181,41 @@ class spanArrow(Arrow):
 
     def add_tips(self,number_tips):
         x,y = self.get_end()[0],self.get_end()[1]
-        for i in range(1,number_tips):
+        h = np.linalg.norm((x,y))/(np.linalg.norm((x,y))-(DEFAULT_ARROW_TIP_LENGTH/2))
+        X, Y = x/h, y/h
+        for i in range(number_tips-1,0,-1):
             tip = ArrowTriangleFilledTip(color=self.get_color())
-            tip.move_to(((x/number_tips)*i,(y/number_tips)*i,0)).rotate(np.arctan(y/x)+PI)
+            tip.move_to(((X/number_tips)*i,(Y/number_tips)*i,0)).rotate(self.tip.tip_angle+PI)
+            self.add(tip)
+        return self
+
+class DoubleSpanArrow(DoubleArrow):
+    def __init__(self, *args, **kwargs):
+        if "tip_shape_end" in kwargs:
+            kwargs["tip_shape"] = kwargs.pop("tip_shape_end")
+        if "number_tips" in kwargs:
+            number_tips = kwargs["number_tips"]
+            kwargs.pop("number_tips")
+        else:
+            number_tips=10
+        if "buff" not in kwargs:
+            kwargs["buff"] = 0
+        super().__init__(*args, **kwargs)
+        self.add_tips(number_tips)
+
+    def add_tips(self,number_tips):
+        x1,y1 = self.get_start()[0],self.get_start()[1]
+        x2,y2 = self.get_end()[0],self.get_end()[1]
+        h = np.linalg.norm((x2-x1,y2-y1))/(np.linalg.norm((x2-x1,y2-y1))-(DEFAULT_ARROW_TIP_LENGTH))
+        mx, my = (x1+x2)/2, (y1+y2)/2
+        X1, Y1 = mx + ((x1-mx)/h), my + ((y1-my)/h)
+        X2, Y2 = mx + ((x2-mx)/h), my + ((y2-my)/h)
+        for i in range((number_tips//2)-1,0,-1):
+            tip = ArrowTriangleFilledTip(color=self.get_color())
+            tip.move_to((mx+((X1-mx)/number_tips)*i*2,my+((Y1-my)/number_tips)*i*2,0)).rotate(self.tip.tip_angle)
+            self.add(tip)
+        for i in range((number_tips//2)-1,0,-1):
+            tip = ArrowTriangleFilledTip(color=self.get_color())
+            tip.move_to((mx+((X2-mx)/number_tips)*i*2,my+((Y2-my)/number_tips)*i*2,0)).rotate(self.tip.tip_angle+PI)
             self.add(tip)
         return self
