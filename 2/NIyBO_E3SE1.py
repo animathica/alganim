@@ -3,13 +3,13 @@ from manim import *
 
 
 #####################################################################################
-######################  Norma Inducida y bases Ortonormales  #######################
+######################  Producto escalar y bases ortogonales  #######################
 #####################################################################################
 
 
 #####################################################################################
 ###############################  Tercera escena ####################################
-###############################  versión: Manim Community v0.14.0   #################
+###############################  versión: Manim Community v0.8.0   ##################
 #####################################################################################
 
 ROJO = '#FF0000'
@@ -148,6 +148,25 @@ class Subescena1 (Scene):
                                r"\vec{v}",  # 13
                                ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
 
+
+      label_c = MathTex(r"{",  # 0
+                        r"\langle",  # 1
+                        r"\vec{u}",  # 2
+                        r",",  # 3
+                        r"\vec{v}",  # 4
+                        r"\rangle",  # 5
+                        r"\over",  # 6
+                        r"||", #7
+                        r"\vec{v}" #8
+                        r"||",  #9
+                        r"", #10
+                        r"", #11
+                        r"}",  # 12
+                        r"\hat{v}",  #13
+                        ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
+
+
+
       grid = NumberPlane(x_range=[-10, 10, 1], y_range=[-9, 9, 1],
       background_line_style={
       "stroke_width": 1, "stroke_opacity": 0.5}
@@ -232,3 +251,5 @@ class Subescena1 (Scene):
       self.play(ReplacementTransform(texto_m,texto_o))
       self.play(ReplacementTransform(texto_o,texto_p))
       self.play(ReplacementTransform(texto_p,texto_q))
+
+      self.play(ReplacementTransform(label_proy_u_v[7:12], label_c[7:12]), FadeOut(label_proy_u_v[12:]),FadeIn(label_c[12:]))
