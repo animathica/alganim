@@ -76,6 +76,6 @@ class DemoSpanArrow(ThreeDScene):
         self.cosas()
         self.wait(2)
 
-if __name__ == '__main__':
-    import os
-    os.system('manim -pqh D:/dariortizq/Dario/Animathica/alganim/alganimPy/demoSpanArrow.py')
+#f __name__ == '__main__':
+#    import os
+#    os.system('manim -pqh D:/dariortizq/Dario/Animathica/alganim/alganimPy/demoSpanArrow.py')
