@@ -47,3 +47,43 @@ class Subescena2(Scene):
 
   def construct(self):
              self.ecuaciones()
+ from manim import*
+AZUL = '#0087FF'
+ROJO = '#FF0000'
+
+class EscenaGeomtrica(MovingCameraScene):
+    def construct(self):
+     plano = NumberPlane(
+         x_range=[-10,10],
+         y_range=[-10,10],
+         background_line_style={
+             "stroke_color": TEAL,
+             "stroke_width": 3,
+             "stroke_opacity":.07
+         }
+     )
+     t1 = MathTex("\\frac{1}{||\\vec{u}||}=\\vec{u}")
+     t2 = MathTex("\\vec{u}=||\\vec{u}||\\vec{u}")
+     t3 = MathTex("||\\vec{u}||")
+     v1 = Vector ([1,1], color=AZUL)
+     v2 = Vector([2,2], color=ROJO)
+     p_1 =(0,0,0)
+     p_2 =(1,1,0)
+     b1 = BraceBetweenPoints(p_1, p_2)
+
+
+     
+     self.play(Write(t1))
+     t2.next_to(t1, DOWN)
+     self.wait(6)
+     self.play(Write(t2))
+     self.wait(5)
+     t1.move_to(2*LEFT+3*UP)
+     t2.move_to(2*LEFT+2*UP)
+     self.play(self.camera.frame.animate.move_to(RIGHT+1.5*UP))
+     self.play(Write(plano))
+     self.play(Write(v1))
+     self.play(Write(v2))
+     self.play(Write(b1))
+     t3.next_to(b1, .3*RIGHT+.01*DOWN)
+     self.play(Write(t3))     
