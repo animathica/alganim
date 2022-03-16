@@ -6,31 +6,44 @@ class Subeescena1(Scene):
      t0 = Tex("Norma")
      t1 = MathTex("||\\cdot||:V \\to \\mathbb{R}").scale(.6)
      p1 = MathTex("\\forall \ \\vec{u}\\in V \ \\forall \ a\\in K").scale(.6)
-     p2 = MathTex("||a\\vec{u}||= |a| \ ||\\vec{u}||").scale(.6)
-     p3 = MathTex("||\\vec{u}|| = 0  \\Longleftrightarrow  \\vec{u} = \\vec{0}").scale(.6)
-     p4 = MathTex("||\\vec{u}+\\vec{v}|| \\le  ||\\vec{u}|| + ||\\vec{v}||").scale(.6)
-     g1 = VGroup(p1, p2, p3, p4).arrange(buff=.15, direction=DOWN, aligned_edge=LEFT )
-     t2 = Tex("Estabilidad absoluta").scale(.5)
-     t3 = Tex("Distinción del vector nulo").scale(.5) 
-     t4 = Tex("Desigualdad del triángulo").scale(.5)
 
-     t0.move_to(3*UP) 
+     p2 = MathTex("||a\\vec{u}||" , "=", "|a| \ ||\\vec{u}||").scale(.6).move_to(2*LEFT)
+     p3 = MathTex("||\\vec{u}|| = 0 ", " \\Longleftrightarrow", " \\vec{u} = \\vec{0}").scale(.6).next_to(p2, DOWN)
+     p4 = MathTex("||\\vec{u}+\\vec{v}|| ", "\\le", " ||\\vec{u}|| + ||\\vec{v}||").scale(.6).next_to(p3, DOWN)
+
+     pe2 = p2.get_part_by_tex("=")
+     pe3 = p3.get_part_by_tex("\\Longleftrightarrow").align_to(pe2, LEFT)
+     pe4 = p4.get_part_by_tex("\\le").align_to(pe3, LEFT)
+     p2.get_part_by_tex("||a\\vec{u}||").next_to(pe2, LEFT)
+     p2.get_part_by_tex("|a| \ ||\\vec{u}||").next_to(pe2, RIGHT)
+     p3.get_part_by_tex("||\\vec{u}|| = 0 ").next_to(pe3,LEFT)
+     p3.get_part_by_tex(" \\vec{u} = \\vec{0}").next_to(pe3, RIGHT)
+     p4.get_part_by_tex("||\\vec{u}+\\vec{v}|| ").next_to(pe4, LEFT)
+     p4.get_part_by_tex(" ||\\vec{u}|| + ||\\vec{v}||").next_to(pe4, RIGHT)
+
+     tinv = Tex("aaaa", color = BLACK).scale(0.6).next_to(p3, RIGHT)
+     t2 = Tex("Estabilidad absoluta").scale(0.6)
+     t3 = Tex("Distinción del vector nulo").scale(0.6)
+     t4 = Tex("Desigualdad del triángulo").scale(0.6)
+
+     g= VGroup(t2,t3,t4).arrange(direction=DOWN, aligned_edge= LEFT)
+     g.next_to(tinv, RIGHT)
+     t0.move_to(2.5*UP)
      self.play(Write(t0))
-     t1.move_to(2.5*UP)
+     t1.move_to(2*UP)
+     p1.move_to(1.3*UP)
      self.play(Write(t1))
-     for element in g1:
-         self.play(Write(element), run_time=2.3)
-     t2.next_to(p2, 2*RIGHT)
-     t3.next_to(p3, 2*RIGHT)
-     t4.next_to(p4, 2*RIGHT)
-     self.play(Write(t2))    
+     self.play(Write(p1))
+
+     self.play(Write(p2))
+     self.play(Write(p3))
+     self.play(Write(p4))
+     self.play(Write(t2))
      self.play(Write(t3))
      self.play(Write(t4))
 
-
   def construct(self):
              self.propiedades()
-
 
 class Subescena2(Scene):
   def ecuaciones(self):
