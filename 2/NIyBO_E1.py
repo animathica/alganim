@@ -60,9 +60,35 @@ class Subescena2(Scene):
 
   def construct(self):
              self.ecuaciones()
- from manim import*
-AZUL = '#0087FF'
-ROJO = '#FF0000'
+
+
+class Demos(MovingCameraScene):
+    def demostracion(self):
+
+              
+     t1=MathTex("\\vec{v}\in V, \\vec{v}\\neq \\vec{0} \Rightarrow ||\\vec{v}||>0").scale(.8)
+     t2 =MathTex("\\frac{1}{||\\vec{v}||}\\vec{v}").scale(.8)
+     t3 = MathTex("||\\frac{1}{||\\vec{v}||}||=\\frac{1}{||\\vec{v}||} ||\\vec{v}||").scale(.8)
+     t4 = MathTex("= \\frac{1}{||\\vec{v}||}||\\vec{v}||").scale(.8)
+     t5 = MathTex("= 1").scale(.8)
+     
+     self.play(self.camera.frame.animate.move_to(2*DOWN))
+     self.play(Write(t1))
+     t2.next_to(t1, DOWN)
+     self.play(Write(t2))
+     t3.next_to(t2, DOWN)
+     self.play(Write(t3))
+     t4.next_to(t3, DOWN)
+     self.play(Write(t4))
+     t5.next_to(t4, DOWN)
+     self.play(Write(t5))
+    
+    def construct(self):
+            self.demostracion()     
+      
+      
+      
+      
 
 class EscenaGeomtrica(MovingCameraScene):
     def construct(self):
