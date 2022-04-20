@@ -68,23 +68,56 @@ class Demos(MovingCameraScene):
               
      t1=MathTex("\\vec{v}\in V, \\vec{v}\\neq \\vec{0} \Rightarrow ||\\vec{v}||>0").scale(.8)
      t2 =MathTex("\\frac{1}{||\\vec{v}||}\\vec{v}").scale(.8)
-     t3 = MathTex("||\\frac{1}{||\\vec{v}||}||=\\frac{1}{||\\vec{v}||} ||\\vec{v}||").scale(.8)
+     t3 = MathTex("|\\frac{1}{||\\vec{v}||}|").scale(.8)
+     t3_2=MathTex("=|\\frac{1}{||\\vec{v}||}|||\\vec{v}||").scale(.8)
      t4 = MathTex("= \\frac{1}{||\\vec{v}||}||\\vec{v}||").scale(.8)
-     t5 = MathTex("= 1").scale(.8)
+     t5 = MathTex("= 1.").scale(.8)
+     t6 = MathTex("=\\hat{v}").scale(.8)
+     g1=VGroup(t3_2,t4,t5,t6).arrange(direction=DOWN, aligned_edge=LEFT).shift(DOWN)
+     t7 = MathTex("U={\\vec{u_{1}},...,\\vec{u_{k}}} \\subseteq V").scale(.6)
+     t8 = Tex("Es normal si").scale(.6)
+     t9 = MathTex("||\\vec{u_i}||=1 \ si \  1<i<k ").scale(.6)
+     t10 =MathTex("\\vec{0} \\notin {{\\vec{v_1},...,\\vec{v_i}}} \\subseteq V").scale(.6)
+     t11 = MathTex("\Rightarrow {{\\vec{v_1},...,\\vec{v_k}}} \Rightarrow \\subseteq ").scale(.6)
+     t12 = Tex("V es un conjunto normal").scale(.6)
+     t13 = MathTex("\\vec{v}=||\\vec{v}||\\hat{v}").scale(.6)
+
+     t1.move_to(UP+.02*LEFT)
+     t2.next_to(t1, DOWN).shift(.01*RIGHT)
+     t3.next_to(t2, DOWN+.05*LEFT)            
+     t3_2.next_to(t3, RIGHT)
+     t4.next_to(t3_2, DOWN).shift(.1*LEFT)
+     t5.next_to(t4, DOWN).shift(.53*LEFT)
      
-     self.play(self.camera.frame.animate.move_to(2*DOWN))
+     t6.next_to(t2, RIGHT).shift(.94*LEFT)
      self.play(Write(t1))
-     t2.next_to(t1, DOWN)
      self.play(Write(t2))
-     t3.next_to(t2, DOWN)
      self.play(Write(t3))
-     t4.next_to(t3, DOWN)
-     self.play(Write(t4))
-     t5.next_to(t4, DOWN)
-     self.play(Write(t5))
+     t2.move_to(.75*LEFT)
+     for element in g1:
+         self.play(Write(element), run_time=2.3)
+
+     self.play(self.camera.frame.animate.move_to(2*DOWN))
     
+     self.play(FadeOut(t3,t3_2,t4,t5))
+     t7.next_to(t2, DOWN).shift(LEFT)
+     self.play(Write(t7))
+     t8.next_to(t7, RIGHT)
+     self.play(Write(t8))
+     t9.next_to(t8, RIGHT)
+     self.play(Write(t9))
+     t10.next_to(t7, DOWN).shift(.1*LEFT)
+     self.play(Write(t10))
+     t11.next_to(t10, RIGHT)
+     self.play(Write(t11))
+     t12.next_to(t11, RIGHT).shift(.1*LEFT)
+     self.play(Write(t12))
+     self.play(FadeOut(t7,t8,t9,t10,t11,t12,t6))
+     self.play(Transform(t2,t13))
+
+
     def construct(self):
-            self.demostracion()     
+            self.demostracion()
       
       
       
