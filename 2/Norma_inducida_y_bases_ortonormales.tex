@@ -185,7 +185,7 @@ La última propiedad se conoce como la \emph{desigualdad del triángulo}, dado q
 
 \begin{align*}
      & & &\quad \text{Norma}& \\
-     & & &||\cdot||:V\to K& \\
+     & & &||\cdot||:V\to \mathbb{R}& \\
      \\
      \forall \ \vec{u}\in V, \ \forall \ a\in K, \\
      \\
@@ -220,25 +220,50 @@ Supongamos que en un espacio vectorial normado tenemos un vector no nulo, y lo q
 
 \noindent Este proceso de reescalar a un vector no nulo por el inverso multiplicativo de su norma para convertirlo en un vector de norma uno se conoce como \emph{normalización}, y a los vectores con norma igual a uno se les conoce como vectores \emph{normales} o \emph{unitarios}, y se les suele denotar de esta forma
 \[
+    \vec{v}\in V, \vec{v}\neq \vec{0} \Rightarrow ||\vec{v}||>0.
+\] 
+
+\[
     \frac{1}{||\vec{v}||} \vec{v} = \hat{v}
 \] 
-Notemos que, dado que la norma de $\vec{v}$ es positiva, el vector normal que hemos obtenido efectivamente apunta en la misma dirección y sentido que el vector original.
-
-Si multiplicamos ambos lados de la igualdad anterior por la norma de $\vec{v}$, obtenemos la siguiente ecuación
+Dado que la norma de $\vec{v}$ es positiva, el vector normal que hemos obtenido efectivamente apunta en la misma dirección y sentido que el vector original. Decimos que un conjunto de vectores en un espacio normado es \emph{normal} si todos sus vectores son normales
 \[
-    \vec{v}= ||\vec{v}|| \hat{v}
+    \vec{v}\in V, \vec{v}\neq \vec{0} \Rightarrow ||\vec{v}||>0.
 \] 
-Esta igualdad nos dice que, en un espacio normado, cualquier vector no nulo $\vec{v}$ es igual al vector normal en su misma dirección y sentido reescalado\footnote{Enfatizar a $\hat{v}$.} por su norma\footnote{Enfatizar a $||\vec{v}||$.}. Por ende, podemos interpretar geométricamente a la norma de un vector como la longitud de la flecha que lo representa. De esta manera, la norma nos da una noción de la \emph{magnitud} de un vector y, además, nos sirve como una escala con la cual comparar a diferentes vectores. Más aún, a partir de cualquier norma se puede definir una \emph{métrica inducida}, lo que nos da una noción de \emph{distancia} entre vectores\footnote{Escribir ``Ver Ejercicio 2.2.'' como nota al pie.}, aunque esto vas más allá del enfoque de esta serie de videos.
 
-Decimos que un conjunto de vectores en un espacio normado es \emph{normal} si todos sus vectores son normales
+\[
+    \frac{1}{||\vec{v}||} \vec{v} = \hat{v}
+\] 
+
 \[
     \text{U}=\{\vec{u}_1,...,\vec{u}_k\}\subseteq V \ \text{es \emph{normal} si } ||\vec{u}_i|| = 1 \text{ para } 1\le i\le k.
 \]
 Notemos que cualquier conjunto que \emph{no} contenga al vector nulo puede ser convertido en un conjunto normal, simplemente normalizando a cada uno de sus vectores:
 \[
+    \vec{v}\in V, \vec{v}\neq \vec{0} \Rightarrow ||\vec{v}||>0.
+\] 
+
+\[
+    \frac{1}{||\vec{v}||} \vec{v} = \hat{v}
+\] 
+
+\[
+    \text{U}=\{\vec{u}_1,...,\vec{u}_k\}\subseteq V \ \text{es \emph{normal} si } ||\vec{u}_i|| = 1 \text{ para } 1\le i\le k.
+\]
+
+\[
 \vec{0}\notin\{\vec{v}_1,...,\vec{v}_k\}\subseteq V \Rightarrow \{\hat{v}_1, ..., \hat{v}_k\}\subseteq V \text{ es un conjunto normal}.
 \] 
 
+Volvamos ahora a la ecuación anterior. Observemos que, si la multiplicamos de ambos lados por la norma de $\vec{v}$, obtenemos la siguiente ecuación
+\[
+    \vec{v}\in V, \vec{v}\neq \vec{0} \Rightarrow ||\vec{v}||>0.
+\] 
+
+\[
+    \vec{v}= ||\vec{v}|| \hat{v}
+\] 
+Esta igualdad nos dice que, en un espacio normado, cualquier vector no nulo $\vec{v}$ es igual al vector normal en su misma dirección y sentido reescalado por su norma. Por ende, podemos interpretar geométricamente a la norma de un vector como la longitud de la flecha que lo representa. De esta manera, la norma nos da una noción de la \emph{magnitud} de un vector y, además, nos sirve como una escala con la cual comparar a diferentes vectores. Más aún, a partir de cualquier norma se puede definir una \emph{métrica inducida}, lo que nos da una noción de \emph{distancia} entre vectores\footnote{Escribir ``Ver Ejercicio 2.2.'' como nota al pie.}, aunque esto vas más allá del enfoque de esta serie de videos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -356,7 +381,7 @@ Ejercicio 2.2 Una \emph{métrica} o \emph{función de distancia} en un conjunto 
     \item $d(x,y) \le d(x,z) + d(z,y)$ para cualesquiera $x,y,z\in X$.
 \end{enumerate}
 
-\noindent Demuestra que si $(V,K)$ es un espacio vectorial con norma $||\cdot||$, entonces la función dada por $d(\vec{x},\vec{y})=||\vec{x}-\vec{y}||$ para todo $\vec{x},\vec{y}\in V$ es una métrica en $V$. Por ende, toda norma \emph{induce} una métrica y, en particular, todo producto escalar positivo definido induce una métrica; sin embargo, existen métricas que no son inducidas por normas ni productos escalares. \\
+\noindent Demuestra que si $(V,K)$ es un espacio vectorial con norma $||\cdot||$, entonces la función dada por $d(\vec{u},\vec{v})=||\vec{u}-\vec{v}||$ para todo $\vec{u},\vec{v}\in V$ es una métrica en $V$. Por ende, toda norma \emph{induce} una métrica y, en particular, todo producto escalar positivo definido induce una métrica; sin embargo, existen métricas que no son inducidas por normas ni productos escalares. \\
 
 Ejercicio 2.3 Demuestra que todo conjunto ortonormal finito es linealmente independiente. \\
 
