@@ -243,7 +243,7 @@ e6p4 = split [180..200] ejercicio6
 ejercicio7 :: SVG    -- Definimos el SVG del primer ejercicio con los atributos deseados.
 ejercicio7 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
             withStrokeWidth 0 $ withFillOpacity 7 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
-                latexCfg myTexConfig "Ejercicio 1.7 Supongamos que $\\Gamma$ es una base ortogonal de $V$. Demuestra que, para todo $\\vec{v}\\in V$, tenemos que $$\\vec{v} = \\sum_{i=1}^k \\frac{\\langle \\vec{v}, \\vec{g}_i \\rangle}{\\langle \\vec{g}_i, \\vec{g}_i \\rangle} \\vec{g}_i;$$ más aún, demuestra que $$ \\bigg \\langle \\frac{\\langle \\vec{v}, \\vec{g}_i \\rangle}{\\langle \\vec{g}_i, \\vec{g}_i \\rangle} \\vec{g}_i, \\frac{\\langle \\vec{v}, \\vec{g}_j \\rangle}{\\langle \\vec{g}_j, \\vec{g}_j \\rangle} \\vec{g}_j \\bigg \\rangle = 0 \\ \\ \\text{si} \\ i\\neq j.$$"
+                latexCfg myTexConfig "Ejercicio 1.7 Demuestra que $\\Gamma$ es una base ortogonal de $V$ si, y sólo si, $$\\vec{v} = \\sum_{i=1}^k \\frac{\\langle \\vec{v}, \\vec{g}_i \\rangle}{\\langle \\vec{g}_i, \\vec{g}_i \\rangle} \\vec{g}_i \\quad \\forall \\vec{v}\\in V.$$ Más aún, demuestra que, en este caso, $$ \\bigg \\langle \\frac{\\langle \\vec{v}, \\vec{g}_i \\rangle}{\\langle \\vec{g}_i, \\vec{g}_i \\rangle} \\vec{g}_i, \\frac{\\langle \\vec{v}, \\vec{g}_j \\rangle}{\\langle \\vec{g}_j, \\vec{g}_j \\rangle} \\vec{g}_j \\bigg \\rangle = 0 \\ \\ \\text{si} \\ i\\neq j.$$"
 
 e7p0 :: SVG
 e7p0 = split [0..11] ejercicio7       -- Separamos la primera línea del ejercicio.
