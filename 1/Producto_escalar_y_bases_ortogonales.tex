@@ -217,7 +217,7 @@ Un producto escalar en un espacio vectorial es una operación que toma un par or
  &\text{Positivo definido}
 \end{align*}
 
-\noindent Juntando las propiedades de linealidad en la entrada izquierda y simetría conjugada, se puede demostrar que el producto escalar es una operación \emph{antilineal} en la entrada derecha\footnote{Escribir ``Ver Ejercicio 1.1.'' como nota al pie.}. Además, dado que esta operación es positivo definida, se puede demostrar que el producto escalar de un vector consigo mismo es igual a cero si, y sólo si, dicho vector es igual al vector nulo del espacio; este importante hecho será usado más adelante, por lo que hemos dejado su demostración como ejercicio al final del video\footnote{Escribir ``Ver Ejercicio 1.2.'' como nota al pie.}. En resumen, podemos decir que el producto escalar es una operación de dos entradas que es positivo definida, tiene una entrada lineal y una entrada antilineal.
+\noindent Juntando las propiedades de linealidad en la entrada izquierda y simetría conjugada, se puede demostrar que el producto escalar es una operación \emph{antilineal} en la entrada derecha\footnote{Escribir ``Ver Ejercicio 1.1 al final del video.'' como nota al pie.}. Además, dado que esta operación es positivo definida, se puede demostrar que el producto escalar de un vector consigo mismo es igual a cero si, y sólo si, dicho vector es igual al vector nulo del espacio; este importante hecho será usado más adelante, por lo que hemos dejado su demostración como ejercicio al final del video\footnote{Escribir ``Ver Ejercicio 1.2.'' como nota al pie.}. En resumen, podemos decir que el producto escalar es una operación de dos entradas que es positivo definida, tiene una entrada lineal y una entrada antilineal.
 
 \begin{align*}
     & &\text{Producto escalar}& &\\
@@ -251,7 +251,7 @@ Un producto escalar en un espacio vectorial es una operación que toma un par or
 %    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
 %\end{align*}
 
-Para ver la importancia de esta \emph{nueva} operación en la solución del problema presentado al inicio del video, debemos introducir la definición de ortogonalidad. Decimos que dos vectores son \emph{ortogonales} si su producto escalar es cero. Notemos que, como el complejo conjugado de cero es él mismo, por la propiedad de simetría conjugada se sigue que la ortogonalidad es una propiedad simétrica.
+Para ver la importancia de esta \emph{nueva} operación en la solución del problema presentado al inicio del video, debemos introducir la definición de ortogonalidad. Decimos que dos vectores son \emph{ortogonales} si su producto escalar es cero. Notemos que, como el complejo conjugado de cero es él mismo, por la propiedad de simetría conjugada se sigue que la ortogonalidad es una relación simétrica.
 
 \[
     \vec{u},\vec{v}\in V \ \text{son \emph{ortogonales}} \ (\vec{u}\perp\vec{v}) \ \text{si} \ \langle \vec{u} , \vec{v} \rangle = 0 \ \text{ó, equivalentemente,} \ \langle \vec{v} , \vec{u} \rangle = 0.
@@ -263,13 +263,21 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
     \Gamma=\{\vec{g}_1,...,\vec{g}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{g}_i , \vec{g}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
 \]
 
-\noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las siguientes condiciones\footnote{Tal vez quede mejor cambiando de lugar los dos casos de la expresión $\langle \vec{g}_j , \vec{g}_i \rangle$ aquí y en lo que sigue, pero no estoy seguro aún.}
+\noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las condiciones siguientes\footnote{Tal vez quede mejor cambiando de lugar los dos casos de la expresión $\langle \vec{g}_j , \vec{g}_i \rangle$ aquí y en lo que sigue, pero no estoy seguro aún.}
 
 \begin{align*}
     \Gamma=\{\vec{g}_1,...,\vec{g}_k\} \text{ es base \emph{ortogonal} de } V \text{ si}& & &\\
     \\
     \langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i, \end{cases}&\langle\Gamma\rangle = V. & &\\
 \end{align*}
+
+Para poder interpretar la ortogonalidad geométricamente, es de gran utilidad ver un ejemplo pero, para eso, necesitamos ver antes un ejemplo de producto escalar. A continuación, veremos un ejemplo en el espacio vectorial real $\mathbb{R}^2$ conocido comunmente como \emph{producto punto}, cuya regla de correspondencia es la siguiente. Veamos que esta operación efectivamente cumple las propiedades de producto escalar, demostrándolas una por una.
+\begin{align*}
+    \langle \cdot , \cdot \rangle&: \mathbb{R}^2\times\mathbb{R}^2\to \mathbb{R} \\ \\
+    \langle \vec{v} , \vec{w} \rangle = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} &\cdot \begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = v_1v_2 + w_1w_2
+\end{align*}
+
+Cabe resaltar que este producto punto, que acabamos de demostrar que es un producto escalar en $\mathbb{R}^2$, puede generalizarse fácilmente al espacio $\mathbb{R}^n$, e inclusive al espacio vectorial complejo $\mathbb{C}^n$. La demostración de que la operación en pantalla es un producto escalar queda como ejercicio para quien quiera hacerlo.
 
 %%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%
 
@@ -278,15 +286,14 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
 
 \subsection*{SE1}
 
+
+\subsection*{SE2}
+
 %Regresemos a la representación geométrica de nuestro problema en el caso del espacio vectorial real $\mathbb{R}^2$. Como quizá ya lo estés sospechando, la operación conocida como \emph{producto punto} es un ejemplo de un producto escalar en este espacio. Observemos que un conjunto que contiene a los vectores con entradas $\begin{pmatrix} 1 & 0 \end{pmatrix}$ y $\begin{pmatrix} 0 & 1 \end{pmatrix}$ forma una base ortogonal de este espacio, pues cumple con las propiedades descritas anteriormente. Aplicando el resultado anterior, se sigue que los coeficientes necesarios para expresar a nuestro vector arbitrario como combinación lineal de esta base ortogonal son los siguientes.
 
 %Ahora, observemos que cada término de la combinación lineal es un reescalamiento de uno de los vectores de la base. En otras palabras, cada término de la suma es igual a la componente de nuestro vector arbitrario que se encuentra en el subespacio generado por el elemento de la base que reescalamos. A dichas componentes se les conoce como las \emph{proyecciones vectoriales} de nuestro vector arbitrario sobre los elementos de nuestra base. En particular, esto nos dice que dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es el vector nulo. En particular, en el caso de los espacios reales, se sigue que el producto escalar de dos vectores es positivo si ambos apuntan en el mismo sentido, y negativo si apuntan en sentidos contrarios.
 
 %El razonamiento anterior se puede aplicar también en el caso general. Por lo tanto, geométricamente, podemos interpretar al producto escalar como una operación que nos permite calcular las proyecciones vectoriales de unos vectores sobre otros con facilidad.
-
-Hacer alguna mención sobre la generalización del producto punto a $\mathbb{R}^3$ y, más generalmente, $\mathbb{R}^n$ y $\mathbb{C}^n$.
-
-\subsection*{SE2}
 
 %%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%
 
@@ -409,5 +416,7 @@ Ejercicio 1.7 Demuestra que $\Gamma$ es una base ortogonal de $V$ si, y sólo si
 \[
 \bigg\langle \frac{\langle \vec{v} , \vec{g}_i \rangle}{\langle \vec{g}_i , \vec{g}_i \rangle} \vec{g}_i, \frac{\langle \vec{v} , \vec{g}_j \rangle}{\langle \vec{g}_j , \vec{g}_j \rangle} \vec{g}_j \bigg \rangle = 0 \ \ \text{si} \ \ i\neq j.
 \] 
+
+Pregunta 1.8 En un espacio vectorial \textbf{complejo} con producto escalar, ¿cómo puedes interpretar la operación de simetría conjugada \emph{geométricamente}? (Sugerencia: Considera el espacio vectorial complejo $\mathbb{C}$.)
 
 \end{document}

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from manim import *
-from manim.mobject.geometry import ArrowTriangleFilledTip
+from manim.mobject.geometry.tips import ArrowTriangleFilledTip
 #Dashed arrow para escena geométrica, ahora heredada de DashedLine e importada desde un archivo común
 from alganim import DashedArrow
 
@@ -11,7 +11,7 @@ from alganim import DashedArrow
 
 #####################################################################################
 ###############################  Primera escena  ####################################
-###############################  versión: Manim Community v0.8.0   ##################
+###############################  versión: Manim Community v0.15.2   #################
 #####################################################################################
 
 ROJO = '#FF0000'
@@ -173,19 +173,22 @@ class Subescena_1(Scene):
         self.play(FadeIn(dim_V),
                   run_time=3
                   )
-        self.wait(2)
+        self.wait()
         self.play(Write(group_1[0][:]),
                   run_time=0.5
                   )
+        self.wait(0.5)
         self.play(Write(group_1[1][:]),
-                  run_time=0.5
+                  run_time=1.0
                   )
-        self.wait(3)
-        self.play(Write(group_1[2][:]),
-                  run_time=5
+        self.wait(0.5)
+        self.play(Write(group_1[2][0]),
+                  run_time=1.5
                   )
-        self.wait(2)
-        self.wait(5)
+        self.play(Write(group_1[2][1:10]),
+                  run_time=4.5
+                  )
+        self.wait(9)
         self.play(
             group_1[2][:].animate.set_color(AZUL),
             run_time=1
@@ -210,7 +213,7 @@ class Subescena_1(Scene):
             Transform(group_1[3][0], coeficientes_ci[0]),
             Transform(group_1[3][1], coeficientes_ci[1]),
             Transform(group_1[3][2], coeficientes_ci[2]),
-            run_time=2
+            run_time=1.5
         )
         self.wait(1)
         self.play(
@@ -263,10 +266,10 @@ class Subescena_2(Scene):
         Text14_2.bg = SurroundingRectangle(
             Text14_2, color=WHITE, fill_color=BLACK, fill_opacity=1)
         Text14_2.group = VGroup(Text14_2.bg, Text14_2)
-        Text14_3 = Tex('''$\\langle\\vec{b}_1,\\vec{b}_2\\rangle$''').move_to(
+        Text14_3 = Tex('''$\\langle\\{\\vec{b}_1,\\vec{b}_2\\}\\rangle$''').move_to(
             1.5*DOWN + 3.5*LEFT)
-        Text14_3[0][1:4].set_color(MAGENTA_CLARO)
-        Text14_3[0][5:8].set_color(MAGENTA_CLARO)
+        Text14_3[0][2:6].set_color(MAGENTA_CLARO)
+        Text14_3[0][6:9].set_color(MAGENTA_CLARO)
         Text14_3.bg = SurroundingRectangle(
             Text14_3, color=WHITE, fill_color=BLACK, fill_opacity=1)
         Text14_3.group = VGroup(Text14_3.bg, Text14_3)
@@ -731,14 +734,14 @@ class Subescena_2(Scene):
             self.play(FadeIn(sliders))
             # Moviendo solo el primer coeficiente
             self.play(t1.animate.set_value(0.5),
-                      run_time=1.3)
+                      run_time=1)
             self.play(t1.animate.set_value(0.9),
-                      run_time=1.3)
+                      run_time=1)
             # Moviendo solo el segundo coeficiente
             self.play(t2.animate.set_value(1.2),
-                      run_time=0.5)
+                      run_time=0.75)
             self.play(t2.animate.set_value(1.0),
-                      run_time=0.5)
+                      run_time=0.75)
             #Moviendo ambos coeficientes de forma simultánea
             self.play(t1.animate.set_value(1.6),
                       t2.animate.set_value(-0.8),
@@ -746,36 +749,35 @@ class Subescena_2(Scene):
             self.play(t1.animate.set_value(-0.5),
                       t2.animate.set_value(-1),
                       run_time=0.5)
-            self.play(t1.animate.set_value(-1),
-                      t2.animate.set_value(-1.8),
-                      run_time=0.5)
-            self.play(t1.animate.set_value(0.5),
-                      t2.animate.set_value(-0.5),
+            #self.play(t1.animate.set_value(-1),
+            #          t2.animate.set_value(-1.8),
+            #          run_time=0.5)
+            #self.play(t1.animate.set_value(0.5),
+            #          t2.animate.set_value(-0.5),
+            #          run_time=0.5)
+            #self.play(t1.animate.set_value(0.6),
+            #          t2.animate.set_value(1.9),
+            #          run_time=0.5)
+            self.play(t1.animate.set_value(0.6),
+                      t2.animate.set_value(2.1),
                       FadeOut(text_vec_objetivo),
                       run_time=0.5)
-            self.play(t1.animate.set_value(0.6),
-                      t2.animate.set_value(1.9),
-                      run_time=0.5)
-            self.play(t1.animate.set_value(0.6),
-                      t2.animate.set_value(2.1),
-                      run_time=0.5)
-            self.play(t1.animate.set_value(0.4),
-                      t2.animate.set_value(2.1),
-                      run_time=0.2)
-            self.play(t1.animate.set_value(0.4),
-                      t2.animate.set_value(1.9),
-                      run_time=0.2)
+            #self.play(t1.animate.set_value(0.4),
+            #          t2.animate.set_value(2.1),
+            #          run_time=0.2)
+            #self.play(t1.animate.set_value(0.4),
+            #          t2.animate.set_value(1.9),
+            #          run_time=0.2)
             # Valores correctos de los coeficientes
             self.play(t1.animate.set_value(c[0]),
                       t2.animate.set_value(c[1]),
                       run_time=1.0)
-            fantasma_flecha1.remove_updater(upd_for_fantasma_flecha1)
-            fantasma_flecha2.remove_updater(upd_for_fantasma_flecha2)
             self.play(
                 FadeOut(fantasma_flecha1),
-                FadeOut(fantasma_flecha2),
-                run_time=2
+                FadeOut(fantasma_flecha2)
             )
+            #fantasma_flecha1.remove_updater(upd_for_fantasma_flecha1)
+            #fantasma_flecha2.remove_updater(upd_for_fantasma_flecha2)
             #-----------------------------------------
             self.wait(0.5)
             equal_sign.next_to(label3, 0.5*LEFT)
@@ -785,15 +787,15 @@ class Subescena_2(Scene):
             dot2 = Dot(radius=0, color=AMARILLO).next_to(label2, 2*UP)
             self.play(
                 FadeIn(equal_sign),
-                FadeIn(text_vec_objetivo),
-                run_time=3
+                FadeIn(text_vec_objetivo)
             )
             self.play(Circumscribe(label1, fade_out=True),
                       Circumscribe(label2, fade_out=True),
                       Flash(dot1),
                       Flash(dot2),
-                      run_time=3
+                      run_time=2
                       )
+            self.wait(4.5)
             self.play(
                 FadeOut(vec_obj1),
                 FadeOut(vec_obj2),
@@ -825,12 +827,13 @@ class Subescena_2(Scene):
         Eje2 = DashedLine(-5*vec_B, 5*vec_B, color=MAGENTA, buff=0)
         Ejes = VGroup(Eje1, Eje2)
         # ---------------------------------------- Animaciones iniciales
-        self.play(Write(grid))
+        self.next_section(skip_animations=True)
+        self.play(Write(grid), run_time=3)
         self.wait(0.5)
         self.play(FadeIn(vec_))
         self.play(Write(text_vec))
         self.play(FadeIn(vecA), Write(text_A), FadeIn(vecB), Write(text_B))
-        self.wait(0.5)
+        self.wait(5)
         self.play(FadeOut(
             vec_,
             text_vec
@@ -838,12 +841,15 @@ class Subescena_2(Scene):
             run_time=1
         )
         self.add_foreground_mobjects(vecA, vecB)
-        self.wait(0.5)
+        self.wait(2)
         self.play(Create(Ejes))
-        self.wait(1)
+        self.wait(0.5)
         self.play(FadeOut(Ejes))
+        self.wait(3)
         gen1(vecA, vecB, text_A, text_B)
         self.wait(0.5)
+
+        self.next_section()
         self.play(FadeIn(vec_))
         self.play(Write(text_vec))
         encontrar_escalares(vec_A, vecA, text_A, vec_B, vecB, text_B, vec, text_vec)
@@ -1265,6 +1271,7 @@ class Subescena_3(Scene):
             list_braces.append(Brace(sist_group[:i], LEFT))
 
         #----------------------------------Animaciones
+        #self.next_section(skip_animations=True)
         self.play(
             FadeIn(group[:]),
             run_time=3
@@ -1274,12 +1281,17 @@ class Subescena_3(Scene):
             FadeOut(group[3]),
             run_time=3
         )
+        self.wait(2.25)
         #Transformación vector -> ntuplas
         self.play(
             # Base de dimensión K
             ReplacementTransform(group[0][:], group_dimK_ntuplas[0][:]),
             # Combinación, dimV = k
             ReplacementTransform(group[2][:], group_dimK_ntuplas[2][:]),
+                        run_time=1.5
+        )
+        self.wait(4)
+        self.play(
             #Sistema de ecuaciones
             FadeIn(sist_group[0][:9]),
             FadeIn(sist_group[1][:9]),
@@ -1288,11 +1300,13 @@ class Subescena_3(Scene):
             FadeIn(list_braces[0]),
             run_time=1.5
         )
-        self.wait(4)
+        self.wait(3)
+
 
         #----------------------------------Aumento de la dimensión
         # k + 1
         # Base y combinación
+        self.next_section()
         self.play(
             # Base de dimensión K
             ReplacementTransform(group_dimK_ntuplas[0][:6], group_dimK1_ntuplas[0][:6]),
@@ -1300,11 +1314,14 @@ class Subescena_3(Scene):
             ReplacementTransform(group_dimK_ntuplas[0][6:], group_dimK1_ntuplas[0][8:]),
             # Combinación, dimV = k
             ReplacementTransform(group_dimK_ntuplas[2][:], group_dimK1_ntuplas[2][:9]),
-            run_time=1.5
+            run_time=1
         )
         self.play(
             FadeIn(group_dimK1_ntuplas[0][6:8]),
             FadeIn(group_dimK1_ntuplas[2][9:]),
+            run_time=0.75
+        )
+        self.play(
             # Sistema de ecuaciones
             FadeIn(sist_group[0][9:12]),
             FadeIn(sist_group[1][9:12]),
@@ -1314,9 +1331,10 @@ class Subescena_3(Scene):
             ReplacementTransform(list_braces[0], list_braces[1]),
             run_time=1.5
         )
-        self.wait(4)
+        self.wait()
         # k + 2
         # Base y combinación
+        #self.next_section(skip_animations=True)
         self.play(
             ReplacementTransform(
                 group_dimK1_ntuplas[0][:8], group_dimK2_ntuplas[0][:8]),
@@ -1324,11 +1342,14 @@ class Subescena_3(Scene):
                 group_dimK1_ntuplas[0][8:], group_dimK2_ntuplas[0][10:]),
             ReplacementTransform(
                 group_dimK1_ntuplas[2][:], group_dimK2_ntuplas[2][:12]),
-            run_time=1.5
+            run_time=1
         )
         self.play(
             FadeIn(group_dimK2_ntuplas[0][8:10]),
             FadeIn(group_dimK2_ntuplas[2][12:]),
+            run_time=0.75
+        ) 
+        self.play(
             # Sistema de ecuaciones
             FadeIn(sist_group[0][12:]),
             FadeIn(sist_group[1][12:]),
@@ -1339,7 +1360,7 @@ class Subescena_3(Scene):
             ReplacementTransform(list_braces[1], list_braces[2]),
             run_time=1.5
         )
-        self.wait(4)
+        self.wait(8)
         self.play(
             *[FadeOut(mob) for mob in self.mobjects],
             run_time=1)

@@ -27,13 +27,15 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
   
   -- Este bloque genera dos listas con los demás objetos de texto (SVGs) que serán utilizados en la escena.
   
-  texts1 <- mapM oNew [ e1p0, e1p1, e1p2, e1p3, e2p0, e2p1 ]
+  texts1 <- mapM oNew [ e1p0, e1p1, e1p2, e1p3, e1p4, e1p5, e2p0, e2p1, e2p2 ]
 
-  texts2 <- mapM oNew [ e3p0, e3p1, e3p2, e4p0, e4p1, e5p0, e5p1 ]
+  texts2 <- mapM oNew [ e3p0, e3p1, e3p2, e3p3, e3p4, e4p0, e4p1, e5p0, e5p1 ]
 
-  texts3 <- mapM oNew [ e6p0, e6p1, e6p2, e6p3, e6p4 ]
+  texts3 <- mapM oNew [ e6p0, e6p1, e6p2, e6p3, e6p4, e6p5, e6p6, e6p7 ]
 
   texts4 <- mapM oNew [ e7p0, e7p1, e7p2, e7p3, e7p4 ]
+
+  texts5 <- mapM oNew [ p8p0, p8p1, p8p2, p8p3 ]
 
   -- Este bloque describe lo que sucederá en la escena con los demás objetos de texto.
 
@@ -66,7 +68,7 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
   cab' <- oNew c1l2
   oModify cab' $ oCenterX .~ 0
   oModify cab' $ oTopY .~ 3.5
-  oShowWith cab' $ adjustDuration (*0.33) . oDraw
+  oShowWith cab' $ adjustDuration (*0.5) . oDraw
   wait 0.5
 
   forM_ (zip5 texts3 leftXs3 topYs3 durationFunctions3 waitDurations3) $    -- Creamos una lista de 5-tuplas a partir de las
@@ -91,58 +93,91 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
     oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
     wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
 
+  forM_ texts4 $
+    \obj -> fork $ do
+    oHideWith obj oFadeOut
+
+  do fork $ oHideWith cab' oFadeOut
+  oHideWith cab oFadeOut
+
+  wait 1
+
+  forM_ (zip5 texts5 leftXs5 topYs5 durationFunctions5 waitDurations5) $    -- Creamos una lista de 5-tuplas a partir de las
+    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
+    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
+    oModify obj $ oTopY .~ (yPos - 0.25)                                        -- modificamos la posición vertical del objeto;
+    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
+    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
+
+  forM_ texts5 $
+    \obj -> fork $ do
+    oHideWith obj oFadeOut
+
 
 -----------------------------------------------------------------------------
 -- Listas de parámetros utilizados en la escena para cada objeto de texto. --
 -----------------------------------------------------------------------------
 
 leftXs1 :: [Double]
-leftXs1 = [-7.75, -5.5, -2.75, -7.75, -7.75, -5.4]
+leftXs1 = [-7.75, -5.5, -2.75, -2.75, -7.75, -7.75, -7.75, -5.4, -3.4]
 
 topYs1 :: [Double]
-topYs1 = [3.5, 3.5, 3, 1.5, 0, 0.1]
+topYs1 = [3.5, 3.5, 2.9, 2.1, 1.4, 1.5, 0, 0, 0.1]
 
 durationFunctions1 :: [(Duration -> Duration)]
-durationFunctions1 = [(*0.3), (*0.33), (*0.5), (*0.5), (*0.5), (*0.5)]
+durationFunctions1 = [(*0.3), (*0.33), (*0.5), (*0.5), (*0.5), (*0.5), (*0.3), (*0.33), (*0.33)]
 
 waitDurations1 :: [Double]
-waitDurations1 = [0.5, 0, 0.25, 0, 0, 0]
+waitDurations1 = [0.5, 0, 0, 0.25, 0, 0.5, 0, 0.2, 2.5]
 
 leftXs2 :: [Double]
-leftXs2 = [-7.75, -5.5, -7.75, -7.75, -7.75, -7.75, -7.75]
+leftXs2 = [-7.75, -5.5, -7.75, -7.75, -7.75, -7.75, -7.75, -7.75, -7.75]
 
 topYs2 :: [Double]
-topYs2 = [3.5, 3.5, 2.5, -0.5, -0.5, -2, -2]
+topYs2 = [3.5, 3.5, 2.35, 1.6, 0.8, -0.5, -0.5, -2, -2]
 
 durationFunctions2 :: [(Duration -> Duration)]
-durationFunctions2 = [(*0.3), (*0.33), (*0.3), (*0.33), (*0.33), (*0.33), (*0.33)]
+durationFunctions2 = [(*0.3), (*0.33), (*0.5), (*0.5), (*0.5), (*0.33), (*0.33), (*0.33), (*0.33)]
 
 waitDurations2 :: [Double]
-waitDurations2 = [0.5, 0, 0.5, 2, 0, 0, 0]
+waitDurations2 = [0.5, 0, 0, 0, 0, 0.5, 0, 0.5, 2.5]
 
 leftXs3 :: [Double]
-leftXs3 = [-7.75, -7.75, -3.15, -3.15, -1.05, -7.75, -7.75, -7.75, -7.75]
+leftXs3 = [-7.75, -5.4, -7.75, -7.75, -7.75, -3.15, -3.15, -1.05, 0]
 
 topYs3 :: [Double]
-topYs3 = [2.5, 2.5, -0.3, -1, -1, -3, -4, -5, -6]
+topYs3 = [2.5, 2.5, 1.5, 0.5, -0.3, -0.4, -1.1, -1.1]
 
 durationFunctions3 :: [(Duration -> Duration)]
-durationFunctions3 = [(*0.3), (*0.3), (*0.33), (*0.3), (*0.33), (*0.33), (*0.33), (*0.33), (*0.33)]
+durationFunctions3 = [(*0.3), (*0.3), (*0.33), (*0.33), (*0.5), (*0.5), (*0.3), (*0.3)]
 
 waitDurations3 :: [Double]
-waitDurations3 = [0.5, 0, 0, 0.5, 2, 0.5, 0.5, 0.5, 0.5]
+waitDurations3 = [0.5, 0.2, 0, 0, 0, 0, 0, 2.5]
 
 leftXs4 :: [Double]
-leftXs4 = [-7.75, -7.75, -2, -7.75, -3.75, -7.75, -7.75, -7.75, -7.75]
+leftXs4 = [-7.75, -5.5, -2.75, -7.75, -3.5, -7.75, -7.75, -7.75, -7.75]
 
 topYs4 :: [Double]
-topYs4 = [2.5, 2.5, 1.25, -0.25, -1.25, -3, -4, -5, -6]
+topYs4 = [2.5, 2.5, 1.75, 0, -0.75, -4, -5, -6, -6]
 
 durationFunctions4 :: [(Duration -> Duration)]
-durationFunctions4 = [(*0.3), (*0.3), (*0.33), (*0.3), (*0.33), (*0.33), (*0.33), (*0.33), (*0.33)]
+durationFunctions4 = [(*0.3), (*0.33), (*0.5), (*0.33), (*0.5), (*0.33), (*0.33), (*0.33), (*0.33)]
 
 waitDurations4 :: [Double]
-waitDurations4 = [0.5, 0, 0, 0.5, 2, 0.5, 0.5, 0.5, 0.5]
+waitDurations4 = [0.5, 0, 1, 0, 2, 0.5, 0.5, 0.5, 2.5]
+
+leftXs5 :: [Double]
+leftXs5 = [-7.75, -5.25, -7.75, -7.75]
+
+topYs5 :: [Double]
+topYs5 = [2.5, 2.5, 2.5, 2.05]
+
+durationFunctions5 :: [(Duration -> Duration)]
+durationFunctions5 = [(*0.3), (*0.33), (*0.33), (*0.5)]
+
+waitDurations5 :: [Double]
+waitDurations5 = [0.5, 0, 0, 2.5]
+
 
 ------------------------------------------------------------------------------------------------------------------
 -- Aquí va el texto que escribiremos, separado en pedazos; usamos "\\hfill\\break" para romper líneas en LaTeX. --
@@ -164,10 +199,16 @@ e1p1 :: SVG
 e1p1 = split [12..23] ejercicio1      -- Separamos la parte de en medio del ejercicio.
 
 e1p2 :: SVG
-e1p2 = split [24..81] ejercicio1      -- Separamos el final del ejercicio.
+e1p2 = split [24..52] ejercicio1      -- Separamos el final del ejercicio.
 
 e1p3 :: SVG
-e1p3 = split [82..200] ejercicio1      -- Separamos el final del ejercicio.
+e1p3 = split [53..81] ejercicio1      -- Separamos el final del ejercicio.
+
+e1p4 :: SVG
+e1p4 = split [82..104] ejercicio1      -- Separamos el final del ejercicio.
+
+e1p5 :: SVG
+e1p5 = split [105..200] ejercicio1      -- Separamos el final del ejercicio.
 
 ejercicio2 :: SVG    -- Definimos el SVG del primer ejercicio con los atributos deseados.
 ejercicio2 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
@@ -178,7 +219,10 @@ e2p0 :: SVG
 e2p0 = split [0..11] ejercicio2
 
 e2p1 :: SVG
-e2p1 = split [12..100] ejercicio2
+e2p1 = split [12..19] ejercicio2
+
+e2p2 :: SVG
+e2p2 = split [20..100] ejercicio2
 
 ejercicio3 :: SVG    -- Análogo a lo anterior.
 ejercicio3 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
@@ -192,7 +236,13 @@ e3p1 :: SVG
 e3p1 = split [12..63] ejercicio3
 
 e3p2 :: SVG
-e3p2 = split [64..122] ejercicio3
+e3p2 = split [64..88] ejercicio3
+
+e3p3 :: SVG
+e3p3 = split [89..97] ejercicio3
+
+e3p4 :: SVG
+e3p4 = split [98..122] ejercicio3
 
 ejercicio4 :: SVG    -- Análogo a lo anterior.
 ejercicio4 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
@@ -229,16 +279,25 @@ e6p0 :: SVG
 e6p0 = split [0..11] ejercicio6
 
 e6p1 :: SVG
-e6p1 = split [12..160] ejercicio6
+e6p1 = split [12..63] ejercicio6
 
 e6p2 :: SVG
-e6p2 = split [161..178] ejercicio6
+e6p2 = split [64..114] ejercicio6
 
 e6p3 :: SVG
-e6p3 = split [179] ejercicio6
+e6p3 = split [115..140] ejercicio6
 
 e6p4 :: SVG
-e6p4 = split [180..200] ejercicio6
+e6p4 = split [141..160] ejercicio6
+
+e6p5 :: SVG
+e6p5 = split [161..178] ejercicio6
+
+e6p6 :: SVG
+e6p6 = split [179] ejercicio6
+
+e6p7 :: SVG
+e6p7 = split [180..200] ejercicio6
 
 ejercicio7 :: SVG    -- Definimos el SVG del primer ejercicio con los atributos deseados.
 ejercicio7 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
@@ -249,27 +308,33 @@ e7p0 :: SVG
 e7p0 = split [0..11] ejercicio7       -- Separamos la primera línea del ejercicio.
 
 e7p1 :: SVG
-e7p1 = split [12..83] ejercicio7       -- Separamos la primera línea del ejercicio.
+e7p1 = split [12..57] ejercicio7       -- Separamos la primera línea del ejercicio.
 
 e7p2 :: SVG
-e7p2 = split [84..113] ejercicio7      -- Separamos la parte de en medio del ejercicio.
+e7p2 = split [58..92] ejercicio7      -- Separamos la parte de en medio del ejercicio.
 
 e7p3 :: SVG
-e7p3 = split [114..134] ejercicio7      -- Separamos el final del ejercicio.
+e7p3 = split [93..125] ejercicio7      -- Separamos el final del ejercicio.
 
 e7p4 :: SVG
-e7p4 = split [135..300] ejercicio7      -- Separamos el final del ejercicio.
+e7p4 = split [126..300] ejercicio7      -- Separamos el final del ejercicio.
 
---pregunta5 :: SVG    -- Análogo a lo anterior.
---pregunta5 = withSubglyphs [0..10] (withStrokeColorPixel miRojo) $ withSubglyphs [0..10] (withFillColorPixel miRojo) $
---           withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
---           latex "Pregunta 3.5 El Teorema de Gram-Schmidt \\textbf{no} asegura la \\hfill\\break existencia de bases ortogonales y ortonormales en espacios \\hfill\\break vectoriales con producto escalar de dimensión \\textbf{infinita}, \\hfill\\break ¿por qué?"
---
---p5l1 :: SVG
---p5l1 = split [0..10] pregunta5
---
---p5l2 :: SVG
---p5l2 = split [11..153] pregunta5
+pregunta8 :: SVG    -- Análogo a lo anterior.
+pregunta8 = withSubglyphs [0..10] (withStrokeColorPixel miRojo) $ withSubglyphs [0..10] (withFillColorPixel miRojo) $
+           withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
+           latexCfg myTexConfig "Pregunta 1.8 En un espacio vectorial \\textbf{complejo} con producto escalar ¿cómo puedes interpretar la propiedad de simetría conjugada \\emph{geométricamente}? (Su-\\hfill\\break gerencia: Considera el espacio vectorial complejo $\\mathbb{C}$.)"
+
+p8p0 :: SVG
+p8p0 = split [0..10] pregunta8
+
+p8p1 :: SVG
+p8p1 = split [11..56] pregunta8
+
+p8p2 :: SVG
+p8p2 = split [57..127] pregunta8
+
+p8p3 :: SVG
+p8p3 = split [128..400] pregunta8
 
 --------------------------------------------------------------------------------------------------------------
 -- Funciones auxiliares. En las primeras líneas se declaran las signaturas y en las siguientes, se definen. --

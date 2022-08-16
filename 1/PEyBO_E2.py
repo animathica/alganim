@@ -8,7 +8,7 @@ from manim import *
 
 #####################################################################################
 ###############################  Segunda escena  ####################################
-###############################  versión: Manim Community v0.8.0   ##################
+###############################  versión: Manim Community v0.15.2   #################
 #####################################################################################
 
 ROJO = '#FF0000'
@@ -34,7 +34,7 @@ class SE1(MovingCameraScene):
          t0 = Tex("Producto escalar").scale(.8)
          t1 =  MathTex("\langle\cdot, \cdot\\rangle:V\\times V\\to K ").scale(.8).shift(LEFT)
 
-         p1 =  MathTex("\\forall \ \\vec{u}, \\vec{v}, \\vec{w}&\in V, \ \\forall \ a\in K ").scale(.6)
+         p1 =  MathTex("\\forall \ \\vec{u}, \\vec{v}, \\vec{w}&\in V, \ \\forall \ a\in K, ").scale(.6)
 
 
          p2 = MathTex("  \langle\\vec{u}+\\vec{w},\\vec{v}\\rangle").scale(.6)
@@ -59,7 +59,7 @@ class SE1(MovingCameraScene):
          p5.next_to(p5_2, LEFT)
 
 
-         g3 =VGroup(p2, p2_2, p3, p3_2, color=WHITE)
+         g3 = VGroup(p2, p2_2, p3, p3_2, color=WHITE)
          b1 = Brace(g3, direction=RIGHT)
          t2 = MathTex("\langle a\\vec{u}+\\vec{w} , \\vec{v} \\rangle = a \langle \\vec{u} , \\vec{v} \\rangle + \langle \\vec{w} , \\vec{v} \\rangle\ ").scale(.6)
          t3 = MathTex("\langle \\vec{u} , a\\vec{w}+\\vec{v} \\rangle = \overline{a} \langle \\vec{u} , \\vec{w} \\rangle + \langle \\vec{u} , \\vec{v} \\rangle \\").scale(.6)
@@ -69,46 +69,62 @@ class SE1(MovingCameraScene):
          t7 = Tex("Simetria conjugada").scale(.55)
          g4 = VGroup(g3,p4, color=WHITE)
          b2 = Brace(g4, direction=LEFT)
-
-
+         t8 = Tex("$^\\ast$Ver Ejercicio 1.2 al final del video.").scale(0.5)
 
          #ANIMACIONES#
-         self.play(self.camera.frame.animate.move_to(UP))
+         #self.next_section(skip_animations=True)
+         self.play(self.camera.frame.animate.move_to(0.75*UP))
          t0.move_to(3.5*UP).shift(.2*LEFT)
          self.play(Write(t0))
+         self.wait(1.25)
          t1.next_to(g1, 7*UP).shift(.45*LEFT)
-         self.play(Write(t1))
-         p1.next_to(t1, DOWN)
+         self.play(Write(t1[0][0:6]))
+         self.wait(1.5)
+         self.play(Write(t1[0][6:9]), run_time=1.5)
+         self.play(Write(t1[0][9]))
+         self.play(Write(t1[0][10:11]))
+         p1.next_to(t1, 3*DOWN)
+         self.wait(1.5)
          self.play(Write(p1))
-         self.wait(3)
-         g1.move_to(.1*UP)
+         self.wait()
+         g1.move_to(0.5*DOWN)
          for element in g1:
           self.play(Write(element),run_time=2.3)
          t6.next_to(p5_2, 3.2*RIGHT)
          t7.next_to(p4_2, 5.6*RIGHT) 
+         self.wait(4.25)
         
-         
+         self.next_section()
          b1.next_to(p2_2, RIGHT*UP).shift(1.5*RIGHT+.3*DOWN)
-         self.play(Write(b1))
+         self.play(Write(b1),run_time=1.5)
          self.wait()
          t2.next_to(b1, direction=RIGHT)
-         self.play(FadeIn(t2))
+         self.play(Write(t2), run_time=3)
+         self.wait(8)
          t4.next_to(t2, DOWN)
          self.play(Write(t4))               
-         self.wait(3)
+         self.wait(4)
          self.play(Write(t7))
+         self.wait(4.5)
          self.play(Write(t6))
+         self.wait(5)
          b2.next_to(p3, LEFT*2*UP).shift(1.2*LEFT)
-         self.play(Write(b2))
+         self.play(Write(b2), run_time=1.5)
          t3.next_to(b2, direction=LEFT).shift(0.2*LEFT)
-         self.play(Write(t3))
+         self.play(Write(t3), run_time=3)
          t5.next_to(t3, DOWN)
+         self.wait(2.5)
          self.play(Write(t5))
-         self.wait(23)
-         self.play(FadeOut(b1, b2, t2, t3,t4,t5,t6,t7))
-         self.wait(18)
-         self.play(FadeOut(g1))
-         self.play(FadeOut(t1,p1))
+         self.wait(20)
+         t8.move_to(2.75*DOWN + 4.75*LEFT)
+         t8[0][4:16].set_color(AZUL)
+         self.play(Write(t8))
+         self.wait(3)
+         self.play(FadeOut(t8))
+         self.wait(11)
+         self.play(
+             *[FadeOut(mob) for mob in self.mobjects],
+             run_time=1)
 
      def construct(self):
             self.propiedades()
@@ -121,7 +137,7 @@ class SE2(MovingCameraScene):
      def ortogonalidad(self):
      
        o1 = MathTex("\\vec{u},\\vec{v}\in V \ \\text{son \emph{ortogonales}} \ ").scale(.5)
-       o1_2 = MathTex(" (\\vec{u}\perp\\vec{v}) \ \\text{si} \ \langle \\vec{u} , \\vec{v} \\rangle = 0 \ ").scale(.5)
+       o1_2 = MathTex(" (\\vec{u}\perp\\vec{v}) \ \\text{ si } \ \langle \\vec{u} , \\vec{v} \\rangle = 0 \ ").scale(.5)
        o1_3 = MathTex("\\text{ó, equivalentemente,} \ \langle \\vec{v} , \\vec{u} \\rangle = 0.").scale(.5)
 
        go_1=VGroup(o1, o1_2, o1_3).arrange(direction=RIGHT, center=True)
@@ -153,34 +169,47 @@ class SE2(MovingCameraScene):
        b3 = Brace(o5_g, .1*LEFT)
        P_ij = b3.get_text("$\\langle \\vec{g}_i, \\vec{g}_j\\rangle$ =").scale(.6)
        gj_gi = VGroup(P_ij, b3, o5_g).arrange(direction=RIGHT, buff=.15)
+       o6 = Tex("$^\\ast$Ver Ejercicio 1.5.").scale(0.5)
        
        gamma_Prop = VGroup(o5, gj_gi).arrange(direction=RIGHT, buff=0.75, center=True)
        
         
-       self.wait()
-       self.play(self.camera.frame.animate.move_to(1.5*UP))
+       self.play(self.camera.frame.animate.set(width=10), run_time=0.25)
+       self.play(self.camera.frame.animate.move_to(1.5*UP), run_time=0.25)
        for element in go_1:
          self.play(Write(element), run_time=2)
-        
-       for element in go_2:
-         self.play(Write(element), run_time=2)
 
+       self.wait(12)   
+       for element in go_2:
+         self.play(Write(element), run_time=3)
+
+       self.wait(4.5)
        o3.move_to(1.25*UP, aligned_edge=RIGHT)
        self.play(Write(o3))
        o4.move_to(3*UP)
        o4.next_to(o3, direction=RIGHT)
        self.play(Write(o4))
-       self.wait(2)
-       gamma_Prop[0].move_to(2*LEFT)
+       self.wait(7.5)
+       o6.move_to(0.85*DOWN + 3.25*LEFT)
+       o6[0][4:16].set_color(AZUL)
+       self.play(Write(o6))
+       self.wait(3)
+       self.play(FadeOut(o6))
+       self.wait(7)
 
+       gamma_Prop[0].move_to(2*LEFT)
        self.play(Write(gamma_Prop[0]))
-       self.play(Write(gamma_Prop[1]))
+       self.play(Write(gamma_Prop[1]), run_time=4)
+       self.wait(3)
+       self.play(
+           *[FadeOut(mob) for mob in self.mobjects],
+           run_time=1)
 
      def construct(self):
       self.ortogonalidad()
  
 
-class SE3(Scene):
+class SE3(MovingCameraScene):
     '''
     La escena esta organizada de la siguiente forma: se definen cuatro funciones, cada una de ellas
     incluye la prueba de una de las propiedades. Al ejecutar cada una de estas funciones se anima la
@@ -437,37 +466,41 @@ class SE3(Scene):
     #####################
 
         # INTRODUCCION, PLANTEAMIENTO DEL CASO PARTICULAR Y DEFINICIÓN DEL PP 
+        #self.next_section(skip_animations=True)
         self.play(Write(pe_def))
-        self.wait()
-        self.play(Write(pe_group_2))
+        self.play(Write(pe_group_2),run_time=4)
         self.wait()
         self.play(pe_group_2.animate.set_opacity(0))
+        self.wait(3)
         self.play(ReplacementTransform(pe_def,pp_def))
-        self.wait(0.5)
+        self.wait(6)
         self.play(Write(pp_oper))
+        self.wait(2)
 
         #------ REACOMODO DE LOS OBJETOS Y DIBUJO DE LÍNEAS 
+        #self.next_section(skip_animations=True)
         self.play(pp_def.animate.shift(4*LEFT+1*UP).scale(0.7))
         self.play(pp_oper.animate.shift(4.1*LEFT+1.8*UP).scale(0.6))
         self.play(Write(linea_1))
         self.play(Write(linea_2))
 
         
-        self.play(pe_def_1.animate.shift(4.2*LEFT+0.8*DOWN).scale(0.7))
-        self.play(pe_def_1.animate.set_opacity(1))
-        self.play(pe_def_2.animate.next_to(pe_def_1.get_center(), 1.5*DOWN).shift(0.15*RIGHT).scale(0.8))
-        self.play(pe_def_2.animate.set_opacity(1))
-        self.play(pe_def_3.animate.next_to(pe_def_2.get_center(), 1.5*DOWN).shift(0.27*LEFT).scale(0.8))
-        self.play(pe_def_3.animate.set_opacity(1))
-        self.play(pe_def_4.animate.next_to(pe_def_3.get_center(), 1.5*DOWN).scale(0.8))
-        self.play(pe_def_4.animate.set_opacity(1))
-        self.play(pe_def_5.animate.next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.27*RIGHT).scale(0.8))
-        self.play(pe_def_5.animate.set_opacity(1))
+        self.play(pe_def_1.animate.shift(4.2*LEFT+0.8*DOWN).scale(0.7), run_time=0.1)
+        self.play(pe_def_1.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_2.animate.next_to(pe_def_1.get_center(), 1.5*DOWN).shift(0.15*RIGHT).scale(0.8), run_time=0.1)
+        self.play(pe_def_2.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_3.animate.next_to(pe_def_2.get_center(), 1.5*DOWN).shift(0.27*LEFT).scale(0.8), run_time=0.1)
+        self.play(pe_def_3.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_4.animate.next_to(pe_def_3.get_center(), 1.5*DOWN).scale(0.8), run_time=0.1)
+        self.play(pe_def_4.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_5.animate.next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.27*RIGHT).scale(0.8), run_time=0.1)
+        self.play(pe_def_5.animate.set_opacity(1), run_time=0.5)
 
         #######################
         # ANIM PREVIAS A DEM 1 #
         #######################
 
+        self.wait()
         self.play(pe_def_3.animate.set_opacity(0.3), pe_def_4.animate.set_opacity(0.3),
         pe_def_4.animate.set_opacity(0.3), pe_def_5.animate.set_opacity(0.3))
         self.play(pe_def_2.animate.scale(1.1))
@@ -510,12 +543,46 @@ class SE3(Scene):
         #####################
         # ANIMACIONES FINALES
         #####################
+        self.next_section()
         self.play(pe_def_5.animate.scale(1/1.1))
 
-        self.play(pe_def_2.animate.set_opacity(1))
-        self.play(pe_def_3.animate.set_opacity(1))
         self.play(pe_def_4.animate.set_opacity(1))
-        
+        self.play(pe_def_3.animate.set_opacity(1))
+        self.play(pe_def_2.animate.set_opacity(1))
+
+        self.wait(2.5)
+
+        self.play(linea_1.animate.set_opacity(0),
+                  linea_2.animate.set_opacity(0),
+                  pe_def_1.animate.set_opacity(0),
+                  self.camera.frame.animate.set(width=8).move_to(2.3*UP+4.15*LEFT)
+                  )
+        self.wait(3)
+
+        suma_1 = MathTex(r"\sum_{i=1}^2 v_iw_i").scale(0.6).move_to(1.8*UP+2.75*LEFT)
+        suma_n = MathTex(r"\sum_{i=1}^n v_iw_i").scale(0.6).move_to(1.8*UP+2.75*LEFT)
+        barrita = MathTex(r"\overline{w_i}")[0][0].scale(0.6).move_to(1.95*UP+2.4*LEFT)
+        n_1 = MathTex("n").set_color(YELLOW).scale(0.5).move_to(pp_def[1][1].get_center())
+        n_2 = MathTex("n").set_color(YELLOW).scale(0.5).move_to(pp_def[3][1].get_center())
+        C_1 = MathTex("\\mathbb{C}").set_color(YELLOW).scale(0.7).move_to(pp_def[1][0].get_center())
+        C_2 = MathTex("\\mathbb{C}").set_color(YELLOW).scale(0.7).move_to(pp_def[3][0].get_center())
+        C_3 = MathTex("\\mathbb{C}").set_color(AZUL_CLARO).scale(0.7).move_to(pp_def[5][0].get_center())
+
+        self.play(ReplacementTransform(pp_oper[0][22:31],suma_1))
+        self.wait(2.5)
+        self.play(ReplacementTransform(pp_def[1][1],n_1),
+                  ReplacementTransform(pp_def[3][1],n_2),
+                  ReplacementTransform(suma_1,suma_n),
+                  )
+
+        self.wait(2.5)
+        self.play(ReplacementTransform(pp_def[1][0],C_1),
+                  ReplacementTransform(pp_def[3][0],C_2),
+                  ReplacementTransform(pp_def[5][0],C_3),
+                  Write(barrita)
+                  )
+
+        self.wait(7)
         self.play(
             *[FadeOut(mob) for mob in self.mobjects],
             run_time = 1)

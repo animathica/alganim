@@ -8,7 +8,7 @@ from manim import *
 #####################################################################################
 ###############################  Tercera escena  ####################################
 ###############################  Subescena 2  #######################################
-###############################  versión: Manim Community v0.8.0   ##################
+###############################  versión: Manim Community v0.12.0   #################
 #####################################################################################
 
 
@@ -46,8 +46,10 @@ class Escena4(ThreeDScene):
         VecA = Arrow((0,0,0), (A1,A2,0), color = AZUL, buff = 0)
         VecB = Arrow((0,0,0), (B1,B2,0), color = ROJO, buff = 0)
 
-        # Texto para mostrar el producto de VecA y VecB, sin resultado
-        Texto_Producto = Tex(''' $ A \\cdot B =  $ ''').move_to(DOWN*2+0.5*LEFT)
+        # Texto para mostrar el producto de los vectores u y v, sin resultado
+        Texto_Producto = Tex(''' $ \\vec{u} \\cdot \\vec{v} =  $ ''').move_to(DOWN*2+0.5*LEFT)
+        Texto_Producto[0][0:2].set_color(AZUL)
+        Texto_Producto[0][3:5].set_color(ROJO)
 
         # Resultado del producto de los vectores.
         Resultado = DecimalNumber(producto_punto(VecA,VecB))
@@ -354,6 +356,7 @@ class Escena4(ThreeDScene):
 
 
         # Animaciones de la escena.
+        #self.next_section(skip_animations=True)
         self.play(Create(VGroup(VecA,VecB)))
         self.wait()
         self.play(Write(Texto_Producto_group))
@@ -362,6 +365,8 @@ class Escena4(ThreeDScene):
         self.wait()
         self.play(Create(VecSombra_1))
         self.wait()
+
+        self.next_section()
         self.play(FadeOut(VGroup(ProyeccionAB_1,VecSombra_1)))
         self.wait()
         self.bring_to_back(ProyeccionBA_1)
@@ -369,6 +374,7 @@ class Escena4(ThreeDScene):
         self.wait()
         self.play(Create(VecSombra_2))
         self.wait()
+        #self.next_section(skip_animations=True)
         self.play(FadeOut(VGroup(ProyeccionBA_1,VecSombra_2)))
         self.play(Create(VecSombra_1),Create(ProyeccionAB_1))
         for i in ProyeccionAB_1:

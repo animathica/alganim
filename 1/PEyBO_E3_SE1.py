@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from re import S
-from typing_extensions import runtime
 from manim import *
 from alganim import DashedArrow
 

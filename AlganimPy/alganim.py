@@ -1,5 +1,5 @@
 from manim import *
-from manim.mobject.geometry import ArrowTriangleFilledTip
+from manim.mobject.geometry.tips import ArrowTriangleFilledTip
 import warnings
 
 class DashedArrow(DashedLine):
