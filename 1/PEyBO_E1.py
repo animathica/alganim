@@ -223,7 +223,7 @@ class Subescena_1(Scene):
 #-------------------------------------------------------------------------------------------------------
 
 
-class Subescena_2(Scene):
+class Subescena_2(MovingCameraScene):
     #Parámetros de CONFIG como asignación de los valores
     #de los atributos
     config.x_min = -0.25,
@@ -255,21 +255,20 @@ class Subescena_2(Scene):
     def construct(self):
         # Texto mostrado junto con el generado.
         Text14 = Tex(
-            '''$ \\{ \\vec{b}_1 + c_2 \\vec{b}_2 : c_2 \\in \\mathbb{R} \\} $''').move_to(1.5*DOWN + 3.5*LEFT)
+            '''$ \\{ \\vec{b}_1 + c_2 \\vec{b}_2 : c_2 \\in \\mathbb{R} \\} $''').move_to(5.5*LEFT)
         Text14[0][1:10].set_color(MAGENTA_CLARO)
         Text14.bg = SurroundingRectangle(
             Text14, color=WHITE, fill_color=BLACK, fill_opacity=1)
         Text14.group = VGroup(Text14.bg, Text14)
         Text14_2 = Tex(
-            '''$ \\{ c_1 \\vec{b}_1 + c_2 \\vec{b}_2 : c_1, c_2 \\in \\mathbb{R} \\} $''').move_to(1.5*DOWN + 3.5*LEFT)
+            '''$ \\{ c_1 \\vec{b}_1 + c_2 \\vec{b}_2 : c_1, c_2 \\in \\mathbb{R} \\} $''').move_to(5.5*LEFT)
         Text14_2[0][1:12].set_color(MAGENTA_CLARO)
         Text14_2.bg = SurroundingRectangle(
             Text14_2, color=WHITE, fill_color=BLACK, fill_opacity=1)
         Text14_2.group = VGroup(Text14_2.bg, Text14_2)
         Text14_3 = Tex('''$\\langle\\{\\vec{b}_1,\\vec{b}_2\\}\\rangle$''').move_to(
-            1.5*DOWN + 3.5*LEFT)
-        Text14_3[0][2:6].set_color(MAGENTA_CLARO)
-        Text14_3[0][6:9].set_color(MAGENTA_CLARO)
+5.5*LEFT)
+        Text14_3[0][:].set_color(MAGENTA_CLARO)
         Text14_3.bg = SurroundingRectangle(
             Text14_3, color=WHITE, fill_color=BLACK, fill_opacity=1)
         Text14_3.group = VGroup(Text14_3.bg, Text14_3)
@@ -333,13 +332,13 @@ class Subescena_2(Scene):
                 obj.become(new_linea)
             # Primera línea numérica
             Num_Lin_1 = NumberLine(rotation=PI/2, include_numbers=False, label_direction=RIGHT,
-                                   x_range=[-9, 9, 1], numbers_to_exclude=[-9, 9], tick_size=0.3, numbers_with_elongated_ticks=[0]).scale(0.15)
-            Num_Lin_1.move_to(2*DOWN + 3*RIGHT)
+                                   x_range=[-11, 11, 1], numbers_to_exclude=[-11, 11], tick_size=0.3, numbers_with_elongated_ticks=[0]).scale(0.2)
+            Num_Lin_1.move_to(7*RIGHT)
             # Segunda línea numérica
             Num_Lin_2 = NumberLine(rotation=PI/2, include_numbers=False, label_direction=RIGHT,
-                                   x_range=[-9, 9, 1], numbers_to_exclude=[-9, 9], tick_size=0.3, numbers_with_elongated_ticks=[0]).scale(0.15)
+                                   x_range=[-11, 11, 1], numbers_to_exclude=[-11, 11], tick_size=0.3, numbers_with_elongated_ticks=[0]).scale(0.2)
 
-            Num_Lin_2.move_to(2*DOWN + 1*RIGHT)
+            Num_Lin_2.move_to(3.5*RIGHT)
             # Paréntesis para conjunto abierto.
             ParSup1 = Tex(")").move_to(Num_Lin_1.get_end() +
                                        0.04*DOWN).scale(1).rotate(np.pi/2)
@@ -361,13 +360,13 @@ class Subescena_2(Scene):
                 1), Num_Lin_1.number_to_point(1.001))
             # Flecha para primera recta numérica.
             FLECHA_1 = Arrow(Num_Lin_1.number_to_point(0), np.array(
-                [2, Num_Lin_1.number_to_point(0)[1], 0]), buff=0)
+                [4.5, Num_Lin_1.number_to_point(0)[1], 0]), buff=0)
             # Linea con que se colorea segunda recta numérica.
             LINEA_2 = Line(Num_Lin_2.number_to_point(
                 1), Num_Lin_2.number_to_point(1.001))
             # Flecha para segunda recta numérica.
             FLECHA_2 = Arrow(Num_Lin_2.number_to_point(0), np.array(
-                [4, Num_Lin_2.number_to_point(0)[1], 0]), buff=0)
+                [8, Num_Lin_2.number_to_point(0)[1], 0]), buff=0)
             # Valores para primera recta numérica.
             Coef_1 = (MathTex("c_2")).next_to(FLECHA_2.get_end(), RIGHT)
             # Valores para segunda recta numérica.
@@ -449,10 +448,10 @@ class Subescena_2(Scene):
                       Write(Text14.group)
                       )
             self.add_foreground_mobjects(Text14.group)
-            self.play(vt1.animate.set_value(9), run_time=1.3)
+            self.play(vt1.animate.set_value(11), run_time=1.3)
             Linea1.remove_updater(upd_for_linea)
             self.play(vt1.animate.set_value(1))
-            self.play(vt1.animate.set_value(-9), run_time=1.3)
+            self.play(vt1.animate.set_value(-11), run_time=1.3)
             Linea2.remove_updater(upd_for_linea)
             self.play(vt1.animate.set_value(1), run_time=1)
             self.remove_foreground_mobjects(Text14.group)
@@ -529,12 +528,12 @@ class Subescena_2(Scene):
 
             self.add_foreground_mobjects(Num_Lin_2, Inf_2, MInf_2, ParSup2, ParInf2)
 
-            self.play(vt1.animate.set_value(9), run_time=1.3)
+            self.play(vt1.animate.set_value(11), run_time=1.3)
             Plano1.remove_updater(upd_for_plano)
             self.play(vt1.animate.set_value(1))
             Plano2.add_updater(upd_for_plano)
             self.bring_to_back(Plano2)
-            self.play(vt1.animate.set_value(-9), run_time=1.3)
+            self.play(vt1.animate.set_value(-11), run_time=1.3)
             Plano2.remove_updater(upd_for_plano)
             self.play(vt1.animate.set_value(1), run_time=1.3)
             self.play(FadeOut(Linea1), FadeOut(Linea2))
@@ -552,14 +551,10 @@ class Subescena_2(Scene):
             self.play(FadeOut(Vec1c), FadeOut(FLECHA_2), FadeOut(Coef_2))
             self.remove_foreground_mobjects(Text14_2.group)
             self.play(
-                ReplacementTransform(Text14_2[0][:], Text14_3[0][:9]),
+                ReplacementTransform(Text14_2[0][:], Text14_3[0][:]),
                 ReplacementTransform(Text14_2.bg, Text14_3.bg)
             )
             self.add_foreground_mobjects(Text14_3)
-            self.play(
-                FadeIn(Text14_3[0][9:]),
-                run_time=3
-            )
             self.remove_foreground_mobjects(Text14_2)
             self.wait(3)
             Punto = Dot(radius=0.01, color=MAGENTA).set_fill(MAGENTA)
@@ -585,7 +580,7 @@ class Subescena_2(Scene):
             col3 = MAGENTA
             # ---------------------------------------- Recta numérica a lo largo de la cual se desplazan los escalares
             number_line = NumberLine(rotation=PI/2, include_numbers=True, label_direction=RIGHT,
-                                     x_range=[-3, 3, 1], numbers_to_exclude=[-3, 3]).move_to(np.array([5.5, -2.0, 0])).scale(0.5)
+                                     x_range=[-6, 6, 1], numbers_to_exclude=[-6, 6]).move_to(np.array([5.5, 0, 0])).scale(0.5)
             # Paréntesis para la recta numérica
             par_sup = Tex(")").move_to(number_line.get_end()+0.04 *
                                        DOWN).scale(1).rotate(np.pi/2).scale(0.8)
@@ -630,8 +625,8 @@ class Subescena_2(Scene):
                 number_line, par_sup, par_inf, inf, minf, pointer_vec_1, label_1, pointer_vec_2, label_2)
 
             # Box que contiene a la recta numérica
-            sliders_box = Rectangle(width=2.5, height=3.9, fill_color=BLACK, fill_opacity=1).move_to(
-                np.array([5.51, -2, 0]))
+            sliders_box = Rectangle(width=2.75, height=7, fill_color=BLACK, fill_opacity=1).move_to(
+                np.array([5.51, -0, 0]))
             sliders = VGroup(sliders_box, complete_number_line)
             # ---------------------------------------- Vectores en el plano
             # Texto de los escalares
@@ -733,21 +728,21 @@ class Subescena_2(Scene):
                       )
             self.play(FadeIn(sliders))
             # Moviendo solo el primer coeficiente
-            self.play(t1.animate.set_value(0.5),
+            self.play(t1.animate.set_value(2.5),
                       run_time=1)
-            self.play(t1.animate.set_value(0.9),
+            self.play(t1.animate.set_value(1.0),
                       run_time=1)
             # Moviendo solo el segundo coeficiente
-            self.play(t2.animate.set_value(1.2),
+            self.play(t2.animate.set_value(1.5),
                       run_time=0.75)
             self.play(t2.animate.set_value(1.0),
                       run_time=0.75)
             #Moviendo ambos coeficientes de forma simultánea
-            self.play(t1.animate.set_value(1.6),
-                      t2.animate.set_value(-0.8),
+            self.play(t1.animate.set_value(2),
+                      t2.animate.set_value(4),
                       run_time=0.5)
-            self.play(t1.animate.set_value(-0.5),
-                      t2.animate.set_value(-1),
+            self.play(t1.animate.set_value(1.5),
+                      t2.animate.set_value(5),
                       run_time=0.5)
             #self.play(t1.animate.set_value(-1),
             #          t2.animate.set_value(-1.8),
@@ -758,8 +753,8 @@ class Subescena_2(Scene):
             #self.play(t1.animate.set_value(0.6),
             #          t2.animate.set_value(1.9),
             #          run_time=0.5)
-            self.play(t1.animate.set_value(0.6),
-                      t2.animate.set_value(2.1),
+            self.play(t1.animate.set_value(1.8),
+                      t2.animate.set_value(4.6),
                       FadeOut(text_vec_objetivo),
                       run_time=0.5)
             #self.play(t1.animate.set_value(0.4),
@@ -804,13 +799,13 @@ class Subescena_2(Scene):
                 run_time=2)
 
         # ----------------------------------------------------------- Coordenadas del vector objetivo
-        vec = np.array([5, 3, 0])
+        vec = np.array([-8, -4, 0])
         # ----------------------------------------------------------- Coordenadas de vector A
-        vec_A = np.array([-2, 2, 0])
+        vec_A = np.array([1, -1, 0])
         #  -----------------------------------------------------------  Coordenadas de vector B
-        vec_B = np.array([3, 1, 0])
+        vec_B = np.array([-2, -0.5, 0])
 
-        grid = NumberPlane()
+        grid = NumberPlane(x_range=(-12.111111111111111, 12.111111111111111, 1), y_range=(-7.0, 7.0, 1))
         vec_ = Arrow((0, 0, 0), vec, buff=0, color=NARANJA)
         vecA = Arrow((0, 0, 0), vec_A, buff=0, color=AZUL)
         vecB = Arrow((0, 0, 0), vec_B, buff=0, color=ROJO)
@@ -823,16 +818,22 @@ class Subescena_2(Scene):
             vecB.get_end()+0.4*vec_B/(np.linalg.norm(vec_B)))
 
         # Ejes para mostrar independencia lineal de b_1 y b_2
-        Eje1 = DashedLine(-5*vec_A, 5*vec_A, color=MAGENTA, buff=0)
-        Eje2 = DashedLine(-5*vec_B, 5*vec_B, color=MAGENTA, buff=0)
+        Eje1 = DashedLine(-7*vec_A, 7*vec_A, color=MAGENTA, buff=0)
+        Eje2 = DashedLine(-7*vec_B, 7*vec_B, color=MAGENTA, buff=0)
         Ejes = VGroup(Eje1, Eje2)
+
         # ---------------------------------------- Animaciones iniciales
-        self.next_section(skip_animations=True)
+
+        self.camera.frame.set(height=12.5)
+        #self.next_section(skip_animations=True)
         self.play(Write(grid), run_time=3)
         self.wait(0.5)
         self.play(FadeIn(vec_))
+
         self.play(Write(text_vec))
         self.play(FadeIn(vecA), Write(text_A), FadeIn(vecB), Write(text_B))
+
+        #self.next_section(skip_animations=True)
         self.wait(5)
         self.play(FadeOut(
             vec_,

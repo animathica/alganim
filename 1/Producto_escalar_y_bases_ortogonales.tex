@@ -174,7 +174,7 @@ Sabemos que, dados un espacio vectorial de dimensión finita y una base para ese
     & \quad \quad \ \ \text{¿}c_1,...,c_k\text{?} & & & & &
 \end{align*}
 
-Veamos cómo podríamos representar este problema en el caso del espacio vectorial real\footnote{Dibujamos el plano cartesiano.} $\mathbb{R}^2$. Tenemos a nuestro vector no nulo cualquiera\footnote{Dibujamos a $\vec{v}$ junto con su flecha.} y a nuestra base arbitraria, formada por los vectores $\vec{b}_1$\footnote{Dibujamos a $\vec{b}_1$ junto con su flecha.} y $\vec{b}_2$\footnote{Dibujamos a $\vec{b}_2$ junto con su flecha.}. Observemos que estos vectores efectivamente forman una base de $\mathbb{R}^2$, pues son linealmente independientes\footnote{Trazamos ejes punteados como en 0:09 del video de Gram-Schmidt para mostrar la independencia lineal.} y generan a todo el espacio $\mathbb{R}^2$, como mostraremos a continuación\footnote{Animar la generación del subespacio $\langle\{\vec{b}_1,\vec{b}_2\}\rangle$, así como en 0:28-0:54 del video de Gram-Schmidt. De preferencia, animar la variación de $c_1$ (la barra del lado izquierdo) antes de la de $c_2$ (del lado derecho). En la última transformación dentro del recuadro (0:51 en V1), escribir $\langle\{\vec{b}_1,\vec{b}_2\}\rangle=\mathbb{R}^2$ en vez de lo que aparece ahí.}. Precisamente, como la base genera a todo el espacio y es linealmente independiente, sabemos que existe una combinación lineal única de sus elementos que da como resultado a nuestro vector. Sin embargo, no sabemos cómo encontrar a los coeficientes de dicha combinación lineal. Vamos primero a resolver este problema de manera general, y después volveremos a este espacio para representar la solución en este caso.
+Veamos cómo podríamos representar este problema en el caso del espacio vectorial real\footnote{Dibujamos el plano cartesiano.} $\mathbb{R}^2$. Tenemos a nuestro vector no nulo cualquiera\footnote{Dibujamos a $\vec{v}$ junto con su flecha.} y a nuestra base arbitraria, formada por los vectores $\vec{b}_1$\footnote{Dibujamos a $\vec{b}_1$ junto con su flecha.} y $\vec{b}_2$\footnote{Dibujamos a $\vec{b}_2$ junto con su flecha.}. Observemos que estos vectores efectivamente forman una base de $\mathbb{R}^2$, pues son linealmente independientes\footnote{Trazamos ejes punteados como en 0:09 del video de Gram-Schmidt para mostrar la independencia lineal.} y generan a todo el espacio $\mathbb{R}^2$, como mostraremos a continuación\footnote{Animar la generación del subespacio $\langle\{\vec{b}_1,\vec{b}_2\}\rangle$, así como en 0:28-0:54 del video de Gram-Schmidt. De preferencia, animar la variación de $c_1$ (la barra del lado izquierdo) antes de la de $c_2$ (del lado derecho). En la última transformación dentro del recuadro (0:51 en V1), escribir $\langle\{\vec{b}_1,\vec{b}_2\}\rangle=\mathbb{R}^2$ en vez de lo que aparece ahí.}. Precisamente, como la base genera a todo el espacio y es linealmente independiente, sabemos que existe una combinación lineal única de sus elementos que da como resultado a nuestro vector. Sin embargo, no sabemos cómo encontrar a los coeficientes de dicha combinación lineal. Vamos primero a resolver el problema en este caso para después generalizar la solución.
 
 Regresando al planteamiento general, este problema puede llegar a ser muy complicado, ya que nuestros vectores podrían ser funciones, n-tuplas, matrices, etc. y tendríamos que resolver un sistema de ecuaciones \textemdash mediante el método computacional de nuestra preferencia\textemdash, el cual aumentaría en complejidad a medida que aumente la dimensión del espacio. Sin embargo, se puede resolver de forma sencilla introduciendo una operación llamada \emph{producto escalar}.
 
@@ -263,31 +263,34 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
     \Gamma=\{\vec{g}_1,...,\vec{g}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{g}_i , \vec{g}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
 \]
 
-\noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las condiciones siguientes\footnote{Tal vez quede mejor cambiando de lugar los dos casos de la expresión $\langle \vec{g}_j , \vec{g}_i \rangle$ aquí y en lo que sigue, pero no estoy seguro aún.}
-
+\noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal finito es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las condiciones siguientes
 \begin{align*}
-    \Gamma=\{\vec{g}_1,...,\vec{g}_k\} \text{ es base \emph{ortogonal} de } V \text{ si}& & &\\
+    \Gamma=&\{\vec{g}_1,...,\vec{g}_k\} \text{ es base \emph{ortogonal} de } V \text{ si}\\
     \\
-    \langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i, \end{cases}&\langle\Gamma\rangle = V. & &\\
+\langle\Gamma\rangle = V, \quad &\langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i, \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i. \end{cases}\\
 \end{align*}
-
-Para poder interpretar la ortogonalidad geométricamente, es de gran utilidad ver un ejemplo pero, para eso, necesitamos ver antes un ejemplo de producto escalar. A continuación, veremos un ejemplo en el espacio vectorial real $\mathbb{R}^2$ conocido comunmente como \emph{producto punto}, cuya regla de correspondencia es la siguiente. Veamos que esta operación efectivamente cumple las propiedades de producto escalar, demostrándolas una por una.
-\begin{align*}
-    \langle \cdot , \cdot \rangle&: \mathbb{R}^2\times\mathbb{R}^2\to \mathbb{R} \\ \\
-    \langle \vec{v} , \vec{w} \rangle = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} &\cdot \begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = v_1v_2 + w_1w_2
-\end{align*}
-
-Cabe resaltar que este producto punto, que acabamos de demostrar que es un producto escalar en $\mathbb{R}^2$, puede generalizarse fácilmente al espacio $\mathbb{R}^n$, e inclusive al espacio vectorial complejo $\mathbb{C}^n$. La demostración de que la operación en pantalla es un producto escalar queda como ejercicio para quien quiera hacerlo.
 
 %%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%
 
 \newpage
 \section{Tercera escena}
 
-\subsection*{SE1}
+\subsection*{SE1} % Producto punto 
 
+A continuación, veremos la importancia que tienen la operación de producto escalar y la noción de base ortogonal para la resolución del problema planteado al inicio del video mediante un ejemplo en el espacio vectorial real $\mathbb{R}^2$. Consideremos la siguiente regla de correspondencia.
+\begin{align*}
+    \langle \cdot , \cdot \rangle&: \mathbb{R}^2\times\mathbb{R}^2\to \mathbb{R} \\ \\
+    \langle \vec{v} , \vec{w} \rangle = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} &\cdot \begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = v_1v_2 + w_1w_2
+\end{align*}
+\noindent Veamos que la operación que define efectivamente cumple las propiedades de producto escalar, demostrándolas una por una\footnote{Agregar nota al pie que diga a qué tiempo del video termina la demostración.}. \\
 
-\subsection*{SE2}
+Este tipo particular de producto escalar es conocido comunmente como \emph{producto punto}, y cabe resaltar que puede generalizarse fácilmente al espacio $\mathbb{R}^n$, e inclusive al espacio vectorial complejo $\mathbb{C}^n$. La demostración de que la operación en pantalla es un producto escalar queda como ejercicio para quien quiera hacerlo.
+
+\subsection*{SE2} % Base ortogonal y resolución del problema de encontrar coeficientes
+
+Volvamos a representar nuestro problema en el caso del espacio $\mathbb{R}^2$ pero, esta vez, utilizando una base \emph{particular}, que llamaremos $\Gamma$. Recordemos que nuestro objetivo es expresar a nuestro vector $\vec{v}$ como combinación lineal de los elementos de $\Gamma$, para lo cual debemos encontrar a los coeficientes $c_i$. Observemos que los vectores $\vec{g}_1$ y $\vec{g}_2$ son ortogonales entre sí, pues su producto punto es igual a cero, por lo que $\Gamma$ es un conjunto ortogonal. Además, $\vec{g}_1$ y $\vec{g}_2$ son linealmente independientes entre sí y, más aún, generan a todo el espacio $\mathbb{R}^2$, como veremos a continuación. De lo anterior, concluimos que $\Gamma$ es una base \emph{ortogonal}.
+
+\subsection*{SE3} % Interpretación geométrica del producto punto
 
 %Regresemos a la representación geométrica de nuestro problema en el caso del espacio vectorial real $\mathbb{R}^2$. Como quizá ya lo estés sospechando, la operación conocida como \emph{producto punto} es un ejemplo de un producto escalar en este espacio. Observemos que un conjunto que contiene a los vectores con entradas $\begin{pmatrix} 1 & 0 \end{pmatrix}$ y $\begin{pmatrix} 0 & 1 \end{pmatrix}$ forma una base ortogonal de este espacio, pues cumple con las propiedades descritas anteriormente. Aplicando el resultado anterior, se sigue que los coeficientes necesarios para expresar a nuestro vector arbitrario como combinación lineal de esta base ortogonal son los siguientes.
 
