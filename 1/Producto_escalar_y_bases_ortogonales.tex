@@ -64,6 +64,7 @@
 \newtheorem{axi}{Axioma}[section]
 
 \numberwithin{equation}{section}
+\allowdisplaybreaks
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
 
@@ -133,19 +134,19 @@
 %\tableofcontents
 
 \begin{obs}
-    Por definición, cualquier base de un espacio vectorial genera a cada vector del espacio mediante una combinación lineal única. Sin embargo, encontrar los coeficientes necesarios para expresar a un vector arbitrario no nulo como combinación lineal de una base es, en general, un proceso laborioso que aumenta en complejidad a medida que aumenta la dimensión del espacio. Definiendo la operación de producto escalar \textemdash y, subsecuentemente, los conceptos de ortogonalidad, conjunto ortogonal y base ortogonal\textemdash \ podemos obtener un resultado poderoso que nos muestra cómo encontrar a dichos coeficientes de forma sencilla, suponiendo que existe una base ortogonal. Este resultado, a su vez, nos permite darle una interpretación geométrica a esta nueva operación, que está relacionada con las proyecciones vectoriales.
+    Por definición, cualquier base de un espacio vectorial genera a cada vector del espacio mediante una combinación lineal única. Sin embargo, encontrar los coeficientes necesarios para expresar a un vector arbitrario no nulo como combinación lineal de una base es, en general, un proceso laborioso que aumenta en complejidad a medida que aumenta la dimensión del espacio. Definiendo la operación de producto escalar \textemdash y, subsecuentemente, los conceptos de ortogonalidad, conjunto ortogonal y base ortogonal\textemdash \ podemos obtener un resultado poderoso que nos muestra cómo encontrar a dichos coeficientes de forma sencilla, suponiendo que existe una base ortogonal. Este resultado, a su vez, nos permite darle una interpretación geométrica a esta nueva operación, relacionada con las llamadas proyecciones vectoriales.
 \end{obs}
 
 \begin{obs}
-Las ideas principales a presentar en este video son:
+    Las ideas principales a presentar en este video (por escena) son:
 \begin{enumerate}[label=(\roman*)]
-    \item Dada una base de un espacio vectorial de dimensión finita y un vector no nulo arbitrario, el problema de encontrar los coeficientes necesarios para expresar a ese vector como combinación lineal de la base no es trivial. En general, puede resolverse computacionalmente mediante sistemas de ecuaciones, pero su complejidad aumenta dependiendo de la dimensión del espacio.
+    \item Dada una base de un espacio vectorial de dimensión finita y un vector no nulo arbitrario, el problema de encontrar los coeficientes necesarios para expresar a ese vector como combinación lineal de dicha base no es trivial. En general, puede resolverse computacionalmente mediante sistemas de ecuaciones, pero su complejidad aumenta con la dimensión del espacio.
     
     \item El producto escalar es una operación no esencial que, de estar presente, dota a un espacio vectorial de estructura adicional; en particular, su introducción permite definir los conceptos de ortogonalidad y conjunto ortogonal. 
     
-    \item El ``producto punto'' es un ejemplo de producto escalar en el espacio vectorial real $\mathbb{R}^2$. Usando una base ortogonal de $\mathbb{R}^2$, podemos utilizar el producto escalar (en este caso, el producto punto) para resolver el problema de encontrar los coeficientes necesarios para expresar a un vector arbitrario como combinación lineal de una base. Más aún, este resultado nos permite interpretar geométricamente al producto punto como una operación relacionada con las proyecciones vectoriales. %Si un espacio vectorial con producto escalar tiene dimensón finita y existe una base ortogonal, ésta simplifica enormemente el problema de encontrar los coeficientes necesarios para expresar a un vector arbitrario como combinación lineal de una base. Más aún, este resultado nos permite interpretar geométricamente al producto escalar como una operación relacionada con las proyecciones vectoriales.
+    \item El ``producto punto'' es un ejemplo de producto escalar en el espacio vectorial real $\mathbb{R}^2$. Usando una base ortogonal de $\mathbb{R}^2$, podemos utilizar el producto escalar (en este caso, el producto punto) para resolver el problema de encontrar los coeficientes necesarios para expresar a un vector arbitrario como combinación lineal de una base de forma sencilla. %Más aún, este resultado nos permite interpretar geométricamente al producto punto como una operación relacionada con las proyecciones vectoriales. %Si un espacio vectorial con producto escalar tiene dimensón finita y existe una base ortogonal, ésta simplifica enormemente el problema de encontrar los coeficientes necesarios para expresar a un vector arbitrario como combinación lineal de una base. Más aún, este resultado nos permite interpretar geométricamente al producto escalar como una operación relacionada con las proyecciones vectoriales.
 
-    \item El resultado anterior se puede generalizar a cualquier espacio de dimensión finita con producto escalar, por lo que también podemos generalizar la interpretación geométrica de esta operación: el producto escalar entre dos vectores es proporcional al número por el cual debemos reescalar a uno de los vectores para obtener la componente del otro vector que ``vive'' en el subespacio vectorial generado por el vector reescalado; a esta componente se le conoce como la \emph{proyección vectorial} del primer vector sobre el segundo. En particular, obtenemos una interpretación geométrica de ortogonalidad: dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es nula.
+    \item El resultado anterior se puede generalizar a cualquier espacio de dimensión finita con producto escalar, de donde obtenemos su interpretación geométrica: el producto escalar entre dos vectores es proporcional al número por el cual debemos reescalar al segundo vector para obtener la componente del primer vector que ``vive'' en el subespacio vectorial generado por el segundo; a esta componente se le conoce como la \emph{proyección vectorial} del primer vector sobre el segundo. Con esto en mente, podemos deducir qué significa que un producto escalar entre dos vectores sea positivo, negativo o cero (¡ortogonalidad!) y, en el caso complejo, qué significa que dicho producto escalar tenga parte imaginaria positiva, negativa o cero.
 \end{enumerate}
 \end{obs}
 
@@ -156,7 +157,9 @@ Las ideas principales a presentar en este video son:
 %%%%%%%%%%%%% PRIMERA ESCENA %%%%%%%%%%%
 
 \newpage
-\section{Primera escena}
+\section{El problema de encontrar coeficientes}
+
+\subsection{Planteamiento del problema a resolver} \label{Ssec: Planteamiento del problema a resolver}
 
 Sabemos que, dados un espacio vectorial de dimensión finita y una base para ese espacio, cualquier vector del espacio puede ser expresado mediante una combinación lineal única de los vectores de esa base. Esto es de gran utilidad para hacer cálculos con vectores. Sin embargo, consideremos la siguiente pregunta: dado un vector no nulo cualquiera y una base arbitraria, ¿cómo encontramos los coeficientes necesarios para expresar a nuestro vector como combinación lineal de dicha base?
 
@@ -174,14 +177,19 @@ Sabemos que, dados un espacio vectorial de dimensión finita y una base para ese
     & \quad \quad \ \ \text{¿}c_1,...,c_k\text{?} & & & & &
 \end{align*}
 
-Veamos cómo podríamos representar este problema en el caso del espacio vectorial real\footnote{Dibujamos el plano cartesiano.} $\mathbb{R}^2$. Tenemos a nuestro vector no nulo cualquiera\footnote{Dibujamos a $\vec{v}$ junto con su flecha.} y a nuestra base arbitraria, formada por los vectores $\vec{b}_1$\footnote{Dibujamos a $\vec{b}_1$ junto con su flecha.} y $\vec{b}_2$\footnote{Dibujamos a $\vec{b}_2$ junto con su flecha.}. Observemos que estos vectores efectivamente forman una base de $\mathbb{R}^2$, pues son linealmente independientes\footnote{Trazamos ejes punteados como en 0:09 del video de Gram-Schmidt para mostrar la independencia lineal.} y generan a todo el espacio $\mathbb{R}^2$, como mostraremos a continuación\footnote{Animar la generación del subespacio $\langle\{\vec{b}_1,\vec{b}_2\}\rangle$, así como en 0:28-0:54 del video de Gram-Schmidt. De preferencia, animar la variación de $c_1$ (la barra del lado izquierdo) antes de la de $c_2$ (del lado derecho). En la última transformación dentro del recuadro (0:51 en V1), escribir $\langle\{\vec{b}_1,\vec{b}_2\}\rangle=\mathbb{R}^2$ en vez de lo que aparece ahí.}. Precisamente, como la base genera a todo el espacio y es linealmente independiente, sabemos que existe una combinación lineal única de sus elementos que da como resultado a nuestro vector. Sin embargo, no sabemos cómo encontrar a los coeficientes de dicha combinación lineal. Vamos primero a resolver el problema en este caso para después generalizar la solución.
+\subsection{Representación del problema en $\mathbb{R}^2$} \label{Ssec: Representación del problema en R^2}
 
-Regresando al planteamiento general, este problema puede llegar a ser muy complicado, ya que nuestros vectores podrían ser funciones, n-tuplas, matrices, etc. y tendríamos que resolver un sistema de ecuaciones \textemdash mediante el método computacional de nuestra preferencia\textemdash, el cual aumentaría en complejidad a medida que aumente la dimensión del espacio. Sin embargo, se puede resolver de forma sencilla introduciendo una operación llamada \emph{producto escalar}.
+Veamos cómo podríamos representar este problema en el caso del espacio vectorial real\footnote{Dibujamos el plano cartesiano.} $\mathbb{R}^2$. Tenemos a nuestro vector no nulo cualquiera\footnote{Dibujamos a $\vec{v}$ junto con su flecha.} y a nuestra base arbitraria, formada por los vectores $\vec{b}_1$\footnote{Dibujamos a $\vec{b}_1$ junto con su flecha.} y $\vec{b}_2$\footnote{Dibujamos a $\vec{b}_2$ junto con su flecha.}. Observemos que estos vectores efectivamente forman una base de $\mathbb{R}^2$, pues son linealmente independientes\footnote{Trazamos ejes punteados como en 0:09 del video de Gram-Schmidt para mostrar la independencia lineal.} y generan a todo el espacio $\mathbb{R}^2$, como mostraremos a continuación\footnote{Animar la generación del subespacio $\langle\{\vec{b}_1,\vec{b}_2\}\rangle$, así como en 0:28-0:54 del video de Gram-Schmidt. De preferencia, animar la variación de $c_1$ (la barra del lado izquierdo) antes de la de $c_2$ (del lado derecho). En la última transformación dentro del recuadro (0:51 en V1), escribir $\langle\{\vec{b}_1,\vec{b}_2\}\rangle=\mathbb{R}^2$ en vez de lo que aparece ahí.}. Precisamente, como la base genera a todo el espacio y es linealmente independiente, sabemos que existe una combinación lineal única de sus elementos que da como resultado a nuestro vector. Sin embargo, no sabemos cómo encontrar a los coeficientes de dicha combinación lineal. Más adelante, empezaremos por resolver el problema en este caso, para después generalizar la solución obtenida.
+
+\subsection{Complicaciones de la solución por sistema de ecuaciones} \label{Ssec: Complicaciones de la solución por sistema de ecuaciones}
+
+Regresando al planteamiento general, este problema puede llegar a ser muy complicado, ya que nuestros vectores podrían ser funciones, n-tuplas, matrices, etc. y tendríamos que resolver un sistema de ecuaciones \textemdash mediante el método computacional de nuestra preferencia\textemdash, el cual aumentaría en complejidad a medida que aumente la dimensión del espacio. Sin embargo, se puede resolver de forma sencilla introduciendo las nociones de \emph{producto escalar} y \emph{base ortogonal}.
 
 %%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%
 
-\newpage
-\section{Segunda escena}
+\section{Definiciones}
+
+\subsection{Definición de producto escalar y terminología}
 
 Un producto escalar en un espacio vectorial es una operación que toma un par ordenado de vectores del espacio y devuelve un escalar del campo, tal que cumple las siguientes propiedades:
 \begin{align*}
@@ -251,6 +259,8 @@ Un producto escalar en un espacio vectorial es una operación que toma un par or
 %    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
 %\end{align*}
 
+\subsection{Definición de ortogonalidad}
+
 Para ver la importancia de esta \emph{nueva} operación en la solución del problema presentado al inicio del video, debemos introducir la definición de ortogonalidad. Decimos que dos vectores son \emph{ortogonales} si su producto escalar es cero. Notemos que, como el complejo conjugado de cero es él mismo, por la propiedad de simetría conjugada se sigue que la ortogonalidad es una relación simétrica.
 
 \[
@@ -263,6 +273,8 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
     \Gamma=\{\vec{g}_1,...,\vec{g}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{g}_i , \vec{g}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
 \]
 
+\subsection{Definición de base ortogonal y caracterización}
+
 \noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal finito es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las condiciones siguientes
 \begin{align*}
     \Gamma=&\{\vec{g}_1,...,\vec{g}_k\} \text{ es base \emph{ortogonal} de } V \text{ si}\\
@@ -272,25 +284,25 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
 
 %%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%
 
-\newpage
-\section{Tercera escena}
+\section{Solución en $\mathbb{R}^2$ usando el producto escalar}
 
-\subsection*{SE1} % Producto punto 
+\subsection{Producto punto}
 
 A continuación, veremos la importancia que tienen la operación de producto escalar y la noción de base ortogonal para la resolución del problema planteado al inicio del video mediante un ejemplo en el espacio vectorial real $\mathbb{R}^2$. Consideremos la siguiente regla de correspondencia.
 \begin{align*}
     \langle \cdot , \cdot \rangle&: \mathbb{R}^2\times\mathbb{R}^2\to \mathbb{R} \\ \\
     \langle \vec{v} , \vec{w} \rangle = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} &\cdot \begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = v_1v_2 + w_1w_2
 \end{align*}
-\noindent Veamos que la operación que define efectivamente cumple las propiedades de producto escalar, demostrándolas una por una\footnote{Agregar nota al pie que diga a qué tiempo del video termina la demostración.}. \\
+\noindent Veamos que la operación que define efectivamente cumple las propiedades de producto escalar, demostrándolas una por una\footnote{Agregar nota al pie que diga ``*La demostración termina en XX:XX.'', y que persista hasta que termine.}.
 
 Este tipo particular de producto escalar es conocido comunmente como \emph{producto punto}, y cabe resaltar que puede generalizarse fácilmente al espacio $\mathbb{R}^n$, e inclusive al espacio vectorial complejo $\mathbb{C}^n$. La demostración de que la operación en pantalla es un producto escalar queda como ejercicio para quien quiera hacerlo.
 
-\subsection*{SE2} % Base ortogonal y resolución del problema de encontrar coeficientes
+
+\subsection{Base ortogonal y resolución del problema de encontrar coeficientes}
 
 Volvamos a representar nuestro problema en el caso del espacio $\mathbb{R}^2$ pero, esta vez, utilizando una base \emph{particular}, que llamaremos $\Gamma$. Recordemos que nuestro objetivo es expresar a nuestro vector $\vec{v}$ como combinación lineal de los elementos de $\Gamma$, para lo cual debemos encontrar a los coeficientes $c_i$. Observemos que los vectores $\vec{g}_1$ y $\vec{g}_2$ son ortogonales entre sí, pues su producto punto es igual a cero, por lo que $\Gamma$ es un conjunto ortogonal. Además, $\vec{g}_1$ y $\vec{g}_2$ son linealmente independientes entre sí y, más aún, generan a todo el espacio $\mathbb{R}^2$, como veremos a continuación. De lo anterior, concluimos que $\Gamma$ es una base \emph{ortogonal}.
 
-\subsection*{SE3} % Interpretación geométrica del producto punto
+%\subsection*{SE3} % Interpretación geométrica del producto punto
 
 %Regresemos a la representación geométrica de nuestro problema en el caso del espacio vectorial real $\mathbb{R}^2$. Como quizá ya lo estés sospechando, la operación conocida como \emph{producto punto} es un ejemplo de un producto escalar en este espacio. Observemos que un conjunto que contiene a los vectores con entradas $\begin{pmatrix} 1 & 0 \end{pmatrix}$ y $\begin{pmatrix} 0 & 1 \end{pmatrix}$ forma una base ortogonal de este espacio, pues cumple con las propiedades descritas anteriormente. Aplicando el resultado anterior, se sigue que los coeficientes necesarios para expresar a nuestro vector arbitrario como combinación lineal de esta base ortogonal son los siguientes.
 
@@ -300,8 +312,9 @@ Volvamos a representar nuestro problema en el caso del espacio $\mathbb{R}^2$ pe
 
 %%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%
 
-\newpage
-\section{Cuarta escena}
+\section{Generalización de la solución e interpretación geométrica}
+
+\subsection{Generalización de la solución al problema de encontrar coeficientes}
 
 Veamos qué sucede si, regresando a nuestro problema original, suponemos que $V$ es un espacio vectorial con producto escalar y que $\Gamma$ es una base ortogonal de $V$. Nuevamente, por ser $\Gamma$ una base, sabemos que existen coeficientes tales que la siguiente ecuación se cumple. ¿Pero cómo encontramos a estos coeficientes?
 
@@ -361,14 +374,15 @@ Este resultado nos dice que cualquier vector del espacio se puede descomponer co
 
 Hemos visto que, en espacios vectoriales de dimensión finita con producto escalar, las bases ortogonales nos ayudan a resolver nuestro problema de encontrar coeficientes de manera sencilla; sin embargo, ¡aún no hemos justificado que si quiera \emph{existan}! Resulta que la existencia de bases ortogonales en espacios vectoriales de dimensión finita con producto escalar está asegurada, pero esto lo veremos en un video posterior cuando hablemos del Teorema de Gram-Schmidt.
 
+\subsection{Interpretación geométrica del producto escalar}
+
 Por lo pronto, observemos que el resultado general que hemos obtenido gracias al producto escalar y a las bases ortogonales nos permite hacer una interpretación geométrica del producto escalar de la siguiente manera. Si tenemos dos vectores $\vec{u}$ y $\vec{v}$ en cualquier espacio de dimensión finita con producto escalar y $\vec{v}$ es distinto del vector nulo, entonces podemos suponer que es un elemento de una base ortogonal del espacio. En este caso, sabemos que la componente de $\vec{u}$ que vive en el subespacio generador por $\vec{v}$ está dada por la siguiente expresión. Por lo tanto, en general, el producto escalar de un vector $\vec{u}$ con un vector no nulo $\vec{v}$ nos habla de la proyección vectorial de $\vec{u}$ sobre $\vec{v}$, pues su resultado es un número proporcional al escalar por el cual debemos reescalar a $\vec{v}$ para obtener a la componente de $\vec{u}$ que vive en el subespacio generado por $\vec{v}$. 
 
 En particular, $\vec{u}$ es ortogonal a $\vec{v}$ si, y sólo si, la proyección vectorial de $\vec{u}$ sobre $\vec{v}$ es igual al vector nulo. Recordando que la relación de ortogonalidad es simétrica, esto también es equivalente a que la proyección vectorial de $\vec{v}$ sobre $\vec{u}$ sea igual al vector nulo. En otras palabras, dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es nula.
 
 %%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%
 
-\newpage
-\section{Escena final}
+\section{Ejercicios y preguntas}
 
 \begin{center}
     Sea $(V,K)$ un espacio vectorial con producto escalar $\langle\cdot,\cdot\rangle:V\times V\to K$.
