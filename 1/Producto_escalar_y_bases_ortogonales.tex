@@ -259,7 +259,7 @@ Un producto escalar en un espacio vectorial es una operación que toma un par or
 %    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
 %\end{align*}
 
-\subsection{Definición de ortogonalidad}
+\subsection{Definición de ortogonalidad y base ortogonal}
 
 Para ver la importancia de esta \emph{nueva} operación en la solución del problema presentado al inicio del video, debemos introducir la definición de ortogonalidad. Decimos que dos vectores son \emph{ortogonales} si su producto escalar es cero. Notemos que, como el complejo conjugado de cero es él mismo, por la propiedad de simetría conjugada se sigue que la ortogonalidad es una relación simétrica.
 
@@ -270,11 +270,8 @@ Para ver la importancia de esta \emph{nueva} operación en la solución del prob
 \noindent Así mismo, diremos que un conjunto de vectores es \emph{ortogonal} si cualesquiera dos vectores distintos del conjunto son ortogonales.
 
 \[
-    \Gamma=\{\vec{g}_1,...,\vec{g}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{g}_i , \vec{g}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
+    O=\{\vec{g}_1,...,\vec{g}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{g}_i , \vec{g}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
 \]
-
-\subsection{Definición de base ortogonal y caracterización}
-
 \noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal finito es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las condiciones siguientes
 \begin{align*}
     \Gamma=&\{\vec{g}_1,...,\vec{g}_k\} \text{ es base \emph{ortogonal} de } V \text{ si}\\
@@ -301,6 +298,8 @@ Este tipo particular de producto escalar es conocido comunmente como \emph{produ
 \subsection{Base ortogonal y resolución del problema de encontrar coeficientes}
 
 Volvamos a representar nuestro problema en el caso del espacio $\mathbb{R}^2$ pero, esta vez, utilizando una base \emph{particular}, que llamaremos $\Gamma$. Recordemos que nuestro objetivo es expresar a nuestro vector $\vec{v}$ como combinación lineal de los elementos de $\Gamma$, para lo cual debemos encontrar a los coeficientes $c_i$. Observemos que los vectores $\vec{g}_1$ y $\vec{g}_2$ son ortogonales entre sí, pues su producto punto es igual a cero, por lo que $\Gamma$ es un conjunto ortogonal. Además, $\vec{g}_1$ y $\vec{g}_2$ son linealmente independientes entre sí y, más aún, generan a todo el espacio $\mathbb{R}^2$, como veremos a continuación. De lo anterior, concluimos que $\Gamma$ es una base \emph{ortogonal}.
+
+COMPLETAR. % Describir el procedimiento para solucionar el problema con un ejemplo
 
 %\subsection*{SE3} % Interpretación geométrica del producto punto
 
@@ -374,7 +373,7 @@ Este resultado nos dice que cualquier vector del espacio se puede descomponer co
 
 Hemos visto que, en espacios vectoriales de dimensión finita con producto escalar, las bases ortogonales nos ayudan a resolver nuestro problema de encontrar coeficientes de manera sencilla; sin embargo, ¡aún no hemos justificado que si quiera \emph{existan}! Resulta que la existencia de bases ortogonales en espacios vectoriales de dimensión finita con producto escalar está asegurada, pero esto lo veremos en un video posterior cuando hablemos del Teorema de Gram-Schmidt.
 
-\subsection{Interpretación geométrica del producto escalar}
+\subsection{Interpretación geométrica del producto escalar} % Hablar sobre el término 'proyección' ("sombra")
 
 Por lo pronto, observemos que el resultado general que hemos obtenido gracias al producto escalar y a las bases ortogonales nos permite hacer una interpretación geométrica del producto escalar de la siguiente manera. Si tenemos dos vectores $\vec{u}$ y $\vec{v}$ en cualquier espacio de dimensión finita con producto escalar y $\vec{v}$ es distinto del vector nulo, entonces podemos suponer que es un elemento de una base ortogonal del espacio. En este caso, sabemos que la componente de $\vec{u}$ que vive en el subespacio generador por $\vec{v}$ está dada por la siguiente expresión. Por lo tanto, en general, el producto escalar de un vector $\vec{u}$ con un vector no nulo $\vec{v}$ nos habla de la proyección vectorial de $\vec{u}$ sobre $\vec{v}$, pues su resultado es un número proporcional al escalar por el cual debemos reescalar a $\vec{v}$ para obtener a la componente de $\vec{u}$ que vive en el subespacio generado por $\vec{v}$. 
 
@@ -434,6 +433,8 @@ Ejercicio 1.7 Demuestra que $\Gamma$ es una base ortogonal de $V$ si, y sólo si
 \bigg\langle \frac{\langle \vec{v} , \vec{g}_i \rangle}{\langle \vec{g}_i , \vec{g}_i \rangle} \vec{g}_i, \frac{\langle \vec{v} , \vec{g}_j \rangle}{\langle \vec{g}_j , \vec{g}_j \rangle} \vec{g}_j \bigg \rangle = 0 \ \ \text{si} \ \ i\neq j.
 \] 
 
-Pregunta 1.8 En un espacio vectorial \textbf{complejo} con producto escalar, ¿cómo puedes interpretar la operación de simetría conjugada \emph{geométricamente}? (Sugerencia: Considera el espacio vectorial complejo $\mathbb{C}$.)
+Pregunta 1.8 Pensando en la interpretación geométrica del producto escalar, ¿qué significa que el producto escalar entre dos vectores sea positivo, negativo o cero? 
+
+Pregunta 1.9 En un espacio vectorial complejo con producto escalar, ¿qué significa geométricamente que el producto escalar entre dos vectores tenga parte imaginaria positiva, negativa o cero? Más aún, ¿cómo se interpreta la propiedad de simetría conjugada en este caso? (Sugerencia: Considera el espacio vectorial complejo $\mathbb{C}$.) \\ 
 
 \end{document}

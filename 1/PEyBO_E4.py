@@ -4,11 +4,11 @@ from manim import *
 ######################  Producto escalar y bases ortogonales  #######################
 #####################################################################################
 
+#####################################################################################
+###############################  Cuarta escena  #####################################
+#####################  versión: Manim Community v0.12.0   ###########################
+#####################################################################################
 
-#####################################################################################
-###############################  Tercera escena  ####################################
-###############################  versión: Manim Community v0.8.0   ##################
-#####################################################################################
 ROJO = '#FF0000'
 AZUL = '#0087FF'
 NARANJA = '#FF7700'
@@ -26,7 +26,6 @@ MOSTAZA_CLARO = "#FFE072"
 
 # Consturcción de ClockwiseTransform y CounterclockwiseTransform por herencia de ReplacementTransform
 # en vez de Transform
-
 
 class ClockwiseTransform(ReplacementTransform):
     def __init__(
@@ -50,7 +49,7 @@ class CounterclockwiseTransform(ReplacementTransform):
         super().__init__(mobject, target_mobject, path_arc=path_arc, **kwargs)
 
 
-class Subescena_1(Scene):
+class SE1(Scene):
     def construct(self):
         #----------------------------------- ESPACIO V EN GENERAL
         dim_V = MathTex("\\text{dim}\\left(V\\right)=k<\\infty").scale(0.8).to_edge(UP)
@@ -537,7 +536,7 @@ class Subescena_1(Scene):
         self.wait(2)
 
 
-class Subescena_2(Scene):
+class SE2(Scene):
     def construct(self):
         #-------------------------------------------- Variables que definen al sistema coordenado
         escala_plano = 0.4

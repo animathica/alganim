@@ -8,10 +8,9 @@ from alganim import DashedArrow
 ######################  Producto escalar y bases ortogonales  #######################
 #####################################################################################
 
-
 #####################################################################################
 ###############################  Primera escena  ####################################
-###############################  versión: Manim Community v0.15.2   #################
+#####################  versión: Manim Community v0.15.2   ###########################
 #####################################################################################
 
 ROJO = '#FF0000'
@@ -127,7 +126,7 @@ class DashedArrow(DashedLine):
 
 
 
-class Subescena_1(Scene):
+class SE1(Scene):
     def construct(self):
         #----------------------------------- ESPACIO V EN GENERAL
         dim_V = MathTex("\\text{dim}\\left(V\\right)=k<\\infty").scale(
@@ -223,7 +222,7 @@ class Subescena_1(Scene):
 #-------------------------------------------------------------------------------------------------------
 
 
-class Subescena_2(MovingCameraScene):
+class SE2(MovingCameraScene):
     #Parámetros de CONFIG como asignación de los valores
     #de los atributos
     config.x_min = -0.25,
@@ -266,9 +265,10 @@ class Subescena_2(MovingCameraScene):
         Text14_2.bg = SurroundingRectangle(
             Text14_2, color=WHITE, fill_color=BLACK, fill_opacity=1)
         Text14_2.group = VGroup(Text14_2.bg, Text14_2)
-        Text14_3 = Tex('''$\\langle\\{\\vec{b}_1,\\vec{b}_2\\}\\rangle$''').move_to(
+        Text14_3 = Tex('''$\\langle\\{\\vec{b}_1,\\vec{b}_2\\}\\rangle = \\mathbb{R}^2$''').move_to(
 5.5*LEFT)
-        Text14_3[0][:].set_color(MAGENTA_CLARO)
+        Text14_3[0][0:11].set_color(MAGENTA_CLARO)
+        Text14_3[0][11:].set_color(WHITE)
         Text14_3.bg = SurroundingRectangle(
             Text14_3, color=WHITE, fill_color=BLACK, fill_opacity=1)
         Text14_3.group = VGroup(Text14_3.bg, Text14_3)
@@ -859,7 +859,7 @@ class Subescena_2(MovingCameraScene):
 #-------------------------------------------------------------------------------------------------------
 
 
-class Subescena_3(Scene):
+class SE3(Scene):
     def construct(self):
         #----------------------------------- COEFICIENTES d_i
         def align_t12(text1: Mobject, text2: Mobject, char: str, buff: float) -> None:

@@ -9,10 +9,9 @@ from alganim import DashedArrow
 ######################  Producto escalar y bases ortogonales  #######################
 #####################################################################################
 
-
 #####################################################################################
 ###############################  Terecera escena ####################################
-##############################  versión: Manim Community v0.15.2   ##################
+#####################  versión: Manim Community v0.15.2   ###########################
 #####################################################################################
 
 ROJO = '#FF0000'
@@ -909,8 +908,7 @@ class SE2(Scene):
       self.play(FadeOut(gamma_li), FadeOut(gamma_gen))
 
       ##### ANIMACIONES calc_c1
-
-      self.next_section(skip_animations=True)
+      #self.next_section(skip_animations=True)
       self.play(Write(vg1_11))
       self.play(Write(ppig1),Write(pp11))
       self.play(ReplacementTransform(pp11,pp21))
@@ -940,8 +938,8 @@ class SE2(Scene):
       self.play(Write(c1_eq1))
       self.play(Write(c1_11))
 
-       # Flashback
-      self.next_section(skip_animations=True)
+      # Flashback
+      #self.next_section(skip_animations=True)
       self.play(ReplacementTransform(c1_11, c1_fbk1))
       self.wait()
       self.play(ReplacementTransform(c1_fbk1, c1_11_r))
@@ -950,7 +948,7 @@ class SE2(Scene):
 
       # Actualización de los coeficientes incógnitos y la ecuación en tuplas
 
-      self.next_section(skip_animations=True)
+      #self.next_section(skip_animations=True)
       self.play(ReplacementTransform(coefs_incog,c2_incog))
       self.add_foreground_mobjects(c2_incog) 
       self.play(ReplacementTransform(comblin_R2[0],comblin_R2_1[0]), ReplacementTransform(comblin_R2[1],comblin_R2_1[1]),
@@ -966,7 +964,7 @@ class SE2(Scene):
 
       ##### ANIMACIONES calc_c2
 
-      self.next_section(skip_animations=True)
+      #self.next_section(skip_animations=True)
       self.play(Write(vg1_1))
       self.play(Write(ppig),Write(pp1))
       self.play(ReplacementTransform(pp1,pp2))
@@ -997,7 +995,7 @@ class SE2(Scene):
       self.play(Write(c1_12))
 
       # Flashback
-      self.next_section(skip_animations=True)
+      #self.next_section(skip_animations=True)
       self.play(ReplacementTransform(c1_12, c1_fbk2))
       self.wait()
       self.play(ReplacementTransform(c1_fbk2, c1_12_r))
