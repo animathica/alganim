@@ -283,7 +283,8 @@ class SE1(MovingCameraScene):
         linea_2 = Line(start = 4*UP + 1.5*LEFT, end = 4*DOWN + 1.5*LEFT, buff= 0.5)
 
 
-        
+        t1 = Tex("*", "La demostración termina en XX:XX.").scale(.4).align_on_border(LEFT+DOWN, buff=0.25)
+        t1[0].set_color(AMARILLO)
 
     #####################
     ## ANIMACIONES   ###
@@ -307,7 +308,8 @@ class SE1(MovingCameraScene):
         self.play(pp_oper.animate.shift(4.1*LEFT+1.8*UP).scale(0.6))
         self.play(Write(linea_1))
         self.play(Write(linea_2))
-
+        self.wait(0.5)
+        self.wait()
         
         self.play(pe_def_1.animate.shift(4.2*LEFT+0.8*DOWN).scale(0.7), run_time=0.1)
         self.play(pe_def_1.animate.set_opacity(1), run_time=0.5)
@@ -319,6 +321,7 @@ class SE1(MovingCameraScene):
         self.play(pe_def_4.animate.set_opacity(1), run_time=0.5)
         self.play(pe_def_5.animate.next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.27*RIGHT).scale(0.8), run_time=0.1)
         self.play(pe_def_5.animate.set_opacity(1), run_time=0.5)
+        self.play(Write(t1))
 
         #######################
         # ANIM PREVIAS A DEM 1 #
@@ -379,6 +382,7 @@ class SE1(MovingCameraScene):
         self.play(linea_1.animate.set_opacity(0),
                   linea_2.animate.set_opacity(0),
                   pe_def_1.animate.set_opacity(0),
+                  FadeOut(t1),
                   self.camera.frame.animate.set(width=8).move_to(2.3*UP+4.15*LEFT)
                   )
         self.wait(3)
@@ -710,7 +714,7 @@ class SE2(Scene):
          \begin{pmatrix} 1 \\ -1 \end{pmatrix}").scale(0.6)
       ppl_71 = MathTex(r" c_1 \big((1)(1)+(-1)(-1)\big)").scale(0.6)
       ppl_81 = MathTex(r"  c_1 \big( 2 \big)").scale(0.6)
-      ppl_91 = MathTex(r" = 2c_1\ ,").scale(0.6)
+      ppl_91 = MathTex(r" = \ 2c_1,").scale(0.6)
 
       ppl1 = VGroup(ppl_11, ppl_ig1, ppl_ig21, ppl_91).arrange(DOWN, center = False, aligned_edge=LEFT)
 
@@ -906,11 +910,14 @@ class SE2(Scene):
       self.wait()
       self.play(FadeOut(gamma_c_og[0]), gamma_b_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7))
       self.play(FadeOut(gamma_li), FadeOut(gamma_gen))
+      self.wait(2.5)
 
       ##### ANIMACIONES calc_c1
       #self.next_section(skip_animations=True)
       self.play(Write(vg1_11))
+      self.wait(2.5)
       self.play(Write(ppig1),Write(pp11))
+      self.wait()
       self.play(ReplacementTransform(pp11,pp21))
       self.wait()
       self.play(ReplacementTransform(pp21,pp31))
@@ -919,7 +926,9 @@ class SE2(Scene):
       self.wait()
 
       self.play(Write(vg1_21))
+      self.wait(2)
       self.play(Write(ppl_11))
+      self.wait()
       self.play(Write(ppl_ig1),Write(ppl_21))
       self.wait()
       self.play(ReplacementTransform(ppl_21,ppl_31))
@@ -939,7 +948,7 @@ class SE2(Scene):
       self.play(Write(c1_11))
 
       # Flashback
-      #self.next_section(skip_animations=True)
+      self.next_section(skip_animations=True)
       self.play(ReplacementTransform(c1_11, c1_fbk1))
       self.wait()
       self.play(ReplacementTransform(c1_fbk1, c1_11_r))
@@ -948,7 +957,7 @@ class SE2(Scene):
 
       # Actualización de los coeficientes incógnitos y la ecuación en tuplas
 
-      #self.next_section(skip_animations=True)
+      self.next_section(skip_animations=True)
       self.play(ReplacementTransform(coefs_incog,c2_incog))
       self.add_foreground_mobjects(c2_incog) 
       self.play(ReplacementTransform(comblin_R2[0],comblin_R2_1[0]), ReplacementTransform(comblin_R2[1],comblin_R2_1[1]),
@@ -964,7 +973,7 @@ class SE2(Scene):
 
       ##### ANIMACIONES calc_c2
 
-      #self.next_section(skip_animations=True)
+      self.next_section(skip_animations=True)
       self.play(Write(vg1_1))
       self.play(Write(ppig),Write(pp1))
       self.play(ReplacementTransform(pp1,pp2))

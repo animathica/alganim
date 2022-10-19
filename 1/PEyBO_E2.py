@@ -66,9 +66,14 @@ class SE1(MovingCameraScene):
          t5 = Tex("\\textit{Antilinealidad} en la entrada derecha").scale(.55)
          t6 = Tex("Positivo definido").scale(.55)
          t7 = Tex("Simetria conjugada").scale(.55)
+         t8 = Tex("*", "Ver el ", "Ejercicio 1.1 ", "al final del video.").scale(.55).to_corner(LEFT+DOWN).shift(UP)
+         t8[0].set_color(AMARILLO)
+         t8[2].set_color(AZUL)
+         t9 = Tex("*", "Ver el ", "Ejercicio 1.2", ".").scale(.55).to_corner(LEFT+DOWN).shift(UP)
+         t9[0].set_color(AMARILLO)
+         t9[2].set_color(AZUL)
          g4 = VGroup(g3,p4, color=WHITE)
          b2 = Brace(g4, direction=LEFT)
-
 
 
          #ANIMACIONES#
@@ -103,11 +108,17 @@ class SE1(MovingCameraScene):
          self.play(Write(t3))
          t5.next_to(t3, DOWN)
          self.play(Write(t5))
-         self.wait(23)
-         self.play(FadeOut(b1, b2, t2, t3,t4,t5,t6,t7))
+         self.wait(0.5)
+         self.play(Write(t8))
+         self.wait()
+         self.play(FadeOut(t8), run_time=0.5)
          self.wait(18)
-         self.play(FadeOut(g1))
-         self.play(FadeOut(t1,p1))
+         self.wait(0.5)
+         self.play(Write(t9))
+         self.wait()
+         self.play(FadeOut(t9), run_time=0.5)
+         self.wait(18)
+         self.play( *[FadeOut(mob)for mob in self.mobjects] )
 
      def construct(self):
             self.propiedades()
@@ -136,7 +147,6 @@ class SE2(MovingCameraScene):
        go_2 =VGroup(o2, o2_2, o2_3).arrange(direction=RIGHT, center=True)
        go_2.move_to(2*UP)
 
-
       
        o3 = MathTex("  \Gamma=\{\\vec{g}_1,...,\\vec{g}_k\}" ).scale(.5)
        o4 = Tex("base  \\textit{ortogonal} de V").scale(.5)
@@ -155,6 +165,9 @@ class SE2(MovingCameraScene):
        
        gamma_Prop = VGroup(o5, gj_gi).arrange(direction=RIGHT, buff=0.75, center=True)
        
+       t1 = Tex("*", "Ver el ", "Ejercicio 1.5", ".").scale(.55).to_corner(LEFT+DOWN).shift(1.5*UP)
+       t1[0].set_color(AMARILLO)
+       t1[2].set_color(AZUL)
         
        self.wait()
        self.play(self.camera.frame.animate.move_to(1.5*UP))
@@ -163,6 +176,10 @@ class SE2(MovingCameraScene):
         
        for element in go_2:
          self.play(Write(element), run_time=2)
+
+       self.play(Write(t1))
+       self.wait()
+       self.play(FadeOut(t1), run_time=0.5)
 
        o3.move_to(1.25*UP, aligned_edge=RIGHT)
        self.play(Write(o3))

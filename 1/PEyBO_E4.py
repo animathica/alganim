@@ -350,10 +350,10 @@ class SE1(Scene):
         for text_com in [combinacion_explicita, combinacion_explicita_sum]:
             align_t12(text1=group_2[-2], text2=text_com, char="=", buff=0)
 
-        ver_ejercicio = Tex(
-            "Ver ejercicio ",
-            "$1.7$"
-        ).scale(0.8).scale(0.8).to_corner(LEFT+DOWN)
+        ver_ejercicio = Tex("*", "Ver el ", "Ejercicio 1.7", ".").scale(0.8).scale(0.8).to_corner(LEFT+DOWN)
+        ver_ejercicio[0].set_color(AMARILLO)
+        ver_ejercicio[2].set_color(AZUL)
+
         #----------------------------------- ANIMACIONES
         #--------------------------------
         self.play(
@@ -569,13 +569,13 @@ class SE2(Scene):
                                  r"\vec{v}",  # 13
                                  ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
         conclusion = MathTex(
-            r"{\langle \vec{v},\vec{u}\rangle\over \langle \vec{u},\vec{u}\rangle}\vec{u} = 0",
+            r"{\langle \vec{v},\vec{u}\rangle\over \langle \vec{u},\vec{u}\rangle}\vec{u} = \vec{0}",
             r"\Longleftrightarrow",
             r"\langle\vec{v},\vec{u}\rangle = 0",
             r"\Longleftrightarrow",
             r"\langle\vec{u},\vec{v}\rangle = 0",
             r"\Longleftrightarrow",
-            r"{\langle \vec{u},\vec{v}\rangle\over \langle \vec{v},\vec{v}\rangle}\vec{v} = 0",
+            r"{\langle \vec{u},\vec{v}\rangle\over \langle \vec{v},\vec{v}\rangle}\vec{v} = \vec{0}",
         ).scale(0.9).shift(2.5*DOWN)
 
         #-------------------------------------------- Vectores u y v
