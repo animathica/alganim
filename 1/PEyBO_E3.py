@@ -78,20 +78,26 @@ class SE1(MovingCameraScene):
         ## ANIMACIONES DEMO 1 ###
         #####################
         self.play(Write(obj_1))
-        self.wait(1)
+        self.wait()
         self.play(ReplacementTransform(obj_1,obj_2))
-        self.play(Write(obj_3))
-        self.play(Write(obj_4))
-        self.play(Write(obj_5))
-        self.play(Write(obj_6))
-        self.play(Write(obj_7))
-        self.play(Write(obj_8))
+        self.wait(0.5)
+        self.play(Write(obj_3), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_4), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_5), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_6), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_7), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_8), run_time=2)
         self.wait(1)
         self.play(ReplacementTransform(obj_8,obj_9))
-        self.wait(1)
+        self.wait(0.5)
         self.play(ReplacementTransform(obj_2, obj_1_dup))
         self.play(Write(srct_1), Write(srct_2))
-        self.wait(2)
+        self.wait(0.5)
         self.play(paloma.animate.set_opacity(1))
         self.play(FadeOut(objs))
 
@@ -135,19 +141,24 @@ class SE1(MovingCameraScene):
         
         # Animación de la demostración
         self.play(Write(obj_1))
-        self.wait(1)        
+        self.wait()
         self.play(ReplacementTransform(obj_1,inter))
-        self.play(Write(obj_2))
-        self.play(Write(obj_3))
-        self.play(Write(obj_4))
-        self.play(Write(obj_5))
-        self.play(Write(obj_6))
+        self.wait(0.5)
+        self.play(Write(obj_2), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_3), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_4), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_5), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_6), run_time=2)
         self.wait(1)
         self.play(ReplacementTransform(obj_6,obj_7))
-        self.wait(1)
+        self.wait(0.5)
         self.play(ReplacementTransform(inter, inter2))
         self.play(Write(srct_1), Write(srct_2))
-        self.wait(2)
+        self.wait(0.5)
         self.play(paloma.animate.set_opacity(1))
         self.play(FadeOut(srects), FadeOut(objs) )
 
@@ -185,26 +196,28 @@ class SE1(MovingCameraScene):
         #####################
 
         self.play(Write(obj_1))
+        self.wait()
         self.play(ReplacementTransform(obj_1, obj_2))
-        self.play(Write(obj_3))
-        self.play(Write(obj_4))
-        self.play(obj_4.animate.scale(1.2))
-        self.wait(1)
-        self.play(obj_4.animate.scale(1/1.2))
-        self.play(Write(obj_5))
-        self.play(Write(obj_6))
+        self.wait(0.5)
+        self.play(Write(obj_3), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_4), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_5), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_6), run_time=2)
         self.wait(1)
         self.play(ReplacementTransform(obj_6, obj_7))
-        self.wait(2)
+        self.wait(0.5)
         self.play(ReplacementTransform(obj_2, obj_1_dup))
         self.play(Write(srct_1),Write(srct_2))
-        self.wait(2)
+        self.wait(0.5)
         self.play(paloma.animate.set_opacity(1))
         self.play(FadeOut(objs))
 
     def demo_4(self):
 
-        c_nonzero = MathTex(r" \forall \ c \in \mathbb{R}, c\neq0 &\Rightarrow c^2>0").shift(3*UP+3*RIGHT).scale(0.8)
+        c_nonzero = MathTex(r" \forall \ c \in \mathbb{R}, \ c\neq0 &\Rightarrow c^2>0").shift(3*UP+3*RIGHT).scale(0.8)
         
         #----------- OBJETOS       
         obj_1 = MathTex(r" \vec{u}\neq \vec{0} ").scale(0.8).shift(1.5*UP+1*RIGHT)
@@ -234,19 +247,25 @@ class SE1(MovingCameraScene):
         #####################
         ## ANIMACIONES DEMO 4 ###
         #####################
-        self.play(Write(c_nonzero))
+        self.play(Write(c_nonzero[0][0:5]))
+        self.play(Write(c_nonzero[0][5:]))
         self.play(Write(obj_1))
+        self.wait()
         self.play(ReplacementTransform(obj_1, obj_2))
-        self.play(Write(obj_3))
-        self.play(Write(obj_4))
-        self.play(Write(obj_5))
-        self.play(Write(obj_6))
+        self.wait(0.5)
+        self.play(Write(obj_3), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_4), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_5), run_time=2)
+        self.wait(0.5)
+        self.play(Write(obj_6), run_time=2)
         self.wait(1)
         self.play(ReplacementTransform(obj_6, obj_7))
-        self.wait(2)
+        self.wait(0.5)
         self.play(ReplacementTransform(obj_2, obj_1_dup))
         self.play(Write(srct_1),Write(srct_2))
-        self.wait(2)
+        self.wait(0.5)
         self.play(paloma.animate.set_opacity(1))
         self.play(FadeOut(objs))
 
@@ -293,12 +312,11 @@ class SE1(MovingCameraScene):
         # INTRODUCCION, PLANTEAMIENTO DEL CASO PARTICULAR Y DEFINICIÓN DEL PP 
         #self.next_section(skip_animations=True)
         self.play(Write(pe_def))
-        self.play(Write(pe_group_2),run_time=4)
-        self.wait()
-        self.play(pe_group_2.animate.set_opacity(0))
-        self.wait(3)
+        pe_group_2.set_opacity(0)
+        self.play(Write(pe_group_2),run_time=1)
+        self.wait(8)
         self.play(ReplacementTransform(pe_def,pp_def))
-        self.wait(6)
+        self.wait(4.5)
         self.play(Write(pp_oper))
         self.wait(2)
 
@@ -306,8 +324,8 @@ class SE1(MovingCameraScene):
         #self.next_section(skip_animations=True)
         self.play(pp_def.animate.shift(4*LEFT+1*UP).scale(0.7))
         self.play(pp_oper.animate.shift(4.1*LEFT+1.8*UP).scale(0.6))
-        self.play(Write(linea_1))
-        self.play(Write(linea_2))
+        self.play(Write(linea_1), run_time=0.5)
+        self.play(Write(linea_2), run_time=0.5)
         self.wait(0.5)
         self.wait()
         
@@ -332,6 +350,7 @@ class SE1(MovingCameraScene):
         pe_def_4.animate.set_opacity(0.3), pe_def_5.animate.set_opacity(0.3))
         self.play(pe_def_2.animate.scale(1.1))
 
+        #self.next_section(skip_animations=True)
         self.demo_1() # Llamamos a la animación completa de la primer demostración
 
         #######################
@@ -364,20 +383,19 @@ class SE1(MovingCameraScene):
         self.play(pe_def_5.animate.set_opacity(1).scale(1.1))
 
         self.demo_4() # Llamamos a la animación completa de la cuarta demostración
-
     
 
         #####################
         # ANIMACIONES FINALES
         #####################
-        self.next_section()
+        #self.next_section(skip_animations=True)
         self.play(pe_def_5.animate.scale(1/1.1))
 
-        self.play(pe_def_4.animate.set_opacity(1))
-        self.play(pe_def_3.animate.set_opacity(1))
-        self.play(pe_def_2.animate.set_opacity(1))
+        self.play(pe_def_4.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_3.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_2.animate.set_opacity(1), run_time=0.5)
 
-        self.wait(2.5)
+        self.wait()
 
         self.play(linea_1.animate.set_opacity(0),
                   linea_2.animate.set_opacity(0),
@@ -410,7 +428,7 @@ class SE1(MovingCameraScene):
                   Write(barrita)
                   )
 
-        self.wait(7)
+        self.wait(7.5)
         self.play(
             *[FadeOut(mob) for mob in self.mobjects],
             run_time = 1)
@@ -729,63 +747,43 @@ class SE2(Scene):
       ppl_71.move_to(ppl_61).shift(0.2*RIGHT)
       ppl_81.move_to(ppl_61).shift(0.8*LEFT)
 
-      c1_eq1 = MathTex(r"\Rightarrow -4 = 2c_1 \Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
+      c1_eq1 = MathTex(r"\Rightarrow -4 = 2c_1 ", "\Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
       c1_11 = MathTex(r" c_1 = ", r" \frac{-4}{2} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
-      c1_fbk1 = MathTex(r" c_1 = ", r" \frac{\langle \vec{v}, \vec{g}_1 \rangle}{\langle \vec{g}_1 , \vec{g}_1 \rangle} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+      c1_fbk1 = MathTex(r" c_1 = ", r" \frac{\langle \vec{v}, \vec{g}_1 \rangle}{\langle \vec{g}_1 , \vec{g}_1 \rangle} ").next_to(c1_eq1).scale(0.6).shift(0.65*LEFT)
       c1_11_r = MathTex(r" c_1 = ", r" \frac{-4}{2} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
       c11 = MathTex(r" c_1 = - " , r" 2 ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
 
       srct_11 = SurroundingRectangle(c11, color = AMARILLO)
 
       #### OBJETOS calc_c2
-      vg1_1 = MathTex(r" \langle \vec{v}, \vec{g}_2 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
-      ppig = MathTex(r"= ").scale(0.6).next_to(vg1_1,RIGHT)
-
-      pp1 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix} \cdot \
-         \begin{pmatrix} -2 \\ -2 \end{pmatrix}").scale(0.6).next_to(ppig,RIGHT)
-      pp2 = MathTex(r" (-8)(-2) + (-4)(-2)").scale(0.55).move_to(pp1).shift(0.2*RIGHT)
-      pp3 = MathTex(r" 16 + 8").scale(0.6).move_to(pp2).shift(0.7*LEFT)
-      pp4 = MathTex(r" 24\ ,").scale(0.6).move_to(pp2).shift(LEFT)
-
-
       vg1_2 = MathTex(r" \langle \vec{v}, \vec{g}_2 \rangle").shift(3*RIGHT + 2*UP).scale(0.6)
       ppl_1 = MathTex(r" = \langle c_1\vec{g}_1 + c_2\vec{g}_2\
          , \vec{g}_2 \rangle").scale(0.6).next_to(vg1_2,RIGHT)
       ppl_ig = MathTex(r"= ").scale(0.6)
-      ppl_2 = MathTex(r" c_1", r"\langle \vec{g}_1, \vec{g}_2 \rangle", r"+" r"\
+      ppl_2 = MathTex(r"c_1", r"\langle \vec{g}_1, \vec{g}_2 \rangle", r"+" r"\
          c_2\langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
+      ppl_ig2 = MathTex(r"= ").scale(0.6)
       ppl_3 = MathTex(r"  c_1" ,r"(0)", r"+" r"\
          c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
       ppl_4 = MathTex(r" 0" ,r" ",r"+" ,r"c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
       ppl_5 = MathTex(r"  c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
-      ppl_ig2 = MathTex(r"= ").scale(0.6)
-      ppl_6 = MathTex(r" c_2 \begin{pmatrix} -2 \\ -2 \end{pmatrix} \cdot \
-         \begin{pmatrix} -2 \\ -2 \end{pmatrix}").scale(0.6)
-      ppl_7 = MathTex(r" c_2 \big((-2)(-2)+(-2)(-2)\big)").scale(0.5)
-      ppl_8 = MathTex(r"  c_2 \big( 8 \big)").scale(0.6)
-      ppl_9 = MathTex(r" = 8c_2\ ,").scale(0.6)
 
-      ppl = VGroup(ppl_1, ppl_ig, ppl_ig2, ppl_9).arrange(DOWN, center = False, aligned_edge=LEFT)
+      ppl = VGroup(ppl_1, ppl_ig, ppl_ig2).arrange(DOWN, center = False, aligned_edge=LEFT)
 
       ppl_2.next_to(ppl_ig, RIGHT)
-      ppl_3.move_to(ppl_2).shift(0.25*LEFT)
-      ppl_4.move_to(ppl_2).shift(0.5*LEFT)
-      ppl_5.move_to(ppl_2).shift(0.85*LEFT)
-
+      ppl_3.next_to(ppl_2, DOWN).shift(0.25*LEFT)
+      ppl_4.move_to(ppl_3).shift(0.25*LEFT)
+      ppl_5.move_to(ppl_3).shift(0.6*LEFT)
       ppl_ig2.shift(0.3*DOWN)
-      ppl_9.shift(0.4*DOWN)
-      ppl_6.next_to(ppl_ig2, RIGHT)
-      ppl_7.move_to(ppl_6).shift(0.2*RIGHT)
-      ppl_8.move_to(ppl_6).shift(0.8*LEFT)
 
-      c1_eq2 = MathTex(r"\Rightarrow 24 = 8c_2 \Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
-      c1_12 = MathTex(r" c_2 = ", r" \frac{24}{8} ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
-      c1_fbk2 = MathTex(r" c_2 = ", r" \frac{\langle \vec{v}, \vec{g}_2 \rangle}{\langle \vec{g}_2, \vec{g}_2 \rangle} ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
-      c1_12_r = MathTex(r" c_2 = ", r" \frac{24}{8} ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
-      c12 = MathTex(r" c_2 = " , r" 3 ").next_to(c1_eq2).scale(0.6).shift(0.4*LEFT)
+      c1_eq2 = MathTex(r"\Rightarrow ", r"c_2 =", r"\frac{\langle \vec{v}, \vec{g}_2 \rangle}{\langle \vec{g}_2, \vec{g}_2 \rangle}").scale(0.6).shift(3.7*RIGHT + 0.5*DOWN)
+      c1_12 = MathTex(r" \frac{\begin{pmatrix} -8 \\ -4 \end{pmatrix}\cdot\begin{pmatrix} -2 \\ -2 \end{pmatrix}}{\begin{pmatrix}-2 \\ -2\end{pmatrix}\cdot\begin{pmatrix} -2 \\ -2\end{pmatrix}}").move_to(c1_eq2[2].get_center()).scale(0.5).shift(0.3*RIGHT)
+      c1_fbk2 = MathTex(r"\frac{(-8)(-2)+(-4)(-2)}{(-2)(-2)+(-2)(-2)}").scale(0.5).move_to(c1_12.get_center()).shift(0.45*RIGHT)
+      c1_12_t = MathTex(r" \frac{16+8}{4+4}").scale(0.6).move_to(c1_eq2[2].get_center()).shift(0.05*LEFT)
+      c1_12_r = MathTex(r" \frac{24}{8}").scale(0.6).move_to(c1_eq2[2].get_center()).shift(0.26*LEFT)
+      c12 = MathTex(r"3").scale(0.6).move_to(c1_12_r.get_center()).shift(0.1*LEFT)
 
-
-      srct_1 = SurroundingRectangle(c12, color = AMARILLO)
+      srct_1 = SurroundingRectangle(Group(c1_eq2[1], c12), color = AMARILLO, buff=0.07)
 
       # Vectores fantasma para mostrar paralelogramo
       ghost1 = Arrow((0, 0, 0), (-1,1,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).set_opacity(0.3).shift(5.5*LEFT+1.5*DOWN)
@@ -854,6 +852,8 @@ class SE2(Scene):
       self.add_foreground_mobjects(vec_g1 , vec_g2, g1_label, g2_label)
       self.play(Create(vec_g1), Create(vec_g2), Create(g1_label), Create(g2_label))
       self.wait(1.5)
+
+      #self.next_section(skip_animations=True)
       self.add_foreground_mobjects(gamma_tex)
       self.play(Write(gamma_tex))
       self.wait(3)
@@ -910,7 +910,7 @@ class SE2(Scene):
       self.wait()
       self.play(FadeOut(gamma_c_og[0]), gamma_b_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7))
       self.play(FadeOut(gamma_li), FadeOut(gamma_gen))
-      self.wait(2.5)
+      self.wait(3)
 
       ##### ANIMACIONES calc_c1
       #self.next_section(skip_animations=True)
@@ -923,41 +923,51 @@ class SE2(Scene):
       self.play(ReplacementTransform(pp21,pp31))
       self.wait()
       self.play(ReplacementTransform(pp31,pp41))
-      self.wait()
+      self.wait(6)
 
-      self.play(Write(vg1_21))
-      self.wait(2)
-      self.play(Write(ppl_11))
-      self.wait()
-      self.play(Write(ppl_ig1),Write(ppl_21))
-      self.wait()
+      self.play(Write(vg1_21), run_time=2)
+      self.wait(2.5)
+      self.play(Write(ppl_11[0][0]))
+      self.play(Write(ppl_11[0][1:]), run_time=3)
+      self.wait(1.5)
+      self.play(Write(ppl_ig1[0]))
+      self.play(Write(ppl_21), run_time=5)
+      self.wait(6.5)
       self.play(ReplacementTransform(ppl_21,ppl_31))
-      self.wait()
+      self.wait(0.5)
       self.play(ReplacementTransform(ppl_31,ppl_41))
-      self.wait()
+      self.wait(0.5)
       self.play(ReplacementTransform(ppl_41,ppl_51))
-      self.play(Write(ppl_ig21),Write(ppl_61))
+      self.wait(0.5)
+      self.play(Write(ppl_ig21))
       self.wait()
+      self.play(Write(ppl_61), run_time=3)
+      self.wait(0.5)
       self.play(ReplacementTransform(ppl_61, ppl_71))
       self.wait()
       self.play(ReplacementTransform(ppl_71, ppl_81))
-      self.play(Write(ppl_91))
-
       self.wait()
-      self.play(Write(c1_eq1))
-      self.play(Write(c1_11))
+      self.play(Write(ppl_91))
+      self.wait(3.5)
+
+      self.play(Write(c1_eq1[0]))
+      self.wait()
+      self.play(Write(c1_eq1[1]))
+      self.play(Write(c1_11), run_time=2.5)
+      self.wait(3)
 
       # Flashback
-      self.next_section(skip_animations=True)
+      #self.next_section(skip_animations=True)
       self.play(ReplacementTransform(c1_11, c1_fbk1))
-      self.wait()
+      self.wait(5)
       self.play(ReplacementTransform(c1_fbk1, c1_11_r))
+      self.wait(0.5)
       self.play(ReplacementTransform(c1_11_r, c11))
       self.play(Write(srct_11))
 
       # Actualización de los coeficientes incógnitos y la ecuación en tuplas
 
-      self.next_section(skip_animations=True)
+      #self.next_section(skip_animations=True)
       self.play(ReplacementTransform(coefs_incog,c2_incog))
       self.add_foreground_mobjects(c2_incog) 
       self.play(ReplacementTransform(comblin_R2[0],comblin_R2_1[0]), ReplacementTransform(comblin_R2[1],comblin_R2_1[1]),
@@ -965,52 +975,43 @@ class SE2(Scene):
       ReplacementTransform(comblin_R2[4],comblin_R2_1[4]), ReplacementTransform(comblin_R2[5],comblin_R2_1[5]),
       ReplacementTransform(comblin_R2[6],comblin_R2_1[6]))
       self.add_foreground_mobjects(comblin_R2_1)
-      
 
+      #self.next_section(skip_animations=True)
       self.play(FadeOut(vg1_11),FadeOut(vg1_21),FadeOut(pp31), FadeOut(ppl1),
-       FadeOut(c1_eq1), FadeOut(c11), FadeOut(srct_11), FadeOut(ppig1), FadeOut(pp41),
-       FadeOut(ppl_51), FadeOut(ppl_81))
+      FadeOut(c1_eq1), FadeOut(c11), FadeOut(srct_11), FadeOut(ppig1), FadeOut(pp41),
+      FadeOut(ppl_51), FadeOut(ppl_81), FadeOut(ppl_41))
+      self.wait(8.5)
 
-      ##### ANIMACIONES calc_c2
+      ##### ANIMACIONES calc_c2 (¡con tiempos ajustados al guión!)
 
-      self.next_section(skip_animations=True)
-      self.play(Write(vg1_1))
-      self.play(Write(ppig),Write(pp1))
-      self.play(ReplacementTransform(pp1,pp2))
-      self.wait()
-      self.play(ReplacementTransform(pp2,pp3))
-      self.wait()
-      self.play(ReplacementTransform(pp3,pp4))
-      self.wait()
-
-      self.play(Write(vg1_2))
-      self.play(Write(ppl_1))
-      self.play(Write(ppl_ig),Write(ppl_2))
-      self.wait()
-      self.play(ReplacementTransform(ppl_2,ppl_3))
+      #self.next_section(skip_animations=True)
+      self.play(Write(vg1_2), run_time=2)
+      self.wait(2)
+      self.play(Write(ppl_1), run_time=2)
+      self.wait(2)
+      self.play(Write(ppl_ig), Write(ppl_2), run_time=2)
+      self.wait(2)
+      self.play(Write(ppl_ig2), Write(ppl_3))
       self.wait()
       self.play(ReplacementTransform(ppl_3,ppl_4))
       self.wait()
-      self.play(ReplacementTransform(ppl_4,ppl_5))
-      self.play(Write(ppl_ig2),Write(ppl_6))
+      self.play(ppl_4[0].animate.set_opacity(0), ppl_4[1].animate.set_opacity(0), ppl_4[2].animate.set_opacity(0), ppl_4[3].animate.shift(0.6*LEFT))
       self.wait()
-      self.play(ReplacementTransform(ppl_6, ppl_7))
-      self.wait()
-      self.play(ReplacementTransform(ppl_7, ppl_8))
-      self.play(Write(ppl_9))
 
+      self.play(Write(c1_eq2), run_time=0.75)
       self.wait()
-      self.play(Write(c1_eq2))
-      self.play(Write(c1_12))
-
-      # Flashback
-      #self.next_section(skip_animations=True)
+      self.play(ReplacementTransform(c1_eq2[2], c1_12))
+      self.wait()
       self.play(ReplacementTransform(c1_12, c1_fbk2))
-      self.wait()
-      self.play(ReplacementTransform(c1_fbk2, c1_12_r))
+      self.wait(1.5)
+      self.play(ReplacementTransform(c1_fbk2, c1_12_t))
+      self.wait(0.5)
+      self.play(ReplacementTransform(c1_12_t, c1_12_r))
+      self.wait(0.25)
       self.play(ReplacementTransform(c1_12_r, c12))
       self.play(Write(srct_1))
 
+      #self.next_section(skip_animations=True)
       self.play(ReplacementTransform(c2_incog,no_incog))
       self.add_foreground_mobjects(no_incog) 
       self.play(ReplacementTransform(comblin_R2_1[0],comblin_R2_2[0]), ReplacementTransform(comblin_R2_1[1],comblin_R2_2[1]),
@@ -1019,10 +1020,7 @@ class SE2(Scene):
       ReplacementTransform(comblin_R2_1[6],comblin_R2_2[6]))
       self.add_foreground_mobjects(comblin_R2_2)
 
-
-      self.play(FadeOut(vg1_1),FadeOut(vg1_2),FadeOut(pp3), FadeOut(ppl),
-       FadeOut(c1_eq2), FadeOut(c12), FadeOut(srct_1), FadeOut(ppig), FadeOut(pp4),
-       FadeOut(ppl_5), FadeOut(ppl_8))
+      self.play(FadeOut(vg1_2, ppl_1, ppl_ig, ppl_2, ppl_ig2, ppl_4, c1_eq2[0:2], c12, srct_1))
 
       self.wait()
       self.play(Write(c1), Write(c2))
@@ -1061,12 +1059,10 @@ class SE2(Scene):
       self.play(Create(paloma))
       self.add_foreground_mobjects(paloma)
       self.play(paloma.animate.set_opacity(1))
-      self.wait(3)
+      self.wait(29)
 
-      self.play(FadeOut(vec_g1), FadeOut(vec_g2))
-      self.play(
-            *[FadeOut(mob) for mob in self.mobjects],
-            run_time=1)
+      self.play(FadeOut(vec_g1), FadeOut(vec_g2),
+            *[FadeOut(mob) for mob in self.mobjects])
 
 
       ###### OBJETOS  Sección Final

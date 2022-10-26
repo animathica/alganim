@@ -261,20 +261,20 @@ Un producto escalar en un espacio vectorial es una operación que toma un par or
 
 \subsection{Definición de ortogonalidad y base ortogonal}
 
-Para ver la importancia de esta \emph{nueva} operación en la solución del problema presentado al inicio del video, debemos introducir la definición de ortogonalidad. Decimos que dos vectores son \emph{ortogonales} si su producto escalar es cero. Notemos que, como el complejo conjugado de cero es él mismo, por la propiedad de simetría conjugada se sigue que la ortogonalidad es una relación simétrica.
+Para ver la importancia de esta \emph{nueva} operación en la solución del problema presentado al inicio del video, debemos introducir la definición de ortogonalidad. Decimos que dos vectores son \emph{ortogonales} si su producto escalar es cero. Notemos que, como el complejo conjugado de cero es él mismo, por la propiedad de simetría conjugada se sigue que la ortogonalidad es una relación simétrica. Es decir, que $\vec{u}$ es ortogonal a $\vec{v}$ si, y sólo si, $\vec{v}$ es ortogonal a $\vec{u}$.
 
 \[
     \vec{u},\vec{v}\in V \ \text{son \emph{ortogonales}} \ (\vec{u}\perp\vec{v}) \ \text{si} \ \langle \vec{u} , \vec{v} \rangle = 0 \ \text{ó, equivalentemente,} \ \langle \vec{v} , \vec{u} \rangle = 0.
 \] 
 
-\noindent Así mismo, diremos que un conjunto de vectores es \emph{ortogonal} si cualesquiera dos vectores distintos del conjunto son ortogonales.
+\noindent Así mismo, decimos que un conjunto de vectores es \emph{ortogonal} si cualesquiera dos vectores distintos del conjunto son ortogonales.
 
 \[
     O=\{\vec{g}_1,...,\vec{g}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{g}_i , \vec{g}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
 \]
-\noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal finito es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``*Ver el Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las condiciones siguientes
+\noindent Por último, si una base cumple con ser un conjunto ortogonal, decimos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal finito es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``*Ver el Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las condiciones siguientes
 \begin{align*}
-    \Gamma=&\{\vec{g}_1,...,\vec{g}_k\} \text{ es base \emph{ortogonal} de } V \text{ si}\\
+    \Gamma=&\{\vec{g}_1,...,\vec{g}_k\} \text{ es una base \emph{ortogonal} de } V \text{ si}\\
     \\
 \langle\Gamma\rangle = V, \quad &\langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i, \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i. \end{cases}\\
 \end{align*}
@@ -297,11 +297,11 @@ Este tipo particular de producto escalar es conocido comunmente como \emph{produ
 
 \subsection{Base ortogonal y resolución del problema de encontrar coeficientes}
 
-Volvamos a representar nuestro problema en el caso del espacio $\mathbb{R}^2$ pero, esta vez, utilizando una base \emph{particular}, que llamaremos $\Gamma$. Recordemos que nuestro objetivo es expresar a nuestro vector $\vec{v}$ como combinación lineal de los elementos de $\Gamma$, para lo cual debemos encontrar a los coeficientes $c_i$. Observemos que los vectores $\vec{g}_1$ y $\vec{g}_2$ son ortogonales entre sí, pues su producto punto es igual a cero, por lo que $\Gamma$ es un conjunto ortogonal. Además, $\vec{g}_1$ y $\vec{g}_2$ son linealmente independientes entre sí y, más aún, generan a todo el espacio $\mathbb{R}^2$, como veremos a continuación. De lo anterior, concluimos que $\Gamma$ es una base \emph{ortogonal}.
+Volvamos a representar nuestro problema en el caso del espacio $\mathbb{R}^2$ pero, esta vez, utilizando una base \emph{particular}, que llamaremos $\Gamma$. Recordemos que nuestro objetivo es expresar a nuestro vector $\vec{v}$ como combinación lineal de los elementos de $\Gamma$, para lo cual debemos encontrar a los coeficientes $c_i$. Observemos que los vectores $\vec{g}_1$ y $\vec{g}_2$ son ortogonales entre sí, pues su producto punto es igual a cero, por lo que $\Gamma$ es un conjunto ortogonal. Además, $\vec{g}_1$ y $\vec{g}_2$ son linealmente independientes entre sí y, más aún, generan a todo el espacio $\mathbb{R}^2$, como veremos a continuación. De lo anterior, concluimos que $\Gamma$ es una base \emph{ortogonal} de $\mathbb{R}^2$.
 
 Calculemos el producto escalar de nuestro vector $\vec{v}$ con el vector $\vec{g}_1$, es decir, su producto punto. Observamos que hemos obtenido un número negativo. Ahora, vamos a volver a calcular el mismo producto escalar, pero de una forma diferente: primero, reemplazamos al vector $\vec{v}$ usando la ecuación que buscamos resolver; luego, aplicamos la propiedad de linealidad en la primer entrada del producto escalar; después, usamos el hecho de que $\Gamma$ es una base ortogonal, por lo que el producto escalar entre $\vec{g}_1$ y $\vec{g}_2$ es cero, eliminando así el segundo término; y, finalmente, calculamos el producto escalar de $\vec{g}_1$ consigo mismo. Notemos que hemos obtenido la siguiente ecuación, que podemos despejar para obtener el valor del coeficiente $c_1$. Recordamos que esta solución para $c_1$ es igual al producto escalar de $\vec{v}$ con $\vec{g}_1$ dividido entre el producto escalar de $\vec{g}_1$ consigo mismo. 
 
-Ahora, usaremos el mismo procedimiento para encontrar la solución del coeficiente $c_2$ directamente: empezamos considerando el producto escalar de $\vec{v}$ con $\vec{g}_2$, sustituimos $\vec{v}$ usando la ecuación que buscamos resolver, aplicamos la propiedad de linealidad en la primera entrada, usamos el hecho de que $\Gamma$ es una base ortogonal para eliminar el coeficiente que no nos interesa, despejamos, y calculamos los productos escalares restantes.
+Ahora, usaremos el mismo procedimiento para encontrar la solución del coeficiente $c_2$ directamente: empezamos considerando el producto escalar de $\vec{v}$ con $\vec{g}_2$, sustituimos $\vec{v}$ usando la ecuación que buscamos resolver, aplicamos la propiedad de linealidad en la primera entrada, usamos el hecho de que $\Gamma$ es una base ortogonal para eliminar el coeficiente que no nos interesa, despejamos, calculamos los productos escalares restantes, y, finalmente, dividimos.
 
 Verifiquemos que los coeficientes que hemos obtenido sean correctos. Efectivamente, vemos que lo son. Observemos que el procedimiento que acabamos de utilizar para resolver el problema de encontrar coeficientes en $\mathbb{R}^2$ sólo depende de tener un producto escalar \textemdash en este caso, el producto punto\textemdash \ y una base ortogonal para el espacio. Para ver esto, sugerimos considerar otra base ortogonal de $\mathbb{R}^2$ y resolver el problema de encontrar coeficientes utilizando dicha base siguiendo el mismo procedimiento.
 
@@ -332,7 +332,7 @@ Veamos qué sucede si, regresando a nuestro problema original, suponemos que $V$
     &\quad \quad \quad \quad \text{¿}c_i\text{?}& & \quad \quad \quad \quad \quad \quad \quad \quad \text{¿}d_i\text{?} & & &
 \end{align*}
 
-Observemos lo siguiente: si tomamos al $i$-ésimo elemento de la base ortogonal, aplicamos el producto escalar con ese elemento a ambos lados de la ecuación, usamos la propiedad de linealidad en la primer entrada del producto escalar y, finalmente, utilizamos el hecho de que nuestra base es ortogonal, y despejamos, podemos encontrar una expresión sumamente sencilla para el $i$-ésimo coeficiente: simplemente se obtiene a través de dos productos escalares y una división.
+Observemos lo siguiente: si tomamos al $i$-ésimo elemento de la base ortogonal, aplicamos el producto escalar con este elemento a ambos lados de la ecuación que buscamos resolver, reescribimos nuestra expresión, usamos la propiedad de linealidad en la primer entrada del producto escalar y, finalmente, utilizamos el hecho de que nuestra base es ortogonal para eliminar los términos de la suma distintos del $i$-ésimo, y despejamos, podemos encontrar una expresión sumamente sencilla para el $i$-ésimo coeficiente: simplemente se obtiene a través de dos productos escalares y una división.
 
 \begin{align*}
     & & & \quad \quad \vec{v}= d_1\vec{g}_1 + ... + d_k\vec{g}_k& & & \\
@@ -381,7 +381,7 @@ Hemos visto que, en espacios vectoriales de dimensión finita con producto escal
 
 Por lo pronto, observemos que el resultado general que hemos obtenido gracias al producto escalar y a las bases ortogonales nos permite dar una interpretación geométrica del producto escalar de la siguiente manera. Si tenemos dos vectores $\vec{u}$ y $\vec{v}$ en cualquier espacio de dimensión finita con producto escalar y $\vec{v}$ es distinto del vector nulo, entonces podemos suponer \emph{a priori} que $\vec{v}$ es un elemento de una base ortogonal de ese espacio\footnote{Escribir ``*La justificación se explica en el video \emph{Ortogonalización y ortonormalización (Teorema de Gram-Schmidt)} de Animathica.''}. En este caso, por lo visto anteriormente, sabemos que la componente de $\vec{u}$ que vive en el subespacio generado por $\vec{v}$ está dada por la siguiente expresión. Por lo tanto, en general, el producto escalar de un vector $\vec{u}$ con un vector no nulo $\vec{v}$ nos habla de la proyección vectorial de $\vec{u}$ sobre $\vec{v}$, pues su resultado es un número proporcional al escalar por el cual debemos reescalar a $\vec{v}$ para obtener a la componente de $\vec{u}$ que vive en el subespacio generado por $\vec{v}$. 
 
-Una forma útil de visualizar la proyección vectorial de $\vec{u}$ sobre $\vec{v}$ es imaginando que colocamos una fuente de luz infinitamente lejos del subespacio generado por $\vec{v}$, pero del lado del vector $\vec{u}$, tal que los rayos que llegan de nuestra fuente caen perpendicularmente sobre el subespacio generado por $\vec{v}$. En este caso, la ``sombra'' producida por $\vec{u}$ será precisamente la proyección vectorial de $\vec{u}$ sobre $\vec{v}$. En esta serie de videos, frecuentemente utilizaremos esta forma de visualizar la proyecciones vectoriales.
+Una forma útil de visualizar la proyección vectorial de $\vec{u}$ sobre $\vec{v}$ es imaginando que colocamos una fuente de luz fuera del subespacio generado por $\vec{v}$, del mismo lado donde se encuentra $\vec{u}$, y la alejamos hasta el infinito. En este caso, la ``sombra'' producida por $\vec{u}$ será precisamente la proyección vectorial de $\vec{u}$ sobre $\vec{v}$. En esta serie de videos, frecuentemente utilizaremos esta forma de visualizar la proyecciones vectoriales.
 
 En particular, $\vec{u}$ es ortogonal a $\vec{v}$ si, y sólo si, la proyección vectorial de $\vec{u}$ sobre $\vec{v}$ es igual al vector nulo. Recordando que la relación de ortogonalidad es simétrica, esto también es equivalente a que la proyección vectorial de $\vec{v}$ sobre $\vec{u}$ sea igual al vector nulo. En otras palabras, dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es nula.
 
@@ -393,12 +393,10 @@ En particular, $\vec{u}$ es ortogonal a $\vec{v}$ si, y sólo si, la proyección
     Sea $(V,K)$ un espacio vectorial con producto escalar $\langle\cdot,\cdot\rangle:V\times V\to K$.
 \end{center}
 
-Ejercicio 1.1 Demuestra que %Se hace referencia a este ejercicio en el video de Ortogonalización y ortonormalización
-\begin{align*}
-    \langle \vec{u} + a\vec{w}, \vec{v}\rangle &= \langle \vec{u},\vec{v}\rangle + a\langle \vec{w}, \vec{v}\rangle, \\
-    \\
-    \langle \vec{u}, \vec{v} + a\vec{w}\rangle &= \langle \vec{u},\vec{v}\rangle + \overline{a}\langle \vec{u}, \vec{w}\rangle
-\end{align*} para todo $\vec{u},\vec{v},\vec{w}\in V$, $a\in K$; luego, dibuja un ejemplo no trivial ($\vec{u},\vec{v},\vec{w}\neq\vec{0}, a\neq 0$) en $\mathbb{R}^2$. \\
+Ejercicio 1.1 Demuestra que,  para cualesquiera $\vec{u},\vec{v},\vec{w}\in V$ y $a\in K$,
+\[
+    \langle \vec{u} + a\vec{w}, \vec{v}\rangle = \langle \vec{u},\vec{v}\rangle + a\langle \vec{w}, \vec{v}\rangle \quad \text{y} \quad \langle \vec{u}, \vec{v} + a\vec{w}\rangle = \langle \vec{u},\vec{v}\rangle + \overline{a}\langle \vec{u}, \vec{w}\rangle.
+\] 
 
 Ejercicio 1.2 Para $\vec{v}\in V$, demuestra que $\langle \vec{v} , \vec{v} \rangle = 0$ si, y sólo si, $\vec{v}=\vec{0}$. \\
 

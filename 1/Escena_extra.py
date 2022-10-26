@@ -27,7 +27,7 @@ TEAL_E = "#49A88F"
 MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
 
-class SE3(ThreeDScene):
+class PreguntasUnoPuntoOchoYNueve(ThreeDScene):
 
     grid = NumberPlane()
 
@@ -362,17 +362,18 @@ class SE3(ThreeDScene):
         self.wait()
         self.play(Create(VecSombra_1))
         self.wait()
-
-        self.next_section()
         self.play(FadeOut(VGroup(ProyeccionAB_1,VecSombra_1)))
         self.wait()
+
+        #self.next_section(skip_animations=True)
         self.bring_to_back(ProyeccionBA_1)
         self.play(Create(ProyeccionBA_1))
         self.wait()
         self.play(Create(VecSombra_2))
         self.wait()
-        #self.next_section(skip_animations=True)
         self.play(FadeOut(VGroup(ProyeccionBA_1,VecSombra_2)))
+
+        #self.next_section(skip_animations=True)
         self.play(Create(VecSombra_1),Create(ProyeccionAB_1))
         for i in ProyeccionAB_1:
             i.add_updater(upd_for_rayo)

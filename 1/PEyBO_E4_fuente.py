@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
 from manim import *
+
+####################################################
+################### ¡IMPORTANTE! ###################
+####################################################
+# Hay que instalar Shapely con 'pip install shapely'
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
+
 #####################################################################################
 ######################  Producto escalar y bases ortogonales  #######################
 #####################################################################################
@@ -23,6 +31,8 @@ TEAL_A = "#ACEAD7"
 TEAL_E = "#49A88F"
 MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
+
+tau = 2*np.pi
 
 # Consturcción de ClockwiseTransform y CounterclockwiseTransform por herencia de ReplacementTransform
 # en vez de Transform
@@ -88,8 +98,8 @@ class SE1(Scene):
         ).move_to(UP)
 
         gen_gamma = MathTex(r"\langle\Gamma\rangle = V, ")
-        case_1 = Tex("$\\langle \\vec{g}_i, \\vec{g}_i\\rangle$", " si", " $j = i,$")
-        case_2 = Tex("$0$", " si", " $j \\neq i.$")
+        case_1 = Tex("$\\langle \\vec{g}_i, \\vec{g}_i\\rangle$", " si", " $j = i$")
+        case_2 = Tex("$0$", " si", " $j \\neq i$")
         for i, item in enumerate(case_2):
             item.align_to(case_1[i], LEFT)
         case_1_g = VGroup(*case_1)
@@ -356,15 +366,15 @@ class SE1(Scene):
 
         #----------------------------------- ANIMACIONES
         #--------------------------------
-        #self.next_section(skip_animations=True)
         self.play(
             FadeIn(groups[0][:]),
             run_time=2)
 
-        self.wait(4)
+        self.wait(2)
         self.play(Write(groups[1][0][:]))
+        self.wait(2)
         self.play(Write(groups[1][1][:]))
-        self.wait(7.5)
+        self.wait(1)
         self.play(Write(groups[1][2][:]))
         self.wait(1)
         self.play(Write(groups[1][3][:]))
@@ -375,7 +385,6 @@ class SE1(Scene):
             groups[1][:].animate.set_color(GRIS),
         )
         #Desplazamiento de la combinación lineal para llevar a cabo el proceso algebraico.
-        self.next_section()
         self.play(ReplacementTransform(groups[1][2][:].copy(), comb_v_g[:]))
         self.wait(2)
         #Primera tranformación
@@ -399,85 +408,94 @@ class SE1(Scene):
             ReplacementTransform(operador_gi[2:], producto_1[2:5]),
             #RHS de la ecuación
             ReplacementTransform(operador_gi[0].copy(), producto_1[6]),
-            ReplacementTransform(operador_gi[2:].copy(), producto_1[12:])
+            ReplacementTransform(operador_gi[2:].copy(), producto_1[12:]),
+            run_time=3
         )
         self.wait(2)
         #Segunda transformación
         self.play(
             FadeOut(producto_1[9:12]),
+            run_time=2
+        )
+        self.play(
             ReplacementTransform(producto_1[:6], producto_2[:6]),
             ReplacementTransform(producto_1[6], producto_2[6]),
             ReplacementTransform(producto_1[7:9], producto_2[8:10]),
             ReplacementTransform(producto_1[12:], producto_2[10:]),
-            FadeIn(producto_2[7])
+            run_time=2
         )
-        self.wait(2)
+        self.play(
+            FadeIn(producto_2[7]),
+            run_time=2
+        )
         #Tercera transformación, apertura de las sumas
         self.play(
             ReplacementTransform(producto_2[:6], producto_2_swap[:6]),
             ReplacementTransform(producto_2[8:], producto_2_swap[8:]),
             CounterclockwiseTransform(producto_2[7], producto_2_swap[6]),
             CounterclockwiseTransform(producto_2[6], producto_2_swap[7]),
-            run_time=1.5
+            run_time=3
         )
+        self.wait(2)
         #Cuarta transformación, "sacando" los escalares
         self.play(
             ReplacementTransform(producto_2_swap[:7], producto_3[:7]),
             ReplacementTransform(producto_2_swap[9:], producto_3[9:]),
             CounterclockwiseTransform(producto_2_swap[8], producto_3[7]),
             CounterclockwiseTransform(producto_2_swap[7], producto_3[8]),
-            run_time=1.5
-        )
-        self.wait(1.5)
-        #Quinta transformación (esta sí está chida)
-        self.play(
-            group_2[1].animate.set_color(WHITE)
+            run_time=3
         )
         self.wait(2)
+        #Cuarta transformación (esta sí está chida)
         self.play(
-            FadeOut(producto_3[6]),
+            group_2[1].animate.set_color(WHITE),
+            run_time=2
+        )
+        self.play(
+            FadeOut(producto_3[6])
+        )
+        self.play(
             ReplacementTransform(producto_3[:6], producto_4[:6]),
             ReplacementTransform(producto_3[7:], producto_4[6:]),
+            run_time=3
+        )
+        self.play(
+            group_2[1].animate.set_color(GRIS),
             run_time=2
         )
         #Sexta transformación (división)
         #Transform(producto_4[7:], producto_5[2]),
         #Transform(producto_4[:5], producto_5[0]),
-        self.wait(1.5)
         self.play(
             ReplacementTransform(producto_4[:5], producto_5[1:6]),
             ReplacementTransform(producto_4[5], producto_5[13]),
             ReplacementTransform(producto_4[6], producto_5[14]),
             ClockwiseTransform(producto_4[7:], producto_5[7:12]),
-            FadeIn(producto_5[6])
+            FadeIn(producto_5[6]),
+            run_time=3
         )
-        self.wait(0.5)
-        self.play(
-            group_2[1].animate.set_color(GRIS)
-        )
-        self.wait()
         self.play(
             Circumscribe(producto_5, fade_out=True),
             run_time=3
         )
-        self.wait(0.5)
         #Incorporación del resultado al texto principal
         self.play(
             groups[0][:].animate.set_color(WHITE),
             groups[1][:].animate.set_color(WHITE),
         )
-        self.wait(0.5)
+        self.wait(2)
         self.play(
             FadeOut(group_2[-1][0]),
             ReplacementTransform(group_2[-1][1][:], producto_5_within_group_2[0]),
-            ReplacementTransform(group_2[-1][2][:], producto_5_within_group_2[1:15])
+            ReplacementTransform(group_2[-1][2][:], producto_5_within_group_2[1:15]),
+            run_time=3
         )
         self.play(
             FadeOut(producto_5[:]),
         )
-        self.wait(3)
         self.play(
-            Write(producto_5_within_group_2[15:])
+            Write(producto_5_within_group_2[15:]),
+            run_time=2
         )
         #Expresiones explícitas y comparación entre espacios vectoriales y espacios vectoriales con
         #producto escalar
@@ -505,7 +523,7 @@ class SE1(Scene):
             ReplacementTransform(group_2[-2][6], combinacion_explicita[32]),
             run_time=3
         )
-        self.wait(4)
+        self.wait(2)
         self.play(
             FadeOut(combinacion_explicita[16:]),
             ReplacementTransform(
@@ -518,15 +536,14 @@ class SE1(Scene):
             run_time=3
         )
         self.play(
-            Circumscribe(combinacion_explicita_sum[:], fade_out=False)
+            Circumscribe(combinacion_explicita_sum[:], fade_out=False),
+            run_time=3
         )
-        self.play(Write(ver_ejercicio))
-        self.wait(2)
-        self.play(FadeOut(ver_ejercicio))
-        self.wait(33)
         self.play(
-            *[FadeOut(mob) for mob in self.mobjects],
-            run_time = 1)
+            Write(ver_ejercicio),
+            run_time=2
+        )
+        self.wait(2)
 
 
 class SE2(Scene):
@@ -539,6 +556,8 @@ class SE2(Scene):
         vec_v_u = MathTex(
             "\\vec{u}, \\vec{v}\\in V, \\quad \\text{dim}(V)<\\infty"
         ).scale(0.8).shift(2.5*UP+4*RIGHT)
+        vec_v_u[0][0:2].set_color(AZUL)
+        vec_v_u[0][3:5].set_color(VERDE)
         sea_Gamma_base = Tex("$\\Gamma$ es base ortogonal de $V$").scale(0.8)
         v_in_Gamma = MathTex(r"\vec{v}\in\Gamma").scale(0.8)
         v_in_Gamma[0][:2].set_color(VERDE)
@@ -572,8 +591,8 @@ class SE2(Scene):
         ).scale(0.9).shift(2.5*DOWN)
 
         #-------------------------------------------- Vectores u y v
-        v = np.array([3, -1, 0])
-        u = np.array([2, 1.5, 0])
+        v = 0.4*np.array([3, -1, 0])
+        u = 0.4*np.array([2, 1.5, 0])
         #--------------------------------------------
 
         v_vect = Vector(v, buff=0, color=VERDE).shift(origen_plano)
@@ -584,11 +603,14 @@ class SE2(Scene):
 
         v_label = MathTex(r"\vec{v}").scale(0.8).move_to(
             v_vect.get_end()+distancia_v_label)
+        v_label[0].set_color(VERDE)
         u_label = MathTex(r"\vec{u}").scale(0.8).move_to(
             u_vect.get_end()+distancia_u_label)
+        u_label[0].set_color(AZUL)
 
         aux_vect = origen_plano+(np.dot(v, u)/np.dot(v, v))*v
         proy_u_v_arrow = Arrow(start=origen_plano, end=aux_vect, buff=0, color=AMARILLO)
+        proy_u_v_arrow_2 = proy_u_v_arrow.copy()
         dashedline = DashedLine(
             u_vect.get_end(), proy_u_v_arrow.get_end(), color=AMARILLO
         )
@@ -652,7 +674,6 @@ class SE2(Scene):
         )
         self.wait(2)
         self.play(
-            Write(dashedline),
             Write(proy_u_v_arrow),
             FadeIn(label_proy_u_v[:]),
             run_time=1
@@ -664,32 +685,160 @@ class SE2(Scene):
         self.play(
             label_proy_u_v[6:12].animate.set_opacity(0.3),
             label_proy_u_v[13].animate.set_opacity(0.3),
-            dashedline.animate.set_opacity(0.3),
             proy_u_v_arrow.animate.set_opacity(0.3),
             run_time=2
         )
         self.wait(3)
+
         self.play(
             label_proy_u_v[6:12].animate.set_opacity(1),
             label_proy_u_v[13].animate.set_opacity(1),
-            dashedline.animate.set_opacity(1),
-            proy_u_v_arrow.animate.set_opacity(1),
+            proy_u_v_arrow.animate.set_opacity(0.2),
+            GrowArrow(proy_u_v_arrow_2),
             run_time=2
         )
-        v_label.add_updater(upd_for_label)
-        proy_u_v_arrow.add_updater(upd_for_proy_u_v_arrow)
-        v_vect.add_updater(upd_for_v)
-        dashedline.add_updater(upd_for_dashedline)
-        self.wait(2)
-        self.play(
-            t.animate.set_value(np.dot(u, v)),
-            Write(conclusion[4:]),
-            run_time=5
-        )
-        self.wait(3)
-        s = conclusion[:4].copy()
-        s.invert(recursive=True)
-        self.play(
-            Write(s),
-            run_time=6
-        )
+        self.wait()
+        self.play(FadeOut(label_proy_u_v), FadeOut(proy_u_v_arrow_2))
+        self.wait()
+
+        # Proyección vectorial con fuente de luz
+
+        coords_fuente = [0.58-3, 0.58*2.2+1.05, 0]
+        n = 10
+        fuente = Dot(coords_fuente, color=YELLOW)
+        self.add(fuente)
+
+        esquina0 = [-0.58*7-2.9, 0.58*7/3+1, 0]
+        esquina1 = [0.58*7-3.05, -0.58*7/3+1, 0]
+        esquina2 = [7*0.58-3.05, 0.58*4+1.1, 0]
+        esquina3 = [-7*0.58-2.9, 0.58*4+1.1, 0]
+        tupla_lado0 = (esquina0, esquina1)
+        tupla_lado1 = (esquina1, esquina2)
+        tupla_lado2 = (esquina2, esquina3)
+        tupla_lado3 = (esquina3, esquina0)
+
+        norma_u = np.linalg.norm(u,2)
+        tupla_u = (ORIGIN, u)
+
+        normal_v = 0.4*np.array([0.01, 0.03, 0])
+        tupla_normal = (normal_v, 2*normal_v)
+
+        ángs_rayos = np.arange(0, tau, tau/n)
+
+        rayos = VGroup()
+        for i in range(0, len(ángs_rayos)):
+            rayos.add(
+                    DashedLine(fuente.get_center(), line_intersection((fuente.get_center(), [fuente.get_x()+np.cos(ángs_rayos[i]), fuente.get_y()+np.sin(ángs_rayos[i]),0]), tupla_lado0), dash_length=0.1, dashed_ratio = 0.1, color=AMARILLO)
+                    )
+
+        self.add(rayos)
+
+        # ValueTracker para el desplazamiento de la fuente
+        VT = ValueTracker(10)
+
+        # Función para el desplazamiento de la fuente
+        def upd_for_fuente(obj):
+            obj.become(Dot(coords_fuente + VT.get_value()*normal_v, color=YELLOW))
+
+        fuente.add_updater(upd_for_fuente)
+
+        # Función para calcular los ángulos de la fuente a cualquier esquina
+        def ang(punto):
+            temp = np.arctan2(punto[1]-fuente.get_y(), punto[0]-fuente.get_x())
+            if temp >= 0:
+                return temp
+            else:
+                return temp+tau
+
+        # Función para calcular el "start" 'óptimo' para un rayo
+        def optimal_start(i, center, interior):
+
+            if interior:
+                return center
+
+            else:
+                try:
+                    return line_intersection((center, center+[np.cos(ángs_rayos[i]), np.sin(ángs_rayos[i]),0]), tupla_lado2)
+                except ValueError:
+                    return line_intersection(tupla_normal, tupla_lado2)
+
+        # Función para calcular el "end" 'óptimo' para un rayo
+        def optimal_end(i, center, interior):
+
+            áng = ángs_rayos[i]
+            tupla_radial = (center, center+[np.cos(áng), np.sin(áng),0])
+            áng_esq0 = ang(esquina0)
+            áng_esq1 = ang(esquina1)
+            áng_esq2 = ang(esquina2)
+            áng_esq3 = ang(esquina3)
+            áng_orig = ang(0.1*(u+np.array([-3,1,0])))
+            áng_u    = ang(u+np.array([-3,1,0]))
+
+            intersec = line_intersection(tupla_radial,tupla_u)
+
+            if interior:
+
+                if (áng > áng_orig) & (áng <= áng_u):
+                    return intersec
+
+                elif áng <= áng_esq2:
+                    return line_intersection(tupla_radial, tupla_lado1)
+                elif (áng > áng_esq2) & (áng <= áng_esq3): 
+                    return line_intersection(tupla_radial, tupla_lado2)
+                elif (áng > áng_esq3) & (áng <= áng_esq0): 
+                    return line_intersection(tupla_radial, tupla_lado3)
+                elif (áng > áng_esq0) & (áng <= áng_esq1): 
+                    return line_intersection(tupla_radial, tupla_lado0)
+                elif áng > áng_esq1:
+                    return line_intersection(tupla_radial, tupla_lado1)
+
+            else:
+
+                if (áng > áng_esq0) & (áng <= áng_orig): 
+                    return line_intersection(tupla_radial, tupla_lado0)
+                elif (áng > áng_orig) & (áng <= áng_u): 
+                    return intersec
+                elif (áng > áng_u) & (áng <= áng_esq1): 
+                    return line_intersection(tupla_radial, tupla_lado0)
+                elif (áng > áng_esq1) & (áng <= áng_esq2): 
+                    return line_intersection(tupla_radial, tupla_lado1)
+                elif (áng >= áng_esq3) & (áng <= áng_esq0): 
+                    return line_intersection(tupla_radial, tupla_lado3)
+                else:
+                    return center
+
+        # Función para la acualización del grupo de rayos
+        def upd_for_rayos(obj):
+            for i in range(0, len(obj)):
+                fuente_centro = fuente.get_center()
+                fuente_x = fuente.get_x()
+                fuente_y = fuente.get_y()
+                dentro = Polygon([esquina0, esquina1, esquina2, esquina3]).contains(Point(fuente.get_x(), fuente.get_y())) # Si la fuente está dentro del cuadrilátero
+                obj[i].become(DashedLine(optimal_start(i, fuente_centro, dentro), optimal_end(i, fuente_centro, dentro), dash_length=0.1, dashed_ratio = 0.1, color=AMARILLO))
+
+        rayos.add_updater(upd_for_rayos)
+
+        self.play(VT.animate.set_value(300), run_time=3) # ¡Con valores menores a 6 sale un glitch!
+
+        #self.next_section(skip_animations=True)
+
+        #    #Write(dashedline),
+        #    #dashedline.animate.set_opacity(0.3),
+        #    #dashedline.animate.set_opacity(1),
+        #v_label.add_updater(upd_for_label)
+        #proy_u_v_arrow.add_updater(upd_for_proy_u_v_arrow)
+        #v_vect.add_updater(upd_for_v)
+        #dashedline.add_updater(upd_for_dashedline)
+        #self.wait(2)
+        #self.play(
+        #    t.animate.set_value(np.dot(u, v)),
+        #    Write(conclusion[4:]),
+        #    run_time=5
+        #)
+        #self.wait(3)
+        #s = conclusion[:4].copy()
+        #s.invert(recursive=True)
+        #self.play(
+        #    Write(s),
+        #    run_time=6
+        #)

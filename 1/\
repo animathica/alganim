@@ -1,446 +1,1088 @@
-\documentclass[12pt,dvipsnames]{article}
-\setcounter{section}{0}
+# -*- coding: utf-8 -*-
 
-\usepackage{amsmath,amsthm,amssymb,amsbsy}
-\usepackage[spanish,es-tabla]{babel}
-\decimalpoint
-\usepackage{braket}
-\usepackage{color}
-\usepackage{enumitem}
-\usepackage{fancyhdr}
-\usepackage{float}
-\usepackage[T1]{fontenc}
-\usepackage[margin=1.5cm]{geometry} 
-\usepackage{graphicx}
-\graphicspath{ {images/} }
-\usepackage{hyperref}
-\usepackage[utf8]{inputenc}
-\usepackage{listings}
-\usepackage{lmodern}
-\usepackage{multicol}
-\usepackage{multirow}
-\usepackage{pgfplots}
-\usepackage{tabularx}
-\usepackage{tcolorbox}
-\tcbuselibrary{listings,breakable}
-\usepackage{tikz}
-\usetikzlibrary{babel}
-\usepackage{url}
-\usepackage{wrapfig}
-\usepackage{xcolor}
+from re import S
+from manim import *
+from alganim import DashedArrow
 
-\setlength{\parindent}{1em}
-\setlength{\parskip}{1em}
 
-\definecolor{NARANJA}{rgb}{1,0.467,0}
-\definecolor{VERDE}{rgb}{0.31,1,0}
-\definecolor{AZUL}{rgb}{0,0.53,1}
-\definecolor{ROJO}{rgb}{1,0,0}
+#####################################################################################
+######################  Producto escalar y bases ortogonales  #######################
+#####################################################################################
 
-\hypersetup{
-    colorlinks=true,
-    linkcolor=ROJO,
-    filecolor=magenta,      
-    urlcolor=AZUL,
-}
- 
-\pgfplotsset{compat=1.15}
- 
- \renewcommand{\figurename}{Figura}
+#####################################################################################
+###############################  Terecera escena ####################################
+#####################  versión: Manim Community v0.15.2   ###########################
+#####################################################################################
 
-\renewcommand{\indexname}{Índice}
-\renewcommand{\appendixname}{Apéndice}
-\renewcommand{\contentsname}{Contenidos}
-\renewcommand{\proofname}{Dem.}
-\renewcommand{\tablename}{Tabla.}
-\renewcommand\qedsymbol{$\blacksquare$}
-\newtheorem{teo}{Teorema}[section]
-\newtheorem{cor}{Corolario}[section]
-\newtheorem{lem}{Lema}[section]
-\newtheorem{defi}{Definición}[section]
-\newtheorem{obs}{Observación}[section]
-\newtheorem{prop}{Propiedades.}[section]
-\newtheorem{ejem}{\textbf{\textit{$\circ \ \text{Ejemplo}$}}}[section]
-\newtheorem{axi}{Axioma}[section]
+ROJO = '#FF0000'
+AZUL = '#0087FF'
+NARANJA = '#FF7700'
+VERDE = '#1FFF00'
+MAGENTA = '#FF00FF'
+AMARILLO = "#FFFF00"
+GRIS = "#888888"
+MAGENTA_CLARO = "#FF67FF"
+AZUL_CLARO = "#9CDCEB"
+AZUL_OSCURO = "#1C758A"
+TEAL_A = "#ACEAD7"
+TEAL_E = "#49A88F"
+MOSTAZA_OSCURO = "#FFD025"
+MOSTAZA_CLARO = "#FFE072"
 
-\numberwithin{equation}{section}
-\allowdisplaybreaks
+v = np.array([-4,-2,0])
+g1 = np.array([0.5,-0.5,0])
+g2 = np.array([-1,-1,0])
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
-
-\newtcolorbox{post}{colback=white,colframe=red!50!black,
-	colbacktitle=red!75!black, title= Postulado.}
-
-\newtcolorbox{enu}{colframe=white!85!black, colback=white, leftrule = 10mm, sharp corners, breakable}
-
-\newtcolorbox{solu}{colframe=black, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
-
-\newtcolorbox{corre}{colframe=red, colback=white, leftrule = 1mm, rightrule = -1mm,toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
-
-\newtcolorbox{enun}{colframe=gray, colback=white!90!black, leftrule = 1mm, rightrule = 1mm, toprule = -1mm, bottomrule=-1mm, sharp corners, breakable}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cajas
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%demarcado de soluciones
-
-%New colors defined below
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-%Code listing style named "mystyle"
-\lstdefinestyle{mystyle}{
-	backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
-	keywordstyle=\color{magenta},
-	numberstyle=\tiny\color{codegray},
-	stringstyle=\color{codepurple},
-	basicstyle=\ttfamily\footnotesize,
-	breakatwhitespace=false,         
-	breaklines=true,                 
-	captionpos=b,                    
-	keepspaces=true,                 
-	numbers=left,                    
-	numbersep=5pt,                  
-	showspaces=false,                
-	showstringspaces=false,
-	showtabs=false,                  
-	tabsize=2
-}
-
-%"mystyle" code listing set
-\lstset{style=mystyle}
-
-\newenvironment{sol}{\begin{figure}[H]
-		\begin{tikzpicture}
-		\filldraw[black] (0,0) circle (3pt);
-		\draw[line width = 0.5pt] (0,0) -- (4,0) node[above right]{\textbf{Solución:}};
-		\end{tikzpicture}
-\end{figure}}{\begin{figure}[H]
-		\begin{flushright}
-			\begin{tikzpicture}
-			\draw[line width = 0.5pt] (0,0)-- (4,0);
-			\filldraw (4,0) circle (3pt);
-			\end{tikzpicture}
-\end{flushright}\end{figure}}
-
-%%%%%%%%%%%% TÍTULO Y OBSERVACIONES %%%%%%%%%%%%
- 
-\begin{document}
-
-\title{Producto escalar y bases ortogonales \\ (proyecciones y ortogonalidad)}
-\date{}
-\maketitle
-%\tableofcontents
-
-\begin{obs}
-    Por definición, cualquier base de un espacio vectorial genera a cada vector del espacio mediante una combinación lineal única. Sin embargo, encontrar los coeficientes necesarios para expresar a un vector arbitrario no nulo como combinación lineal de una base es, en general, un proceso laborioso que aumenta en complejidad a medida que aumenta la dimensión del espacio. Definiendo la operación de producto escalar \textemdash y, subsecuentemente, los conceptos de ortogonalidad, conjunto ortogonal y base ortogonal\textemdash \ podemos obtener un resultado poderoso que nos muestra cómo encontrar a dichos coeficientes de forma sencilla, suponiendo que existe una base ortogonal. Este resultado, a su vez, nos permite darle una interpretación geométrica a esta nueva operación, relacionada con las llamadas proyecciones vectoriales.
-\end{obs}
-
-\begin{obs}
-    Las ideas principales a presentar en este video (por escena) son:
-\begin{enumerate}[label=(\roman*)]
-    \item Dada una base de un espacio vectorial de dimensión finita y un vector no nulo arbitrario, el problema de encontrar los coeficientes necesarios para expresar a ese vector como combinación lineal de dicha base no es trivial. En general, puede resolverse computacionalmente mediante sistemas de ecuaciones, pero su complejidad aumenta con la dimensión del espacio.
+class SE1(MovingCameraScene):
+    '''
+    La escena esta organizada de la siguiente forma: se definen cuatro funciones, cada una de ellas
+    incluye la prueba de una de las propiedades. Al ejecutar cada una de estas funciones se anima la
+    demostración de dicha propiedad en el lado derecho de la pantalla, sin afectar a los objetos
+    que ya están definidos en el lado izquierdo.
+    '''
     
-    \item El producto escalar es una operación no esencial que, de estar presente, dota a un espacio vectorial de estructura adicional; en particular, su introducción permite definir los conceptos de ortogonalidad y conjunto ortogonal. 
+    def demo_1(self):
+        '''
+        Función que contiene todos los objetos y animaciones para mostrar en pantalla la demostración
+        de la primer propiedad del producto punto
+        '''
+        #----------- OBJETOS                 
+
+        obj_1 = MathTex(r"  \langle\vec{u}+\vec{w},\vec{v}\rangle ").scale(0.7).shift(2*UP+0.2*LEFT)
+        obj_1_dup = MathTex(r"  \langle\vec{u}+\vec{w},\vec{v}\rangle ").move_to(obj_1).scale(0.7).shift(1.4*RIGHT)
+        obj_2 = MathTex(r" \bigg( \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} + \begin{pmatrix} w_1 \\ w_2 \end{pmatrix} \bigg)\cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}").move_to(obj_1).scale(0.6).\
+            shift(0.5*RIGHT)
+
+        obj_3 = MathTex(r" &= \begin{pmatrix} u_1+w_1 \\ u_2 + w_2 \end{pmatrix}\cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} ").next_to(obj_2, RIGHT).scale(0.6).shift(0.9*LEFT)
+        obj_4 = MathTex(r" &= (u_1+w_1) v_1 + (u_2+w_2) v_2").scale(0.7)
+        obj_5 = MathTex(r" &= u_1v_1 + w_1v_1 + u_2v_2 + w_2v_2").scale(0.7)
+        obj_6 = MathTex(r" &= u_1v_1 + u_2v_2 + w_1v_1 + w_2v_2").scale(0.7)
+        obj_7 = MathTex(r" &= (u_1v_1 + u_2v_2) + (w_1v_1 + w_2v_2)").scale(0.65)
+        obj_8 = MathTex(r" &= \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} + \begin{pmatrix} w_1 \\ w_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} ").scale(0.6)
+
+        grupo = VGroup(obj_3, obj_4, obj_5, obj_6, obj_7, obj_8).arrange(1.5*DOWN, center=False, aligned_edge=LEFT)
+        obj_9 = MathTex(r" &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle ").move_to(obj_8).scale(0.7).shift(0.8*LEFT)
+       
+
+        srct_1 = SurroundingRectangle(obj_1_dup)
+        srct_2 = SurroundingRectangle(obj_9)
+
+        objs = VGroup(obj_1_dup, obj_2, obj_3, obj_4, obj_5, obj_6, obj_7, obj_8, obj_9, srct_1, srct_2)
+
+        # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+        p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+        paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).shift(2*LEFT+1.4*DOWN)
+        #####################
+        ## ANIMACIONES DEMO 1 ###
+        #####################
+        self.play(Write(obj_1))
+        self.wait(1)
+        self.play(ReplacementTransform(obj_1,obj_2))
+        self.play(Write(obj_3))
+        self.play(Write(obj_4))
+        self.play(Write(obj_5))
+        self.play(Write(obj_6))
+        self.play(Write(obj_7))
+        self.play(Write(obj_8))
+        self.wait(1)
+        self.play(ReplacementTransform(obj_8,obj_9))
+        self.wait(1)
+        self.play(ReplacementTransform(obj_2, obj_1_dup))
+        self.play(Write(srct_1), Write(srct_2))
+        self.wait(2)
+        self.play(paloma.animate.set_opacity(1))
+        self.play(FadeOut(objs))
+
+
+    def demo_2(self):
+        '''
+        Función que contiene todos los objetos y animaciones para mostrar en pantalla la demostración
+        de la segunda propiedad del producto punto
+        '''
+        #----------- OBJETOS
+
+        obj_1 = MathTex(r"  \langle a\vec{u}},\vec{v}\rangle ").scale(0.7).shift(1.5*UP+RIGHT)
+        inter = MathTex(r"a \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} ").scale(0.7).move_to(obj_1)
+        inter2 = MathTex(r" \langle a\vec{u}},\vec{v}\rangle ").scale(0.7).move_to(obj_1).shift(0.5*RIGHT)
+        obj_2 = MathTex(r" &= \begin{pmatrix} au_1 \\ au_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} ").scale(0.7).next_to(inter, RIGHT)
+        obj_3 = MathTex(r" &= (au_1)v_1 + (au_2)v_2 ").scale(0.7)
+        obj_4 = MathTex(r" &= a(u_1v_1) + a(u_2v_2)").scale(0.7)
+        obj_5 = MathTex(r" &= a(u_1v_1 + u_2v_2)").scale(0.7)
+        obj_6 = MathTex(r" &= a \left(\begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}\right)")\
+            .scale(0.7)
+        
+        grupo = VGroup(obj_2, obj_3, obj_4, obj_5, obj_6).arrange(1.5*DOWN, center=False, aligned_edge=LEFT)
+        obj_7 = MathTex(r" &= a \langle \vec{u} , \vec{v} \rangle").move_to(obj_6).scale(0.7).shift(0.85*LEFT)
+
+        objs = VGroup( inter2, grupo, obj_7)
+
+        
+        srct_1 = SurroundingRectangle(inter2)
+        srct_2 = SurroundingRectangle(obj_7)
+
+        srects = VGroup(srct_1,srct_2)
+
+        # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+        p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+        paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).shift(2.9*LEFT+2*DOWN)
+        #####################
+        ## ANIMACIONES DEMO 2 ###
+        #####################
+        
+        # Animación de la demostración
+        self.play(Write(obj_1))
+        self.wait(1)        
+        self.play(ReplacementTransform(obj_1,inter))
+        self.play(Write(obj_2))
+        self.play(Write(obj_3))
+        self.play(Write(obj_4))
+        self.play(Write(obj_5))
+        self.play(Write(obj_6))
+        self.wait(1)
+        self.play(ReplacementTransform(obj_6,obj_7))
+        self.wait(1)
+        self.play(ReplacementTransform(inter, inter2))
+        self.play(Write(srct_1), Write(srct_2))
+        self.wait(2)
+        self.play(paloma.animate.set_opacity(1))
+        self.play(FadeOut(srects), FadeOut(objs) )
+
+
+    def demo_3(self):
+        '''
+        Función que contiene todos los objetos y animaciones para mostrar en pantalla la demostración
+        de la tercer propiedad del producto punto
+        '''
+        #----------- OBJETOS       
+        obj_1 = MathTex(r" \overline{ \langle \vec{v} , \vec{u} \rangle}").scale(0.8).shift(1.5*UP+1*RIGHT)
+        obj_2 = MathTex(r" \overline{ \bigg(\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} \cdot \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \bigg)}").scale(0.7).move_to(obj_1)
+        obj_1_dup = MathTex(r" \overline{ \langle \vec{v} , \vec{u} \rangle}").scale(0.8).move_to(obj_2).shift(0.9*RIGHT)
+        obj_3 = MathTex(r" &= \overline{ (v_1u_1 + v_2u_2)}").next_to(obj_2, 0.8*RIGHT).scale(0.8)
+        obj_4 = MathTex(r" &= v_1u_1 + v_2u_2").scale(0.8)
+        obj_5 = MathTex(r" &= u_1v_1 + u_2v_2").scale(0.8)
+        obj_6 = MathTex(r" &= \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}").scale(0.8)
+
+        grupo = VGroup(obj_3, obj_4, obj_5, obj_6).arrange(1.5*DOWN, center=False, aligned_edge=LEFT)
+        obj_7 = MathTex(r" &= \langle \vec{u},\vec{v}\rangle ").move_to(obj_6).scale(0.8).shift(0.65*LEFT)
+
+        srct_1 = SurroundingRectangle(obj_1_dup)
+        srct_2 = SurroundingRectangle(obj_7)
+
+        objs = VGroup(obj_1_dup, grupo, srct_1, srct_2, obj_7)
+        
+        # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+        p1 = Line(ORIGIN, [0.95,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+        paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).shift(3.1*LEFT+2.6*DOWN)
+
+        #####################
+        ## ANIMACIONES DEMO 3 ###
+        #####################
+
+        self.play(Write(obj_1))
+        self.play(ReplacementTransform(obj_1, obj_2))
+        self.play(Write(obj_3))
+        self.play(Write(obj_4))
+        self.play(obj_4.animate.scale(1.2))
+        self.wait(1)
+        self.play(obj_4.animate.scale(1/1.2))
+        self.play(Write(obj_5))
+        self.play(Write(obj_6))
+        self.wait(1)
+        self.play(ReplacementTransform(obj_6, obj_7))
+        self.wait(2)
+        self.play(ReplacementTransform(obj_2, obj_1_dup))
+        self.play(Write(srct_1),Write(srct_2))
+        self.wait(2)
+        self.play(paloma.animate.set_opacity(1))
+        self.play(FadeOut(objs))
+
+    def demo_4(self):
+
+        c_nonzero = MathTex(r" \forall \ c \in \mathbb{R}, c\neq0 &\Rightarrow c^2>0").shift(3*UP+3*RIGHT).scale(0.8)
+        
+        #----------- OBJETOS       
+        obj_1 = MathTex(r" \vec{u}\neq \vec{0} ").scale(0.8).shift(1.5*UP+1*RIGHT)
+        obj_2 = MathTex(r" \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \neq \begin{pmatrix} 0 \\ 0 \end{pmatrix}").scale(0.7).move_to(obj_1)
+        obj_1_dup = MathTex(r" \vec{u}\neq \vec{0}").scale(0.8).move_to(obj_2).shift(0.5*RIGHT)
+        obj_3 = MathTex(r" \Rightarrow u_1 \ \text{ó} \ u_2 \neq 0").next_to(obj_2, 0.8*RIGHT).scale(0.8).shift(0.3*LEFT)
+        obj_4 = MathTex(r" \Rightarrow u_1^2 + u_2^2 > 0").scale(0.8)
+        obj_5 = MathTex(r" \Rightarrow u_1u_1 + u_2u_2 > 0").scale(0.8)
+        obj_6 = MathTex(r" \Rightarrow \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} > 0")\
+            .scale(0.8)
+        
+        grupo = VGroup(obj_3, obj_4, obj_5, obj_6).arrange(1.5*DOWN, center=False, aligned_edge=LEFT)
+
+        obj_7 = MathTex(r" \Rightarrow \langle \vec{u} , \vec{u} \rangle > 0 ").move_to(obj_6).scale(0.8).shift(0.65*LEFT)
+
+        srct_1 = SurroundingRectangle(obj_1_dup)
+        srct_2 = SurroundingRectangle(obj_7)
+
+        objs = VGroup(obj_1_dup, grupo, srct_1, srct_2, obj_7, c_nonzero)
+
+        # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+        p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+        p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+        paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).shift(2.5*LEFT+3.2*DOWN)
+
+        #####################
+        ## ANIMACIONES DEMO 4 ###
+        #####################
+        self.play(Write(c_nonzero))
+        self.play(Write(obj_1))
+        self.play(ReplacementTransform(obj_1, obj_2))
+        self.play(Write(obj_3))
+        self.play(Write(obj_4))
+        self.play(Write(obj_5))
+        self.play(Write(obj_6))
+        self.wait(1)
+        self.play(ReplacementTransform(obj_6, obj_7))
+        self.wait(2)
+        self.play(ReplacementTransform(obj_2, obj_1_dup))
+        self.play(Write(srct_1),Write(srct_2))
+        self.wait(2)
+        self.play(paloma.animate.set_opacity(1))
+        self.play(FadeOut(objs))
+
+        
+    def construct(self): # Cambiar a construct
+        '''
+        Aquí se definen objetos y animaciones que estarán a lo largo de toda la subescena, por lo que
+        se definen en el método principal (construct). Siempre que queramos ver/omitir una de las pruebas
+        podemos descomentar/comentar la línea donde se invoca la función.
+        '''
+
+        #-------------- DEFINICIÓN DEL PP EN ABSTRACTO: OPERACION Y PROPS (OBJETOS)
+        pe_def = MathTex(r" \langle\cdot,\cdot\rangle:",r"V", r"\times ", r"V",r"\to ",r"K").shift(2*UP)
+        pe_def_1 = MathTex(r" \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in K ").next_to(pe_def, 1.1*DOWN)
+        pe_def_2 = MathTex(r"  \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle ").next_to(pe_def_1.get_center(), 2*DOWN)\
+            .shift(0.15*RIGHT)
+        pe_def_3 = MathTex(r"  \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle ").next_to(pe_def_2.get_center(), 1.5*DOWN).shift(0.45*LEFT)
+        pe_def_4 = MathTex(r"  \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle} ").next_to(pe_def_3.get_center(), 1.5*DOWN)
+        pe_def_5 = MathTex(r" \vec{u}\neq \vec{0} \Rightarrow \langle \vec{u} , \vec{u} \rangle > 0 ").next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.4*RIGHT)
+
+        #VGroup que contiene las propiedades que debe satisfacer el P.E. en abstracto
+        pe_group_2 = VGroup(pe_def_1, pe_def_2, pe_def_3, pe_def_4, pe_def_5).scale(0.8).shift(0.5*DOWN)
+        
+        #---------------- PASANDO DE LO ABSRTACTO AL CASO PARTICULAR en R2 (OJETOS)
+        pp_def = MathTex(r" \langle\cdot,\cdot\rangle:",r"\mathbb{R}^2", r"\times ", r"\mathbb{R}^2",r"\to ",r"\mathbb{R}").shift(2*UP) # SE QUEDA
+        pp_def[1].set_color(AMARILLO)
+        pp_def[3].set_color(AMARILLO)
+        pp_def[5].set_color(AZUL_CLARO)          
+        pp_oper = MathTex(r"\langle \vec{v},\vec{w}\rangle = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} \cdot \begin{pmatrix} w_1 \\ w_2 \end{pmatrix}= v_1w_1 + v_2w_2") #SE QUEDA
+
+        #------------- REACOMODO DE LAS COSAS EN LA PANTALLA, DIBUJAMOS LÍNEAS (OBJETOS)
+        
+        linea_1 = Line(start = 7*LEFT + 0.5*UP, end = LEFT + 0.5*UP, buff= 0.5)
+        linea_2 = Line(start = 4*UP + 1.5*LEFT, end = 4*DOWN + 1.5*LEFT, buff= 0.5)
+
+
+        t1 = Tex("*", "La demostración termina en XX:XX.").scale(.4).align_on_border(LEFT+DOWN, buff=0.25)
+        t1[0].set_color(AMARILLO)
+
+    #####################
+    ## ANIMACIONES   ###
+    #####################
+
+        # INTRODUCCION, PLANTEAMIENTO DEL CASO PARTICULAR Y DEFINICIÓN DEL PP 
+        #self.next_section(skip_animations=True)
+        self.play(Write(pe_def))
+        pe_group_2.set_opacity(0)
+        self.play(Write(pe_group_2),run_time=1)
+        self.wait(8)
+        self.play(ReplacementTransform(pe_def,pp_def))
+        self.wait(4.5)
+        self.play(Write(pp_oper))
+        self.wait(2)
+
+        #------ REACOMODO DE LOS OBJETOS Y DIBUJO DE LÍNEAS 
+        #self.next_section(skip_animations=True)
+        self.play(pp_def.animate.shift(4*LEFT+1*UP).scale(0.7))
+        self.play(pp_oper.animate.shift(4.1*LEFT+1.8*UP).scale(0.6))
+        self.play(Write(linea_1), run_time=0.5)
+        self.play(Write(linea_2), run_time=0.5)
+        self.wait(0.5)
+        self.wait()
+        
+        self.play(pe_def_1.animate.shift(4.2*LEFT+0.8*DOWN).scale(0.7), run_time=0.1)
+        self.play(pe_def_1.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_2.animate.next_to(pe_def_1.get_center(), 1.5*DOWN).shift(0.15*RIGHT).scale(0.8), run_time=0.1)
+        self.play(pe_def_2.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_3.animate.next_to(pe_def_2.get_center(), 1.5*DOWN).shift(0.27*LEFT).scale(0.8), run_time=0.1)
+        self.play(pe_def_3.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_4.animate.next_to(pe_def_3.get_center(), 1.5*DOWN).scale(0.8), run_time=0.1)
+        self.play(pe_def_4.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_5.animate.next_to(pe_def_4.get_center(), 1.5*DOWN).shift(0.27*RIGHT).scale(0.8), run_time=0.1)
+        self.play(pe_def_5.animate.set_opacity(1), run_time=0.5)
+        self.play(Write(t1))
+
+        #######################
+        # ANIM PREVIAS A DEM 1 #
+        #######################
+
+        self.wait()
+        self.play(pe_def_3.animate.set_opacity(0.3), pe_def_4.animate.set_opacity(0.3),
+        pe_def_4.animate.set_opacity(0.3), pe_def_5.animate.set_opacity(0.3))
+        self.play(pe_def_2.animate.scale(1.1))
+
+        #self.next_section(skip_animations=True)
+        self.demo_1() # Llamamos a la animación completa de la primer demostración
+
+        #######################
+        # ANIM PREVIAS A DEM 2 #
+        #######################
+
+        self.play(pe_def_2.animate.scale(1/1.1))
+        self.play(pe_def_2.animate.set_opacity(0.3))
+        self.play(pe_def_3.animate.set_opacity(1).scale(1.2))
+
+        self.demo_2() # Llamamos a la animación completa de la segunda demostración
+
+        #######################
+        # ANIM PREVIAS A DEM 3 #
+        #######################
+
+        self.play(pe_def_3.animate.scale(1/1.1))
+        self.play(pe_def_3.animate.set_opacity(0.3))
+        self.play(pe_def_4.animate.set_opacity(1).scale(1.1))
+
+        self.demo_3() # Llamamos a la animación completa de la tercera demostración
+
+
+        #######################
+        # ANIM PREVIAS A DEM 4 #
+        #######################
+
+        self.play(pe_def_4.animate.scale(1/1.1))
+        self.play(pe_def_4.animate.set_opacity(0.3))
+        self.play(pe_def_5.animate.set_opacity(1).scale(1.1))
+
+        self.demo_4() # Llamamos a la animación completa de la cuarta demostración
     
-    \item El ``producto punto'' es un ejemplo de producto escalar en el espacio vectorial real $\mathbb{R}^2$. Usando una base ortogonal de $\mathbb{R}^2$, podemos utilizar el producto escalar (en este caso, el producto punto) para resolver el problema de encontrar los coeficientes necesarios para expresar a un vector arbitrario como combinación lineal de una base de forma sencilla. %Más aún, este resultado nos permite interpretar geométricamente al producto punto como una operación relacionada con las proyecciones vectoriales. %Si un espacio vectorial con producto escalar tiene dimensón finita y existe una base ortogonal, ésta simplifica enormemente el problema de encontrar los coeficientes necesarios para expresar a un vector arbitrario como combinación lineal de una base. Más aún, este resultado nos permite interpretar geométricamente al producto escalar como una operación relacionada con las proyecciones vectoriales.
-
-    \item El resultado anterior se puede generalizar a cualquier espacio de dimensión finita con producto escalar, de donde obtenemos su interpretación geométrica: el producto escalar entre dos vectores es proporcional al número por el cual debemos reescalar al segundo vector para obtener la componente del primer vector que ``vive'' en el subespacio vectorial generado por el segundo; a esta componente se le conoce como la \emph{proyección vectorial} del primer vector sobre el segundo. Con esto en mente, podemos deducir qué significa que un producto escalar entre dos vectores sea positivo, negativo o cero (¡ortogonalidad!) y, en el caso complejo, qué significa que dicho producto escalar tenga parte imaginaria positiva, negativa o cero.
-\end{enumerate}
-\end{obs}
-
-\begin{obs}
-    Siendo el primer video de la serie, se dejarán muchos ejercicios al final, con la intención de que varios de ellos sean retomados en videos posteriores.
-\end{obs}
-
-%%%%%%%%%%%%% PRIMERA ESCENA %%%%%%%%%%%
-
-\newpage
-\section{El problema de encontrar coeficientes}
-
-\subsection{Planteamiento del problema a resolver} \label{Ssec: Planteamiento del problema a resolver}
-
-Sabemos que, dados un espacio vectorial de dimensión finita y una base para ese espacio, cualquier vector del espacio puede ser expresado mediante una combinación lineal única de los vectores de esa base. Esto es de gran utilidad para hacer cálculos con vectores. Sin embargo, consideremos la siguiente pregunta: dado un vector no nulo cualquiera y una base arbitraria, ¿cómo encontramos los coeficientes necesarios para expresar a nuestro vector como combinación lineal de dicha base?
-
-\begin{align*}
-    & & &\text{dim}(V)=k<\infty& & &\\
-    \\
-    \beta&=\{\vec{b}_1,...,\vec{b}_k\} \ \ \text{base de} \ \ V& & & & &\\
-    \\
-    \langle\beta&\rangle = V, \ \ \beta \ \ \text{es} \ \ l.i.& & & & & \\
-    \\
-    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& & & & & \\
-    \\
-    \\
-    \\
-    & \quad \quad \ \ \text{¿}c_1,...,c_k\text{?} & & & & &
-\end{align*}
-
-\subsection{Representación del problema en $\mathbb{R}^2$} \label{Ssec: Representación del problema en R^2}
-
-Veamos cómo podríamos representar este problema en el caso del espacio vectorial real\footnote{Dibujamos el plano cartesiano.} $\mathbb{R}^2$. Tenemos a nuestro vector no nulo cualquiera\footnote{Dibujamos a $\vec{v}$ junto con su flecha.} y a nuestra base arbitraria, formada por los vectores $\vec{b}_1$\footnote{Dibujamos a $\vec{b}_1$ junto con su flecha.} y $\vec{b}_2$\footnote{Dibujamos a $\vec{b}_2$ junto con su flecha.}. Observemos que estos vectores efectivamente forman una base de $\mathbb{R}^2$, pues son linealmente independientes\footnote{Trazamos ejes punteados como en 0:09 del video de Gram-Schmidt para mostrar la independencia lineal.} y generan a todo el espacio $\mathbb{R}^2$, como mostraremos a continuación\footnote{Animar la generación del subespacio $\langle\{\vec{b}_1,\vec{b}_2\}\rangle$, así como en 0:28-0:54 del video de Gram-Schmidt. De preferencia, animar la variación de $c_1$ (la barra del lado izquierdo) antes de la de $c_2$ (del lado derecho). En la última transformación dentro del recuadro (0:51 en V1), escribir $\langle\{\vec{b}_1,\vec{b}_2\}\rangle=\mathbb{R}^2$ en vez de lo que aparece ahí.}. Precisamente, como la base genera a todo el espacio y es linealmente independiente, sabemos que existe una combinación lineal única de sus elementos que da como resultado a nuestro vector. Sin embargo, no sabemos cómo encontrar a los coeficientes de dicha combinación lineal. Más adelante, empezaremos por resolver el problema en este caso, para después generalizar la solución obtenida.
-
-\subsection{Complicaciones de la solución por sistema de ecuaciones} \label{Ssec: Complicaciones de la solución por sistema de ecuaciones}
-
-Regresando al planteamiento general, este problema puede llegar a ser muy complicado, ya que nuestros vectores podrían ser funciones, n-tuplas, matrices, etc. y tendríamos que resolver un sistema de ecuaciones \textemdash mediante el método computacional de nuestra preferencia\textemdash, el cual aumentaría en complejidad a medida que aumente la dimensión del espacio. Sin embargo, se puede resolver de forma sencilla introduciendo las nociones de \emph{producto escalar} y \emph{base ortogonal}.
-
-%%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%
-
-\section{Definiciones}
-
-\subsection{Definición de producto escalar y terminología}
-
-Un producto escalar en un espacio vectorial es una operación que toma un par ordenado de vectores del espacio y devuelve un escalar del campo, tal que cumple las siguientes propiedades:
-\begin{align*}
-    & &\text{Producto escalar}& &\\
-    & &\langle\cdot,\cdot\rangle:V\times V\to K & &\\
-    \\
-    \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in K,\\
-    \\
-    \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle \\
-    \\
-    \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle\\
-    \\
-    \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle}\\
-    \\
-    \vec{u}\neq\vec{0} \ &\Rightarrow \ \langle \vec{u}, \vec{u} \rangle > 0
-\end{align*}
-
-\noindent No es difícil demostrar que podemos resumir las primeras dos propiedades de la siguiente manera. Para referirnos a esta propiedad más sintetizada, decimos que el producto escalar es una operación \emph{lineal en la entrada izquierda}\footnote{Abajo, en esta parte, faltan unos corchetes que no sé cómo poner. En general, en las animaciones, las cosas deberían quedar mejor alineadas de lo que logro hacerlo aquí con el ambiente \emph{align*}.}. A la siguiente propiedad se le conoce como \emph{simetría conjugada} y, para referirnos a la última propiedad, decimos que el producto escalar es \emph{positivo definido}.
-
-\begin{align*}
-    & &\text{Producto escalar}& &\\
-    & &\langle\cdot,\cdot\rangle:V\times V\to K & &\\
-    \\
-    \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in K\\
-    \\
-    \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle \\
-                                          & &\langle a\vec{u}+\vec{w} , \vec{v} \rangle = a \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle\\
-    \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle &\text{\emph{Linealidad} en la  entrada izquierda} \\
-    \\
-    \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle} &\text{Simetría \emph{conjugada}}\\
-    \\
-    \vec{u}\neq\vec{0} \ &\Rightarrow \ \langle \vec{u}, \vec{u} \rangle > 0
- &\text{Positivo definido}
-\end{align*}
 
-\noindent Juntando las propiedades de linealidad en la entrada izquierda y simetría conjugada, se puede demostrar que el producto escalar es una operación \emph{antilineal} en la entrada derecha\footnote{Escribir ``Ver Ejercicio 1.1 al final del video.'' como nota al pie.}. Además, dado que esta operación es positivo definida, se puede demostrar que el producto escalar de un vector consigo mismo es igual a cero si, y sólo si, dicho vector es igual al vector nulo del espacio; este importante hecho será usado más adelante, por lo que hemos dejado su demostración como ejercicio al final del video\footnote{Escribir ``Ver Ejercicio 1.2.'' como nota al pie.}. En resumen, podemos decir que el producto escalar es una operación de dos entradas que es positivo definida, tiene una entrada lineal y una entrada antilineal.
-
-\begin{align*}
-    & &\text{Producto escalar}& &\\
-    & &\langle\cdot,\cdot\rangle:V\times V\to K & &\\
-    \\
-    \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in K\\
-    \\
-    \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle \\
-                                          & &\langle a\vec{u}+\vec{w} , \vec{v} \rangle = a \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle\\
-    \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle &\text{\emph{Linealidad} en la entrada izquierda} \\
-                                       & & & &\langle \vec{u} , a\vec{w}+\vec{v} \rangle = \overline{a} \langle \vec{u} , \vec{w} \rangle + \langle \vec{u} , \vec{v} \rangle \\
-    \langle \vec{u} , \vec{v} \rangle &= \overline{ \langle \vec{v} , \vec{u} \rangle} &\text{Simetría \emph{conjugada}} & &\text{\emph{Antilinealidad} en la entrada derecha}\\
-    \\
-    \vec{u}\neq\vec{0} \ &\Rightarrow \ \langle \vec{u}, \vec{u} \rangle > 0 &\text{Positivo definido}
-\end{align*}
-
-%\noindent En particular, observemos que, si el campo sobre el cual está definido nuestro espacio vectorial es el de los números reales, entonces todos los escalares son iguales a sus complejos conjugados. Por ende, podemos demostrar que en espacios vectoriales reales el producto escalar es una operación simétrica y lineal en ambas entradas, o \emph{bilineal}\footnote{Escribir ``Ver Ejercicio 1.3.'' como nota al pie.}.
-%
-%\begin{align*}
-%    & &\text{Producto escalar}& &\\
-%    & &\langle\cdot,\cdot\rangle:V\times V\to \mathbb{R} & &\\
-%    \\
-%    \forall \ \vec{u}, \vec{v}, \vec{w}&\in V, \ \forall \ a\in \mathbb{R}\\
-%    \\
-%    \langle\vec{u}+\vec{w},\vec{v}\rangle &= \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle \\
-%                                          & &\langle a\vec{u}+\vec{w} , \vec{v} \rangle = a \langle \vec{u} , \vec{v} \rangle + \langle \vec{w} , \vec{v} \rangle\\
-%    \langle a\vec{u} , \vec{v} \rangle &= a \langle \vec{u} , \vec{v} \rangle &\text{\emph{Linealidad} en la entrada izquierda} \\
-%                                       & & & &\langle \vec{u} , a\vec{w}+\vec{v} \rangle = a \langle \vec{u} , \vec{w} \rangle + \langle \vec{u} , \vec{v} \rangle \\
-%    \langle \vec{u} , \vec{v} \rangle &= \langle \vec{v} , \vec{u} \rangle &\text{Simetría} & &\text{\emph{Linealidad} en la entrada derecha}\\
-%    \\
-%    \langle \vec{u}, \vec{u} \rangle > 0 \ &\ \text{si} \ \ \vec{u}\neq\vec{0} &\text{Positivo definido}
-%\end{align*}
-
-\subsection{Definición de ortogonalidad y base ortogonal}
-
-Para ver la importancia de esta \emph{nueva} operación en la solución del problema presentado al inicio del video, debemos introducir la definición de ortogonalidad. Decimos que dos vectores son \emph{ortogonales} si su producto escalar es cero. Notemos que, como el complejo conjugado de cero es él mismo, por la propiedad de simetría conjugada se sigue que la ortogonalidad es una relación simétrica.
-
-\[
-    \vec{u},\vec{v}\in V \ \text{son \emph{ortogonales}} \ (\vec{u}\perp\vec{v}) \ \text{si} \ \langle \vec{u} , \vec{v} \rangle = 0 \ \text{ó, equivalentemente,} \ \langle \vec{v} , \vec{u} \rangle = 0.
-\] 
-
-\noindent Así mismo, diremos que un conjunto de vectores es \emph{ortogonal} si cualesquiera dos vectores distintos del conjunto son ortogonales.
-
-\[
-    O=\{\vec{g}_1,...,\vec{g}_k\}\subseteq V \ \text{es \emph{ortogonal} si} \ \langle \vec{g}_i , \vec{g}_j \rangle = 0 \ \text{para} \ i\neq j, \ \text{con} \ 1\le i,j\le k.
-\]
-\noindent Por último, si una base cumple con ser un conjunto ortogonal, diremos que es una \emph{base ortogonal}. Dado que se puede demostrar que un conjunto ortogonal finito es linealmente independiente si, y sólo si, no contiene al vector nulo\footnote{Escribir ``Ver Ejercicio 1.5.'' como pie de página.} entonces, por el Ejercicio 1.2 mencionado anteriormente, tenemos que un conjunto $\Gamma$ es una base ortogonal de $V$ si se cumplen las condiciones siguientes
-\begin{align*}
-    \Gamma=&\{\vec{g}_1,...,\vec{g}_k\} \text{ es base \emph{ortogonal} de } V \text{ si}\\
-    \\
-\langle\Gamma\rangle = V, \quad &\langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i, \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i. \end{cases}\\
-\end{align*}
-
-%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%
-
-\section{Solución en $\mathbb{R}^2$ usando el producto escalar}
-
-\subsection{Producto punto}
-
-A continuación, veremos la importancia que tienen la operación de producto escalar y la noción de base ortogonal para la resolución del problema planteado al inicio del video mediante un ejemplo en el espacio vectorial real $\mathbb{R}^2$. Consideremos la siguiente regla de correspondencia.
-\begin{align*}
-    \langle \cdot , \cdot \rangle&: \mathbb{R}^2\times\mathbb{R}^2\to \mathbb{R} \\ \\
-    \langle \vec{v} , \vec{w} \rangle = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} &\cdot \begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = v_1v_2 + w_1w_2
-\end{align*}
-\noindent Veamos que la operación que define efectivamente cumple las propiedades de producto escalar, demostrándolas una por una\footnote{Agregar nota al pie que diga ``*La demostración termina en XX:XX.'', y que persista hasta que termine.}.
-
-Este tipo particular de producto escalar es conocido comunmente como \emph{producto punto}, y cabe resaltar que puede generalizarse fácilmente al espacio $\mathbb{R}^n$, e inclusive al espacio vectorial complejo $\mathbb{C}^n$. La demostración de que la operación en pantalla es un producto escalar queda como ejercicio para quien quiera hacerlo.
-
-
-\subsection{Base ortogonal y resolución del problema de encontrar coeficientes}
-
-Volvamos a representar nuestro problema en el caso del espacio $\mathbb{R}^2$ pero, esta vez, utilizando una base \emph{particular}, que llamaremos $\Gamma$. Recordemos que nuestro objetivo es expresar a nuestro vector $\vec{v}$ como combinación lineal de los elementos de $\Gamma$, para lo cual debemos encontrar a los coeficientes $c_i$. Observemos que los vectores $\vec{g}_1$ y $\vec{g}_2$ son ortogonales entre sí, pues su producto punto es igual a cero, por lo que $\Gamma$ es un conjunto ortogonal. Además, $\vec{g}_1$ y $\vec{g}_2$ son linealmente independientes entre sí y, más aún, generan a todo el espacio $\mathbb{R}^2$, como veremos a continuación. De lo anterior, concluimos que $\Gamma$ es una base \emph{ortogonal}.
-
-Calculemos el producto escalar de nuestro vector $\vec{v}$ con el vector $\vec{g}_1$, es decir, su producto punto. Observamos que hemos obtenido un número negativo. Ahora, calculemos el mismo producto escalar, pero de una forma diferente: primero, reemplazamos al vector $\vec{v}$ usando la ecuación que buscamos resolver; luego, aplicamos la propiedad de linealidad en la primer entrada del producto escalar; después, usamos el hecho de que $\Gamma$ es una base ortogonal, por lo que el producto escalar entre $\vec{g}_1$ y $\vec{g}_2$ es cero, eliminando así el segundo término; y, finalmente, calculamos el producto escalar de $\vec{g}_1$ consigo mismo. Notemos que hemos obtenido la siguiente ecuación, que podemos despejar para obtener el valor del coeficiente $c_1$. Recordamos que esta solución para $c_1$ es igual al producto escalar de $\vec{v}$ con $\vec{g}_1$ dividido entre el producto escalar de $\vec{g}_1$ consigo mismo. 
-
-Ahora, usaremos el mismo procedimiento para encontrar la solución del coeficiente $c_2$ directamente: empezamos considerando el producto escalar de $\vec{v}$ con $\vec{g}_2$, sustituimos $\vec{v}$ usando la ecuación que buscamos resolver, aplicamos la propiedad de linealidad en la primera entrada, usamos el hecho de que $\Gamma$ es una base ortogonal para eliminar el coeficiente que no nos interesa, despejamos, y calculamos los productos escalares restantes.
-
-Verifiquemos que los coeficientes que hemos obtenido sean correctos. Efectivamente, vemos que lo son. Observemos que el procedimiento que acabamos de utilizar para resolver el problema de encontrar coeficientes en $\mathbb{R}^2$ sólo depende de tener un producto escalar \textemdash en este caso, el producto punto\textemdash \ y una base ortogonal para el espacio.
-
-%\subsection*{SE3} % Interpretación geométrica del producto punto
-
-%Regresemos a la representación geométrica de nuestro problema en el caso del espacio vectorial real $\mathbb{R}^2$. Como quizá ya lo estés sospechando, la operación conocida como \emph{producto punto} es un ejemplo de un producto escalar en este espacio. Observemos que un conjunto que contiene a los vectores con entradas $\begin{pmatrix} 1 & 0 \end{pmatrix}$ y $\begin{pmatrix} 0 & 1 \end{pmatrix}$ forma una base ortogonal de este espacio, pues cumple con las propiedades descritas anteriormente. Aplicando el resultado anterior, se sigue que los coeficientes necesarios para expresar a nuestro vector arbitrario como combinación lineal de esta base ortogonal son los siguientes.
-
-%Ahora, observemos que cada término de la combinación lineal es un reescalamiento de uno de los vectores de la base. En otras palabras, cada término de la suma es igual a la componente de nuestro vector arbitrario que se encuentra en el subespacio generado por el elemento de la base que reescalamos. A dichas componentes se les conoce como las \emph{proyecciones vectoriales} de nuestro vector arbitrario sobre los elementos de nuestra base. En particular, esto nos dice que dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es el vector nulo. En particular, en el caso de los espacios reales, se sigue que el producto escalar de dos vectores es positivo si ambos apuntan en el mismo sentido, y negativo si apuntan en sentidos contrarios.
-
-%El razonamiento anterior se puede aplicar también en el caso general. Por lo tanto, geométricamente, podemos interpretar al producto escalar como una operación que nos permite calcular las proyecciones vectoriales de unos vectores sobre otros con facilidad.
-
-%%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%
-
-\section{Generalización de la solución e interpretación geométrica}
-
-\subsection{Generalización de la solución al problema de encontrar coeficientes}
-
-Veamos qué sucede si, regresando a nuestro problema original, suponemos que $V$ es un espacio vectorial con producto escalar y que $\Gamma$ es una base ortogonal de $V$. Nuevamente, por ser $\Gamma$ una base, sabemos que existen coeficientes tales que la siguiente ecuación se cumple. ¿Pero cómo encontramos a estos coeficientes?
-
-\begin{align*}
-    \beta&=\{\vec{b}_1,...,\vec{b}_k\} \ \ \text{base de} \ \ V& &\Gamma=\{\vec{g}_1,...,\vec{g}_k\} \ \ \text{base \emph{ortogonal} de} \ \ V& & &\\
-    \\
-    \langle\beta&\rangle = V, \ \ \beta \ \ \text{es} \ \ l.i.& &\langle\Gamma\rangle = V, \ \ \langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle\vec{g_i}, \vec{g}_i\rangle\neq0 \ \ \text{si} \ \ j = i \\ \quad 0 \quad \ \ \ \ \ \ \ \ \ \text{si} \ \ j\neq i \end{cases}& & &\\
-    \\
-    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& &\quad \quad \quad \quad \vec{v}= d_1\vec{g}_1 + ... + d_k\vec{g}_k& & & \\
-    \\
-    \\
-    &\quad \quad \quad \quad \text{¿}c_i\text{?}& & \quad \quad \quad \quad \quad \quad \quad \quad \text{¿}d_i\text{?} & & &
-\end{align*}
-
-Observemos lo siguiente: si tomamos al $i$-ésimo elemento de la base ortogonal, aplicamos el producto escalar con ese elemento a ambos lados de la ecuación, usamos la propiedad de linealidad en la primer entrada del producto escalar y, finalmente, utilizamos el hecho de que nuestra base es ortogonal, y despejamos, podemos encontrar una expresión sumamente sencilla para el $i$-ésimo coeficiente: simplemente se obtiene a través de dos productos escalares y una división.
-
-\begin{align*}
-    & & & \quad \quad \vec{v}= d_1\vec{g}_1 + ... + d_k\vec{g}_k& & & \\
-    \cline{1-8}
-    & & &\langle \vec{v} , \vec{g}_i \rangle = \langle d_1\vec{g}_1 + ... + d_k\vec{g}_k , \vec{g_i} \rangle& & & \\
-    \cline{1-8}
-    & & &\langle \vec{v} , \vec{g}_i \rangle = \langle d_1\vec{g}_1,\vec{g}_i\rangle + ... + \langle d_k\vec{g}_k , \vec{g_i} \rangle& & & \\
-    \cline{1-8}
-    & & &\langle \vec{v} , \vec{g}_i \rangle = d_1\langle \vec{g}_1, \vec{g}_i\rangle + ... + d_k\langle \vec{g}_k , \vec{g_i} \rangle& & & \\
-    \cline{1-8}
-    & & &\langle \vec{v} , \vec{g}_i \rangle = \sum_{j=1}^k d_j\langle \vec{g}_j, \vec{g}_i\rangle& & & \\
-    \cline{1-8}
-    & & &\langle \vec{v} , \vec{g}_i \rangle = d_i \langle\vec{g}_i, \vec{g}_i\rangle& & & \\
-    \cline{1-8}
-    & & &\frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle} = d_i& & &
-\end{align*}
-
-Como esto es válido para toda $i$, tenemos el siguiente resultado para cualquier vector arbitrario de nuestro espacio vectorial con producto escalar:
-
-\begin{align*}
-    & &d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k
-    \\
-    \cline{1-8}
-    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& &\quad \quad \quad \quad \vec{v}= d_1\vec{g}_1 + ... + d_k\vec{g}_k& & & \\
-    \\
-    \\
-           &\quad \quad \quad \quad \text{¿}c_i\text{?}& &\quad \quad \quad \quad \quad \quad d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k& & &
-    \\
-    \cline{1-8}
-    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& &\quad \quad \quad \quad \vec{v}= \frac{\langle \vec{v} , \vec{g}_1 \rangle}{\langle \vec{g}_1 , \vec{g}_1 \rangle}\vec{g}_1 + ... + \frac{\langle \vec{v} , \vec{g}_k \rangle}{\langle \vec{g_k} , \vec{g_k} \rangle}\vec{g}_k& & & \\
-    \\
-    \\
-           &\quad \quad \quad \quad \text{¿}c_i\text{?}& &\quad \quad \quad \quad \quad \quad d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k& & &
-    \\
-    \cline{1-8}
-    \vec{v}&= c_1\vec{b}_1 + ... + c_k\vec{b}_k& &\quad \quad \quad \quad \vec{v}= \sum_{i=1}^k\frac{\langle \vec{v} , \vec{g}_i \rangle}{\langle \vec{g}_i , \vec{g}_i \rangle}\vec{g}_i & & &
-    \\
-    \\
-           &\quad \quad \quad \quad \text{¿}c_i\text{?}& &\quad \quad \quad \quad \quad \quad d_i = \frac{\langle \vec{v} ,\vec{g}_i \rangle}{\langle\vec{g}_i, \vec{g}_i\rangle}, \quad 1\le i\le k& & &
-\end{align*}
-Este resultado nos dice que cualquier vector del espacio se puede descomponer como una suma de componentes ortogonales entre sí, pues cada término de la suma es un reescalamiento de un elemento de la base ortogonal\footnote{Escribir ``Ver Ejercicio 1.7''.}.
-
-Hemos visto que, en espacios vectoriales de dimensión finita con producto escalar, las bases ortogonales nos ayudan a resolver nuestro problema de encontrar coeficientes de manera sencilla; sin embargo, ¡aún no hemos justificado que si quiera \emph{existan}! Resulta que la existencia de bases ortogonales en espacios vectoriales de dimensión finita con producto escalar está asegurada, pero esto lo veremos en un video posterior cuando hablemos del Teorema de Gram-Schmidt.
-
-\subsection{Interpretación geométrica del producto escalar} % Hablar sobre el término 'proyección' ("sombra")
-
-Por lo pronto, observemos que el resultado general que hemos obtenido gracias al producto escalar y a las bases ortogonales nos permite dar una interpretación geométrica del producto escalar de la siguiente manera. Si tenemos dos vectores $\vec{u}$ y $\vec{v}$ en cualquier espacio de dimensión finita con producto escalar y $\vec{v}$ es distinto del vector nulo, entonces podemos suponer \emph{a priori}\footnote{Escribir ``Ver el video \emph{Ortogonalización y ortonormalización (Teorema de Gram-Schmidt)} de Animathica''} que es un elemento de una base ortogonal del espacio. En este caso, sabemos que la componente de $\vec{u}$ que vive en el subespacio generado por $\vec{v}$ está dada por la siguiente expresión. Por lo tanto, en general, el producto escalar de un vector $\vec{u}$ con un vector no nulo $\vec{v}$ nos habla de la proyección vectorial de $\vec{u}$ sobre $\vec{v}$, pues su resultado es un número proporcional al escalar por el cual debemos reescalar a $\vec{v}$ para obtener a la componente de $\vec{u}$ que vive en el subespacio generado por $\vec{v}$. 
-
-% Hablar sobre proyecciones
-
-En particular, $\vec{u}$ es ortogonal a $\vec{v}$ si, y sólo si, la proyección vectorial de $\vec{u}$ sobre $\vec{v}$ es igual al vector nulo. Recordando que la relación de ortogonalidad es simétrica, esto también es equivalente a que la proyección vectorial de $\vec{v}$ sobre $\vec{u}$ sea igual al vector nulo. En otras palabras, dos vectores son ortogonales si, y sólo si, la proyección vectorial de cualquiera de ellos sobre el otro es nula.
-
-%%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%
-
-\section{Ejercicios y preguntas}
-
-\begin{center}
-    Sea $(V,K)$ un espacio vectorial con producto escalar $\langle\cdot,\cdot\rangle:V\times V\to K$.
-\end{center}
-
-Ejercicio 1.1 Demuestra que %Se hace referencia a este ejercicio en el video de Ortogonalización y ortonormalización
-\begin{align*}
-    \langle \vec{u} + a\vec{w}, \vec{v}\rangle &= \langle \vec{u},\vec{v}\rangle + a\langle \vec{w}, \vec{v}\rangle, \\
-    \\
-    \langle \vec{u}, \vec{v} + a\vec{w}\rangle &= \langle \vec{u},\vec{v}\rangle + \overline{a}\langle \vec{u}, \vec{w}\rangle
-\end{align*} para todo $\vec{u},\vec{v},\vec{w}\in V$, $a\in K$; luego, dibuja un ejemplo no trivial ($\vec{u},\vec{v},\vec{w}\neq\vec{0}, a\neq 0$) en $\mathbb{R}^2$. \\
-
-Ejercicio 1.2 Para $\vec{v}\in V$, demuestra que $\langle \vec{v} , \vec{v} \rangle = 0$ si, y sólo si, $\vec{v}=\vec{0}$. \\
-
-Ejercicio 1.3 Demuestra que las siguientes condiciones son equivalentes. %Se hace referencia a este ejercicio en el video de Ortogonalización y ortonormalización
-
-\begin{enumerate}[label=(\alph*)]
-    \item $\langle \vec{u} , \vec{v} \rangle = 0$ para todo $\vec{u}\in V$.
-
-    \item $\vec{v}=\vec{0}$.
-
-    \item $\langle \vec{v} , \vec{u} \rangle = 0$ para todo $\vec{u}\in V$.
-\end{enumerate}
-
-Ejercicio 1.4 Demuestra que, si $K=\mathbb{R}$, entonces el producto escalar es \emph{bilineal} (i.e., lineal en ambas entradas). \\
-
-Ejercicio 1.5 Demuestra que todo conjunto ortogonal finito es linealmente independiente si, y sólo si, no contiene al vector nulo. \\
-
-\begin{center}
-Sean $V$ un espacio de dimensión finita $k$ y $\Gamma=\{\vec{g}_1,\vec{g}_2,...,\vec{g}_k\}\subseteq V$.
-\end{center}
-
-Ejercicio 1.6 Demuestra que las siguientes condiciones son equivalentes. 
-
-\begin{enumerate}[label=(\alph*)]
-    \item $\Gamma$ es un conjunto ortogonal que no contiene al vector nulo.
-
-    \item $\Gamma$ es una base ortogonal de $V$.
-
-    \item $\langle \Gamma \rangle = V$ y $\langle \vec{g}_j , \vec{g}_i \rangle = \begin{cases} \langle \vec{g}_i , \vec{g}_i \rangle \neq 0 &\text{si } j=i, \\ 0 &\text{si } j \neq i. \end{cases}$
-\end{enumerate} 
-
-Ejercicio 1.7 Demuestra que $\Gamma$ es una base ortogonal de $V$ si, y sólo si, 
-\[
-    \vec{v} = \sum_{i=1}^k \frac{\langle \vec{v} , \vec{g}_i \rangle}{\langle \vec{g}_i , \vec{g}_i \rangle} \vec{g}_i \quad \forall \ \vec{v}\in V.
-\]
-\noindent Más aún, demuestra que, en este caso,
-\[
-\bigg\langle \frac{\langle \vec{v} , \vec{g}_i \rangle}{\langle \vec{g}_i , \vec{g}_i \rangle} \vec{g}_i, \frac{\langle \vec{v} , \vec{g}_j \rangle}{\langle \vec{g}_j , \vec{g}_j \rangle} \vec{g}_j \bigg \rangle = 0 \ \ \text{si} \ \ i\neq j.
-\] 
-
-Pregunta 1.8 Pensando en la interpretación geométrica del producto escalar, ¿qué significa que el producto escalar entre dos vectores sea positivo, negativo o cero? 
-
-Pregunta 1.9 En un espacio vectorial complejo con producto escalar, ¿qué significa geométricamente que el producto escalar entre dos vectores tenga parte imaginaria positiva, negativa o cero? Más aún, ¿cómo se interpreta la propiedad de simetría conjugada en este caso? (Sugerencia: Considera el espacio vectorial complejo $\mathbb{C}$.) \\ 
-
-\end{document}
+        #####################
+        # ANIMACIONES FINALES
+        #####################
+        #self.next_section(skip_animations=True)
+        self.play(pe_def_5.animate.scale(1/1.1))
+
+        self.play(pe_def_4.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_3.animate.set_opacity(1), run_time=0.5)
+        self.play(pe_def_2.animate.set_opacity(1), run_time=0.5)
+
+        self.wait(1.5)
+
+        self.play(linea_1.animate.set_opacity(0),
+                  linea_2.animate.set_opacity(0),
+                  pe_def_1.animate.set_opacity(0),
+                  FadeOut(t1),
+                  self.camera.frame.animate.set(width=8).move_to(2.3*UP+4.15*LEFT)
+                  )
+        self.wait(3)
+
+        suma_1 = MathTex(r"\sum_{i=1}^2 v_iw_i").scale(0.6).move_to(1.8*UP+2.75*LEFT)
+        suma_n = MathTex(r"\sum_{i=1}^n v_iw_i").scale(0.6).move_to(1.8*UP+2.75*LEFT)
+        barrita = MathTex(r"\overline{w_i}")[0][0].scale(0.6).move_to(1.95*UP+2.4*LEFT)
+        n_1 = MathTex("n").set_color(YELLOW).scale(0.5).move_to(pp_def[1][1].get_center())
+        n_2 = MathTex("n").set_color(YELLOW).scale(0.5).move_to(pp_def[3][1].get_center())
+        C_1 = MathTex("\\mathbb{C}").set_color(YELLOW).scale(0.7).move_to(pp_def[1][0].get_center())
+        C_2 = MathTex("\\mathbb{C}").set_color(YELLOW).scale(0.7).move_to(pp_def[3][0].get_center())
+        C_3 = MathTex("\\mathbb{C}").set_color(AZUL_CLARO).scale(0.7).move_to(pp_def[5][0].get_center())
+
+        self.play(ReplacementTransform(pp_oper[0][22:31],suma_1))
+        self.wait(5)
+        self.play(ReplacementTransform(pp_def[1][1],n_1),
+                  ReplacementTransform(pp_def[3][1],n_2),
+                  ReplacementTransform(suma_1,suma_n),
+                  )
+
+        self.wait(2.5)
+        self.play(ReplacementTransform(pp_def[1][0],C_1),
+                  ReplacementTransform(pp_def[3][0],C_2),
+                  ReplacementTransform(pp_def[5][0],C_3),
+                  Write(barrita)
+                  )
+
+        self.wait(7)
+        self.play(
+            *[FadeOut(mob) for mob in self.mobjects],
+            run_time = 1)
+
+class SE2(Scene):
+   '''
+    Esta subescena presenta la solución del problema de los coeficientes haciendo uso del producto punto en R2 como producto
+    interno. Consta de una parte geométrica (lado izquierdo) y una parte algebráica (lado derecho), que se complementan para
+    ilustrar la solución del problema en un caso particular.
+   '''
+
+   def construct(self):
+
+      def gen_simple(Vec1,Vec2):
+         # Copias de vectores.
+         Copia1 = Vec1.copy()
+         # Coordenadas de vectores
+         A1 = Vec1.get_end()[0]
+         A2 = Vec1.get_end()[1]
+         B1 = Vec2.get_end()[0]
+         B2 = Vec2.get_end()[1]
+
+         # Vectores para el paralelogramo.
+         Vec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+A1*RIGHT+A2*UP, buff=0, color = Vec1.get_color()).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+         Vec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+B1*RIGHT+B2*UP, buff=0, color = Vec2.get_color()).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+         # Vector resultante de la combinación lineal.
+         VecRCL = DashedArrow((0,0,0), (A1+B1)*RIGHT+(A2+B2)*UP, buff=0, color = MAGENTA).set_fill(opacity=1).shift(2.5*LEFT+1.5*UP)
+         
+         self.play(Create(Vec2c))
+         self.play(Create(VecRCL))
+
+         # ValueTrackers
+         vt1 = ValueTracker(1)
+
+         # Primera función para cambios de Vec2.
+         def upd_for_vec2_1(obj):
+               t = vt1.get_value()
+               NewVec2 = Arrow((0,0,0),(t*B1,t*B2,0),buff=0, color = Vec2.get_color()).shift(2.5*LEFT+1.5*UP).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVec2)
+         # Primera función para cambios de Vec2c.
+         def upd_for_vec2c_1(obj):
+               t = vt1.get_value()
+               NewVec2c = DashedArrow(Vec1.get_end(),Vec1.get_end()+(t*B1,t*B2,0), buff=0, color = Vec2.get_color()).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVec2c)
+         # Primera función para cambios de VecRCL.
+         def upd_for_vecrcl_1(obj):
+               t = vt1.get_value()
+               NewVecRCL = DashedArrow((0,0,0),(A1+B1*t)*RIGHT+(A2+B2*t)*UP, buff=0, color = MAGENTA).set_fill(opacity=1).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVecRCL)
+         
+         # Primera línea usada.
+         Linea1 = Line(Vec2c.get_end()+(0.001,0.001,0), Vec2c.get_end(), color = MAGENTA).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+         # Segunda línea usada.
+         Linea2 = Line(Vec2.get_end(), Vec2.get_end()-(0.01*B1,0.01*B2,0), color = MAGENTA).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+        
+         # Función para cambiar tamaño de las líneas.
+         def upd_for_linea(obj):
+               t = vt1.get_value()
+               new_linea = Line(Copia1.get_end()+(0.001,0.001,0)+B1*RIGHT+B2*UP,Vec1.get_end()+(t*B1,t*B2,0), color = MAGENTA).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+               obj.become(new_linea)
+
+         # Animación del movimiento del primer vector
+         self.play(Create(Linea2))
+         self.bring_to_back(Linea1)
+         self.bring_to_back(Linea2)
+         Vec2.add_updater(upd_for_vec2_1)
+         Vec2c.add_updater(upd_for_vec2c_1)
+         VecRCL.add_updater(upd_for_vecrcl_1)
+         Linea1.add_updater(upd_for_linea)
+         Linea2.add_updater(upd_for_linea)
+         self.play(vt1.animate.set_value(4),run_time=1.3) # HERE 
+         Linea1.remove_updater(upd_for_linea)
+         self.play(vt1.animate.set_value(1))
+         self.play(vt1.animate.set_value(-3.5),run_time=1.3) # HERE 
+         Linea2.remove_updater(upd_for_linea)
+         self.play(vt1.animate.set_value(1),run_time=1)
+         Vec2.remove_updater(upd_for_vec2_1)
+         Vec2c.remove_updater(upd_for_vec2c_1)
+         VecRCL.remove_updater(upd_for_vecrcl_1)
+         self.play(FadeOut(Vec2c))
+         
+         self.play(Create(Vec1c))
+         # Primera función para cambios de Vec1.
+         def upd_for_vec1_1(obj):
+               t = vt1.get_value()
+               NewVec1 = Arrow((0,0,0),(t*A1,t*A2,0),buff=0, color = Vec1.get_color()).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVec1)
+         # Primera función para cambios de Vec1c.
+         def upd_for_vec1c_1(obj):
+               t = vt1.get_value()
+               NewVec1c = DashedArrow(Vec2.get_end(),Vec2.get_end()+(t*A1,t*A2,0), buff=0, color = Vec1.get_color()).set_fill(opacity=0.5).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVec1c)
+         # Segunda función para cambios de VecRCL.
+         def upd_for_vecrcl_2(obj):
+               t = vt1.get_value()
+               NewVecRCL = DashedArrow((0,0,0),(A1*t+B1)*RIGHT+(A2*t+B2)*UP, buff=0, color = MAGENTA).set_fill(opacity=1).shift(2.5*LEFT+1.5*UP)
+               obj.become(NewVecRCL)
+
+         # Rectangulos usados para rellenar plano.
+         Vertice1 = Linea1.get_end()
+         Vertice2 = Linea2.get_end()
+         Vertice3 = Linea2.get_end()+(0.05*A1,0.025*A2,0)
+         Vertice4 = Linea1.get_end()+(0.05*A1,0.025*A2,0)
+         Vertice5 = Linea2.get_end()-(0.05*A1,0.025*A2,0)
+         Vertice6 = Linea1.get_end()-(0.05*A1,0.025*A2,0)
+         Plano1 = Polygon(Vertice1,Vertice2,Vertice3,Vertice4,stroke_width=1)
+         Plano2 = Polygon(Vertice1,Vertice2,Vertice5,Vertice6,stroke_width=1)
+
+         # Función que rellena plano.
+         def upd_for_plano(obj):
+               t = vt1.get_value()
+               vert1 = Linea1.get_end()
+               vert2 = Linea2.get_end()
+               vert3 = Linea2.get_end()+((t-1)*A1,(t-1)*A2,0)
+               vert4 = Linea1.get_end()+((t-1)*A1,(t-1)*A2,0)
+               New_plano = Polygon(vert1,vert2,vert3,vert4,stroke_width=0).set_fill(MAGENTA_CLARO, opacity = 1)
+               obj.become(New_plano)
+               self.bring_to_back(obj)
+
+         Vec1.add_updater(upd_for_vec1_1)
+         Vec1c.add_updater(upd_for_vec1c_1)
+         VecRCL.add_updater(upd_for_vecrcl_2)
+         Plano1.add_updater(upd_for_plano)
+
+         # Animación del movimiento del segundo vector y creación del plano
+         self.play(Create(Plano1), run_time = 0.05)
+         self.play(Create(Plano2), run_time = 0.05)
+         self.play(vt1.animate.set_value(8),run_time=1.3) # HERE 
+         Plano1.remove_updater(upd_for_plano)
+         self.play(vt1.animate.set_value(1))
+         Plano2.add_updater(upd_for_plano)
+         self.bring_to_back(Plano2)
+         self.play(vt1.animate.set_value(-8),run_time=1.3) # HERE 
+         Plano2.remove_updater(upd_for_plano)
+         self.play(vt1.animate.set_value(1),run_time=1.3)
+         self.play(FadeOut(Linea1), FadeOut(Linea2), Write(gamma_gen))
+         Vec1.remove_updater(upd_for_vec1_1)
+         Vec1c.remove_updater(upd_for_vec1c_1)
+         VecRCL.remove_updater(upd_for_vecrcl_2)
+
+
+         self.wait(0.65)
+         self.play(FadeOut(Vec1c))
+         self.remove_foreground_mobject(VecRCL)
+         self.play(FadeOut(VGroup(Plano1,Plano2)),FadeOut(VGroup(VecRCL)))
+
+      ###########
+      # OBJETOS #
+      ###########
+
+   ###### OBJETOS  Sección introductoria, planteamiento del problema
+
+      grid = NumberPlane(x_range = [-9,9,1],y_range = [-7,4,1],
+         background_line_style={"stroke_width": 1, "stroke_opacity": 0.5}).scale(0.5)
+      borde_der = Line(start = [4.5,2.75,0], end = [4.5,-2.75,0], stroke_width = 1)
+      borde_izq = Line(start = [-4.5,2.75,0], end = [-4.5,-2.75,0], stroke_width = 1 )
+      borde_sup = Line(start = [-4.5,2.75,0], end = [4.5,2.75,0], stroke_width = 1 )
+      borde_inf = Line(start = [-4.5,-2.75,0], end = [4.5,-2.75,0], stroke_width = 1 )
+      lilgrid = VGroup(grid, borde_sup, borde_der, borde_inf, borde_izq).shift(2.5*LEFT).shift(0.75*UP)
+
+      cuadro_1 = Polygon([2.05,8,0],[2.05,-8,0],[10,8,0],[10,-8,0], color  = BLACK, fill_opacity = 1)
+      cuadro_2 = Polygon([-7.05,8,0],[-7.05,-8,0],[-8,-8,0],[-8.5,8,0], color  = BLACK, fill_opacity = 1)
+      cuadro_3 = Polygon([-7.05,-2.06,0],[2.05,-2.06,0],[2.05,-5,0],[-7.05,-5,0], color  = BLACK, fill_opacity = 1)
+      cuadro_4 = Polygon([-7.05,3.55,0],[2.05,3.55,0],[2.05,6,0],[-7.05,6,0], color  = BLACK, fill_opacity = 1)
+
+      marco = VGroup(cuadro_1, cuadro_2, cuadro_3, cuadro_4)
+
+      # Textos planteamiento del problema
+      vec_obj_tex = MathTex(r" \vec{v} = \begin{pmatrix} -8 \\ -4 \end{pmatrix}").shift(6*LEFT+2.5*DOWN).scale(0.4)
+      vec_obj_tex[0][:2].set_color(NARANJA)
+
+      gamma_tex = MathTex(r" \Gamma = \{ \vec{g}_1, \vec{g}_2\} = \Bigg\{\begin{pmatrix} 1 \\ -1 \end{pmatrix},\
+          \begin{pmatrix} -2 \\ -2 \end{pmatrix} \Bigg\}").next_to(vec_obj_tex, DOWN).scale(0.4).shift(1*RIGHT + 0.5*UP)
+      gamma_tex[0][3:6].set_color(RED)
+      gamma_tex[0][7:10].set_color(BLUE)
+
+      comblin_abs = MathTex(r" \vec{v} " , r"=" ,r"c_1" ,r"\vec{g}_1" ,r"+" ,r"c_2", r"\vec{g}_2")\
+         .shift(2.5*DOWN).scale(0.5)
+      comblin_abs[0].set_color(NARANJA)
+      comblin_abs[3].set_color(ROJO)
+      comblin_abs[6].set_color(AZUL)
+
+      # Objetos para indicar que no conocemos los coeficientes c_1, c_2
+      coefs_incog = MathTex(r"\text{¿}c_i\text{?}").next_to(comblin_abs, DOWN).scale(0.4).shift(0.2*UP)
+      c2_incog = MathTex( r" ", r"c_1 = -2,  ", r"\text{¿}c_2\text{?}").next_to(comblin_abs, DOWN).scale(0.4).shift(0.2*UP)
+      no_incog = MathTex( r" ", r" c_1 = -2, ", r"\   c_2 = 3").next_to(comblin_abs, DOWN).scale(0.4).shift(0.2*UP)
+
+      # Objetos para la ecuación en términos de 2-tuplas, cada vez con menos incognitos
+      comblin_R2 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"c_1\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ c_2 \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+         .next_to(coefs_incog, DOWN).scale(0.4).shift(0.4*UP)
+      comblin_R2_1 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"(-2)\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ c_2 \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+         .next_to(coefs_incog, DOWN).scale(0.4).shift(0.4*UP)
+      comblin_R2_2 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix}\ " , r"\ =" ,r"(-2)\ ", r"\begin{pmatrix} 1 \\ -1 \end{pmatrix}", r"\ +", r"\ (3) \ " ,r"\begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+         .next_to(coefs_incog, DOWN).scale(0.4).shift(0.4*UP)
+      
+
+      grupo_intro = VGroup(vec_obj_tex, gamma_tex, comblin_abs, comblin_R2, coefs_incog)
+
+      # Vectores que se muestran en el NumberPlane
+
+      vec_obj = Arrow((0, 0, 0), (-4,-2,0), buff = 0, color = NARANJA, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
+      v_label = MathTex(r"\vec{v}").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
+         .scale(0.7)
+      v_label[0][:2].set_color(NARANJA)
+      v_label2 = MathTex(r"\vec{v}", "=", r"c_1",r"\vec{g}_1", r"+", r"c_2", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
+         .scale(0.5).shift(RIGHT+0.1*DOWN)
+      v_label2[0].set_color(NARANJA)
+      v_label2[3].set_color(RED)
+      v_label2[6].set_color(BLUE)
+      v_label3 = MathTex(r"-2",r"\vec{g}_1", r"+", r"3", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
+         .scale(0.5).shift(RIGHT+0.1*DOWN)   
+      v_label3[0][2:4].set_color(RED)
+      v_label3[0][6:8].set_color(BLUE)
+
+      vec_g1 = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
+      g1_label = MathTex(r"\vec{g}_1").move_to(vec_g1.get_end()+(0.4/(np.linalg.norm(g1)))*g1).scale(0.5).set_color(RED)
+
+      vec_g2 = Arrow((0, 0, 0), (-1,-1,0), buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
+      g2_label = MathTex(r"\vec{g}_2").move_to(vec_g2.get_end()+(0.4/(np.linalg.norm(g2)))*g2).scale(0.5).set_color(BLUE)
+
+      c1g1_label_1 = MathTex(r"c_1\vec{g}_1 = -2\vec{g}_1").move_to(np.array([-1,1,0])+(0.4/(np.linalg.norm(-2*g1)))*(-2)*g1).scale(0.5)\
+         .shift(2.5*LEFT+1.5*UP)
+      c1g1_label_1[2:4].set_color(RED)
+      c1g1_label_1[7:9].set_color(RED)
+      c2g2_label_1 = MathTex(r"c_2\vec{g}_2 = 3\vec{g_2}").move_to(np.array([-3,-3,0])+(0.4/(np.linalg.norm(3*g2)))*3*g2).scale(0.5)\
+         .shift(1.5*LEFT+1.75*UP)
+      c2g2_label_1[2:4].set_color(BLUE)
+      c2g2_label_1[6:8].set_color(BLUE)
+
+      c1g1_label_2 = MathTex(r"\begin{pmatrix} -2 \\ 2 \end{pmatrix}").move_to(np.array([-1,1,0])+(0.5/(np.linalg.norm(-2*g1)))*(-2)*g1).scale(0.4)\
+         .shift(2.5*LEFT+1.5*UP)
+
+      c2g2_label_2 = MathTex(r"\begin{pmatrix} -6 \\ -6 \end{pmatrix}").move_to(np.array([-3,-3,0])+(0.5/(np.linalg.norm(3*g2)))*3*g2).scale(0.4)\
+         .shift(1.5*LEFT+1.75*UP)
+      
+      g1_gen = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4)
+      
+      g2_gen = Arrow((0, 0, 0), (-1,-1,0), buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4)
+
+
+      ###### OBJETOS conj_ortogonal
+      gamma_c_og = MathTex(r"\Gamma \text{ es }", r"\text{un conjunto \textit{ortogonal}}")\
+         .scale(0.6).shift(4.5*RIGHT + DOWN)
+
+
+      ppunto_1 = MathTex(r" \langle \vec{g}_1, \vec{g}_2 \rangle").shift(3*RIGHT + 2*UP).scale(0.6)
+      ppunto_1[0][1:4].set_color(RED)
+      ppunto_1[0][5:8].set_color(BLUE)
+      ppunto_2 = MathTex(r" = \begin{pmatrix} 1 \\ -1 \end{pmatrix} \cdot \
+          \begin{pmatrix} -2 \\ -2 \end{pmatrix}").next_to(ppunto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
+      ppunto_3 = MathTex(r"= (1)(-2) + (-1)(-2)").scale(0.6)
+      ppunto_4 = MathTex(r"= 0 ").scale(0.6)
+      ppunto_5 = MathTex(r"= \langle \vec{g}_2 , \vec{g}_1 \rangle ").scale(0.6)
+      ppunto_5[0][2:5].set_color(BLUE)
+      ppunto_5[0][6:9].set_color(RED)
+
+      ppunto = VGroup(ppunto_2, ppunto_3, ppunto_4, ppunto_5)\
+         .arrange(DOWN, center=False, aligned_edge=LEFT)
+
+
+         # Se declaran los vectores que aparecen en el grid para usarlos posteriormente
+         # y dibujar su generado
+
+      g1_n = np.array([1,-1,0])
+      g2_n = np.array([-2,-2,0])
+
+      # OBJETOS base_ortogonal
+      gamma_li = MathTex(r"\vec{g}_1\ \text{y}\ \vec{g}_2\ \text{son \textit{l.i.}}").shift(4.5*RIGHT+2*UP).scale(0.6)
+
+      ld_g1 = DashedLine(-2*g1_n, 3.5*g1_n).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
+      ld_g2 = DashedLine(-1*g2_n, 1.75*g2_n).set_color(MAGENTA).set_opacity(0.5).shift(2.5*LEFT+1.5*UP)
+
+      gamma_gen = MathTex(r"\langle \Gamma \rangle = \mathbb{R}^2").shift(4.5*RIGHT+0.5*UP).scale(0.6)
+
+      gamma_b_og = MathTex(r" \text{ una }", r"\textit{base ortogonal}}").scale(0.6).next_to(gamma_c_og[0], RIGHT).shift(0.03*DOWN+0.1*LEFT)
+
+      #### OBJETOS calc_c1
+      vg1_11 = MathTex(r" \langle \vec{v}, \vec{g}_1 \rangle").shift(3*RIGHT + 3*UP).scale(0.6)
+      ppig1 = MathTex(r"= ").scale(0.6).next_to(vg1_11,RIGHT)
+
+      pp11 = MathTex(r"\begin{pmatrix} -8 \\ -4 \end{pmatrix} \cdot \
+         \begin{pmatrix} 1 \\ -1 \end{pmatrix}").scale(0.6).next_to(ppig1,RIGHT)
+      pp21 = MathTex(r" (-8)(1) + (-4)(-1)").scale(0.6).move_to(pp11).shift(0.2*RIGHT)
+      pp31 = MathTex(r" -8 + 4").scale(0.6).move_to(pp21).shift(0.7*LEFT)
+      pp41 = MathTex(r" -4\ ,").scale(0.6).move_to(pp21).shift(LEFT)
+
+
+      vg1_21 = MathTex(r" \langle \vec{v}, \vec{g}_1 \rangle").shift(3*RIGHT + 2*UP).scale(0.6)
+      ppl_11 = MathTex(r" = \langle c_1\vec{g}_1 + c_2\vec{g}_2\
+         , \vec{g}_1 \rangle").scale(0.6).next_to(vg1_21,RIGHT)
+      ppl_ig1 = MathTex(r"= ").scale(0.6)
+      ppl_21 = MathTex(r" c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
+         c_2\langle \vec{g}_2, \vec{g}_1 \rangle").scale(0.6)
+      ppl_31 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
+         c_2 (0)").scale(0.6)
+      ppl_41 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle", r"+" r"\
+          0").scale(0.6)
+      ppl_51 = MathTex(r"  c_1 \langle \vec{g}_1, \vec{g}_1 \rangle").scale(0.6)
+      ppl_ig21 = MathTex(r"= ").scale(0.6)
+      ppl_61 = MathTex(r" c_1 \begin{pmatrix} 1 \\ -1 \end{pmatrix} \cdot \
+         \begin{pmatrix} 1 \\ -1 \end{pmatrix}").scale(0.6)
+      ppl_71 = MathTex(r" c_1 \big((1)(1)+(-1)(-1)\big)").scale(0.6)
+      ppl_81 = MathTex(r"  c_1 \big( 2 \big)").scale(0.6)
+      ppl_91 = MathTex(r" = \ 2c_1,").scale(0.6)
+
+      ppl1 = VGroup(ppl_11, ppl_ig1, ppl_ig21, ppl_91).arrange(DOWN, center = False, aligned_edge=LEFT)
+
+      ppl_21.next_to(ppl_ig1, RIGHT)
+      ppl_31.move_to(ppl_21).shift(0.25*LEFT)
+      ppl_41.move_to(ppl_21).shift(0.5*LEFT)
+      ppl_51.move_to(ppl_21).shift(0.85*LEFT)
+
+      ppl_ig21.shift(0.3*DOWN)
+      ppl_91.shift(0.4*DOWN)
+      ppl_61.next_to(ppl_ig21, RIGHT)
+      ppl_71.move_to(ppl_61).shift(0.2*RIGHT)
+      ppl_81.move_to(ppl_61).shift(0.8*LEFT)
+
+      c1_eq1 = MathTex(r"\Rightarrow -4 = 2c_1 ", "\Rightarrow").scale(0.6).shift(3.7*RIGHT + DOWN)
+      c1_11 = MathTex(r" c_1 = ", r" \frac{-4}{2} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+      c1_fbk1 = MathTex(r" c_1 = ", r" \frac{\langle \vec{v}, \vec{g}_1 \rangle}{\langle \vec{g}_1 , \vec{g}_1 \rangle} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+      c1_11_r = MathTex(r" c_1 = ", r" \frac{-4}{2} ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+      c11 = MathTex(r" c_1 = - " , r" 2 ").next_to(c1_eq1).scale(0.6).shift(0.4*LEFT)
+
+      srct_11 = SurroundingRectangle(c11, color = AMARILLO)
+
+      #### OBJETOS calc_c2
+      vg1_2 = MathTex(r" \langle \vec{v}, \vec{g}_2 \rangle").shift(3*RIGHT + 2*UP).scale(0.6)
+      ppl_1 = MathTex(r" = \langle c_1\vec{g}_1 + c_2\vec{g}_2\
+         , \vec{g}_2 \rangle").scale(0.6).next_to(vg1_2,RIGHT)
+      ppl_ig = MathTex(r"= ").scale(0.6)
+      ppl_2 = MathTex(r"c_1", r"\langle \vec{g}_1, \vec{g}_2 \rangle", r"+" r"\
+         c_2\langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
+      ppl_ig2 = MathTex(r"= ").scale(0.6)
+      ppl_3 = MathTex(r"  c_1" ,r"(0)", r"+" r"\
+         c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
+      ppl_4 = MathTex(r" 0" ,r" ",r"+" ,r"c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
+      ppl_5 = MathTex(r"  c_2 \langle \vec{g}_2, \vec{g}_2 \rangle").scale(0.6)
+
+      ppl = VGroup(ppl_1, ppl_ig, ppl_ig2).arrange(DOWN, center = False, aligned_edge=LEFT)
+
+      ppl_2.next_to(ppl_ig, RIGHT)
+      ppl_3.next_to(ppl_2, DOWN).shift(0.25*LEFT)
+      ppl_4.move_to(ppl_3).shift(0.25*LEFT)
+      ppl_5.move_to(ppl_3).shift(0.6*LEFT)
+      ppl_ig2.shift(0.3*DOWN)
+
+      c1_eq2 = MathTex(r"\Rightarrow ", r"c_2 =", r"\frac{\langle \vec{v}, \vec{g}_2 \rangle}{\langle \vec{g}_2, \vec{g}_2 \rangle}").scale(0.6).shift(3.7*RIGHT + 0.5*DOWN)
+      c1_12 = MathTex(r" \frac{\begin{pmatrix} -8 \\ -4 \end{pmatrix}\cdot\begin{pmatrix} -2 \\ -2 \end{pmatrix}}{\begin{pmatrix}-2 \\ -2\end{pmatrix}\cdot\begin{pmatrix} -2 \\ -2\end{pmatrix}}").move_to(c1_eq2[2].get_center()).scale(0.5).shift(0.3*RIGHT)
+      c1_fbk2 = MathTex(r"\frac{(-8)(-2)+(-4)(-2)}{(-2)(-2)+(-2)(-2)}").scale(0.5).move_to(c1_12.get_center()).shift(0.45*RIGHT)
+      c1_12_t = MathTex(r" \frac{16+8}{4+4}").scale(0.6).move_to(c1_eq2[2].get_center()).shift(0.05*LEFT)
+      c1_12_r = MathTex(r" \frac{24}{8}").scale(0.6).move_to(c1_eq2[2].get_center()).shift(0.26*LEFT)
+      c12 = MathTex(r"3").scale(0.6).move_to(c1_12_r.get_center()).shift(0.1*LEFT)
+
+      srct_1 = SurroundingRectangle(Group(c1_eq2[1], c12), color = AMARILLO, buff=0.07)
+
+      # Vectores fantasma para mostrar paralelogramo
+      ghost1 = Arrow((0, 0, 0), (-1,1,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).set_opacity(0.3).shift(5.5*LEFT+1.5*DOWN)
+      ghost2 = Arrow((0, 0, 0), (-3,-3,0), buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4).set_opacity(0.3).shift(3.5*LEFT+2.5*UP)
+      
+      # ValueTrackers y funciones de Updater para transformar los vectores de la base con re-escalamientos
+      t_1 = ValueTracker(1)
+      t_2 = ValueTracker(1)
+
+      def upd_g1(obj):
+         newvec = Arrow((0, 0, 0), t_1.get_value()*g1, buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4)\
+            .shift(2.5*LEFT+1.5*UP)
+         obj.become(newvec)
+
+      def upd_g2(obj):
+         newvec_2 = Arrow((0, 0, 0), t_2.get_value()*g2, buff = 0, color = AZUL, max_tip_length_to_length_ratio=0.4)\
+            .shift(2.5*LEFT+1.5*UP)
+         obj.become(newvec_2)
+
+      vec_g1.add_updater(upd_g1)
+      vec_g2.add_updater(upd_g2)
+
+      # OBJETOS PARA LA CONFIRMACIÓN DE LA IGUALDAD, ÚLTIMA PARTE DE LA ANIMACIÓN
+
+      c1 = MathTex(r" c_1 = -2 ").scale(0.6).shift(3.5*RIGHT + 3*UP)
+      c2 = MathTex(r" c_2 = 3 ").next_to(c1, RIGHT).scale(0.6).shift(.3*RIGHT)
+
+      comblin_abs_c  = MathTex(r" (-2) \vec{g}_1 + (3) \vec{g}_2")\
+         .next_to(c2, DOWN).scale(0.5).shift(2*LEFT+DOWN)
+
+      comblin_R2_c = MathTex(r" = (-2) \begin{pmatrix} 1 \\ -1 \end{pmatrix} + (3) \begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+         .next_to(comblin_abs_c,RIGHT).scale(0.5).shift(1.5*LEFT)
+
+      comblin_R2_c1 = MathTex(r" =  \begin{pmatrix} -2 \\ 2 \end{pmatrix} + (3) \begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+         .scale(0.6)
+
+      comblin_R2_c2 = MathTex(r" = \begin{pmatrix} -2 \\ 2 \end{pmatrix} + \begin{pmatrix} -6\\ -6 \end{pmatrix}")\
+         .scale(0.6)
+
+      suma = MathTex(r" = \begin{pmatrix} -8 \\ -4 \end{pmatrix}\
+          = \vec{v}")\
+         .scale(0.6)
+
+      confirm = VGroup(comblin_R2_c, comblin_R2_c1, comblin_R2_c2, suma).arrange(DOWN, center = False, aligned_edge=LEFT)
+
+   # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
+      p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
+      p2 = Line([-0.5,0.5,0], ORIGIN, color = VERDE, buff = 2)
+        
+      paloma = VGroup(p1,p2).scale(0.2).set_opacity(0).next_to(comblin_R2_2,RIGHT)
+
+      ###############
+      # ANIMACIONES #
+      ###############
+
+      #self.next_section(skip_animations=True)
+      self.play(Create(lilgrid), run_time=2.5)
+      self.add(marco)
+      self.add_foreground_mobjects(marco)
+      self.play(FadeIn(vec_obj))
+      self.play(FadeIn(v_label)) # Agregar label v_obj
+      self.add_foreground_mobjects(vec_obj,v_label)
+      self.add_foreground_mobjects(vec_obj_tex)
+      self.play(Write(vec_obj_tex))
+      self.wait(2)
+      self.add_foreground_mobjects(vec_g1 , vec_g2, g1_label, g2_label)
+      self.play(Create(vec_g1), Create(vec_g2), Create(g1_label), Create(g2_label))
+      self.wait(1.5)
+
+      #self.next_section(skip_animations=True)
+      self.add_foreground_mobjects(gamma_tex)
+      self.play(Write(gamma_tex))
+      self.wait(3)
+      self.add_foreground_mobjects(comblin_abs)
+      self.play(Write(comblin_abs), run_time=1.5)
+      self.wait()
+      self.add_foreground_mobjects(comblin_R2)
+      self.play(Write(comblin_R2))
+      self.wait(1.5)
+      self.add_foreground_mobjects(coefs_incog)
+      self.play(Write(coefs_incog))
+      self.wait()
+      
+      #self.play(ReplacementTransform(v_label,v_label2))
+
+      ########## ANIMACIONES conj_ortog
+      #self.next_section(skip_animations=True)
+      self.wait(2)
+      self.add_foreground_mobjects(ppunto_1)
+      self.play(Write(ppunto_1))
+      self.add_foreground_mobjects(ppunto_2)
+      self.play(Write(ppunto_2))
+      self.add_foreground_mobjects(ppunto_3)
+      self.play(Write(ppunto_3))
+      self.wait(1.5)
+      self.add_foreground_mobjects(ppunto_4)
+      self.play(Write(ppunto_4))
+      self.add_foreground_mobjects(ppunto_5)
+      self.play(Write(ppunto_5), run_time=0.5)
+      self.add_foreground_mobjects(gamma_c_og)
+      self.play(Write(gamma_c_og))
+      self.wait()
+      self.play(gamma_c_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7), FadeOut(ppunto_1), FadeOut(ppunto_2), FadeOut(ppunto_3), FadeOut(ppunto_4), FadeOut(ppunto_5))
+      self.wait(3)
+
+
+      # # ANIMACIONES base_ortogonal
+      #self.next_section(skip_animations=True)
+      self.play(Create(ld_g1), run_time=0.5)
+      self.play(Create(ld_g2), run_time=0.5)
+      self.add_foreground_mobjects(gamma_li)
+      self.play(Write(gamma_li), run_time=0.5)
+      self.play( FadeOut(ld_g1), FadeOut(ld_g2))
+      self.play(FadeOut(v_label), FadeOut(vec_obj),FadeOut(g1_label), FadeOut(g2_label))
+      gen_simple(g1_gen, g2_gen)  # Animación del espacio generado
+      self.play(FadeOut(marco))
+      self.play(FadeIn(vec_obj))
+      self.add_foreground_mobjects(g1_label,g2_label,v_label2)
+      self.play(Write(g1_label), Write(g2_label), Write(v_label2))
+      self.play(gamma_c_og.animate.shift(9.5*RIGHT+2.75*UP).scale(1/0.7))
+      self.wait()
+      self.play(FadeOut(gamma_c_og[1]))
+      self.play(Write(gamma_b_og))
+      self.wait()
+      self.play(FadeOut(gamma_c_og[0]), gamma_b_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7))
+      self.play(FadeOut(gamma_li), FadeOut(gamma_gen))
+      self.wait(2.5)
+
+      ##### ANIMACIONES calc_c1
+      #self.next_section(skip_animations=True)
+      self.play(Write(vg1_11))
+      self.wait(2.5)
+      self.play(Write(ppig1),Write(pp11))
+      self.wait()
+      self.play(ReplacementTransform(pp11,pp21))
+      self.wait()
+      self.play(ReplacementTransform(pp21,pp31))
+      self.wait()
+      self.play(ReplacementTransform(pp31,pp41))
+      self.wait()
+
+      self.play(Write(vg1_21), run_time=2)
+      self.wait(1.5)
+      self.play(Write(ppl_11))
+      self.wait()
+      self.play(Write(ppl_ig1),Write(ppl_21))
+      self.wait()
+      self.play(ReplacementTransform(ppl_21,ppl_31))
+      self.wait(0.5)
+      self.play(ReplacementTransform(ppl_31,ppl_41))
+      self.wait(0.5)
+      self.play(ReplacementTransform(ppl_41,ppl_51))
+      self.play(Write(ppl_ig21),Write(ppl_61))
+      self.wait()
+      self.play(ReplacementTransform(ppl_61, ppl_71))
+      self.wait()
+      self.play(ReplacementTransform(ppl_71, ppl_81))
+      self.play(Write(ppl_91))
+
+      self.wait()
+      self.play(Write(c1_eq1[0]))
+      self.wait()
+      self.play(Write(c1_eq1[1]))
+      self.play(Write(c1_11))
+      self.wait()
+
+      # Flashback
+      #self.next_section(skip_animations=True)
+      self.play(ReplacementTransform(c1_11, c1_fbk1))
+      self.wait()
+      self.play(ReplacementTransform(c1_fbk1, c1_11_r))
+      self.play(ReplacementTransform(c1_11_r, c11))
+      self.play(Write(srct_11))
+
+      # Actualización de los coeficientes incógnitos y la ecuación en tuplas
+
+      #self.next_section(skip_animations=True)
+      self.play(ReplacementTransform(coefs_incog,c2_incog))
+      self.add_foreground_mobjects(c2_incog) 
+      self.play(ReplacementTransform(comblin_R2[0],comblin_R2_1[0]), ReplacementTransform(comblin_R2[1],comblin_R2_1[1]),
+      ReplacementTransform(comblin_R2[2],comblin_R2_1[2]), ReplacementTransform(comblin_R2[3],comblin_R2_1[3]),
+      ReplacementTransform(comblin_R2[4],comblin_R2_1[4]), ReplacementTransform(comblin_R2[5],comblin_R2_1[5]),
+      ReplacementTransform(comblin_R2[6],comblin_R2_1[6]))
+      self.add_foreground_mobjects(comblin_R2_1)
+
+      #self.next_section(skip_animations=True)
+      self.play(FadeOut(vg1_11),FadeOut(vg1_21),FadeOut(pp31), FadeOut(ppl1),
+      FadeOut(c1_eq1), FadeOut(c11), FadeOut(srct_11), FadeOut(ppig1), FadeOut(pp41),
+      FadeOut(ppl_51), FadeOut(ppl_81), FadeOut(ppl_41))
+
+      ##### ANIMACIONES calc_c2 (¡con tiempos ajustados al guión!)
+
+      #self.next_section(skip_animations=True)
+      self.play(Write(vg1_2), run_time=2)
+      self.wait(2)
+      self.play(Write(ppl_1), run_time=2)
+      self.wait(2)
+      self.play(Write(ppl_ig), Write(ppl_2), run_time=2)
+      self.wait(2)
+      self.play(Write(ppl_ig2), Write(ppl_3))
+      self.wait()
+      self.play(ReplacementTransform(ppl_3,ppl_4))
+      self.wait()
+      self.play(ppl_4[0].animate.set_opacity(0), ppl_4[1].animate.set_opacity(0), ppl_4[2].animate.set_opacity(0), ppl_4[3].animate.shift(0.6*LEFT))
+      self.wait()
+
+      self.play(Write(c1_eq2), run_time=0.75)
+      self.wait()
+      self.play(ReplacementTransform(c1_eq2[2], c1_12))
+      self.wait()
+      self.play(ReplacementTransform(c1_12, c1_fbk2))
+      self.wait(1.5)
+      self.play(ReplacementTransform(c1_fbk2, c1_12_t))
+      self.wait(0.5)
+      self.play(ReplacementTransform(c1_12_t, c1_12_r))
+      self.wait(0.25)
+      self.play(ReplacementTransform(c1_12_r, c12))
+      self.play(Write(srct_1))
+
+      #self.next_section(skip_animations=True)
+      self.play(ReplacementTransform(c2_incog,no_incog))
+      self.add_foreground_mobjects(no_incog) 
+      self.play(ReplacementTransform(comblin_R2_1[0],comblin_R2_2[0]), ReplacementTransform(comblin_R2_1[1],comblin_R2_2[1]),
+      ReplacementTransform(comblin_R2_1[2],comblin_R2_2[2]), ReplacementTransform(comblin_R2_1[3],comblin_R2_2[3]),
+      ReplacementTransform(comblin_R2_1[4],comblin_R2_2[4]), ReplacementTransform(comblin_R2_1[5],comblin_R2_2[5]),
+      ReplacementTransform(comblin_R2_1[6],comblin_R2_2[6]))
+      self.add_foreground_mobjects(comblin_R2_2)
+
+      self.play(FadeOut(vg1_2), FadeOut(ppl), FadeOut(ppl_2), FadeOut(ppl_3), FadeOut(ppl_4),
+      FadeOut(c1_eq2), FadeOut(c12), FadeOut(srct_1))
+
+      self.wait()
+      self.play(Write(c1), Write(c2))
+      self.play(Write(comblin_abs_c))
+      self.play(Write(comblin_R2_c))
+
+      self.play(FadeOut(g1_label))
+      self.play(FadeOut(g2_label))
+
+      self.play(
+         t_1.animate.set_value(-2),
+         run_time = 2
+      )
+
+      self.play(
+         t_2.animate.set_value(3),
+         run_time = 2
+      )
+
+      self.play(Write(c1g1_label_1))
+      self.play(Write(c2g2_label_1))
+
+      self.play(Write(comblin_R2_c1))
+
+      self.wait()
+      self.play(ReplacementTransform(c1g1_label_1, c1g1_label_2))
+      self.play(ReplacementTransform(c2g2_label_1, c2g2_label_2))
+
+      self.play(FadeIn(ghost1),FadeIn(ghost2))
+      self.play(ReplacementTransform(v_label2, v_label3))
+      self.add_foreground_mobjects(v_label3)
+      
+      self.wait()
+      self.play(Write(comblin_R2_c2))
+      self.play(Write(suma))
+      self.play(Create(paloma))
+      self.add_foreground_mobjects(paloma)
+      self.play(paloma.animate.set_opacity(1))
+      self.wait(3)
+
+      self.play(FadeOut(vec_g1), FadeOut(vec_g2))
+      self.play(
+            *[FadeOut(mob) for mob in self.mobjects],
+            run_time=1)
+
+
+      ###### OBJETOS  Sección Final
+
+      #esunprod = Tex(" es un producto escalar en ").scale(0.7).shift(2*RIGHT)
+
+      #pe_r2_a = MathTex(r"= u_1v_1 + u_2v_2").next_to(esunprod, LEFT).scale(0.9)
+      #pe_r2_b = MathTex(r"= \sum_{i=1}^2 u_i v_i" ).next_to(esunprod, LEFT).scale(0.9)
+      #pe_r3= MathTex(r"= \sum_{i = 1}^3 u_i v_i").next_to(esunprod, LEFT).scale(0.9)
+      #pe_rn= MathTex(r"= \sum_{i = 1}^n u_i", r" v_i").next_to(esunprod, LEFT).scale(0.9)
+      #pe_cn= MathTex(r"= \sum_{i = 1}^n u_i ",r"\bar{v}_i").next_to(esunprod, LEFT).scale(0.9)
+
+      #dos_tupla = MathTex(r" \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}").next_to(pe_r2_a, LEFT).scale(0.9)
+      #tres_tupla = MathTex(r" \begin{pmatrix} u_1 \\ u_2 \\ u_3 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \\ v_3 \end{pmatrix}").next_to(pe_r3, LEFT).scale(0.9)
+      #n_tupla = MathTex(r" \begin{pmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \\  \vdots \\ v_n \end{pmatrix}").next_to(pe_rn, LEFT).scale(0.9)
+      #erre2 = MathTex(r"\mathbb{R}^2").next_to(esunprod, RIGHT).scale(0.9)
+      #erre3 = MathTex(r"\mathbb{R}^3").next_to(esunprod, RIGHT).scale(0.9)
+      #erren = MathTex(r"\mathbb{R}^n").next_to(esunprod, RIGHT).scale(0.9)
+      #cn = MathTex(r"\mathbb{C}^n").next_to(esunprod, RIGHT).scale(0.9)
+
+      ##### ANIMACIONES Sección Final
+
+      #self.play(Write(dos_tupla), Write(pe_r2_a), Write(esunprod), Write(erre2))
+      #self.wait()
+
+      ## R2 notación sigma
+      #self.play(ReplacementTransform(pe_r2_a,pe_r2_b),dos_tupla.animate.next_to(pe_r2_b, LEFT), runtime = 2)
+      #self.wait()
+
+      ##R3
+      #self.play(ReplacementTransform(dos_tupla,tres_tupla), ReplacementTransform(pe_r2_b,pe_r3)\
+      #   , ReplacementTransform(erre2, erre3), runtime = 2)
+      #self.wait()
+
+      ##RN
+      #self.play(ReplacementTransform(tres_tupla,n_tupla), ReplacementTransform(pe_r3,pe_rn)\
+      #   , ReplacementTransform(erre3, erren), runtime = 2)
+      #self.wait()
+      #
+      ##CN
+      #self.play( ReplacementTransform(pe_rn[1],pe_cn[1])\
+      #   , ReplacementTransform(erren, cn), runtime = 2)
+      #self.wait()
+
+      #self.play(
+      #      *[FadeOut(mob) for mob in self.mobjects],
+      #      run_time=1)

@@ -150,7 +150,7 @@ Siguiendo de la observación \ref{obs:1}, las ideas principales a presentar en e
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PRIMERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Primera escena}
+\section{Conjunto linealmente independiente de dos vectores}
 
 Supongamos que, en un espacio vectorial real con producto escalar, tenemos un conjunto de dos vectores linealmente independientes\footnote{Mostramos brevemente que están en ejes distintos.}, pero no ortogonales entre sí, y que queremos modificar a alguno de ellos, utilizando las operaciones disponibles\footnote{Mostramos brevemente algo como $\vec{u}+\vec{v}, a\vec{u}, \langle\vec{u},\vec{v}\rangle$ en pantalla, para que se entienda que nos referimos a las operaciones de suma vectorial, producto de un vector por un escalar y producto escalar.}, de tal forma que obtengamos un conjunto de dos vectores linealmente independientes y \emph{ortogonales} que genere el mismo subespacio vectorial que el conjunto original\footnote{Mostramos que $\langle I\rangle$ es todo el plano.}, el cual mostraremos a continuación.
 
@@ -162,8 +162,7 @@ Observemos que\footnote{Regresamos al conjunto $I$ original con las dos proyecci
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SEGUNDA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
-\section{Segunda escena}
+\section{Conjunto linealmente independiente de tres vectores}
 
 Consideremos ahora a un espacio vectorial real con producto escalar con un conjunto de tres vectores linealmente independientes pero no ortogonales entre sí. Veamos el subespacio generado por este conjunto. ¿Cómo podríamos obtener un conjunto linealmente independiente y ortogonal de tres vectores a partir del conjunto que tenemos, de tal forma que el subespacio generado no cambie?\footnote{Tal vez poner un ¿? grande y divertido en pantalla jiji} Sugerimos pausar el video\footnote{Dejamos el espacio rotando unos segundos de tal forma que, cuando empiece el siguiente párrafo, ya se encuentre en una posición conveniente para empezar a hacer las proyecciones/modificaciones.} para pensar cómo modificarías a estos tres vectores para cumplir nuestro objetivo, y continuar la reproducción hasta que tengas una idea clara \textemdash y, de preferencia, escrita\textemdash \ de cómo hacerlo.
 
@@ -180,28 +179,33 @@ Nuevamente, si desde el principio nuestro objetivo hubiera sido obtener un conju
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
-\section{Tercera escena}
+\section{Conjuntos linealmente independientes finitos (Teorema de Gram-Schmidt)}
 
-Este procedimiento para, a partir de un conjunto linealmente independiente de dos o tres vectores, obtener conjuntos linealmente independientes y \emph{ortogonales} que generen el mismo subespacio que el conjunto original puede ser generalizado para conjuntos finitos de cualquier cardinalidad, y se conoce como el proceso de Gram-Schmidt. Lo mismo ocurre con el procedimiento que nos permite obtener conjuntos \emph{ortonormales} sin cambiar el subespacio generado. Éste es conocido como el proceso de Gram-Schmidt \emph{modificado}\footnote{En esta imagen faltó agregar $<\Gamma>=<I>=<N>$ centrado debajo de donde dice 5 (aparecería hasta el final).}. A continuación, enunciaremos ambos procesos de forma matemática. Sugerimos comparar esto con la versión escrita vista anteriormente. 
+\subsection{Proceso de Gram-Schmidt y proceso de Gram-Schmidt \emph{modificado} (vistos como algoritmos)} \label{Ssec: Proceso de Gram-Schmidt (como algoritmo)}
+
+Este procedimiento para, a partir de un conjunto linealmente independiente de dos o tres vectores, obtener conjuntos linealmente independientes y \emph{ortogonales} que generen el mismo subespacio que el conjunto original puede ser generalizado para conjuntos finitos de cualquier cardinalidad, y se conoce como el proceso de Gram-Schmidt. Lo mismo ocurre con el procedimiento que nos permite obtener conjuntos \emph{ortonormales} sin cambiar el subespacio generado. Éste es conocido como el proceso de Gram-Schmidt \emph{modificado}\footnote{En esta imagen faltó agregar $<\Gamma>=<I>=<N>$ centrado debajo de donde dice 5 (aparecería hasta el final).}. 
+
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=16cm]{1.png}
 \end{figure}
 
-En conjunto, este resultado se conoce como el Teorema de Gram-Schmidt. Observemos que, como consecuencia de este teorema, se sigue que la existencia de bases ortogonales y ortonormales siempre está asegurada en los espacios vectoriales con producto escalar de dimensión finita\footnote{Mejor porner los vectores ``n''s con gorritos ya que, por la forma en que los estamos definiendo, son unitarios, y el objetivo es que la base $N$ sea ortonormal.}.
+\subsection{Teorema de Gram-Schmidt} \label{Ssec: Teorema de Gram-Schmidt}
+
+A continuación, enunciaremos ambos procesos de forma matemática. Sugerimos comparar esto con la versión escrita vista anteriormente. 
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=16cm]{2.png}
 \end{figure}
 
+En conjunto, este resultado se conoce como el Teorema de Gram-Schmidt. Observemos que, como consecuencia de este teorema, se sigue que la existencia de bases ortogonales y ortonormales siempre está asegurada en los espacios vectoriales con producto escalar de dimensión finita\footnote{Mejor porner los vectores ``n''s con gorritos ya que, por la forma en que los estamos definiendo, son unitarios, y el objetivo es que la base $N$ sea ortonormal.}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ÚLTIMA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Escena final}
+\section{Ejercicios y preguntas}
 
 Ejercicio 3.1 Sea $V$ un espacio vectorial con producto escalar. Demuestra que
 \begin{align*}

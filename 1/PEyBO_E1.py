@@ -767,13 +767,6 @@ class SE2(MovingCameraScene):
             self.play(t1.animate.set_value(c[0]),
                       t2.animate.set_value(c[1]),
                       run_time=1.0)
-            self.play(
-                FadeOut(fantasma_flecha1),
-                FadeOut(fantasma_flecha2)
-            )
-            #fantasma_flecha1.remove_updater(upd_for_fantasma_flecha1)
-            #fantasma_flecha2.remove_updater(upd_for_fantasma_flecha2)
-            #-----------------------------------------
             self.wait(0.5)
             equal_sign.next_to(label3, 0.5*LEFT)
             text_vec_objetivo.next_to(equal_sign, 0.5*LEFT)
@@ -781,16 +774,19 @@ class SE2(MovingCameraScene):
             dot1 = Dot(radius=0, color=AMARILLO).next_to(label1, 2*UP)
             dot2 = Dot(radius=0, color=AMARILLO).next_to(label2, 2*UP)
             self.play(
-                FadeIn(equal_sign),
-                FadeIn(text_vec_objetivo)
-            )
-            self.play(Circumscribe(label1, fade_out=True),
+                FadeOut(fantasma_flecha1),
+                FadeOut(fantasma_flecha2),
+                Write(equal_sign),
+                Write(text_vec_objetivo),
+                      Circumscribe(label1, fade_out=True),
                       Circumscribe(label2, fade_out=True),
                       Flash(dot1),
-                      Flash(dot2),
-                      run_time=2
-                      )
-            self.wait(4.5)
+                      Flash(dot2)
+            )
+            #fantasma_flecha1.remove_updater(upd_for_fantasma_flecha1)
+            #fantasma_flecha2.remove_updater(upd_for_fantasma_flecha2)
+            #-----------------------------------------
+            self.wait(14)
             self.play(
                 FadeOut(vec_obj1),
                 FadeOut(vec_obj2),
