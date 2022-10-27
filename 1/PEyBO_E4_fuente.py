@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
 from manim import *
 
-####################################################
-################### ¡IMPORTANTE! ###################
-####################################################
-# Hay que instalar Shapely con 'pip install shapely'
-from shapely.geometry import Point
-from shapely.geometry.polygon import Polygon
-
 #####################################################################################
 ######################  Producto escalar y bases ortogonales  #######################
 #####################################################################################
@@ -57,7 +50,6 @@ class CounterclockwiseTransform(ReplacementTransform):
         **kwargs,
     ) -> None:
         super().__init__(mobject, target_mobject, path_arc=path_arc, **kwargs)
-
 
 class SE1(Scene):
     def construct(self):
@@ -634,7 +626,7 @@ class SE2(Scene):
                 new_arrow = Arrow(start=origen_plano, end=aux, buff=0, color=AMARILLO)
                 obj.become(new_arrow)
             else:
-                obj.become(Dot(origen_plano, radius=0.1, color=AMARILLO))
+                obj.become(Dot(origen_plano, radius=0.05, color=AMARILLO))
 
         def upd_for_label(obj):
             v_ = v-t.get_value()*u/np.linalg.norm(u)**2
@@ -648,36 +640,44 @@ class SE2(Scene):
             obj.become(new_dashedline)
 
         #-------------------------------------------- Animaciones
+        self.next_section()
+        self.wait(10)
         self.play(
-            Write(grid)
+            Write(grid),
+            run_time=2.5
         )
-
-        self.wait(2)
+        self.wait(4)
         self.play(
             Write(u_vect),
-            Write(u_label)
+            Write(u_label),
+            run_time=0.5
         )
-        self.wait(1)
         self.play(
             Write(v_vect),
             Write(v_label),
+            run_time=0.5
         )
 
         self.play(
             Write(vec_v_u),
         )
+        self.wait(7)
         self.play(
             Write(group1[0]),
+            run_time=3
         )
-        self.play(
-            Write(group1[1]),
-        )
+        justificación = Tex("*", r"\mbox{La justificación se explica en el video ", "\emph{Ortogonalización y ortonormalización (Teorema de Gram-Schmidt) }", "de Animathica.}").scale(0.8).scale(0.6).to_corner(LEFT+DOWN)
+        justificación[0].set_color(AMARILLO)
+        justificación[2].set_color(AMARILLO)
+        self.play(Write(group1[1]))
+        self.play(Write(justificación), run_time=2)
         self.wait(2)
-        self.play(
-            Write(proy_u_v_arrow),
-            FadeIn(label_proy_u_v[:]),
-            run_time=1
-        )
+        self.play(FadeOut(justificación))
+        self.wait(4)
+        self.play(Write(proy_u_v_arrow))
+        self.wait(5)
+        self.play(FadeIn(label_proy_u_v[:]))
+        self.wait(2)
         self.play(
             FadeOut(group1),
             FadeOut(vec_v_u)
@@ -689,24 +689,55 @@ class SE2(Scene):
             run_time=2
         )
         self.wait(3)
-
         self.play(
             label_proy_u_v[6:12].animate.set_opacity(1),
-            label_proy_u_v[13].animate.set_opacity(1),
             proy_u_v_arrow.animate.set_opacity(0.2),
-            GrowArrow(proy_u_v_arrow_2),
             run_time=2
         )
+        self.play(label_proy_u_v[13].animate.set_opacity(1))
         self.wait()
+        self.play(GrowArrow(proy_u_v_arrow_2), run_time=2)
+        self.wait(6.5)
         self.play(FadeOut(label_proy_u_v), FadeOut(proy_u_v_arrow_2))
-        self.wait()
 
         # Proyección vectorial con fuente de luz
-
+        #self.next_section(skip_animations=True)
         coords_fuente = [0.58-3, 0.58*2.2+1.05, 0]
-        n = 10
         fuente = Dot(coords_fuente, color=YELLOW)
-        self.add(fuente)
+        self.wait(5)
+        self.play(GrowFromCenter(fuente))
+        self.play(Flash(point=coords_fuente, line_length=0.075, num_lines=12, flash_radius=0.15),
+                  Flash(point=coords_fuente, line_length=0.075, num_lines=12, flash_radius=0.3),
+                  Flash(point=coords_fuente, line_length=0.075, num_lines=12, flash_radius=0.45),
+                  Flash(point=coords_fuente, line_length=0.075, num_lines=12, flash_radius=0.6)
+                  )
+        self.play(Flash(point=coords_fuente, line_length=0.075, num_lines=12, flash_radius=0.15),
+                  Flash(point=coords_fuente, line_length=0.075, num_lines=12, flash_radius=0.3),
+                  Flash(point=coords_fuente, line_length=0.075, num_lines=12, flash_radius=0.45),
+                  Flash(point=coords_fuente, line_length=0.075, num_lines=12, flash_radius=0.6)
+                  )
+        self.wait(6)
+
+        norma_u = np.linalg.norm(u,2)
+        tupla_u = (ORIGIN, u)
+
+        normal_v = 0.4*np.array([0.01, 0.03, 0])
+        tupla_v = (ORIGIN, v)
+        tupla_normal = (normal_v, 2*normal_v)
+
+        # ValueTracker para el desplazamiento de la fuente
+        VT = ValueTracker(1)
+
+        # ValueTracker para el desplazamiento de la fuente
+        VT_2 = ValueTracker(0.1)
+
+        # Función para el desplazamiento de la fuente
+        def upd_for_fuente(obj):
+            obj.become(Dot(coords_fuente + VT.get_value()*normal_v, color=YELLOW))
+
+        fuente.add_updater(upd_for_fuente)
+
+        self.play(VT.animate.set_value(1000), rate_func=smooth)
 
         esquina0 = [-0.58*7-2.9, 0.58*7/3+1, 0]
         esquina1 = [0.58*7-3.05, -0.58*7/3+1, 0]
@@ -717,128 +748,69 @@ class SE2(Scene):
         tupla_lado2 = (esquina2, esquina3)
         tupla_lado3 = (esquina3, esquina0)
 
-        norma_u = np.linalg.norm(u,2)
-        tupla_u = (ORIGIN, u)
+        n = 44
 
-        normal_v = 0.4*np.array([0.01, 0.03, 0])
-        tupla_normal = (normal_v, 2*normal_v)
-
-        ángs_rayos = np.arange(0, tau, tau/n)
+        ends = []
+        for i in range(0,n+1):
+            ends.append(np.array(esquina0) + i/n*(np.array(esquina1)-np.array(esquina0)))
 
         rayos = VGroup()
-        for i in range(0, len(ángs_rayos)):
-            rayos.add(
-                    DashedLine(fuente.get_center(), line_intersection((fuente.get_center(), [fuente.get_x()+np.cos(ángs_rayos[i]), fuente.get_y()+np.sin(ángs_rayos[i]),0]), tupla_lado0), dash_length=0.1, dashed_ratio = 0.1, color=AMARILLO)
-                    )
+        for i in range(0, len(ends)):
 
-        self.add(rayos)
+            end_i = ends[i]
 
-        # ValueTracker para el desplazamiento de la fuente
-        VT = ValueTracker(10)
+            if (21 < i) & (i < 25):
+                rayos.add(DashedLine(line_intersection([end_i, end_i+normal_v], [esquina3, esquina2]),
+                          line_intersection([end_i, end_i+normal_v], [esquina3, esquina2]) + (line_intersection([end_i, end_i+normal_v], [origen_plano, origen_plano+u])-line_intersection([end_i, end_i+normal_v], [esquina3, esquina2])),
+                          dash_length=0.1,
+                          color=AMARILLO))
 
-        # Función para el desplazamiento de la fuente
-        def upd_for_fuente(obj):
-            obj.become(Dot(coords_fuente + VT.get_value()*normal_v, color=YELLOW))
-
-        fuente.add_updater(upd_for_fuente)
-
-        # Función para calcular los ángulos de la fuente a cualquier esquina
-        def ang(punto):
-            temp = np.arctan2(punto[1]-fuente.get_y(), punto[0]-fuente.get_x())
-            if temp >= 0:
-                return temp
-            else:
-                return temp+tau
-
-        # Función para calcular el "start" 'óptimo' para un rayo
-        def optimal_start(i, center, interior):
-
-            if interior:
-                return center
+            elif i > 37:
+                rayos.add(DashedLine(line_intersection([end_i, end_i+normal_v], [esquina1, esquina2]),
+                          line_intersection([end_i, end_i+normal_v], [esquina1, esquina2]) + (line_intersection([end_i, end_i+normal_v], [origen_plano, origen_plano+v])-line_intersection([end_i, end_i+normal_v], [esquina1, esquina2])),
+                          dash_length=0.1,
+                          color=AMARILLO))
 
             else:
-                try:
-                    return line_intersection((center, center+[np.cos(ángs_rayos[i]), np.sin(ángs_rayos[i]),0]), tupla_lado2)
-                except ValueError:
-                    return line_intersection(tupla_normal, tupla_lado2)
+                rayos.add(DashedLine(line_intersection([end_i, end_i+normal_v], [esquina3, esquina2]),
+                          line_intersection([end_i, end_i+normal_v], [esquina3, esquina2]) + (line_intersection([end_i, end_i+normal_v], [origen_plano, origen_plano+v])-line_intersection([end_i, end_i+normal_v], [esquina3, esquina2])),
+                          dash_length=0.1,
+                          color=AMARILLO))
 
-        # Función para calcular el "end" 'óptimo' para un rayo
-        def optimal_end(i, center, interior):
+        self.wait(3)
+        self.play(FadeIn(rayos), FadeOut(u_label, v_label))
+        self.wait(5.5)
+        self.play(GrowArrow(proy_u_v_arrow_2))
+        self.wait(9)
+        self.play(FadeOut(rayos, proy_u_v_arrow_2), FadeIn(u_label, v_label))
+        self.wait(3.5)
 
-            áng = ángs_rayos[i]
-            tupla_radial = (center, center+[np.cos(áng), np.sin(áng),0])
-            áng_esq0 = ang(esquina0)
-            áng_esq1 = ang(esquina1)
-            áng_esq2 = ang(esquina2)
-            áng_esq3 = ang(esquina3)
-            áng_orig = ang(0.1*(u+np.array([-3,1,0])))
-            áng_u    = ang(u+np.array([-3,1,0]))
-
-            intersec = line_intersection(tupla_radial,tupla_u)
-
-            if interior:
-
-                if (áng > áng_orig) & (áng <= áng_u):
-                    return intersec
-
-                elif áng <= áng_esq2:
-                    return line_intersection(tupla_radial, tupla_lado1)
-                elif (áng > áng_esq2) & (áng <= áng_esq3): 
-                    return line_intersection(tupla_radial, tupla_lado2)
-                elif (áng > áng_esq3) & (áng <= áng_esq0): 
-                    return line_intersection(tupla_radial, tupla_lado3)
-                elif (áng > áng_esq0) & (áng <= áng_esq1): 
-                    return line_intersection(tupla_radial, tupla_lado0)
-                elif áng > áng_esq1:
-                    return line_intersection(tupla_radial, tupla_lado1)
-
-            else:
-
-                if (áng > áng_esq0) & (áng <= áng_orig): 
-                    return line_intersection(tupla_radial, tupla_lado0)
-                elif (áng > áng_orig) & (áng <= áng_u): 
-                    return intersec
-                elif (áng > áng_u) & (áng <= áng_esq1): 
-                    return line_intersection(tupla_radial, tupla_lado0)
-                elif (áng > áng_esq1) & (áng <= áng_esq2): 
-                    return line_intersection(tupla_radial, tupla_lado1)
-                elif (áng >= áng_esq3) & (áng <= áng_esq0): 
-                    return line_intersection(tupla_radial, tupla_lado3)
-                else:
-                    return center
-
-        # Función para la acualización del grupo de rayos
-        def upd_for_rayos(obj):
-            for i in range(0, len(obj)):
-                fuente_centro = fuente.get_center()
-                fuente_x = fuente.get_x()
-                fuente_y = fuente.get_y()
-                dentro = Polygon([esquina0, esquina1, esquina2, esquina3]).contains(Point(fuente.get_x(), fuente.get_y())) # Si la fuente está dentro del cuadrilátero
-                obj[i].become(DashedLine(optimal_start(i, fuente_centro, dentro), optimal_end(i, fuente_centro, dentro), dash_length=0.1, dashed_ratio = 0.1, color=AMARILLO))
-
-        rayos.add_updater(upd_for_rayos)
-
-        self.play(VT.animate.set_value(300), run_time=3) # ¡Con valores menores a 6 sale un glitch!
-
+        # Interpretación de ortogonalidad
         #self.next_section(skip_animations=True)
+        label_proy_u_v[:].set_opacity(1),
+        dashedline.set_opacity(1),
+        proy_u_v_arrow.set_opacity(1),
+        self.play(FadeIn(label_proy_u_v, dashedline, proy_u_v_arrow))
+        self.wait(2)
 
-        #    #Write(dashedline),
-        #    #dashedline.animate.set_opacity(0.3),
-        #    #dashedline.animate.set_opacity(1),
-        #v_label.add_updater(upd_for_label)
-        #proy_u_v_arrow.add_updater(upd_for_proy_u_v_arrow)
-        #v_vect.add_updater(upd_for_v)
-        #dashedline.add_updater(upd_for_dashedline)
-        #self.wait(2)
-        #self.play(
-        #    t.animate.set_value(np.dot(u, v)),
-        #    Write(conclusion[4:]),
-        #    run_time=5
-        #)
-        #self.wait(3)
-        #s = conclusion[:4].copy()
-        #s.invert(recursive=True)
-        #self.play(
-        #    Write(s),
-        #    run_time=6
-        #)
+        v_label.add_updater(upd_for_label)
+        proy_u_v_arrow.add_updater(upd_for_proy_u_v_arrow)
+        v_vect.add_updater(upd_for_v)
+        dashedline.add_updater(upd_for_dashedline)
+        self.wait(2)
+        self.play(Write(conclusion[4]), run_time=1.5)
+        self.play(Write(conclusion[5]), run_time=1.25)
+        self.play(t.animate.set_value(np.dot(u, v)), Write(conclusion[6]), run_time=3.5)
+        self.wait(5)
+        s = conclusion[:4].copy()
+        s.invert(recursive=True)
+        self.play(Write(conclusion[3]))
+        self.play(Write(conclusion[2]))
+        self.wait(0.25)
+        self.play(Write(conclusion[1]))
+        dashedline2 = DashedLine(
+            v_vect.get_end(), origen_plano, color=AMARILLO
+        )
+        self.play(Write(conclusion[0]), FadeOut(dashedline), FadeIn(dashedline2), run_time=3)
+        self.wait(10)
+        self.play(*[FadeOut(mob) for mob in self.mobjects], FadeOut(proy_u_v_arrow, v_vect))
