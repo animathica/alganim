@@ -786,13 +786,12 @@ class SE2(MovingCameraScene):
             #fantasma_flecha1.remove_updater(upd_for_fantasma_flecha1)
             #fantasma_flecha2.remove_updater(upd_for_fantasma_flecha2)
             #-----------------------------------------
-            self.wait(14)
+            self.wait(12.5)
             self.play(
                 FadeOut(vec_obj1),
                 FadeOut(vec_obj2),
                 FadeOut(vec_AplusB),
-                *[FadeOut(mob) for mob in self.mobjects],
-                run_time=2)
+                *[FadeOut(mob) for mob in self.mobjects])
 
         # ----------------------------------------------------------- Coordenadas del vector objetivo
         vec = np.array([-8, -4, 0])
@@ -850,7 +849,6 @@ class SE2(MovingCameraScene):
         self.play(FadeIn(vec_))
         self.play(Write(text_vec))
         encontrar_escalares(vec_A, vecA, text_A, vec_B, vecB, text_B, vec, text_vec)
-        self.wait(0.5)
 
 #-------------------------------------------------------------------------------------------------------
 
@@ -1357,7 +1355,7 @@ class SE3(Scene):
             ReplacementTransform(list_braces[1], list_braces[2]),
             run_time=1.5
         )
-        self.wait(8)
+        self.wait(7.5)
         self.play(
             *[FadeOut(mob) for mob in self.mobjects],
             run_time=1)

@@ -110,7 +110,7 @@ class SE1(MovingCameraScene):
         #----------- OBJETOS
 
         obj_1 = MathTex(r"  \langle a\vec{u}},\vec{v}\rangle ").scale(0.7).shift(1.5*UP+RIGHT)
-        inter = MathTex(r"a \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} ").scale(0.7).move_to(obj_1)
+        inter = MathTex(r"\bigg( a \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} \bigg) \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} ").scale(0.7).move_to(obj_1)
         inter2 = MathTex(r" \langle a\vec{u}},\vec{v}\rangle ").scale(0.7).move_to(obj_1).shift(0.5*RIGHT)
         obj_2 = MathTex(r" &= \begin{pmatrix} au_1 \\ au_2 \end{pmatrix} \cdot \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} ").scale(0.7).next_to(inter, RIGHT)
         obj_3 = MathTex(r" &= (au_1)v_1 + (au_2)v_2 ").scale(0.7)
@@ -249,8 +249,9 @@ class SE1(MovingCameraScene):
         #####################
         self.play(Write(c_nonzero[0][0:5]))
         self.play(Write(c_nonzero[0][5:]))
+        self.wait(0.5)
         self.play(Write(obj_1))
-        self.wait()
+        self.wait(0.5)
         self.play(ReplacementTransform(obj_1, obj_2))
         self.wait(0.5)
         self.play(Write(obj_3), run_time=2)
@@ -294,7 +295,7 @@ class SE1(MovingCameraScene):
         pp_def[1].set_color(AMARILLO)
         pp_def[3].set_color(AMARILLO)
         pp_def[5].set_color(AZUL_CLARO)          
-        pp_oper = MathTex(r"\langle \vec{v},\vec{w}\rangle = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} \cdot \begin{pmatrix} w_1 \\ w_2 \end{pmatrix}= v_1w_1 + v_2w_2") #SE QUEDA
+        pp_oper = MathTex(r"\langle \vec{v},\vec{w}\rangle = ", r"\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} ", "\cdot ", r"\begin{pmatrix} w_1 \\ w_2 \end{pmatrix} ", "= ", "v_1w_1 + v_2w_2") #SE QUEDA
 
         #------------- REACOMODO DE LAS COSAS EN LA PANTALLA, DIBUJAMOS LÍNEAS (OBJETOS)
         
@@ -302,7 +303,7 @@ class SE1(MovingCameraScene):
         linea_2 = Line(start = 4*UP + 1.5*LEFT, end = 4*DOWN + 1.5*LEFT, buff= 0.5)
 
 
-        t1 = Tex("*", "La demostración termina en XX:XX.").scale(.4).align_on_border(LEFT+DOWN, buff=0.25)
+        t1 = Tex("*", "La demostración termina en 8:11.").scale(.4).align_on_border(LEFT+DOWN, buff=0.25)
         t1[0].set_color(AMARILLO)
 
     #####################
@@ -403,8 +404,9 @@ class SE1(MovingCameraScene):
                   FadeOut(t1),
                   self.camera.frame.animate.set(width=8).move_to(2.3*UP+4.15*LEFT)
                   )
-        self.wait(3)
+        self.wait(2.5)
 
+        ntuplas = MathTex(r"\begin{pmatrix} v_1 \\ \vdots \\ v_n \end{pmatrix} ", r"\cdot ", r"\begin{pmatrix} w_1 \\ \vdots \\ w_n \end{pmatrix}").shift(4.55*LEFT+1.8*UP).scale(0.6)
         suma_1 = MathTex(r"\sum_{i=1}^2 v_iw_i").scale(0.6).move_to(1.8*UP+2.75*LEFT)
         suma_n = MathTex(r"\sum_{i=1}^n v_iw_i").scale(0.6).move_to(1.8*UP+2.75*LEFT)
         barrita = MathTex(r"\overline{w_i}")[0][0].scale(0.6).move_to(1.95*UP+2.4*LEFT)
@@ -414,21 +416,23 @@ class SE1(MovingCameraScene):
         C_2 = MathTex("\\mathbb{C}").set_color(YELLOW).scale(0.7).move_to(pp_def[3][0].get_center())
         C_3 = MathTex("\\mathbb{C}").set_color(AZUL_CLARO).scale(0.7).move_to(pp_def[5][0].get_center())
 
-        self.play(ReplacementTransform(pp_oper[0][22:31],suma_1))
-        self.wait(5)
-        self.play(ReplacementTransform(pp_def[1][1],n_1),
+        self.play(ReplacementTransform(pp_oper[5],suma_1))
+        self.wait(4.5)
+        self.play(ReplacementTransform(pp_oper[1], ntuplas[0]),
+                  ReplacementTransform(pp_oper[3], ntuplas[2]),
+                  ReplacementTransform(pp_def[1][1],n_1),
                   ReplacementTransform(pp_def[3][1],n_2),
                   ReplacementTransform(suma_1,suma_n),
                   )
 
-        self.wait(2.5)
+        self.wait(3)
         self.play(ReplacementTransform(pp_def[1][0],C_1),
                   ReplacementTransform(pp_def[3][0],C_2),
                   ReplacementTransform(pp_def[5][0],C_3),
                   Write(barrita)
                   )
 
-        self.wait(7.5)
+        self.wait(8)
         self.play(
             *[FadeOut(mob) for mob in self.mobjects],
             run_time = 1)
@@ -640,8 +644,8 @@ class SE2(Scene):
       v_label2[6].set_color(BLUE)
       v_label3 = MathTex(r"-2",r"\vec{g}_1", r"+", r"3", r"\vec{g}_2").move_to(vec_obj.get_end()+(0.3/(np.linalg.norm(v)))*v)\
          .scale(0.5).shift(RIGHT+0.1*DOWN)   
-      v_label3[0][2:4].set_color(RED)
-      v_label3[0][6:8].set_color(BLUE)
+      v_label3[1].set_color(RED)
+      v_label3[4].set_color(BLUE)
 
       vec_g1 = Arrow((0, 0, 0),(0.5,-0.5,0), buff = 0, color = ROJO, max_tip_length_to_length_ratio=0.4).shift(2.5*LEFT+1.5*UP)
       g1_label = MathTex(r"\vec{g}_1").move_to(vec_g1.get_end()+(0.4/(np.linalg.norm(g1)))*g1).scale(0.5).set_color(RED)
@@ -680,7 +684,7 @@ class SE2(Scene):
       ppunto_2 = MathTex(r" = \begin{pmatrix} 1 \\ -1 \end{pmatrix} \cdot \
           \begin{pmatrix} -2 \\ -2 \end{pmatrix}").next_to(ppunto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
       ppunto_3 = MathTex(r"= (1)(-2) + (-1)(-2)").scale(0.6)
-      ppunto_4 = MathTex(r"= 0 ").scale(0.6)
+      ppunto_4 = MathTex(r"= 0").scale(0.6)
       ppunto_5 = MathTex(r"= \langle \vec{g}_2 , \vec{g}_1 \rangle ").scale(0.6)
       ppunto_5[0][2:5].set_color(BLUE)
       ppunto_5[0][6:9].set_color(RED)
@@ -817,17 +821,14 @@ class SE2(Scene):
       comblin_R2_c = MathTex(r" = (-2) \begin{pmatrix} 1 \\ -1 \end{pmatrix} + (3) \begin{pmatrix} -2\\ -2 \end{pmatrix}")\
          .next_to(comblin_abs_c,RIGHT).scale(0.5).shift(1.5*LEFT)
 
-      comblin_R2_c1 = MathTex(r" =  \begin{pmatrix} -2 \\ 2 \end{pmatrix} + (3) \begin{pmatrix} -2\\ -2 \end{pmatrix}")\
+      comblin_R2_c1 = MathTex(r" =  \begin{pmatrix} -2 \\ 2 \end{pmatrix} + \begin{pmatrix} -6\\ -6 \end{pmatrix}")\
          .scale(0.6)
 
-      comblin_R2_c2 = MathTex(r" = \begin{pmatrix} -2 \\ 2 \end{pmatrix} + \begin{pmatrix} -6\\ -6 \end{pmatrix}")\
-         .scale(0.6)
+      suma = MathTex(r" = \begin{pmatrix} -8 \\ -4 \end{pmatrix}").scale(0.6)
 
-      suma = MathTex(r" = \begin{pmatrix} -8 \\ -4 \end{pmatrix}\
-          = \vec{v}")\
-         .scale(0.6)
+      igual_a_v = MathTex(r" = \vec{v}").scale(0.6)
 
-      confirm = VGroup(comblin_R2_c, comblin_R2_c1, comblin_R2_c2, suma).arrange(DOWN, center = False, aligned_edge=LEFT)
+      confirm = VGroup(comblin_R2_c, comblin_R2_c1, suma, igual_a_v).arrange(DOWN, center = False, aligned_edge=LEFT)
 
    # PALOMA PARA ACOMPAÑAR A LA PROPIEDAD PROBADA
       p1 = Line(ORIGIN, [1,1,0], color = VERDE, buff = 2).shift(0.1*LEFT)
@@ -878,13 +879,14 @@ class SE2(Scene):
       self.play(Write(ppunto_2))
       self.add_foreground_mobjects(ppunto_3)
       self.play(Write(ppunto_3))
-      self.wait(1.5)
+      self.wait(0.75)
       self.add_foreground_mobjects(ppunto_4)
       self.play(Write(ppunto_4))
       self.add_foreground_mobjects(ppunto_5)
-      self.play(Write(ppunto_5), run_time=0.5)
+      self.play(Write(ppunto_5), run_time=0.75)
+      self.wait(0.5)
       self.add_foreground_mobjects(gamma_c_og)
-      self.play(Write(gamma_c_og))
+      self.play(Write(gamma_c_og), run_time=1.5)
       self.wait()
       self.play(gamma_c_og.animate.shift(9.5*LEFT+2.75*DOWN).scale(0.7), FadeOut(ppunto_1), FadeOut(ppunto_2), FadeOut(ppunto_3), FadeOut(ppunto_4), FadeOut(ppunto_5))
       self.wait(3)
@@ -932,15 +934,15 @@ class SE2(Scene):
       self.wait(1.5)
       self.play(Write(ppl_ig1[0]))
       self.play(Write(ppl_21), run_time=5)
-      self.wait(6.5)
+      self.wait(7.5)
       self.play(ReplacementTransform(ppl_21,ppl_31))
       self.wait(0.5)
       self.play(ReplacementTransform(ppl_31,ppl_41))
       self.wait(0.5)
       self.play(ReplacementTransform(ppl_41,ppl_51))
-      self.wait(0.5)
-      self.play(Write(ppl_ig21))
       self.wait()
+      self.play(Write(ppl_ig21))
+      self.wait(0.5)
       self.play(Write(ppl_61), run_time=3)
       self.wait(0.5)
       self.play(ReplacementTransform(ppl_61, ppl_71))
@@ -954,7 +956,7 @@ class SE2(Scene):
       self.wait()
       self.play(Write(c1_eq1[1]))
       self.play(Write(c1_11), run_time=2.5)
-      self.wait(3)
+      self.wait(3.5)
 
       # Flashback
       #self.next_section(skip_animations=True)
@@ -992,13 +994,13 @@ class SE2(Scene):
       self.play(Write(ppl_ig), Write(ppl_2), run_time=2)
       self.wait(2)
       self.play(Write(ppl_ig2), Write(ppl_3))
-      self.wait()
+      self.wait(0.25)
       self.play(ReplacementTransform(ppl_3,ppl_4))
-      self.wait()
+      self.wait(0.25)
       self.play(ppl_4[0].animate.set_opacity(0), ppl_4[1].animate.set_opacity(0), ppl_4[2].animate.set_opacity(0), ppl_4[3].animate.shift(0.6*LEFT))
-      self.wait()
+      self.wait(0.25)
 
-      self.play(Write(c1_eq2), run_time=0.75)
+      self.play(Write(c1_eq2))
       self.wait()
       self.play(ReplacementTransform(c1_eq2[2], c1_12))
       self.wait()
@@ -1007,7 +1009,7 @@ class SE2(Scene):
       self.play(ReplacementTransform(c1_fbk2, c1_12_t))
       self.wait(0.5)
       self.play(ReplacementTransform(c1_12_t, c1_12_r))
-      self.wait(0.25)
+      self.wait(0.5)
       self.play(ReplacementTransform(c1_12_r, c12))
       self.play(Write(srct_1))
 
@@ -1024,8 +1026,12 @@ class SE2(Scene):
 
       self.wait()
       self.play(Write(c1), Write(c2))
+      self.wait(2)
       self.play(Write(comblin_abs_c))
       self.play(Write(comblin_R2_c))
+
+      self.wait(0.5)
+      self.play(Write(comblin_R2_c1), run_time=1.5)
 
       self.play(FadeOut(g1_label))
       self.play(FadeOut(g2_label))
@@ -1043,23 +1049,19 @@ class SE2(Scene):
       self.play(Write(c1g1_label_1))
       self.play(Write(c2g2_label_1))
 
-      self.play(Write(comblin_R2_c1))
-
-      self.wait()
       self.play(ReplacementTransform(c1g1_label_1, c1g1_label_2))
       self.play(ReplacementTransform(c2g2_label_1, c2g2_label_2))
 
-      self.play(FadeIn(ghost1),FadeIn(ghost2))
-      self.play(ReplacementTransform(v_label2, v_label3))
-      self.add_foreground_mobjects(v_label3)
-      
-      self.wait()
-      self.play(Write(comblin_R2_c2))
+      self.wait(0.5)
       self.play(Write(suma))
+      self.play(FadeIn(ghost1),FadeIn(ghost2))
+      self.play(ReplacementTransform(v_label2, v_label3), v_label2[1].animate.set_opacity(0))
+      self.add_foreground_mobjects(v_label3)
+      self.wait(0.5)
       self.play(Create(paloma))
       self.add_foreground_mobjects(paloma)
       self.play(paloma.animate.set_opacity(1))
-      self.wait(29)
+      self.wait(28)
 
       self.play(FadeOut(vec_g1), FadeOut(vec_g2),
             *[FadeOut(mob) for mob in self.mobjects])

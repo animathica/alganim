@@ -19,11 +19,11 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
 
   -- Este bloque dibuja la cabecera, asegurándose de que esté centrada; si no es necesario, se puede "comentar" con "--".
   
---  cab <- oNew c1l1
---  oModify cab $ oCenterX .~ 0
---  oModify cab $ oTopY .~ 4.25
---  oShowWith cab $ adjustDuration (*0.33) . oDraw
---  wait 0.5
+  cab <- oNew c1l1
+  oModify cab $ oCenterX .~ 0
+  oModify cab $ oTopY .~ 4.25
+  oShowWith cab $ adjustDuration (*0.33) . oDraw
+  wait 0.5
   
   -- Este bloque genera dos listas con los demás objetos de texto (SVGs) que serán utilizados en la escena.
   
@@ -35,7 +35,7 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
 
   texts4 <- mapM oNew [ e7p0, e7p1, e7p2, e7p3, e7p4 ]
 
-  texts5 <- mapM oNew [ p8p0, p8p1, p8p2, p8p3 , p9p0, p9p1 , p10p0, p10p1, p10p2, p10p3, p10p4 ]
+  texts5 <- mapM oNew [ p8p0, p8p1, p8p2, p8p3, p9p0, p9p1, p10p0, p10p1, p10p2, p10p3, p10p4 ]
 
   -- Este bloque describe lo que sucederá en la escena con los demás objetos de texto.
 
@@ -52,66 +52,66 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
 
   wait 1
 
---  forM_ (zip5 texts2 leftXs2 topYs2 durationFunctions2 waitDurations2) $    -- Creamos una lista de 5-tuplas a partir de las
---    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
---    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
---    oModify obj $ oTopY .~ (yPos - 0.5)                                        -- modificamos la posición vertical del objeto;
---    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
---    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
---
---  forM_ texts2 $
---    \obj -> fork $ do
---    oHideWith obj oFadeOut
---
---  wait 1
---
---  cab' <- oNew c1l2
---  oModify cab' $ oCenterX .~ 0
---  oModify cab' $ oTopY .~ 3.5
---  oShowWith cab' $ adjustDuration (*0.5) . oDraw
---  wait 0.5
---
---  forM_ (zip5 texts3 leftXs3 topYs3 durationFunctions3 waitDurations3) $    -- Creamos una lista de 5-tuplas a partir de las
---    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
---    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
---    oModify obj $ oTopY .~ (yPos - 0.25)                                        -- modificamos la posición vertical del objeto;
---    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
---    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
---
---    wait 1
---
---  forM_ texts3 $
---    \obj -> fork $ do
---    oHideWith obj oFadeOut
---
---  wait 1
---
---  forM_ (zip5 texts4 leftXs4 topYs4 durationFunctions4 waitDurations4) $    -- Creamos una lista de 5-tuplas a partir de las
---    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
---    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
---    oModify obj $ oTopY .~ (yPos - 0.25)                                        -- modificamos la posición vertical del objeto;
---    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
---    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
---
---  forM_ texts4 $
---    \obj -> fork $ do
---    oHideWith obj oFadeOut
---
---  do fork $ oHideWith cab' oFadeOut
---  oHideWith cab oFadeOut
---
---  wait 1
---
---  forM_ (zip5 texts5 leftXs5 topYs5 durationFunctions5 waitDurations5) $    -- Creamos una lista de 5-tuplas a partir de las
---    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
---    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
---    oModify obj $ oTopY .~ (yPos - 0.25)                                        -- modificamos la posición vertical del objeto;
---    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
---    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
---
---  forM_ texts5 $
---    \obj -> fork $ do
---    oHideWith obj oFadeOut
+  forM_ (zip5 texts2 leftXs2 topYs2 durationFunctions2 waitDurations2) $    -- Creamos una lista de 5-tuplas a partir de las
+    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
+    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
+    oModify obj $ oTopY .~ (yPos - 0.5)                                        -- modificamos la posición vertical del objeto;
+    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
+    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
+
+  forM_ texts2 $
+    \obj -> fork $ do
+    oHideWith obj oFadeOut
+
+  wait 1
+
+  cab' <- oNew c1l2
+  oModify cab' $ oCenterX .~ 0
+  oModify cab' $ oTopY .~ 3.5
+  oShowWith cab' $ adjustDuration (*0.6) . oDraw
+  wait 0.5
+
+  forM_ (zip5 texts3 leftXs3 topYs3 durationFunctions3 waitDurations3) $    -- Creamos una lista de 5-tuplas a partir de las
+    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
+    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
+    oModify obj $ oTopY .~ (yPos - 0.25)                                        -- modificamos la posición vertical del objeto;
+    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
+    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
+
+    wait 1
+
+  forM_ texts3 $
+    \obj -> fork $ do
+    oHideWith obj oFadeOut
+
+  wait 1
+
+  forM_ (zip5 texts4 leftXs4 topYs4 durationFunctions4 waitDurations4) $    -- Creamos una lista de 5-tuplas a partir de las
+    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
+    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
+    oModify obj $ oTopY .~ (yPos - 0.25)                                        -- modificamos la posición vertical del objeto;
+    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
+    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
+
+  forM_ texts4 $
+    \obj -> fork $ do
+    oHideWith obj oFadeOut
+
+  do fork $ oHideWith cab' oFadeOut
+  oHideWith cab oFadeOut
+
+  wait 1
+
+  forM_ (zip5 texts5 leftXs5 topYs5 durationFunctions5 waitDurations5) $    -- Creamos una lista de 5-tuplas a partir de las
+    \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
+    oModify obj $ oLeftX .~ xPos                                       -- modificamos la posición horizontal del objeto;
+    oModify obj $ oTopY .~ (yPos - 0.25)                                        -- modificamos la posición vertical del objeto;
+    oShowWith obj $ adjustDuration dFunc . oDraw                       -- dibujamos el objeto ajustando la velocidad;
+    wait wDur                                                          -- esperamos una cantidad indicada de tiempo.
+
+  forM_ texts5 $
+    \obj -> fork $ do
+    oHideWith obj oFadeOut
 
 
 -----------------------------------------------------------------------------
@@ -125,10 +125,10 @@ topYs1 :: [Double]
 topYs1 = [3.5, 3.5, 3.5, 2.5, 0.75, 0.75, 0.85]
 
 durationFunctions1 :: [(Duration -> Duration)]
-durationFunctions1 = [(*0.3), (*0.33), (*0.5), (*0.5), (*0.5), (*0.5), (*0.3), (*0.33), (*0.33)]
+durationFunctions1 = [(*0.3), (*0.33), (*0.4), (*0.5), (*0.3), (*0.33), (*0.4) ]
 
 waitDurations1 :: [Double]
-waitDurations1 = [0.5, 0, 0, 0.25, 0, 0.5, 0, 0.2, 2.5]
+waitDurations1 = [0.5, 0, 0, 0.25, 0.5, 0.5, 2.5]
 
 leftXs2 :: [Double]
 leftXs2 = [-7.75, -5.5, -7.75, -7.75, -7.75, -7.75, -7.75, -7.75, -7.75]
@@ -140,7 +140,7 @@ durationFunctions2 :: [(Duration -> Duration)]
 durationFunctions2 = [(*0.3), (*0.33), (*0.5), (*0.5), (*0.5), (*0.33), (*0.33), (*0.33), (*0.33)]
 
 waitDurations2 :: [Double]
-waitDurations2 = [0.5, 0, 0, 0, 0, 0.5, 0, 0.5, 2.5]
+waitDurations2 = [0.5, 0, 0, 0, 0.25, 0.5, 0.25, 0.5, 2.5]
 
 leftXs3 :: [Double]
 leftXs3 = [-7.75, -5.4, -7.75, -7.75, -7.75, -3.15, -3.15, -1.05, 0]
@@ -152,7 +152,7 @@ durationFunctions3 :: [(Duration -> Duration)]
 durationFunctions3 = [(*0.3), (*0.3), (*0.33), (*0.33), (*0.5), (*0.5), (*0.3), (*0.3)]
 
 waitDurations3 :: [Double]
-waitDurations3 = [0.5, 0.2, 0, 0, 0, 0, 0, 2.5]
+waitDurations3 = [0.5, 0.1, 0, 0, 0, 0, 0, 2.5]
 
 leftXs4 :: [Double]
 leftXs4 = [-7.75, -5.5, -2.75, -7.75, -3.5, -7.75, -7.75, -7.75, -7.75]
@@ -176,7 +176,7 @@ durationFunctions5 :: [(Duration -> Duration)]
 durationFunctions5 = [(*0.3), (*0.33), (*0.33), (*0.5), (*0.3), (*0.33), (*0.3), (*0.33), (*0.33), (*0.5), (*0.33)]
 
 waitDurations5 :: [Double]
-waitDurations5 = [0.5, 0, 0, 2.5, 0.5, 0, 0.5, 0, 0, 0.5, 2.5]
+waitDurations5 = [0.5, 0, 0, 1, 0.5, 1, 0.5, 0, 0, 0.5, 2.5]
 
 
 ------------------------------------------------------------------------------------------------------------------
@@ -296,7 +296,7 @@ e6p7 = split [180..200] ejercicio6
 ejercicio7 :: SVG    -- Definimos el SVG del primer ejercicio con los atributos deseados.
 ejercicio7 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
             withStrokeWidth 0 $ withFillOpacity 7 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
-                latexCfg myTexConfig "Ejercicio 1.7 Demuestra que $\\Gamma$ es una base ortogonal de $V$ si, y sólo si, $$\\vec{v} = \\sum_{i=1}^k \\frac{\\langle \\vec{v}, \\vec{g}_i \\rangle}{\\langle \\vec{g}_i, \\vec{g}_i \\rangle} \\vec{g}_i \\quad \\forall \\vec{v}\\in V.$$ Más aún, demuestra que, en este caso, $$ \\bigg \\langle \\frac{\\langle \\vec{v}, \\vec{g}_i \\rangle}{\\langle \\vec{g}_i, \\vec{g}_i \\rangle} \\vec{g}_i, \\frac{\\langle \\vec{v}, \\vec{g}_j \\rangle}{\\langle \\vec{g}_j, \\vec{g}_j \\rangle} \\vec{g}_j \\bigg \\rangle = 0 \\ \\ \\text{si} \\ i\\neq j.$$"
+                latexCfg myTexConfig "Ejercicio 1.7 Demuestra que $\\Gamma$ es una base ortogonal de $V$ si, y sólo si, $$\\vec{v} = \\sum_{i=1}^k \\frac{\\langle \\vec{v}, \\vec{g}_i \\rangle}{\\langle \\vec{g}_i, \\vec{g}_i \\rangle} \\vec{g}_i \\quad \\forall \\ \\vec{v}\\in V.$$ Más aún, demuestra que, en este caso, $$ \\bigg \\langle \\frac{\\langle \\vec{v}, \\vec{g}_i \\rangle}{\\langle \\vec{g}_i, \\vec{g}_i \\rangle} \\vec{g}_i, \\frac{\\langle \\vec{v}, \\vec{g}_j \\rangle}{\\langle \\vec{g}_j, \\vec{g}_j \\rangle} \\vec{g}_j \\bigg \\rangle = 0 \\ \\ \\text{si} \\ i\\neq j.$$"
 
 e7p0 :: SVG
 e7p0 = split [0..11] ejercicio7       -- Separamos la primera línea del ejercicio.
