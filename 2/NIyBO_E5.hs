@@ -27,7 +27,7 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
   
   -- Este bloque genera dos listas con los demás objetos de texto (SVGs) que serán utilizados en la escena.
   
-  texts1 <- mapM oNew [ e1p0, e1p1, e2p0, e2p1, e2p2, e2p3, e2p4, e2p5, e2p6, e3p0, e3p1 ]
+  texts1 <- mapM oNew [ e1p0, e1p1, e2p0, e2p1, e3p0, e3p1 ]
 
 --  texts2 <- mapM oNew [ e3p0, e3p1, e3p2, e4p0, e4p1, e5p0, e5p1 ]
 
@@ -116,11 +116,8 @@ e1p6 :: SVG
 e1p6 = split [82..200] ejercicio1
 
 ejercicio2 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
-ejercicio2 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
-ejercicio2 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
-ejercicio2 = withSubglyphs [0..11] (withStrokeColorPixel miAzul) $ withSubglyphs [0..11] (withFillColorPixel miAzul) $
             withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
-                latex "Ejercicio 2.2 Una \\emph{métrica} o \\emph{función de distancia} en un conjunto $X$ es una función $f(\\cdot,\\cdot):X\\times X\\to [0,\\infty)$ que cumple las siguientes propiedades: \\hfill \\break (i) $d(x,y) = 0$ si, y sólo si, $x=y$; \\hfill \\break \\break (ii) $d(x,y) = d(y,x)$ para cualesquiera $x,y\\in X$; \\hfill \\break \\break (iii) $d(x,y) \\leq d(x,z) + d(z,y)$ para cualesquiera $x,y,z\\in X$. \\hfill \\break Demuestra que si $(V,K)$ es un espacio vectorial con norma $||\\cdot||:V\\to\\mathbb{R}$, entonces la función dada por $$d(\\vec{x},\\vec{y}) = ||\\vec{x}-\\vec{y}|| \\quad \\forall \\ \\vec{x}, \\vec{y}\\in V$$ es una métrica en $V$. Por ende, toda norma \emph{induce} una métrica y, en particular, todo producto escalar positivo definido induce una métrica; sin embargo, existen métricas que no son inducidas por normas ni productos escalares."
+                latexCfg myTexConfig "Ejercicio 2.2 Una \\emph{métrica} o \\emph{función de distancia} en un conjunto $X$ es una función $f(\\cdot,\\cdot):X\\times X\\to [0,\\infty)$ que cumple las siguientes propiedades: \\hfill \\break (i) $d(x,y) = 0$ si, y sólo si, $x=y$; \\hfill \\break \\break (ii) $d(x,y) = d(y,x)$ para cualesquiera $x,y\\in X$; \\hfill \\break \\break (iii) $d(x,y) \\leq d(x,z) + d(z,y)$ para cualesquiera $x,y,z\\in X$. \\hfill \\break Demuestra que si $(V,K)$ es un espacio vectorial con norma $||\\cdot||:V\\to\\mathbb{R}$, entonces la función dada por $$d(\\vec{x},\\vec{y}) = ||\\vec{x}-\\vec{y}|| \\quad \\forall \\ \\vec{x}, \\vec{y}\\in V$$ es una métrica en $V$. Por ende, toda norma \\emph{induce} una métrica y, en particular, todo producto escalar positivo definido induce una métrica; sin embargo, existen métricas que no son inducidas por normas ni productos escalares."
 
 e2p0 :: SVG
 e2p0 = split [0..11] ejercicio2
