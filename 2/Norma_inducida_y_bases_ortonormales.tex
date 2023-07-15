@@ -163,13 +163,13 @@ Considerando que la serie de videos ``Espacios vectoriales con producto escalar'
 
 Una de las principales aplicaciones de los vectores es en el modelado de fuerzas físicas. Por ejemplo, supongamos que podemos colocar una caja sobre una superficie sin fricción. Imaginemos primero que empujamos la caja hacia el frente con una fuerza, que llamaremos $\vec{u}$, y luego hacia un lado con una fuerza mayor, que llamaremos $\vec{v}$. Observemos el desplazamiento obtenido después de haber aplicado estas dos fuerzas. Ahora imaginemos que desde el mismo punto de partida empujamos nuestra caja hacia el mismo lado con la misma fuerza $\vec{v}$ \emph{antes} de empujarla hacia el frente con fuerza $\vec{u}$. Notemos que el desplazamiento que obtenemos es el mismo, a pesar de haber aplicado las fuerzas en diferente orden. Es decir, al empujar la caja en las mismas direcciones y con las mismas fuerzas en cada dirección obtenemos en el mismo desplazamiento neto, sin importar el orden de los empujes. La Ley del Paralelogramo no es más que una generalización de esta observación, en la que las fuerzas puedan tener la dirección que sea, además de poder ser arbitrariamente grandes o pequeñas. Más aún, el axioma de conmutatividad de la suma vectorial es simplemente una \emph{abstracción} de esta propiedad a cualquier espacio vectorial. Así, vemos que a veces es útil pensar en vectores como fuerzas, pues de esta forma algunas de sus propiedades parecen más intuitivas. 
 
-Dado que un aumento o disminución de fuerza implica un respectivo aumento o disminución de desplazamiento, y vice versa, visualmente resulta natural asociar la longitud de la flecha que representa a un vector con la \emph{magnitud} de la fuerza que está representando dicho vector. Más generalmente, podemos pensar que los vectores mismos tienen una magnitud que, intuitivamente, nos dice qué tan ``cerca'' o ``lejos'' están del vector nulo del espacio en comparación con los vectores del subespacio que generan, o incluso con los vectores de todo el espacio, sin importar las direcciones. En aplicaciones de los vectores distintas del modelado de fuerzas, las magnitudes de estos se pueden interpretar de otras formas pero, para poder hacer uso de todas estas interpretaciones y aprovechar la intuición que nos brindan, necesitamos caracterizar las magnitudes de los vectores de un espacio vectorial de alguna forma.
+Dado que un aumento o disminución de fuerza implica un respectivo aumento o disminución de desplazamiento, y vice versa, visualmente resulta natural asociar la longitud de la flecha que representa a un vector con la \emph{magnitud} de la fuerza que está representando dicho vector. Más generalmente, podemos pensar que los vectores mismos tienen una magnitud que, intuitivamente, nos dice qué tan ``cerca'' o ``lejos'' están del vector nulo del espacio en comparación con los vectores del subespacio que generan, o incluso con los vectores de todo el espacio, sin importar las direcciones. En aplicaciones de los vectores distintas del modelado de fuerzas, las magnitudes de estos se pueden interpretar de otras formas pero, para poder hacer uso de todas estas interpretaciones y aprovechar la intuición que nos brindan, es necesario caracterizar las magnitudes de los vectores de un espacio vectorial.
 
 \subsection{Definición de norma a partir de observaciones geométricas}
 
 %Por definición, \emph{todos} los espacios vectoriales deben tener una operación llamada \emph{suma} o \emph{adición vectorial} y otra llamada \emph{multiplicación de un vector por un escalar} o, simplemente, \emph{reescalamiento}\footnote{Podríamos aprovechar la mención de ambas operaciones para implícitamente introducir su interpretación geométrica en el plano real y complejo, siguiendo las notas del curso.}. Por ello, decimos que estas son las operaciones \emph{esenciales} de los espacios vectoriales. Sin embargo, puede que un espacio vectorial tenga además \emph{otras} operaciones que introduzcan \emph{nuevas} nociones en el espacio como el producto escalar, el cual introduce las nociones de ortogonalidad y proyección vectorial, como vimos en el video anterior.
 
-La caracterización de las magnitudes de los vectores en un espacio vectorial se logra introduciendo una nueva operación llamada \emph{norma}, que a cada vector del espacio le asigna una cantidad específica para representar el valor de su magnitud. 
+La caracterización de las magnitudes de vectores en un espacio vectorial se logra introduciendo una nueva operación llamada \emph{norma}, que a cada vector del espacio le asigna una cantidad específica para representar el valor de su magnitud. 
 \begin{align*}
      & & &\quad \text{Norma}& \\
      & & &||\cdot||:V\to &
@@ -177,7 +177,7 @@ La caracterización de las magnitudes de los vectores en un espacio vectorial se
 Si volvemos a considerar vectores representados geométricamente como flechas y a asociar la longitud de cada flecha con la magnitud del vector correspondiente, entonces la norma puede definirse mediante sencillas observaciones geométricas. Por ejemplo, como no existen flechas con ``longitud negativa'', la cantidad asignada por la norma a cada vector será un número real no negativo. Además, si sumamos un vector consigo mismo \textemdash o, equivalentemente, si reescalamos a un vector por $2$\textemdash, la magnitud del vector resultante es el doble que la del vector original. Lo mismo ocurre si, en vez de reescalar por $2$, reescalamos por $-2$ pues, aunque el vector invierta el sentido en el cual apunta, su magnitud nuevamente es el doble de la original. Más generalmente, si multiplicamos a un vector por un escalar arbitrario, la magnitud del vector resultante es igual a la magnitud del vector original por el \emph{valor absoluto} de ese escalar \textemdash incluso cuando éste sea un número complejo\footnote{Escribir ``*Ver la Pregunta 2.? al final del video.'' y cambiar $K$ momentáneamente por $\mathbb{C}$.}. Esto nos da la primera propiedad de la norma, conocida como \emph{escalabilidad absoluta}. %La primera es que el vector nulo del espacio tiene longitud cero, y se distingue por ser el \emph{único} vector con esta propiedad. Por lo tanto, la norma de un vector arbitrario del espacio es cero si, y sólo si, dicho vector es igual al vector nulo del espacio. Esta propiedad de la norma se conoce como \emph{distinción del vector nulo}.
 \begin{align*}
      &\quad \quad \quad \quad \quad \text{Norma}& \\
-     &\quad \quad \quad ||\cdot||:V\to \mathbb{R}_{\ge0}& \\
+     &\quad \quad \quad ||\cdot||:V\to \mathbb{R}^{\ge0}& \\
      \\
      \forall \ \vec{u},\vec{v}\in V, \ \forall \ a\in K, \\
     \\
@@ -186,7 +186,7 @@ Si volvemos a considerar vectores representados geométricamente como flechas y 
 Notemos que el vector nulo del espacio tiene magnitud cero; más aún, se distingue por ser el \emph{único} vector con esta propiedad. Por lo tanto, el que un vector arbitrario tenga norma cero equivale a que dicho vector sea el vector nulo del espacio. Esta es la segunda propiedad de la norma y se conoce como \emph{distinción del vector nulo}. %Ahora, observemos que si sumamos un vector consigo mismo \textemdash o, equivalentemente, si reescalamos a un vector por $2$\textemdash, la longitud del vector resultante es el doble que la del vector original. Lo mismo ocurre si, en vez de reescalar por $2$, reescalamos por $-2$ pues, aunque el vector invierta el sentido en el cual apunta, su longitud es nuevamente el doble de la original. Más generalmente, la longitud de un vector que ha sido multiplicado por un escalar arbitrario es igual a la longitud del vector original por el \emph{valor absoluto} de ese escalar. Esto nos da la siguiente propiedad de la norma, conocida como \emph{escalabilidad absoluta}.
 \begin{align*}
      &\quad \quad \quad \quad \quad \text{Norma}& \\
-     &\quad \quad \quad ||\cdot||:V\to \mathbb{R}_{\ge0}& \\
+     &\quad \quad \quad ||\cdot||:V\to \mathbb{R}^{\ge0}& \\
      \\
      \forall \ \vec{u},\vec{v}\in V, \ \forall \ a\in K, \\
     \\
@@ -197,7 +197,7 @@ Notemos que el vector nulo del espacio tiene magnitud cero; más aún, se distin
 Por último, observemos que, si consideramos la suma de dos vectores, entonces la magnitud del resultado de la suma debe ser menor o igual a la suma de las magnitudes de los vectores originales. Esto es fácil de ver si consideramos nuevamente la Ley del Paralelogramo y nos enfocamos en cualquiera de los dos triángulos en los que se divide el paralelogramo pues, en estos términos, la observación que acabamos de hacer sobre magnitudes de vectores equivale a afirmar que la suma de las longitudes de dos lados de un triángulo siempre debe ser mayor o igual a la del tercer lado. Por ello, esta propiedad de la norma se conoce como la \emph{desigualdad del triángulo}.
 \begin{align*}
      &\quad \quad \quad \quad \quad \text{Norma}& \\
-     &\quad \quad \quad ||\cdot||:V\to \mathbb{R}_{\ge0}& \\
+     &\quad \quad \quad ||\cdot||:V\to \mathbb{R}^{\ge0}& \\
      \\
      \forall \ \vec{u}, \vec{v}\in V, \ \forall \ a\in K, \\
     \\
@@ -277,13 +277,13 @@ Volvamos ahora a la ecuación anterior\footnote{Borrar los dos renglones de abaj
 \[
     \vec{v}= ||\vec{v}|| \hat{v}
 \] 
-Esta igualdad nos dice que, en un espacio normado, cualquier vector no nulo $\vec{v}$ es igual al vector normal con su misma dirección y sentido reescalado por su norma. Recordando que la norma nos ayuda a comparar magnitudes entre vectores con relación al vector nulo, vemos que los vectores normales sirven como una especie de ``unidad'' en esta escala, por lo que también se les conoce como vectores \emph{unitarios}\footnote{Escribir ``o \emph{unitario}''.}. 
+Esta igualdad nos dice que, en un espacio normado, cualquier vector no nulo $\vec{v}$ es igual al vector normal con su misma dirección y sentido reescalado por su norma. Recordando que la norma nos ayuda a comparar magnitudes entre vectores, vemos que los vectores normales sirven como una especie de ``unidad'' en esta escala, por lo que también se les conoce como vectores \emph{unitarios}\footnote{Poner llaves abajo de $\hat{v}$ y escribir ``vector \emph{normal} o \emph{unitario}''.}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% TERCERA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Norma inducida por un producto escalar} % A partir de cualquier norma se puede definir una \emph{métrica inducida}, lo que nos da una noción de \emph{distancia} entre vectores\footnote{Escribir ``Ver el Ejercicio 2.2.'' como nota al pie.}, aunque esto vas más allá del enfoque de esta serie de videos.
 
-Hasta ahora, en esta serie de videos hemos visto que tanto la norma como el producto escalar son operaciones positivo definidas que distinguen al vector nulo\footnote{Escribir ``Ver el Ejericicio 1.2 del video \emph{Ortogonalización y ortonormalización (Teorema de Gram-Schmidt)} de Animathica.'' como nota al pie.}. Sin embargo, estas no son las únicas relaciones existentes entre estas dos operaciones. Observemos lo siguiente: supongamos que tenemos un espacio vectorial con producto escalar y que definimos una función de la siguiente manera
+Hasta ahora, en esta serie de videos hemos visto que tanto la norma como el producto escalar son operaciones positivo definidas que distinguen al vector nulo\footnote{Escribir ``Ver el Ejericicio 1.2 del video \emph{Ortogonalización y ortonormalización (Teorema de Gram-Schmidt)} de Animathica.'' como nota al pie.}. Sin embargo, estas no son las únicas relaciones existentes entre estas dos operaciones, como veremos a continuación. Supongamos que tenemos un espacio vectorial con producto escalar y que definimos una función de la siguiente manera
 
 \begin{align*}
     & &(V,K) \\
@@ -293,7 +293,7 @@ Hasta ahora, en esta serie de videos hemos visto que tanto la norma como el prod
     ||\vec{v}||:=\sqrt{\langle \vec{v} , \vec{v} \rangle} \quad \forall \ \vec{v}\in V
 \end{align*}
 
-Entonces, de las propiedades del producto escalar se sigue que nuestra función asigna a cada vector del espacio un número real no negativo y, además, que cumple las siguientes propiedades
+\noindent Entonces, de las propiedades del producto escalar se sigue que nuestra función asigna a cada vector del espacio un número real no negativo y, además, que cumple las siguientes propiedades
 
 \begin{align*}
     & &(V,K) \\
@@ -302,7 +302,7 @@ Entonces, de las propiedades del producto escalar se sigue que nuestra función 
     \\
     ||\vec{v}||:=\sqrt{\langle \vec{v} , \vec{v} \rangle} \quad \forall \ \vec{v}\in V\\
     \\
-    ||\cdot||:V\to K\\
+    ||\cdot||:V\to \mathbb{R}^{\ge0}\\
     \\
     \forall \ \vec{u}\in V, \ \forall \ a\in K,\\
     \\
@@ -311,7 +311,7 @@ Entonces, de las propiedades del producto escalar se sigue que nuestra función 
     ||\vec{u}|| = 0 \iff \sqrt{\langle \vec{u} , \vec{u} \rangle} = 0 \iff \langle \vec{u} , \vec{u} \rangle = 0 \iff \vec{u} = \vec{0}
 \end{align*}
 
-\noindent Es decir, nuestra función ya cumple las propiedades de norma de escalabilidad absoluta y distinción del vector nulo. Más aún, se puede demostrar que también cumple la desigualdad del triángulo, por lo que la función que hemos definido es una norma. Para completar esta demostración tendríamos que hablar sobre la llamada \emph{desigualdad de Cauchy-Schwartz}\footnote{Colocar referencias de desigualdad de Cauchy-Schwarz y la desigualdad del triángulo en la descripción.}, pero será mejor dejar esto para otro video. Lo importante por ahora es observar que, en general, siempre que tengamos un espacio vectorial con un producto escalar, podremos definir una norma en ese espacio \emph{a partir} de ese producto escalar. A esto se le conoce como una \emph{norma inducida por un producto escalar}. A pesar de que no todas las normas en un espacio vectorial tengan que ser inducidas por un producto escalar, nos enfocaremos principalmente en este tipo de normas durante el resto de la serie\footnote{Podríamos colocar referencias a normas no inducidas por productos escalares en la descripción del video y añadir una nota al pie que diga ``Ver referencias [N-1], [N-2], etc. en la descripción del video sobre normas no inducidas por productos escalares.''.}.
+\noindent Es decir, nuestra función ya cumple las propiedades de escalabilidad absoluta y distinción del vector nulo. Más aún, se puede demostrar que también cumple la desigualdad del triángulo, por lo que la función que hemos definido es una norma. Para completar esta demostración tendríamos que hablar sobre la llamada \emph{desigualdad de Cauchy-Schwartz}\footnote{Colocar referencias de desigualdad de Cauchy-Schwarz y la desigualdad del triángulo en la descripción.}, pero será mejor dejar esto para otro video. Lo importante por ahora es observar que, en general, siempre que tengamos un espacio vectorial con un producto escalar, podremos definir una norma en ese espacio \emph{a partir} de ese producto escalar. A esto se le conoce como una \emph{norma inducida por un producto escalar}. A pesar de que no todas las normas en un espacio vectorial tengan que ser inducidas por un producto escalar, nos enfocaremos principalmente en este tipo de normas durante el resto de la serie\footnote{Podríamos colocar referencias a normas no inducidas por productos escalares en la descripción del video y añadir una nota al pie que diga ``Ver referencias [N-1], [N-2], etc. en la descripción del video sobre normas no inducidas por productos escalares.''.}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% CUARTA ESCENA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -331,7 +331,7 @@ Observemos que, considerando la norma inducida, podemos reescribir esta expresi�
     \vec{u},\vec{v}\in V, \vec{v}&\neq \vec{0} \\
     \frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v} &= \frac{\langle \vec{u} , \vec{v} \rangle}{\big(\sqrt{\langle \vec{v} , \vec{v} \rangle}\big)^2} \vec{v} \\ \\
                                                                                         &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||^2} \vec{v} \\ \\
-                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \bigg( \frac{1}{||\vec{v}||} \vec{v} \bigg) \\ \\
+                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \frac{1}{||\vec{v}||} \vec{v} \\ \\
                                                                                         &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}
 \end{align*}
 Es decir, la componente del vector $\vec{u}$ que vive en el subespacio generado por el vector no nulo $\vec{v}$ se obtiene reescalando al vector unitario en la misma dirección y sentido que $\vec{v}$ por el producto escalar de $\vec{u}$ con $\vec{v}$ entre la norma de $\vec{v}$.
@@ -362,7 +362,7 @@ por lo que podemos caracterizar a un conjunto ortonormal como sigue:
     \text{N}=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal} si} \ \langle \vec{n}_i , \vec{n}_j \rangle = \begin{cases} 1 &\text{si } j=i, \\ 0 &\text{si } j\neq i. \end{cases}
 \]
 
-En particular, si una base cumple con ser un conjunto ortonormal, decimos que es una \emph{base ortonormal}. Dado que se puede demostrar que todo conjunto ortonormal finito es linealmente independiente\footnote{Escribir ``*Ver Ejercicio 2.2.'' como nota al pie.}, tenemos que un conjunto $N$ es una base ortonormal de $V$ si se cumplen las condiciones siguientes\footnote{Escribir ``*Ver Ejercicio 2.3.''.}. 
+\noindent En particular, si una base cumple con ser un conjunto ortonormal, decimos que es una \emph{base ortonormal}. Dado que se puede demostrar que todo conjunto ortonormal finito es linealmente independiente\footnote{Escribir ``*Ver Ejercicio 2.2.'' como nota al pie.}, tenemos que un conjunto $N$ es una base ortonormal de $V$ si se cumplen las condiciones siguientes\footnote{Escribir ``*Ver Ejercicio 2.3.''.}. 
 \begin{align*}
     N=\{\vec{n}_1,...,\vec{n}_k\} \text{ es una base \emph{ortonormal} de } V \text{ si}& & &\\
     \langle N \rangle = V, \quad \langle \vec{n}_i , \vec{n}_j \rangle = \begin{cases} 1 &\text{si } j=i, \\ 0 &\text{si } j\neq i. \end{cases}
@@ -383,12 +383,12 @@ En el siguiente video, veremos cómo podemos obtener conjuntos ortogonales y ort
 %    Sea $V$ un espacio vectorial con producto escalar.
 %\end{center}
 
-Ejercicio 2.1 Sea $V$ un espacio vectorial con norma $||\cdot||:V\to \mathbb{R}_{\geq0}$. Para $\vec{u}\in V$, demuestra que \[
+Ejercicio 2.1 Sea $V$ un espacio vectorial con norma $||\cdot||:V\to \mathbb{R}^{\geq0}$. Para $\vec{u}\in V$, demuestra que \[
     \vec{u} \neq \vec{0} \implies ||\vec{u}|| > 0,
 \] 
 es decir, que la norma es una operación positivo definida. Adicionalmente, demuestra que la implicación contraria también se verifica. \\
 
-%Ejercicio 2.2 Una \emph{métrica} o \emph{función de distancia} en un conjunto $X$ es una función $d(\cdot, \cdot ):X\times X\to \mathbb{R}_{\geq0}$ que cumple las siguientes propiedades:
+%Ejercicio 2.2 Una \emph{métrica} o \emph{función de distancia} en un conjunto $X$ es una función $d(\cdot, \cdot ):X\times X\to \mathbb{R}^{\geq0}$ que cumple las siguientes propiedades:
 %\begin{enumerate}[label=(\roman*)]
 %    \item $d(x,y)=0$ si, y sólo si, $x=y$;
 %
@@ -397,14 +397,12 @@ es decir, que la norma es una operación positivo definida. Adicionalmente, demu
 %    \item $d(x,y) \le d(x,z) + d(z,y)$ para cualesquiera $x,y,z\in X$.
 %\end{enumerate}
 %
-%\noindent Demuestra que la función $d(\cdot, \cdot ):X\times X\to \mathbb{R}_{\geq0}$ dada por $d(\vec{u},\vec{v})=||\vec{u}-\vec{v}||$ para todo $\vec{u},\vec{v}\in V$ es una métrica en $V$. Por ende, toda norma \emph{induce} una métrica y, en particular, todo producto escalar positivo definido induce una métrica; sin embargo, existen métricas que no son inducidas por normas ni productos escalares. \\
+%\noindent Demuestra que la función $d(\cdot, \cdot ):X\times X\to \mathbb{R}^{\geq0}$ dada por $d(\vec{u},\vec{v})=||\vec{u}-\vec{v}||$ para todo $\vec{u},\vec{v}\in V$ es una métrica en $V$. Por ende, toda norma \emph{induce} una métrica y, en particular, todo producto escalar positivo definido induce una métrica; sin embargo, existen métricas que no son inducidas por normas ni productos escalares. \\
 
 Ejercicio 2.2 Demuestra que todo conjunto ortonormal finito es linealmente independiente. \\
 
 \begin{center}
-    Sea $(V,K)$ un espacio vectorial con producto escalar $\langle \cdot , \cdot \rangle:V\times V\to K$ y norma inducida.
-
-    Sean $\text{dim}(V)<\infty$ y $N=\{\hat{n}_1, \hat{n}_2, \dots, \hat{n}_k\}\subseteq V$.
+    Sean $(V,K)$ un espacio vectorial con producto escalar $\langle \cdot , \cdot \rangle:V\times V\to K$, $\text{dim}(V)<\infty$, y $N=\{\hat{n}_1, \hat{n}_2, \dots, \hat{n}_k\}\subseteq V$ considerando la norma inducida.
 \end{center}
 
 Ejercicio 2.3 Demuestra que las siguientes condiciones son equivalentes.
@@ -412,18 +410,15 @@ Ejercicio 2.3 Demuestra que las siguientes condiciones son equivalentes.
 
     \item $N$ es una base ortonormal de $V$.
 
-    \item $\langle N \rangle = V$ y $ \langle \vec{n}_i , \vec{n}_j \rangle = \begin{cases} 1 &\text{si } j=i, \\ 0 &\text{si } j\neq i. \end{cases}$
+    \item $\langle N \rangle = V$ y $ \langle \hat{n}_i , \hat{n}_j \rangle = \begin{cases} 1 &\text{si } j=i, \\ 0 &\text{si } j\neq i. \end{cases}$
 \end{enumerate}
 
 Ejercicio 2.4 Demuestra que $N=\{\hat{n}_1,...,\hat{n}_k\}$ es una base \emph{ortonormal} de $V$ si, y sólo si,
 \[
     \vec{v} = \sum_{i=1}^k \langle \vec{v} , \hat{n}_i \rangle \hat{n}_i \quad \forall \ \vec{v}\in V.
 \]
-Más aún, demuestra que, en este caso,
-\[
-    \big \langle \langle \vec{v} , \hat{n}_i \rangle \hat{n}_i, \langle \vec{v} , \vec{n}_j \rangle \vec{n}_j \big \rangle = 0 \ \ \text{si} \ \ i\neq j.
-\] 
+Más aún, demuestra que en este caso $\big \langle \langle \vec{v} , \hat{n}_i \rangle \hat{n}_i, \langle \vec{v} , \hat{n}_j \rangle \hat{n}_j \big \rangle = 0$ si $i\neq j$. 
 
-Pregunta 2.? ESCALABILIDAD ABSOLUTA CON ESCALARES DE VALOR ABSOLUTO UNO EN ESPACIOS REALES Y COMPLEJOS.
+Pregunta 2.5 Por la propiedad de \emph{escalabilidad absoluta} de la norma, multiplicar a un vector arbitrario por un escalar con valor absoluto $1$ deja invariante su norma. ¿Cómo se interpreta esto geométricamente en espacios vectoriales reales y complejos? (Sugerencia: Considera vectores de $\mathbb{R}^2$ multiplicados por escalares de $\{x\in \mathbb{R} \mid |x| = 1\}$ y vectores de $\mathbb{C}$ multiplicados por escalares de $\{z\in\mathbb{C} \mid |z|=1\}$. En cada caso, la multiplicación de vectores por escalares de valor absoluto 1 se interpreta como un tipo de operación geométrica bajo la cual la norma es invariante. ¿Cuáles son?)
 
 \end{document}
