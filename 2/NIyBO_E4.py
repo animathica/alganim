@@ -37,74 +37,17 @@ class SE1 (Scene):
 
 
       #--------------------------------------------Textos
-      texto_0 = MathTex(r" \vec{u},\vec{v}\in V, \vec{v}\neq \vec{0} ").shift(3*RIGHT + 2*UP).scale(0.6)
+      texto_0 = MathTex(r" \vec{u},\vec{v}\in V, \vec{v}\neq \vec{0}. ").shift(3*RIGHT + 2*UP).scale(0.6)
       texto_1 = MathTex(r"\frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v}").next_to(texto_0, DOWN).scale(0.6)
       texto_2 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{\big(\sqrt{\langle \vec{v} , \vec{v} \rangle}\big)^2} \vec{v} ").next_to(texto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
       texto_3 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||^2} \vec{v}").scale(0.6)
       texto_4 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \bigg( \frac{1}{||\vec{v}||} \vec{v} \bigg)").scale(0.6)
       texto_5 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}").scale(0.6)
-      texto_n = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}").next_to(texto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
+      texto_6 = MathTex(r"\vec{u},\hat{v}\in V, ||\hat{v}||= 1.").shift(3.175*RIGHT + 1.975*UP).scale(0.6)
+      uno = MathTex("1").scale(0.7).scale(0.8)
 
       texto0 = VGroup(texto_2, texto_3, texto_4, texto_5)\
        .arrange(DOWN, center=False, aligned_edge=LEFT)
-
-      texto_m = MathTex(r"= ",
-                        r"{",  # 1
-                        r"\langle",  # 2
-                        r"\vec{u}",  # 3
-                        r",",  # 4
-                        r"\vec{v}",  # 5
-                        r"\rangle",  # 6
-                        r"\over",  # 7
-                        r"||\vec{v}||",  # 8
-                        r"}",  # 9
-                        r"\hat{v}",  #10
-                        ).next_to(texto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
-
-      texto_o = MathTex(r"= ",
-                        r"{",  # 1
-                        r"\langle",  # 2
-                        r"\vec{u}",  # 3
-                        r",",  # 4
-                        r"\vec{v}",  # 5
-                        r"\rangle",  # 6
-                        r"\over",  # 7
-                        r"||\vec{v}||",  # 8
-                        r"}",  # 9
-                        r"\hat{v}",  #10
-                        ).next_to(texto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
-
-      texto_p = MathTex(r"= ",
-                        r"{",  # 1
-                        r"\langle",  # 2
-                        r"\vec{u}",  # 3
-                        r",",  # 4
-                        r"\vec{v}",  # 5
-                        r"\rangle",  # 6
-                        r"\over",  # 7
-                        r"||\vec{v}||",  # 8
-                        r"}",  # 9
-                        r"\hat{v}",  #10
-                        ).next_to(texto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
-
-      texto_q = MathTex(r"= ",
-                        r"{",  # 1
-                        r"\langle",  # 2
-                        r"\vec{u}",  # 3
-                        r",",  # 4
-                        r"\vec{v}",  # 5
-                        r"\rangle",  # 6
-                        r"\over",  # 7
-                        r"||\vec{v}||",  # 8
-                        r"}",  # 9
-                        r"\hat{v}",  #10
-                        ).next_to(texto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
-
-
-
-      texto_p[2:7].set_color(AMARILLO)
-      texto_q[8].set_color(AMARILLO)
-      texto_o[10].set_color(AMARILLO)
 
       #-------------------------------------------- Vectores u y v
       v = np.array([3, -1, 0])
@@ -137,13 +80,9 @@ class SE1 (Scene):
                                r"\vec{v}",  # 4
                                r"\rangle",  # 5
                                r"\over",  # 6
-                               r"\langle",  # 7
-                               r"\vec{v}",  # 8
-                               r",",  # 9
-                               r"\vec{v}",  # 10
-                               r"\rangle",  # 11
-                               r"}",  # 12
-                               r"\vec{v}",  # 13
+                               r"\langle \vec{v}, \vec{v} \rangle",  # 7
+                               r"}",  # 8
+                               r"\vec{v}",  # 9
                                ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
 
 
@@ -154,16 +93,22 @@ class SE1 (Scene):
                         r"\vec{v}",  # 4
                         r"\rangle",  # 5
                         r"\over",  # 6
-                        r"||", #7
-                        r"\vec{v}" #8
-                        r"||",  #9
-                        r"", #10
-                        r"", #11
-                        r"}",  # 12
-                        r"\hat{v}",  #13
+                        r"||\vec{v}||" #7
+                        r"}",  # 8
+                        r"\hat{v}",  #9
                         ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
 
-
+      label_d = MathTex(r"{",  # 0
+                        r"\langle",  # 1
+                        r"\vec{u}",  # 2
+                        r",",  # 3
+                        r"\vec{v}",  # 4
+                        r"\rangle",  # 5
+                        r"\over",  # 6
+                        r"1" #7
+                        r"}",  # 8
+                        r"\hat{v}",  #9
+                        ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
 
       grid = NumberPlane(x_range=[-10, 10, 1], y_range=[-9, 9, 1],
       background_line_style={
@@ -198,33 +143,11 @@ class SE1 (Scene):
           obj.become(new_dashedline)
 
       #-------------------------------------------- Animaciones
-      self.play(
-          Write(grid)
-      )
 
-      self.wait(2)
-      self.play(
-          Write(u_vect),
-          Write(u_label)
-      )
-      self.wait(1)
-      self.play(
-          Write(v_vect),
-          Write(v_label),
-      )
-
-      self.wait(2)
-      self.play(
-          Write(dashedline),
-          Write(proy_u_v_arrow),
-          FadeIn(label_proy_u_v[:]),
-          run_time=1
-      )
-
-      self.wait(2)
-
-      self.add_foreground_mobjects(texto_0)
-      self.play(Write(texto_0))
+      #self.add_foreground_mobjects(texto_0)
+      self.play(Write(texto_0[0][0:2]))
+      self.wait(0.5)
+      self.play(Write(texto_0[0][2:]))
       self.wait(0.5)
       self.add_foreground_mobjects(texto_1)
       self.play(Write(texto_1))
@@ -240,17 +163,59 @@ class SE1 (Scene):
       self.wait(0.5)
       self.add_foreground_mobjects(texto_5)
       self.play(Write(texto_5))
-      self.wait(3)
+      self.wait()
 
-      self.play( FadeOut(texto_2), FadeOut(texto_3),FadeOut(texto_4))
-      self.play(ReplacementTransform(texto_5,texto_n))
-      self.remove(texto_n)
-      self.add(texto_m)
-      self.play(ReplacementTransform(texto_m,texto_o))
-      self.play(ReplacementTransform(texto_o,texto_p))
-      self.play(ReplacementTransform(texto_p,texto_q))
+      self.play(
+          Write(grid)
+      )
+      self.play(
+          Write(u_vect),
+          Write(u_label)
+      )
+      self.play(
+          Write(v_vect),
+          Write(v_label),
+      )
+      self.play(
+          Write(dashedline),
+          Write(proy_u_v_arrow),
+          FadeIn(label_proy_u_v[:]),
+          run_time=1
+      )
 
-      self.play(ReplacementTransform(label_proy_u_v[7:12], label_c[7:12]), FadeOut(label_proy_u_v[12:]),FadeIn(label_c[12:]))
+      self.play(FadeOut(texto_2), FadeOut(texto_3), FadeOut(texto_4))
+      self.play(texto_5.animate.shift(2.95*UP+0.15*LEFT))
+      self.wait()
+
+      self.play(Indicate(texto_5[0][15:]), run_time=2.5)
+      self.play(Indicate(texto_5[0][1:8]), run_time=1.5)
+      self.play(Indicate(texto_5[0][9:15]))
+      self.wait()
+
+      self.play(ReplacementTransform(label_proy_u_v[7], label_c[7]),
+                ReplacementTransform(label_proy_u_v[9], label_c[8]))
+      self.wait()
+
+      self.play(ReplacementTransform(texto_0[0][3:5], texto_6[0][3:5]),
+                ReplacementTransform(texto_0[0][8:], texto_6[0][8:]),
+                #Cambiar longitud de la flecha v a 1.
+                )
+      self.wait()
+
+      uno.move_to(texto_5[0][9:15].get_center())
+      self.play(Transform(texto_5[0][9:15], uno),
+               ReplacementTransform(label_c[7], label_d[7])
+               )
+      self.wait()
+
+      self.play(
+               texto_5[0][8:10].animate.set_opacity(0),
+               label_proy_u_v[6].animate.set_opacity(0),
+               label_proy_u_v[0:6].animate.shift(0.25*DOWN),
+               texto_5[0][1:8].animate.shift(0.2*DOWN),
+               label_d[7].animate.set_opacity(0)
+               )
+      self.wait()
 
 
 class SE2(MovingCameraScene):

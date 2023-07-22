@@ -213,20 +213,20 @@ Usando las tres propiedades de la norma, se puede demostrar que ésta es una ope
 
 \section{Normalización y vectores normales/unitarios}
 
-Más adelante veremos la importancia que tienen los vectores con norma igual a uno, conocidos como vectores \emph{normales}. Por lo pronto, supongamos que en un espacio vectorial normado tenemos un vector no nulo, y lo queremos reescalar de tal forma que se convierta en un vector normal, pero sin cambiar su dirección ni su sentido. Por la propiedad de distinción del vector nulo, sabemos que la norma de nuestro vector es distinta de cero, por lo que tiene un inverso multiplicativo. Si reescalamos a nuestro vector por el inverso multiplicativo de su norma entonces, por la propiedad de escalabilidad absoluta, se sigue que el vector reescalado es normal.
+Más adelante veremos la importancia que tienen los vectores con norma igual a uno, conocidos como vectores \emph{normales}. Por lo pronto, supongamos que en un espacio vectorial normado tenemos un vector no nulo, y lo queremos reescalar de tal forma que se convierta en un vector normal, pero sin cambiar su dirección ni su sentido. Por la propiedad de distinción del vector nulo, sabemos que la norma de nuestro vector es un número real distinto de cero, por lo que tiene un inverso multiplicativo. Si reescalamos a nuestro vector por el inverso multiplicativo de su norma entonces, por la propiedad de escalabilidad absoluta de la norma y el hecho de que la norma es positivo definida, se sigue que la norma del vector reescalado es igual a uno. Es decir, obtenemos un vector normal.
 \[
-    \vec{v}\in V, \ \vec{v}\neq \vec{0} \Rightarrow ||\vec{v}||>0.
+    \vec{v}\in V, \ \vec{v}\neq \vec{0}
 \] 
 
 \[
 \frac{1}{||\vec{v}||} \vec{v}
 \] 
 \begin{align*}
-                \bigg|\bigg|\frac{1}{||\vec{v}||} \vec{v} \bigg|\bigg| &= \bigg| \frac{1}{||\vec{v}||} \bigg| \ ||\vec{v}|| \\ \\
-                                                                       &= \frac{1}{||\vec{v}||} ||\vec{v}|| \\ \\
+    \bigg|\bigg|\frac{1}{||\vec{v}||} \vec{v} \bigg|\bigg| &= \bigg| \frac{1}{||\vec{v}||} \bigg| \ ||\vec{v}|| \tag{escalabilidad absoluta} \\ \\
+                                                           &= \frac{1}{||\vec{v}||} ||\vec{v}|| \tag{Ejercicio 2.1} \\ \\
                                                                        &=1.
 \end{align*}
-\noindent Más aún, como la norma es positivo definida, entonces la norma de $\vec{v}$ es positiva, por lo que el vector resultante efectivamente apunta en la misma dirección y sentido que el vector original, ¡como queríamos! A los vectores normales, como el que acabamos de obtener, se les suele denotar de la siguiente manera\footnote{Escribir ``vector \emph{normal}'' a la derecha de $\hat{v}$.}: 
+\noindent Más aún, como la norma es positivo definida, entonces el inverso multiplicativo de la norma de $\vec{v}$ es positivo, por lo que el vector resultante efectivamente apunta en la misma dirección y sentido que el vector original, ¡como queríamos! A los vectores normales, como el que acabamos de obtener, se les suele denotar de la siguiente manera\footnote{Escribir ``vector \emph{normal}'' a la derecha de $\hat{v}$.}: 
 \[
     \vec{v}\in V, \ \vec{v}\neq \vec{0} \Rightarrow ||\vec{v}||>0.
 \] 
@@ -251,7 +251,7 @@ Decimos que un conjunto de vectores en un espacio normado es \emph{normal} si to
 \] 
 
 \[
-    \text{U}=\{\vec{u}_1,...,\vec{u}_k\}\subseteq V \ \text{es \emph{normal} si } ||\vec{u}_i|| = 1 \text{ para } 1\le i\le k.
+    U=\{\vec{u}_1,...,\vec{u}_k\}\subseteq V \ \text{es \emph{normal} si } ||\vec{u}_i|| = 1 \text{ para } 1\le i\le k.
 \]
 Notemos que, en un espacio normado, cualquier conjunto que \emph{no} contenga al vector nulo puede ser convertido en un conjunto normal, simplemente normalizando a cada uno de sus vectores:
 \[
@@ -263,7 +263,7 @@ Notemos que, en un espacio normado, cualquier conjunto que \emph{no} contenga al
 \] 
 
 \[
-    \text{U}=\{\vec{u}_1,...,\vec{u}_k\}\subseteq V \ \text{es \emph{normal} si } ||\vec{u}_i|| = 1 \text{ para } 1\le i\le k.
+    U=\{\vec{u}_1,...,\vec{u}_k\}\subseteq V \ \text{es \emph{normal} si } ||\vec{u}_i|| = 1 \text{ para } 1\le i\le k.
 \]
 
 \[
@@ -321,17 +321,17 @@ Hasta ahora, en esta serie de videos hemos visto que tanto la norma como el prod
 
 Ahora, volvamos a la expresión de la proyección vectorial de un vector $\vec{u}$ sobre un vector no nulo $\vec{v}$ que vimos al final del video anterior
 \[
-\vec{u},\vec{v}\in V, \ \vec{v}\neq \vec{0}
+\vec{u},\vec{v}\in V, \ \vec{v}\neq \vec{0}.
 \] 
 \[
 \frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v} 
 \] 
 Observemos que, considerando la norma inducida, podemos reescribir esta expresión como sigue:
 \begin{align*}
-    \vec{u},\vec{v}\in V, \vec{v}&\neq \vec{0} \\
+    \vec{u},\vec{v}\in V, \vec{v}&\neq \vec{0}. \\
     \frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v} &= \frac{\langle \vec{u} , \vec{v} \rangle}{\big(\sqrt{\langle \vec{v} , \vec{v} \rangle}\big)^2} \vec{v} \\ \\
                                                                                         &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||^2} \vec{v} \\ \\
-                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \frac{1}{||\vec{v}||} \vec{v} \\ \\
+                                                                                        &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \bigg( \frac{1}{||\vec{v}||} \vec{v} \bigg) \\ \\
                                                                                         &= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}
 \end{align*}
 Es decir, la componente del vector $\vec{u}$ que vive en el subespacio generado por el vector no nulo $\vec{v}$ se obtiene reescalando al vector unitario en la misma dirección y sentido que $\vec{v}$ por el producto escalar de $\vec{u}$ con $\vec{v}$ entre la norma de $\vec{v}$.
@@ -351,15 +351,15 @@ Más adelante, aplicaremos esto al problema de encontrar coeficientes introducid
 
 En un espacio vectorial con producto escalar y norma, decimos que un conjunto es \emph{ortonormal} si es ortogonal y normal. Es decir, un conjunto ortonormal es un conjunto de vectores unitarios que son ortogonales entre sí.
 \[
-    \text{N}=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal} si} \ \langle \vec{n}_i , \vec{n}_j \rangle = 0 \text{ para } i\neq j \text{ con } 1\le i,j\le k \text{ y } ||\vec{n}_i||=1 \text{ para } 1\le i\le k.
+    N=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal} si} \ \langle \vec{n}_i , \vec{n}_j \rangle = 0 \text{ para } i\neq j \text{ con } 1\le i,j\le k \text{ y } ||\vec{n}_i||=1 \text{ para } 1\le i\le k.
 \]
 Si consideramos la norma inducida por el producto escalar, entonces el que la norma de un vector sea uno es equivalente a que su producto escalar consigo mismo sea igual a uno
 \[
-    \text{N}=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal} si} \ \langle \vec{n}_i , \vec{n}_j \rangle = 0 \text{ para } i\neq j \text{ con } 1\le i,j\le k \text{ y } \langle \vec{n}_i , \vec{n}_i \rangle=1 \text{ para } 1\le i\le k.
+    N=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal} si} \ \langle \vec{n}_i , \vec{n}_j \rangle = 0 \text{ para } i\neq j \text{ con } 1\le i,j\le k \text{ y } \langle \vec{n}_i , \vec{n}_i \rangle=1 \text{ para } 1\le i\le k.
 \]
 por lo que podemos caracterizar a un conjunto ortonormal como sigue:
 \[
-    \text{N}=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal} si} \ \langle \vec{n}_i , \vec{n}_j \rangle = \begin{cases} 1 &\text{si } j=i, \\ 0 &\text{si } j\neq i. \end{cases}
+    N=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal} si} \ \langle \vec{n}_i , \vec{n}_j \rangle = \begin{cases} 1 &\text{si } j=i, \\ 0 &\text{si } j\neq i. \end{cases}
 \]
 
 \noindent En particular, si una base cumple con ser un conjunto ortonormal, decimos que es una \emph{base ortonormal}. Dado que se puede demostrar que todo conjunto ortonormal finito es linealmente independiente\footnote{Escribir ``*Ver Ejercicio 2.2.'' como nota al pie.}, tenemos que un conjunto $N$ es una base ortonormal de $V$ si se cumplen las condiciones siguientes\footnote{Escribir ``*Ver Ejercicio 2.3.''.}. 
