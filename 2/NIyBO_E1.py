@@ -1,4 +1,5 @@
 from manim import *
+from math import (cos, sin)
 #####################################################################################
 ######################  Norma inducida y bases ortonormales  ########################
 #####################################################################################
@@ -28,6 +29,7 @@ CARTÓN_BORDE = "#C08F4F"
 
 class SE1(Scene):
     def construct(self):
+        #Empujando la caja: Mobjects
         plano = NumberPlane()
         caja = Square(fill_opacity=1, fill_color=CARTÓN, stroke_color=CARTÓN_BORDE, stroke_width=8, side_length=1)
         vec_u = Arrow(start=ORIGIN, end=3*UP, color=AZUL, buff=0)
@@ -51,8 +53,8 @@ class SE1(Scene):
         igual = MathTex("=").move_to(3*DOWN)
         igual_box = SurroundingRectangle(igual, color=BLACK, fill_opacity=1, buff=0.25)
 
-        #Empujando la caja
-        self.next_section()
+        #Empujando la caja: Animaciones
+        #self.next_section(skip_animations=True)
         self.play(Create(plano))
         self.wait()
         self.play(FadeIn(caja))
@@ -76,7 +78,6 @@ class SE1(Scene):
         self.wait()
         self.play(caja.animate.shift(3*UP), Create(vec_u_fantasma))
         self.play(FadeIn(label_u_fantasma))
-        self.next_section(skip_animations=True)
         self.wait()
         self.play(FadeIn(desplazamiento, label_desplazamiento_2_box))
         self.wait()
@@ -92,42 +93,142 @@ class SE1(Scene):
         self.play(igual.animate.set_color(MAGENTA))
         self.wait()
 
-        #Ley del Paralelogramo
+        #Ley del Paralelogramo: Mobjects
         forall = MathTex("x \\ \\forall \\ \\vec{u}, \\vec{v} \\in \\mathbb{R}^2").move_to(1.6*RIGHT+3*DOWN)
         forall[0][0].set_color(BLACK)
         forall[0][2:4].set_color(AZUL)
         forall[0][5:7].set_color(ROJO)
-        V = MathTex("V").set(center=forall[0][7].get_center())
+        V = MathTex("V^2").move_to(forall[0][8:].get_center())
+        V[0][1].set_color(BLACK)
+        R2 = MathTex("\\mathbb{R}^2").move_to(forall[0][8:].get_center())
         forall_box = SurroundingRectangle(forall, color=BLACK, fill_opacity=1)
-        u_scale_VT = ValueTracker(0)
-        v_scale_VT = ValueTracker(0)
         equation = VGroup(label_desplazamiento_1_box, igual_box, label_desplazamiento_2_box, label_desplazamiento_1, igual,  label_desplazamiento_2)
-        def upd_for_vec_u_fantasma(obj):
-            obj.become(Arrow(start=vec_v.get_end(), end=vec_v.get_end()+vec_u.get_end(), color=AZUL, buff=0))
-        def upd_for_vec_v_fantasma(obj):
-            obj.become(Arrow(start=vec_u.get_end(), end=vec_v.get_end()+vec_u.get_end(), color=ROJO, buff=0))
-        def upd_for_desplazamiento(obj):
-            obj.become(Arrow(start=ORIGIN, end=vec_v.get_end()+vec_u.get_end(), color=MAGENTA, buff=0))
-        vec_u_fantasma.add_updater(upd_for_vec_u_fantasma)
-        vec_v_fantasma.add_updater(upd_for_vec_v_fantasma)
-        desplazamiento.add_updater(upd_for_desplazamiento)
 
-        self.next_section(skip_animations=True)
+        #Ley del Paralelogramo: ValueTrackers y updaters
+        nu, au, nv, av = ValueTracker(3), ValueTracker(PI/2), ValueTracker(5), ValueTracker(0) #Normas y ángulos de u y v
+        vec_u.add_updater( lambda v: v.become(Arrow(start=ORIGIN, end=[nu.get_value()*cos(au.get_value()), nu.get_value()*sin(au.get_value()), 0], color=AZUL, buff=0)) ) 
+        vec_v.add_updater( lambda v: v.become(Arrow(start=ORIGIN, end=[nv.get_value()*cos(av.get_value()), nv.get_value()*sin(av.get_value()), 0], color=ROJO, buff=0)) ) 
+        vec_u_fantasma.add_updater( lambda v: v.become(Arrow(start=vec_v.get_end(), end=vec_v.get_end()+[nu.get_value()*cos(au.get_value()), nu.get_value()*sin(au.get_value()), 0], color=AZUL, buff=0)) ) 
+        vec_v_fantasma.add_updater( lambda v: v.become(Arrow(start=vec_u.get_end(), end=vec_v.get_end()+vec_u.get_end(), color=ROJO, buff=0)) ) 
+        desplazamiento.add_updater( lambda v: v.become(Arrow(start=ORIGIN, end=vec_v.get_end()+[nu.get_value()*cos(au.get_value()), nu.get_value()*sin(au.get_value()), 0], color=MAGENTA, buff=0)) )
+
+        #Ley del Paralelogramo: Animaciones
+        #self.next_section(skip_animations=True)
+        self.play(FadeOut(caja, label_u, label_v, label_u_fantasma, label_v_fantasma))
+        self.wait()
         self.play(equation.animate.shift(1.5*LEFT), run_time=0.5)
         self.play(FadeIn(forall_box, forall))
+        self.play(au.animate.set_value(PI),
+                  av.animate.set_value(-PI/6),
+                  run_time=0.5
+                  )
+        self.play(au.animate.set_value(9*PI/8),
+                  av.animate.set_value(PI/4),
+                  run_time=0.5
+                  )
+        self.play(au.animate.set_value(PI/2),
+                  av.animate.set_value(0),
+                  run_time=0.5
+                  )
+        self.wait(0.5)
+        self.play(nu.animate.set_value(3.5),
+                  nv.animate.set_value(6.5),
+                  run_time=0.5
+                  )
+        self.play(nu.animate.set_value(0.5),
+                  nv.animate.set_value(0.75),
+                  run_time=0.5
+                  )
+        self.play(nu.animate.set_value(3),
+                  nv.animate.set_value(5),
+                  run_time=0.5
+                  )
+        self.play(Transform(forall[0][8:], V))
+        self.play(Circumscribe(Group(label_desplazamiento_1, forall))) 
+        self.play(Circumscribe(Group(label_desplazamiento_1, forall))) 
+        self.play(Transform(forall[0][8:], R2))
         self.wait()
-        self.play(FadeOut(caja, label_u, label_v, label_u_fantasma, label_v_fantasma)) #¡Arreglar GLITCH!
-        self.play(Rotate(vec_u, angle=PI/5, about_point=vec_u.get_start()), Rotate(vec_v, angle=-4*PI/5, about_point=vec_v.get_start()))
+        self.play(FadeOut(equation), FadeOut(forall), FadeOut(forall_box))
         self.wait()
 
+        #Magnitud: Mobjects
+        brace_v = BraceBetweenPoints(ORIGIN, vec_v.get_end())
+        brace_v.add_updater(lambda v:
+                           (brace_v.become( BraceBetweenPoints(ORIGIN, vec_v.get_end()) )) if (nv.get_value() > 0)
+                            else brace_v.become( BraceBetweenPoints(vec_v.get_end(), ORIGIN) )
+                           )
+        brace_u_fantasma = BraceBetweenPoints(vec_v.get_end(), vec_v.get_end()+vec_u.get_end())
+        brace_u_fantasma.add_updater(lambda v:
+                                    brace_u_fantasma.become(BraceBetweenPoints(vec_v.get_end(), vec_v.get_end()+[nu.get_value()*cos(au.get_value()), nu.get_value()*sin(au.get_value()), 0]))
+                                    )
+        brace_desplazamiento = BraceBetweenPoints(vec_v.get_end()+[nu.get_value()*cos(au.get_value()), nu.get_value()*sin(au.get_value()), 0], ORIGIN)
+        brace_desplazamiento.add_updater(lambda v:
+                                    brace_desplazamiento.become(BraceBetweenPoints(vec_v.get_end()+[nu.get_value()*cos(au.get_value()), nu.get_value()*sin(au.get_value()), 0], ORIGIN))
+                                    )
+        span_v_1 = Line(start=ORIGIN, end=[7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.85)
+        span_v_2 = Line(start=ORIGIN, end=[-7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.85)
+        circ_u = Circle(radius=nu.get_value(), color=AZUL, stroke_opacity=0.35, fill_opacity=0)
+        circ_v = Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.35, fill_opacity=0)
+        circ_v.add_updater( lambda c: c.become(Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.35, fill_opacity=0)) )
 
-        #Axioma de conmutatividad
-        self.next_section(skip_animations=True)
-        #self.play(FadeIn(Rectangle(color=WHITE, width=3.5, height=0.7).move_to(DOWN*3)), run_time=0.5)
+        #Magnitud: Animaciones
+        #self.next_section(skip_animations=True)
+        self.play(FadeOut(vec_u, vec_v_fantasma)) #Arreglar esto
+        self.play(FadeIn(brace_v, brace_u_fantasma))
+        self.play(nu.animate.set_value(3.5),
+                  nv.animate.set_value(6.5),
+                  run_time=0.5
+                  )
+        self.play(nu.animate.set_value(1.5),
+                  nv.animate.set_value(3),
+                  run_time=0.5
+                  )
+        self.play(nu.animate.set_value(3.5),
+                  nv.animate.set_value(6.5),
+                  run_time=0.5
+                  )
+        self.play(nu.animate.set_value(3),
+                  nv.animate.set_value(5),
+                  run_time=0.5
+                  )
+        self.play(FadeIn(brace_desplazamiento))
+        self.play(nu.animate.set_value(3.5),
+                  nv.animate.set_value(6.5),
+                  run_time=0.5
+                  )
+        self.play(nu.animate.set_value(1.5),
+                  nv.animate.set_value(3),
+                  run_time=0.5
+                  )
+        self.play(nu.animate.set_value(3.5),
+                  nv.animate.set_value(6.5),
+                  run_time=0.5
+                  )
+        self.play(nu.animate.set_value(3),
+                  nv.animate.set_value(5),
+                  run_time=0.5
+                  )
+        self.wait()
+        self.play(FadeOut(desplazamiento), FadeOut(brace_desplazamiento), FadeOut(vec_u_fantasma), FadeOut(brace_u_fantasma)) #Arreglar FadeOut de los vectores
+        self.wait()
 
+        self.play(nv.animate.set_value(0.75), run_time=0.5)
+        self.play(nv.animate.set_value(-0.75), run_time=0.5)
+        self.play(nv.animate.set_value(7), run_time=0.5)
+        self.play(nv.animate.set_z_index(-7), nv.animate.set_value(-7), run_time=0.5)
+        self.play(Write(span_v_1), Write(span_v_2), nv.animate.set_value(0.75), run_time=0.5)
+        self.play(nv.animate.set_value(-7), run_time=0.5)
+        self.play(nv.animate.set_value(7), run_time=0.5)
+        self.play(nv.animate.set_value(3.5), run_time=0.5)
+        self.wait()
 
-        #Magnitud
-        self.next_section()
+        self.play(FadeIn(vec_u), FadeOut(span_v_1), FadeOut(span_v_2))
+        self.play(FadeIn(circ_v), FadeIn(circ_u))
+        self.wait()
+        self.play(nv.animate.set_value(0.75), run_time=1.5)
+        self.play(nv.animate.set_value(-3.75), run_time=1.5)
+        self.play(nv.animate.set_value(3), run_time=1.5)
+        self.wait()
 
 
 class SE2(MovingCameraScene):
