@@ -27,7 +27,7 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
 
   -- Este bloque genera una lista con los objetos de texto (SVGs) que serán utilizados en la tercera parte de la escena.
 
-  texts3 <- mapM oNew [ p5p0, p5p1, p5p2, p5p3, p5p4 ]
+  texts3 <- mapM oNew [ p5p0, p5p1, p5p2, p5p3, p5p4, p6p0, p6p1, p6p2, p6p3 ]
 
   -- Este bloque describe lo que sucederá en la escena con los demás objetos de texto.
 
@@ -54,6 +54,8 @@ main = reanimate $ addStatic (mkBackground "black") $ scene $ do
   forM_ texts2 $
     \obj -> fork $ do
     oHideWith obj oFadeOut
+
+  wait 1
     
   forM_ (zip5 texts3 leftXs3 topYs3 durationFunctions3 waitDurations3) $    -- Creamos una lista de 5-tuplas a partir de las
     \(obj, xPos, yPos, dFunc, wDur) -> do                              -- listas de parámetros;
@@ -75,7 +77,7 @@ leftXs1 :: [Double]
 leftXs1 = [-7.75, -5.5, -7.75, -2.25, -7.75, -7.75, -7.75, -7.75]
 
 topYs1 :: [Double]
-topYs1 = [3.5, 3.525, 3.5, 2.5, 1.5, 1.5, 0, 0]
+topYs1 = [3.45, 3.525, 3.5, 2.5, 1.5, 1.5, -0.02, 0]
 
 durationFunctions1 :: [(Duration -> Duration)]
 durationFunctions1 = [(*0.3), (*0.33), (*0.4), (*0.75), (*0.5), (*0.33), (*0.3), (*0.33)]
@@ -87,25 +89,25 @@ leftXs2 :: [Double]
 leftXs2 = [-7.25, -7.75, -5.5, -7.75, -7.75, -7.75, -7.75, -2.25, -7.75]
 
 topYs2 :: [Double]
-topYs2 = [4.75, 3.25, 3.25, 2.25, 1.5, -0.25, -0.25, -1.25, -2.75]
+topYs2 = [4.75, 3.225, 3.25, 2.35, 1.6, -0.25, -0.2475, -1.25, -2.75]
 
 durationFunctions2 :: [(Duration -> Duration)]
 durationFunctions2 = [(*0.4), (*0.3), (*0.3), (*0.33), (*0.5), (*0.3), (*0.33), (*0.5), (*0.4)]
 
 waitDurations2 :: [Double]
-waitDurations2 = [0.5, 0.5, 0, 0.5, 2, 0, 0, 0, 2.5]
+waitDurations2 = [0.75, 0.5, 0, 0.5, 2, 0.5, 0, 0, 2.5]
 
 leftXs3 :: [Double]
-leftXs3 = [-7.75, -7.75, -7.75, -7.75, -4]
+leftXs3 = [-7.75, -7.75, -7.75, -7.75, -4.1, -7.75, -5.425, -2.5, -7.75]
 
 topYs3 :: [Double]
-topYs3 = [3.25, 3.25, 2.3, 1.85, -0.175]
+topYs3 = [4.475, 4.5, 3.55, 3.1, 1.15, 0.19, 0.25, -0.5, -1.75]
 
 durationFunctions3 :: [(Duration -> Duration)]
-durationFunctions3 = [(*0.3), (*0.33), (*0.33), (*0.33), (*0.33)]
+durationFunctions3 = [(*0.3), (*0.33), (*0.33), (*0.33), (*0.33), (*0.3), (*0.33), (*0.33), (*0.33)]
 
 waitDurations3 :: [Double]
-waitDurations3 = [0.5, 0.25, 0.5, 0, 0]
+waitDurations3 = [0.5, 0.25, 0.5, 0, 0.5, 0.5, 0, 0, 0]
 
 ------------------------------------------------------------------------------------------------------------------
 -- Aquí va el texto que escribiremos, separado en pedazos; usamos "\\hfill\\break" para romper líneas en LaTeX. --
@@ -202,6 +204,23 @@ p5p3 = split [215..477] pregunta5
 
 p5p4 :: SVG
 p5p4 = split [478..490] pregunta5
+
+pregunta6 :: SVG    -- Análogo a lo anterior.
+pregunta6 = withSubglyphs [0..10] (withStrokeColorPixel miRojo) $ withSubglyphs [0..10] (withFillColorPixel miRojo) $
+           withStrokeWidth 0 $ withFillOpacity 1 $ withStrokeColor "white" $ withFillColor "white" $ scale 0.4 $ 
+           latexCfg myTexConfig "Pregunta 2.6 Considerando el producto punto en $\\mathbb{R}^2$ \\begin{align*} \\begin{pmatrix} u_1 \\\\ u_2 \\end{pmatrix} \\cdot \\begin{pmatrix} v_1 \\\\ v_2 \\end{pmatrix} = u_1v_1 + u_2v_2, \\end{align*} ¿qué fórmula conocida nos da la norma $||\\cdot||:\\mathbb{R}^2\\to\\mathbb{R}^{\\ge0}$ inducida por este producto escalar?"
+
+p6p0 :: SVG
+p6p0 = split [0..10] pregunta6
+
+p6p1 :: SVG
+p6p1 = split [11..41] pregunta6
+
+p6p2 :: SVG
+p6p2 = split [42..65] pregunta6
+
+p6p3 :: SVG
+p6p3 = split [66..141] pregunta6
 
 --------------------------------------------------------------------------------------------------------------
 -- Funciones auxiliares. En las primeras líneas se declaran las signaturas y en las siguientes, se definen. --
