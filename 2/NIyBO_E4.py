@@ -26,47 +26,49 @@ MOSTAZA_CLARO = "#FFE072"
 
 SKIP_DEFAULT = False #Útil para lo siguiente: si sólo quieres renderizar una sección, cambia esta variable a 'True' y cambia el valor de 'skip_animations' de esa sección a 'not SKIP_DEFAULT'
 
-u = np.array([5,4,0])
-v = np.array([8,-3,0])
-
 
 class SE1 (MovingCameraScene):
   def construct(self):
 
       #-------------------------------------------- Variables que definen al sistema coordenado
-      escala_plano = 0.4
+      escala_plano = 0.8
       origen_plano = np.array([-3, 0, 0])
 
 
       #--------------------------------------------Textos
-      texto_0 = MathTex(r" \vec{u},\vec{v}\in V, \vec{v}\neq \vec{0}. ").shift(3*RIGHT + 2*UP).scale(0.6)
-      texto_1 = MathTex(r"\frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v}").next_to(texto_0, DOWN).scale(0.6)
-      texto_2 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{\big(\sqrt{\langle \vec{v} , \vec{v} \rangle}\big)^2} \vec{v} ").next_to(texto_1,RIGHT).scale(0.6).shift(0.6*LEFT)
-      texto_3 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||^2} \vec{v}").scale(0.6)
-      texto_4 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \bigg( \frac{1}{||\vec{v}||} \vec{v} \bigg)").scale(0.6)
-      texto_5 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}").scale(0.6)
-      texto_6 = MathTex(r"\vec{u},\hat{v}\in V, ||\hat{v}||= 1.").shift(3.175*RIGHT + 1.975*UP).scale(0.6)
-      uno = MathTex("1").scale(0.7).scale(0.8)
+      texto_0 = MathTex(r" \vec{u},\vec{v}\in V, \vec{v}\neq \vec{0}. ").shift(3*RIGHT + 2.5*UP).scale(0.8)
+      texto_1 = MathTex(r"\frac{\langle \vec{u} , \vec{v} \rangle}{\langle \vec{v} , \vec{v} \rangle} \vec{v}").next_to(texto_0, 2*DOWN).scale(0.8)
+      texto_1_hat = MathTex(r"\frac{\langle \vec{u} , \hat{v} \rangle}{\langle \hat{v} , \hat{v} \rangle} \hat{v}").next_to(texto_0, 2*DOWN).scale(0.8)
+      texto_2 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{\big(\sqrt{\langle \vec{v} , \vec{v} \rangle}\big)^2} \vec{v} ").next_to(texto_1,RIGHT).scale(0.8).shift(0.6*LEFT)
+      texto_3 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||^2} \vec{v}").scale(0.8)
+      texto_4 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \bigg( \frac{1}{||\vec{v}||} \vec{v} \bigg)").scale(0.8)
+      texto_5 = MathTex(r"= \frac{\langle \vec{u} , \vec{v} \rangle}{||\vec{v}||} \hat{v}").scale(0.8)
+      texto_5_hat = MathTex(r"= \frac{\langle \vec{u} , \hat{v} \rangle}{||\hat{v}||} \hat{v}").scale(0.8)
+      texto_6 = MathTex(r"\vec{u},\hat{v}\in V, ||\hat{v}||= 1.").shift(4.225*RIGHT + 2.4725*UP).scale(0.8)
+      uno = MathTex("1").scale(0.8)
 
       texto0 = VGroup(texto_2, texto_3, texto_4, texto_5)\
-       .arrange(DOWN, center=False, aligned_edge=LEFT)
+       .arrange(DOWN, center=False, aligned_edge=LEFT).shift(0.2*RIGHT)
 
       #-------------------------------------------- Vectores u y v
       v = np.array([3, -1, 0])
       u = np.array([2, 1.5, 0])
       #--------------------------------------------
 
-      v_vect = Vector(v, buff=0, color=VERDE).shift(origen_plano)
+      vt_v = ValueTracker(1)
+      v_vect = Vector([3, -1, 0], buff=0, color=VERDE).shift(origen_plano)
       u_vect = Vector(u, buff=0, color=AZUL).shift(origen_plano)
-
       distancia_v_label = 0.4*v/(np.linalg.norm(v))
       distancia_u_label = 0.4*u/(np.linalg.norm(u))
-
-      v_label = MathTex(r"\vec{v}").scale(0.8).move_to(
-      v_vect.get_end()+distancia_v_label).set_color(VERDE)
-      u_label = MathTex(r"\vec{u}").scale(0.8).move_to(
-      u_vect.get_end()+distancia_u_label).set_color(AZUL)
-
+      v_label = MathTex(r"\vec{v}").scale(0.8).move_to(v_vect.get_end()+0.5*LEFT+0.1*DOWN).set_color(VERDE)
+      u_label = MathTex(r"\vec{u}").scale(0.8).move_to(u_vect.get_end()+0.5*LEFT+0.1*UP).set_color(AZUL)
+      v_vect.add_updater(lambda v:
+                        v_vect.become(Vector([3/vt_v.get_value(), (-1)/vt_v.get_value(), 0], buff=0, color=VERDE).shift(origen_plano))
+                        )
+      v_label.add_updater(lambda v:
+                          v_label.become(MathTex(r"\hat{v}").scale(0.8).move_to(v_vect.get_end()+0.5*LEFT+0.1*DOWN).set_color(VERDE)) if (vt_v.get_value() == 3.7)
+                          else v_label.become(MathTex(r"\vec{v}").scale(0.8).move_to(v_vect.get_end()+0.5*LEFT+0.1*DOWN).set_color(VERDE))
+                          )
 
       aux_vect = origen_plano+(np.dot(v, u)/np.dot(v, v))*v
       proy_u_v_arrow = Arrow(start=origen_plano, end=aux_vect, buff=0, color=AMARILLO)
@@ -87,7 +89,6 @@ class SE1 (MovingCameraScene):
                                r"\vec{v}",  # 9
                                ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
 
-
       label_c = MathTex(r"{",  # 0
                         r"\langle",  # 1
                         r"\vec{u}",  # 2
@@ -104,7 +105,19 @@ class SE1 (MovingCameraScene):
                         r"\langle",  # 1
                         r"\vec{u}",  # 2
                         r",",  # 3
-                        r"\vec{v}",  # 4
+                        r"\hat{v}",  # 4
+                        r"\rangle",  # 5
+                        r"\over",  # 6
+                        r"||\hat{v}||" #7
+                        r"}",  # 8
+                        r"\hat{v}",  #9
+                        ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
+
+      label_e = MathTex(r"{",  # 0
+                        r"\langle",  # 1
+                        r"\vec{u}",  # 2
+                        r",",  # 3
+                        r"\hat{v}",  # 4
                         r"\rangle",  # 5
                         r"\over",  # 6
                         r"1" #7
@@ -112,7 +125,7 @@ class SE1 (MovingCameraScene):
                         r"\hat{v}",  #9
                         ).set_color(AMARILLO).scale(0.8).move_to(origen_plano).shift(0.7*LEFT+0.5*UP)
 
-      grid = NumberPlane(x_range=[-10, 10, 1], y_range=[-9, 9, 1],
+      grid = NumberPlane(x_range=[-4, 4, 1], y_range=[-4, 4, 1],
       background_line_style={
       "stroke_width": 1, "stroke_opacity": 0.5}
       ).scale(escala_plano).shift(origen_plano)
@@ -145,37 +158,37 @@ class SE1 (MovingCameraScene):
           obj.become(new_dashedline)
 
       #Animaciones
-      self.next_section("...final del video anterior.", skip_animations=SKIP_DEFAULT)
+      self.next_section("...de un vector u sobre un vector no nulo v....", skip_animations=SKIP_DEFAULT)
       self.camera.frame.shift(4.25*RIGHT)
       texto_0.shift(RIGHT)
       self.play(Write(texto_0[0][0:2]))
-      self.wait(0.5)
+      self.wait()
       self.play(Write(texto_0[0][2:]))
-      self.wait(0.5)
+      self.wait(1.5)
       self.add_foreground_mobjects(texto_1)
-      self.play(Write(texto_1))
-      self.wait(0.5)
+      self.play(Write(texto_1[0][0:17]))
+      self.wait()                       
+      self.play(Write(texto_1[0][17:]))
+
+      self.next_section("...reescribir esta expresión como sigue:", skip_animations=SKIP_DEFAULT)
       self.add_foreground_mobjects(texto_2)
       self.play(Write(texto_2))
-      self.wait(0.5)
+      self.wait()
       self.add_foreground_mobjects(texto_3)
       self.play(Write(texto_3))
-      self.wait(0.5)
+      self.wait()
       self.add_foreground_mobjects(texto_4)
       self.play(Write(texto_4))
-      self.wait(0.5)
+      self.wait()
       self.add_foreground_mobjects(texto_5)
       self.play(Write(texto_5))
       self.wait()
 
-      self.next_section("...final del video anterior.", skip_animations=SKIP_DEFAULT)
-      self.play(self.camera.frame.animate.shift(4.25*LEFT))
-      self.play(
-          Write(grid)
-      )
+      self.next_section("[pausa] Es decir, la componente del vector u...", skip_animations=SKIP_DEFAULT)
+      self.play(self.camera.frame.animate.shift(4.25*LEFT), Write(grid), run_time=1)
       self.play(
           Write(u_vect),
-          Write(u_label)
+          Write(u_label),
       )
       self.play(
           Write(v_vect),
@@ -187,29 +200,41 @@ class SE1 (MovingCameraScene):
           FadeIn(label_proy_u_v[:]),
           run_time=1
       )
+      self.wait()
 
+      self.next_section("...reescalando al vector unitario...", skip_animations=SKIP_DEFAULT)
       self.play(FadeOut(texto_2), FadeOut(texto_3), FadeOut(texto_4))
-      self.play(texto_5.animate.shift(2.95*UP+0.15*LEFT))
+      self.play(texto_5.animate.shift(3.675*UP))
+      texto_5_hat.move_to(texto_5.get_center())
+      texto_1_hat.move_to(texto_1.get_center())
       self.wait()
-
-      self.play(Indicate(texto_5[0][15:]), run_time=2.5)
-      self.play(Indicate(texto_5[0][1:8]), run_time=1.5)
-      self.play(Indicate(texto_5[0][9:15]))
-      self.wait()
-
+      self.play(Indicate(texto_5[0][15:]), run_time=3)
+      self.play(Indicate(texto_5[0][1:8]), run_time=2)
+      self.play(Indicate(texto_5[0][9:15]), run_time=1.5)
       self.play(ReplacementTransform(label_proy_u_v[7], label_c[7]),
                 ReplacementTransform(label_proy_u_v[9], label_c[8]))
       self.wait()
 
+      self.next_section("...es unitario...", skip_animations=SKIP_DEFAULT)
+      label_e[4].shift(0.05*UP+0.02*LEFT)
       self.play(ReplacementTransform(texto_0[0][3:5], texto_6[0][3:5]),
                 ReplacementTransform(texto_0[0][8:], texto_6[0][8:]),
-                #Cambiar longitud de la flecha v a 1.
+                ReplacementTransform(texto_5[0][5], texto_5_hat[0][5]),
+                ReplacementTransform(texto_5[0][11], texto_5_hat[0][11]),
+                ReplacementTransform(texto_1[0][4], texto_1_hat[0][4]),
+                ReplacementTransform(texto_1[0][9], texto_1_hat[0][9]),
+                ReplacementTransform(texto_1[0][12], texto_1_hat[0][12]),
+                ReplacementTransform(texto_1[0][15], texto_1_hat[0][15]),
+                ReplacementTransform(label_proy_u_v[4], label_e[4]),
+                ReplacementTransform(label_c[7], label_d[7]),
+                vt_v.animate.set_value(3.7)
                 )
       self.wait()
 
+      self.next_section("...se simplifica aún más.", skip_animations= SKIP_DEFAULT)
       uno.move_to(texto_5[0][9:15].get_center())
       self.play(Transform(texto_5[0][9:15], uno),
-               ReplacementTransform(label_c[7], label_d[7])
+               ReplacementTransform(label_d[7], label_e[7])
                )
       self.wait()
 
@@ -217,8 +242,9 @@ class SE1 (MovingCameraScene):
                texto_5[0][8:10].animate.set_opacity(0),
                label_proy_u_v[6].animate.set_opacity(0),
                label_proy_u_v[0:6].animate.shift(0.25*DOWN),
-               texto_5[0][1:8].animate.shift(0.2*DOWN),
-               label_d[7].animate.set_opacity(0)
+               texto_5[0][1:8].animate.shift(0.25*DOWN),
+               label_e[4].animate.set_opacity(0),
+               label_e[7].animate.set_opacity(0)
                )
       self.wait()
 
@@ -260,28 +286,45 @@ class SE2(MovingCameraScene):
 
        texto3.move_to(UP, aligned_edge=RIGHT)
 
-       self.wait()
-       self.play(self.camera.frame.animate.move_to(1.5*UP))
+       e22 = Tex("*", "Ver el ", "Ejercicio 2.2", ".").scale(.55).to_edge(DOWN).shift(1.25*UP)
+       e22[0].set_color(AMARILLO)
+       e22[2].set_color(AZUL)
+       e23 = Tex("*", "Ver el ", "Ejercicio 2.3", ".").scale(.55).to_edge(DOWN).shift(1.25*UP)
+       e23[0].set_color(AMARILLO)
+       e23[2].set_color(AZUL)
 
+       #Animaciones
+       self.next_section("...decimos que un conjunto es ortonormal...", skip_animations=SKIP_DEFAULT)
+       self.camera.frame.animate.move_to(1.5*UP)
        for element in texto_1:
          self.play(Write(element), run_time=2)
+       self.wait()
 
-       self.wait(2)
+       self.next_section("...sea igual a uno.", skip_animations=SKIP_DEFAULT)
        self.play(ReplacementTransform(texto1_3, texto2_3))
+       self.wait()
 
-       self.wait(2)
+       self.next_section("...como sigue:", skip_animations=SKIP_DEFAULT)
        self.play(FadeOut(texto2_3))
        self.play(Write(texto3_3))
+       self.wait()
 
-       self.wait(2)
+       self.next_section("...es linealmente independiente", skip_animations=SKIP_DEFAULT)
+       self.play(Write(e22))
+       self.wait()
+       self.play(Unwrite(e22), run_time=0.5)
+       self.wait()
+
+       self.next_section("N es una base ortonormal de V...", skip_animations=SKIP_DEFAULT)
        texto3.shift(2.75*RIGHT)
        self.play(Write(texto3))
-
-       self.wait(2)
        N_ort[1].move_to(0*LEFT)
-
        self.play(Write(N_ort[0]))
        self.play(Write(N_ort[1]))
+       self.play(Write(e23))
+       self.wait()
+       self.play(Unwrite(e23), run_time=0.5)
+       self.wait()
 
      def construct(self):
       self.bortonormal()
@@ -393,8 +436,6 @@ class SE3(MovingCameraScene):
         group_3 = VGroup(base_N, base_N_propiedades,
                          combination_fn, coeficientes_f).scale(0.7)
         group_3.arrange(1*DOWN, center=False, aligned_edge=LEFT)
-        uno = MathTex("1").scale(0.7).scale(0.8)
-
         #Alineación de grupos
 
         groups = VGroup(group_1, group_2, group_3).scale(0.8).shift(1.5*UP)
@@ -405,6 +446,7 @@ class SE3(MovingCameraScene):
 
 
         #Animaciones
+        self.next_section("...un espacio vectorial de dimensión finita...", skip_animations=SKIP_DEFAULT)
         self.camera.frame.shift(0.2*RIGHT+1.5*UP) #Ajuste de cámara para el encuadre
         self.play(Write(dim_V))
         self.play(
@@ -412,22 +454,28 @@ class SE3(MovingCameraScene):
             run_time=2)
         self.wait()
 
+        self.next_section("...tiene producto escalar...", skip_animations=SKIP_DEFAULT)
         self.play(
             FadeIn(groups[1][:]),
             run_time=2)
         self.wait()
 
+        self.next_section("...base ortonormal de V...", skip_animations=SKIP_DEFAULT)
         self.play(Write(groups[2][0:3][:]))
         self.wait()
+
+        self.next_section("...el mismo resultado.", skip_animations=SKIP_DEFAULT)
         self.play(Write(groups[2][3][:]))
         self.wait()
 
+        self.next_section("...de la siguiente manera.", skip_animations=SKIP_DEFAULT)
+        uno = MathTex("1").scale(0.8)
         uno.move_to(coeficientes_f[0][12:21].get_center())
         self.play(ReplacementTransform(coeficientes_f[0][12:21], uno))
-        self.wait()
-
+        self.wait(0.5)
         self.play(coeficientes_f[0][11:21].animate.set_color(BLACK),
                   uno.animate.set_color(BLACK))
         self.play(coeficientes_f[0][3:11].animate.shift(0.2*DOWN+0.1*LEFT),
-                  coeficientes_f[0][21].animate.shift(0.175*LEFT+0.075*DOWN))
+                  coeficientes_f[0][21].animate.shift(0.175*LEFT+0.075*DOWN),
+                  coeficientes_f[0][22:].animate.shift(0.175*LEFT+0.05*DOWN))
         self.wait()
