@@ -6,7 +6,7 @@ from math import (cos, sin)
 
 #####################################################################################
 ###############################  Primera escena  ####################################
-######################  versión: Manim Community v0.17.2   ##########################
+######################  versión: Manim Community v0.17.3   ##########################
 #####################################################################################
 
 ROJO = '#FF0000'
@@ -25,6 +25,8 @@ MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
 CARTÓN = "#CD9F61"
 CARTÓN_BORDE = "#C08F4F"
+
+SKIP_DEFAULT = False #Útil para lo siguiente: si sólo quieres renderizar una sección, cambia esta variable a 'True' y cambia el valor de 'skip_animations' de esa sección a 'not SKIP_DEFAULT'
 
 
 class SE1(Scene):
@@ -54,43 +56,60 @@ class SE1(Scene):
         igual_box = SurroundingRectangle(igual, color=BLACK, fill_opacity=1, buff=0.25)
 
         #Empujando la caja: Animaciones
-        #self.next_section(skip_animations=True)
-        self.play(Create(plano))
+        self.next_section("Por ejemplo, supongamos que podemos colocar una caja...", skip_animations=SKIP_DEFAULT)
+        self.play(Create(plano), run_time=1.5)
         self.wait()
         self.play(FadeIn(caja))
         self.wait()
-        self.play(caja.animate.shift(3*UP), Create(vec_u)) #¡Arreglar sincronización con rate functions!
+
+        self.next_section("...hacia el frente, con una fuerza que llamaremos u...", skip_animations=SKIP_DEFAULT)
+        self.play(caja.animate.shift(3*UP), Create(vec_u)) #ARREGLAR sincronización con rate functions
         self.play(FadeIn(label_u))
         self.wait()
-        self.play(caja.animate.shift(5*RIGHT), Create(vec_v_fantasma))
+
+        self.next_section("...hacia un lado con una fuerza mayor, que llamaremos v", skip_animations=SKIP_DEFAULT)
+        self.play(caja.animate.shift(5*RIGHT), Create(vec_v_fantasma), run_time=1.5)
         self.play(FadeIn(label_v_fantasma))
         self.wait()
+
+        self.next_section("Observemos el desplazamiento obtenido...", skip_animations=SKIP_DEFAULT)
         self.play(FadeIn(desplazamiento, label_desplazamiento_1_box))
         self.play(FadeIn(label_desplazamiento_1[0][0:2]))
         self.play(FadeIn(label_desplazamiento_1[0][2]), run_time=0.5)
         self.play(FadeIn(label_desplazamiento_1[0][3:]))
         self.wait()
+
+        self.next_section("Ahora, imaginemos que desde el mismo punto de partida...", skip_animations=SKIP_DEFAULT)
         self.play(FadeOut(vec_u, label_u, vec_v_fantasma, label_v_fantasma, desplazamiento, label_desplazamiento_1_box, label_desplazamiento_1))
+        self.wait()
         self.play(caja.animate.shift(3*DOWN+5*LEFT))
         self.wait()
-        self.play(caja.animate.shift(5*RIGHT), Create(vec_v))
+
+        self.next_section("...hacia el mismo lado con la miasma fuerza v antes...", skip_animations=SKIP_DEFAULT)
+        self.play(caja.animate.shift(5*RIGHT), Create(vec_v), run_time=1.5)
         self.play(FadeIn(label_v))
         self.wait()
+
+        self.next_section("...hacia el frente con fuerza u.", skip_animations=SKIP_DEFAULT)
         self.play(caja.animate.shift(3*UP), Create(vec_u_fantasma))
         self.play(FadeIn(label_u_fantasma))
         self.wait()
+
+        self.next_section("...es el mismo, a pesar de haber aplicado las fuerzas...", skip_animations=SKIP_DEFAULT)
         self.play(FadeIn(desplazamiento, label_desplazamiento_2_box))
-        self.wait()
+        self.wait(2)
         self.play(FadeIn(label_desplazamiento_2[0][0:2]), run_time=0.5)
         self.play(FadeIn(label_desplazamiento_2[0][2]), run_time=0.5)
-        self.play(FadeIn(label_desplazamiento_2[0][3:]))
+        self.play(FadeIn(label_desplazamiento_2[0][3:]), run_time=0.5)
+        self.play(FadeIn(vec_u, label_u, vec_v_fantasma, label_v_fantasma, label_desplazamiento_1_box, label_desplazamiento_1), run_time=1.5)
         self.wait()
-        self.play(FadeIn(vec_u, label_u, vec_v_fantasma, label_v_fantasma, label_desplazamiento_1_box, label_desplazamiento_1))
-        self.wait()
-        self.play(label_desplazamiento_1.animate.move_to(LEFT+3*DOWN), label_desplazamiento_1_box.animate.move_to(LEFT+3*DOWN), run_time=0.5)
+
+        self.next_section("...en las mismas direcciones y con las mismas fuerzas en cada dirección...", skip_animations=SKIP_DEFAULT)
+        self.play(label_desplazamiento_1.animate.move_to(LEFT+3*DOWN), label_desplazamiento_1_box.animate.move_to(LEFT+3*DOWN), run_time=1.25)
         self.play(FadeIn(igual_box, igual), run_time=0.5)
-        self.play(label_desplazamiento_2.animate.move_to(RIGHT+3*DOWN), label_desplazamiento_2_box.animate.move_to(RIGHT+3*DOWN), run_time=0.5)
-        self.play(igual.animate.set_color(MAGENTA))
+        self.play(label_desplazamiento_2.animate.move_to(RIGHT+3*DOWN), label_desplazamiento_2_box.animate.move_to(RIGHT+3*DOWN), run_time=1.25)
+        self.wait()
+        self.play(igual.animate.set_color(MAGENTA), run_time=1.5)
         self.wait()
 
         #Ley del Paralelogramo: Mobjects
@@ -100,7 +119,6 @@ class SE1(Scene):
         forall[0][5:7].set_color(ROJO)
         V = MathTex("V^2").move_to(forall[0][8:].get_center())
         V[0][1].set_color(BLACK)
-        R2 = MathTex("\\mathbb{R}^2").move_to(forall[0][8:].get_center())
         forall_box = SurroundingRectangle(forall, color=BLACK, fill_opacity=1)
         equation = VGroup(label_desplazamiento_1_box, igual_box, label_desplazamiento_2_box, label_desplazamiento_1, igual,  label_desplazamiento_2)
 
@@ -114,10 +132,15 @@ class SE1(Scene):
 
         #Ley del Paralelogramo: Animaciones
         #self.next_section(skip_animations=True)
-        self.play(FadeOut(caja, label_u, label_v, label_u_fantasma, label_v_fantasma))
+        self.next_section("...[La Ley del] Paralelogramo no es más que una generalización de esta observación...", skip_animations=SKIP_DEFAULT)
+        self.play(FadeOut(label_u, label_v, label_u_fantasma, label_v_fantasma), caja.animate.set_opacity(0))
         self.wait()
-        self.play(equation.animate.shift(1.5*LEFT), run_time=0.5)
+        self.play(equation.animate.shift(1.5*LEFT))
         self.play(FadeIn(forall_box, forall))
+        self.play(Circumscribe(Group(label_desplazamiento_1, forall)))
+        self.wait()
+
+        self.next_section("...dirección que sea...", skip_animations=SKIP_DEFAULT)
         self.play(au.animate.set_value(PI),
                   av.animate.set_value(-PI/6),
                   run_time=0.5
@@ -130,7 +153,9 @@ class SE1(Scene):
                   av.animate.set_value(0),
                   run_time=0.5
                   )
-        self.wait(0.5)
+        self.wait()
+
+        self.next_section("...además de poder ser arbitrariamente grandes o pequeñas.", skip_animations=SKIP_DEFAULT)
         self.play(nu.animate.set_value(3.5),
                   nv.animate.set_value(6.5),
                   run_time=0.5
@@ -143,12 +168,16 @@ class SE1(Scene):
                   nv.animate.set_value(5),
                   run_time=0.5
                   )
+        self.wait()
+
+        self.next_section("...conmutatividad de la suma vectorial...", skip_animations=SKIP_DEFAULT)
         self.play(Transform(forall[0][8:], V))
         self.play(Circumscribe(Group(label_desplazamiento_1, forall))) 
         self.play(Circumscribe(Group(label_desplazamiento_1, forall))) 
-        self.play(Transform(forall[0][8:], R2))
         self.wait()
-        self.play(FadeOut(equation), FadeOut(forall), FadeOut(forall_box))
+
+        self.next_section("...más intuitivas.", skip_animations=SKIP_DEFAULT)
+        self.play(FadeOut(equation), FadeOut(forall), FadeOut(forall_box), FadeOut(vec_u), FadeOut(vec_v_fantasma)) #ARREGLAR salidas de escena de vec_u y vec_v_fantasma
         self.wait()
 
         #Magnitud: Mobjects
@@ -165,69 +194,68 @@ class SE1(Scene):
         brace_desplazamiento.add_updater(lambda v:
                                     brace_desplazamiento.become(BraceBetweenPoints(vec_v.get_end()+[nu.get_value()*cos(au.get_value()), nu.get_value()*sin(au.get_value()), 0], ORIGIN))
                                     )
-        span_v_1 = Line(start=ORIGIN, end=[7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.85)
-        span_v_2 = Line(start=ORIGIN, end=[-7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.85)
-        circ_u = Circle(radius=nu.get_value(), color=AZUL, stroke_opacity=0.35, fill_opacity=0)
-        circ_v = Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.35, fill_opacity=0)
-        circ_v.add_updater( lambda c: c.become(Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.35, fill_opacity=0)) )
+        span_v_1 = Line(start=ORIGIN, end=[7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.9)
+        span_v_2 = Line(start=ORIGIN, end=[-7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.9)
+        circ_u = Circle(radius=nu.get_value(), color=AZUL, stroke_opacity=0.5, fill_opacity=0)
+        circ_v = Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.5, fill_opacity=0)
+        circ_v.add_updater( lambda c: c.become(Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.5, fill_opacity=0)) )
 
         #Magnitud: Animaciones
-        #self.next_section(skip_animations=True)
-        self.play(FadeOut(vec_u, vec_v_fantasma)) #Arreglar esto
+        self.next_section("Dado que un aumento o disminución de fuerza...", skip_animations=SKIP_DEFAULT)
         self.play(FadeIn(brace_v, brace_u_fantasma))
         self.play(nu.animate.set_value(3.5),
                   nv.animate.set_value(6.5),
-                  run_time=0.5
+                  run_time=0.75
                   )
         self.play(nu.animate.set_value(1.5),
                   nv.animate.set_value(3),
-                  run_time=0.5
-                  )
-        self.play(nu.animate.set_value(3.5),
-                  nv.animate.set_value(6.5),
-                  run_time=0.5
+                  run_time=0.75
                   )
         self.play(nu.animate.set_value(3),
                   nv.animate.set_value(5),
                   run_time=0.5
                   )
+        self.wait(0.25)
         self.play(FadeIn(brace_desplazamiento))
         self.play(nu.animate.set_value(3.5),
                   nv.animate.set_value(6.5),
-                  run_time=0.5
+                  run_time=0.75
                   )
         self.play(nu.animate.set_value(1.5),
                   nv.animate.set_value(3),
-                  run_time=0.5
-                  )
-        self.play(nu.animate.set_value(3.5),
-                  nv.animate.set_value(6.5),
-                  run_time=0.5
+                  run_time=0.75
                   )
         self.play(nu.animate.set_value(3),
                   nv.animate.set_value(5),
                   run_time=0.5
                   )
         self.wait()
-        self.play(FadeOut(desplazamiento), FadeOut(brace_desplazamiento), FadeOut(vec_u_fantasma), FadeOut(brace_u_fantasma)) #Arreglar FadeOut de los vectores
+
+        self.next_section("...asociar la longitud de la flecha que representa a un vector", skip_animations=SKIP_DEFAULT)
+        self.play(FadeOut(desplazamiento), FadeOut(brace_desplazamiento), FadeOut(vec_u_fantasma), FadeOut(brace_u_fantasma)) #ARREGLAR FadeOut de los vectores
         self.wait()
 
-        self.play(nv.animate.set_value(0.75), run_time=0.5)
-        self.play(nv.animate.set_value(-0.75), run_time=0.5)
-        self.play(nv.animate.set_value(7), run_time=0.5)
-        self.play(nv.animate.set_z_index(-7), nv.animate.set_value(-7), run_time=0.5)
-        self.play(Write(span_v_1), Write(span_v_2), nv.animate.set_value(0.75), run_time=0.5)
-        self.play(nv.animate.set_value(-7), run_time=0.5)
-        self.play(nv.animate.set_value(7), run_time=0.5)
-        self.play(nv.animate.set_value(3.5), run_time=0.5)
+        self.next_section("...nos dice qué tan cerca o lejos están del vector nulo...", skip_animations=SKIP_DEFAULT)
+        self.play(nv.animate.set_value(0.75), run_time=0.75)
+        self.play(nv.animate.set_value(-0.75), run_time=0.75)
+        self.play(nv.animate.set_value(7), run_time=0.75)
+        self.play(nv.animate.set_z_index(-7), nv.animate.set_value(-7), run_time=0.75)
+        self.play(nv.animate.set_value(5), run_time=0.75)
+        self.wait(1.5)
+        self.play(Write(span_v_1), Write(span_v_2))
+        self.play(nv.animate.set_value(-7), run_time=0.75)
+        self.play(nv.animate.set_value(3.5), run_time=0.75)
         self.wait()
 
-        self.play(FadeIn(vec_u), FadeOut(span_v_1), FadeOut(span_v_2))
-        self.play(FadeIn(circ_v), FadeIn(circ_u))
+        self.next_section("...o incluso con los vectores de todo el espacio, sin importar las direcciones.", skip_animations=SKIP_DEFAULT)
+        self.play(FadeIn(vec_u), FadeOut(span_v_1), FadeOut(span_v_2), run_time=1.25) #ARREGLAR FadeIn de vec_u
+        self.play(FadeIn(circ_v), run_time=1.25)
+        self.play(FadeIn(circ_u), run_time=1.25)
         self.wait()
         self.play(nv.animate.set_value(0.75), run_time=1.5)
         self.play(nv.animate.set_value(-3.75), run_time=1.5)
-        self.play(nv.animate.set_value(3), run_time=1.5)
+        self.play(nv.animate.set_value(1), run_time=1.5)
+        self.play(nv.animate.set_value(3), run_time=3)
         self.wait()
 
 
@@ -361,42 +389,51 @@ class SE2(MovingCameraScene):
                           )
         norm_upv.add_updater(lambda n: brace_upv.put_at_tip(norm_upv, buff=0))
 
-        #ANIMACIONES
-
+        #Animaciones
+        self.next_section("...llamada norma, que a cada vector del espacio le asigna...", skip_animations=SKIP_DEFAULT)
         grid.shift(3.75*LEFT)
         vec_u.shift(3.75*LEFT)
         self.play(Write(t0))
         self.play(Write(t1[0]))
         self.wait()
 
+        self.next_section("...representados gométricamente como flechas...", skip_animations=SKIP_DEFAULT)
         self.add(grid, vec_u)
-        self.play(self.camera.frame.animate.move_to(3*LEFT), grid.animate.shift(3.75*RIGHT), vec_u.animate.shift(3.75*RIGHT))
+        self.play(self.camera.frame.animate.move_to(3*LEFT), grid.animate.shift(3.75*RIGHT), vec_u.animate.shift(3.75*RIGHT), run_time=1.5)
         self.wait()
         self.play(Write(brace_u))
+        self.wait()
         self.play(Write(norm_u), reverse=True)
         self.wait()
 
+        self.next_section("longitud negativa, la cantidad asignada a cada vector...", skip_animations=SKIP_DEFAULT)
         self.play(Write(geq0), reverse=True)
-        self.wait(0.5)
-        self.play(vt_u.animate.set_value(1.5))
-        self.play(vt_u.animate.set_value(-1.5))
+        self.wait()
+        self.play(vt_u.animate.set_value(2.05))
+        self.play(vt_u.animate.set_value(-2.05))
         self.play(vt_u.animate.set_value(1))
-        self.play(Write(t1[1]))
+        self.wait(0.5)
+        self.play(Write(t1[1]), run_time=2)
+        self.wait(0.5)
         self.play(Unwrite(geq0))
         self.wait()
 
+        self.next_section("Además, si sumamos a un vector consigo mismo...", skip_animations=SKIP_DEFAULT)
         vec_u_2.set_opacity(0)
         vec_2u.set_opacity(0)
         self.add(vec_u_2, vec_2u)
         self.play(vec_u_2.animate.set_opacity(1), vec_2u.animate.set_opacity(1))
-        self.play(vec_u_2.animate.shift([u1.get_value(), u2.get_value(), 0]), run_time = 0.5)
+        self.play(vec_u_2.animate.shift([u1.get_value(), u2.get_value(), 0]))
         self.play(FadeIn(brace_u_2, norm_u_2), run_time = 0.5)
         self.wait()
         self.play(Write(brace_2u))
+        self.wait()
         self.play(vt_2u.animate.set_value(2))
         self.wait()
         self.play(Write(norm_2u))
         self.wait()
+
+        self.next_section("Lo mismo ocurre si, en vez de reescalar por 2, reescalamos por -2...", skip_animations=SKIP_DEFAULT)
         self.play(Unwrite(norm_2u))
         self.wait()
         self.play(vt_2u.animate.set_value(1), FadeOut(vec_u_2, brace_u_2, norm_u_2))
@@ -404,80 +441,106 @@ class SE2(MovingCameraScene):
         self.play(vt_2u.animate.set_value(-2))
         self.play(Write(norm_m2u))
         self.wait()
+
+        self.next_section("...nuevamente es el doble de la original.", skip_animations=SKIP_DEFAULT)
         self.add(norm_u_copy, brace_u_copy, norm_u_copy_2, brace_u_copy_2)
         self.play(FadeOut(brace_u, norm_u),
                   brace_u_copy.animate.shift([-u1.get_value(), -u2.get_value(), 0]),
                   norm_u_copy.animate.shift([-u1.get_value(), -u2.get_value(), 0]))
         self.play(brace_u_copy_2.animate.shift([-2*u1.get_value(), -2*u2.get_value(), 0]),
-                  norm_u_copy_2.animate.shift([-2*u1.get_value(), -2*u2.get_value(), 0])
+                  norm_u_copy_2.animate.shift([-2*u1.get_value(), -2*u2.get_value(), 0]) #Aquí puede aparecer un salto brusco en renders de baja calidad (con -ql)
                   )
         self.wait()
+
+        self.next_section("Más generalmente, si multiplicamos a un vector por un escalar arbitrario...", skip_animations=SKIP_DEFAULT)
         self.play(Write(p1))
         self.wait()
-        self.play(Write(p2[0][2:5]), reverse=True)
+        self.play(Write(p2[0][3:5]))
+        self.wait()
+        self.play(Write(p2[0][2]))
         self.wait()
         self.play(Write(p2[0][0:2]), Write(p2[0][5:7]))
         self.play(Write(p2[1]))
-        self.play(Write(p2[2][3:]), run_time=1.5)
+        self.play(Write(p2[2][3:]))
+        self.wait(1.5)
         self.play(Write(p2[2][:3]))
         self.wait()
+
+        self.next_section("...número complejo.", skip_animations=SKIP_DEFAULT)
         self.play(Write(t5), Transform(p1[0][12], p1_C[0][12]))
         self.wait()
         self.play(FadeOut(t5), Transform(p1[0][12], p1_copy[0][12]), run_time=0.5)
         self.wait()
-        self.play(vt_2u.animate.set_value(0), FadeOut(brace_2u, norm_m2u, brace_u_copy, norm_u_copy, brace_u_copy_2, norm_u_copy_2, vec_2u)) # Arreglar el FadeOut de vec_2u
+
+        self.next_section("Esto nos da la primera propiedad de la norma...", skip_animations=SKIP_DEFAULT)
+        self.play(vt_2u.animate.set_value(0), FadeOut(brace_2u, norm_m2u, brace_u_copy, norm_u_copy, brace_u_copy_2, norm_u_copy_2, vec_2u)) #ARREGLAR el FadeOut de vec_2u
         self.wait()
         self.play(Write(t2))
         self.wait()
 
+        self.next_section("Ahora, notemos que el vector nulo del espacio tiene magnitud cero...", skip_animations=SKIP_DEFAULT)
         self.play(FadeIn(brace_u, norm_u))
         self.wait()
-        self.play(vt_u.animate.set_value(0), run_time=0.75)
+        self.play(vt_u.animate.set_value(0))
         self.wait()
         cero = MathTex("=0").scale(0.6).next_to(norm_u, buff=0.1)
         self.play(Write(cero))
         self.wait()
-        self.play(Write(p3[0]))
-        self.play(Write(p3[1]))
-        self.play(Write(p3[2]))
+
+        self.next_section("...el que un vector arbitrario tenga norma cero equivale a que...", skip_animations=SKIP_DEFAULT)
+        self.play(Write(p3[0]), run_time=2)
         self.wait()
+        self.play(Write(p3[1]))
+        self.play(Write(p3[2]), run_time=2)
+        self.wait()
+
+        self.next_section("...distinción del vector nulo.", skip_animations=SKIP_DEFAULT)
+        t3.shift(0.05*DOWN)
         self.play(Write(t3))
         self.wait()
+
+        self.next_section("[pausa] Por último, observemos que, si consideramos la suma de dos vectores...", skip_animations=SKIP_DEFAULT)
         self.play(Unwrite(cero))
-        self.play(vt_u.animate.set_value(1), run_time=0.75)
-        self.wait()
+        self.wait(0.5)
+        self.play(vt_u.animate.set_value(1))
         self.play(FadeIn(vec_v, brace_v, norm_v))
-        self.wait()
-        self.play(vt_v.animate.set_value(1))
+        self.wait(0.5)
+        self.play(vt_v.animate.set_value(1), run_time=0.75)
         self.play(FadeIn(vec_upv, brace_upv, norm_upv))
-        self.wait()
-        self.play(Write(p4[0]), Indicate(norm_upv, color=MAGENTA))
+        self.wait(1.5)
+        p4.shift(0.375*LEFT)
+        self.play(Write(p4[0]), Indicate(norm_upv, color=MAGENTA), run_time=2.5)
         self.play(Write(p4[1]))
-        self.play(Write(p4[2]), Indicate(norm_u, color=AZUL), Indicate(norm_v, color=ROJO))
+        self.play(Write(p4[2]), Indicate(norm_u, color=AZUL), Indicate(norm_v, color=ROJO), run_time=4)
         self.wait()
-        self.play(u1.animate.set_value(0.5), run_time=0.5)
-        self.play(u2.animate.set_value(-2), run_time=0.5)
-        self.play(v1.animate.set_value(2),  run_time=0.5)
+
+        self.next_section("...siempre debe ser mayor o igual a la longitud del tercer lado.", skip_animations=SKIP_DEFAULT)
+        self.play(u1.animate.set_value(0.5))
+        self.play(u2.animate.set_value(-2))
+        self.play(v1.animate.set_value(2))
         self.play(u1.animate.set_value(2.5),
                   u2.animate.set_value(0.5),
                   v1.animate.set_value(-3), 
-                  v2.animate.set_value(2),
-                  run_time=0.5
+                  v2.animate.set_value(2)
                   )
         self.play(u1.animate.set_value(1.5),
                   u2.animate.set_value(-1),
                   v1.animate.set_value(0.5), 
-                  v2.animate.set_value(2.5),
-                  run_time=0.5
+                  v2.animate.set_value(2.5)
                   )
         self.wait()
+
+        self.next_section("...desigualdad del triángulo.", skip_animations=SKIP_DEFAULT)
         self.play(Write(t4))
         self.wait()
+
+        self.next_section("...como ejercicio al final del video.", skip_animations=SKIP_DEFAULT)
         self.play(Write(t6))
         self.wait()
         self.play(FadeOut(t6), run_time=0.5)
         self.wait()
 
+        self.next_section("...estas tres propiedades se le cooce como un espacio vectorial normado.", skip_animations=SKIP_DEFAULT)
         self.play(self.camera.frame.animate.move_to(ORIGIN),
                   FadeOut(grid, vec_u, brace_u, norm_u, vec_v, brace_v, norm_v, vec_upv, brace_upv, norm_upv)
                   )

@@ -6,7 +6,7 @@ from manim import *
 
 #####################################################################################
 ###############################  Cuarta escena ######################################
-######################  versión: Manim Community v0.17.2   ##########################
+######################  versión: Manim Community v0.17.3   ##########################
 #####################################################################################
 
 ROJO = '#FF0000'
@@ -24,11 +24,13 @@ TEAL_E = "#49A88F"
 MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
 
+SKIP_DEFAULT = False #Útil para lo siguiente: si sólo quieres renderizar una sección, cambia esta variable a 'True' y cambia el valor de 'skip_animations' de esa sección a 'not SKIP_DEFAULT'
+
 u = np.array([5,4,0])
 v = np.array([8,-3,0])
 
 
-class SE1 (Scene):
+class SE1 (MovingCameraScene):
   def construct(self):
 
       #-------------------------------------------- Variables que definen al sistema coordenado
@@ -142,9 +144,10 @@ class SE1 (Scene):
           )
           obj.become(new_dashedline)
 
-      #-------------------------------------------- Animaciones
-
-      #self.add_foreground_mobjects(texto_0)
+      #Animaciones
+      self.next_section("...final del video anterior.", skip_animations=SKIP_DEFAULT)
+      self.camera.frame.shift(4.25*RIGHT)
+      texto_0.shift(RIGHT)
       self.play(Write(texto_0[0][0:2]))
       self.wait(0.5)
       self.play(Write(texto_0[0][2:]))
@@ -165,6 +168,8 @@ class SE1 (Scene):
       self.play(Write(texto_5))
       self.wait()
 
+      self.next_section("...final del video anterior.", skip_animations=SKIP_DEFAULT)
+      self.play(self.camera.frame.animate.shift(4.25*LEFT))
       self.play(
           Write(grid)
       )
@@ -399,10 +404,8 @@ class SE3(MovingCameraScene):
         combination_fn.shift(0.05*DOWN)
 
 
-        #----------------------------------- ANIMACIONES
-        #--------------------------------
-
-        self.camera.frame.shift(0.2*RIGHT+1.5*UP)
+        #Animaciones
+        self.camera.frame.shift(0.2*RIGHT+1.5*UP) #Ajuste de cámara para el encuadre
         self.play(Write(dim_V))
         self.play(
             FadeIn(groups[0][:]),
@@ -418,8 +421,6 @@ class SE3(MovingCameraScene):
         self.wait()
         self.play(Write(groups[2][3][:]))
         self.wait()
-
-        #-----------------------------------
 
         uno.move_to(coeficientes_f[0][12:21].get_center())
         self.play(ReplacementTransform(coeficientes_f[0][12:21], uno))
