@@ -101,6 +101,7 @@ class SE1(Scene):
         self.play(FadeIn(label_desplazamiento_2[0][0:2]), run_time=0.5)
         self.play(FadeIn(label_desplazamiento_2[0][2]), run_time=0.5)
         self.play(FadeIn(label_desplazamiento_2[0][3:]), run_time=0.5)
+        self.wait(1.5)
         self.play(FadeIn(vec_u, label_u, vec_v_fantasma, label_v_fantasma, label_desplazamiento_1_box, label_desplazamiento_1), run_time=1.5)
         self.wait()
 
@@ -108,7 +109,7 @@ class SE1(Scene):
         self.play(label_desplazamiento_1.animate.move_to(LEFT+3*DOWN), label_desplazamiento_1_box.animate.move_to(LEFT+3*DOWN), run_time=1.25)
         self.play(FadeIn(igual_box, igual), run_time=0.5)
         self.play(label_desplazamiento_2.animate.move_to(RIGHT+3*DOWN), label_desplazamiento_2_box.animate.move_to(RIGHT+3*DOWN), run_time=1.25)
-        self.wait()
+        self.wait(2)
         self.play(igual.animate.set_color(MAGENTA), run_time=1.5)
         self.wait()
 
@@ -177,7 +178,9 @@ class SE1(Scene):
         self.wait()
 
         self.next_section("...más intuitivas.", skip_animations=SKIP_DEFAULT)
-        self.play(FadeOut(equation), FadeOut(forall), FadeOut(forall_box), FadeOut(vec_u), FadeOut(vec_v_fantasma)) #ARREGLAR salidas de escena de vec_u y vec_v_fantasma
+        vec_u.clear_updaters()          #Es necesario quitar todos los updaters
+        vec_v_fantasma.clear_updaters() #para tener un FadeOut correcto.
+        self.play(FadeOut(equation), FadeOut(forall), FadeOut(forall_box), FadeOut(vec_u), FadeOut(vec_v_fantasma))
         self.wait()
 
         #Magnitud: Mobjects
@@ -194,11 +197,10 @@ class SE1(Scene):
         brace_desplazamiento.add_updater(lambda v:
                                     brace_desplazamiento.become(BraceBetweenPoints(vec_v.get_end()+[nu.get_value()*cos(au.get_value()), nu.get_value()*sin(au.get_value()), 0], ORIGIN))
                                     )
-        span_v_1 = Line(start=ORIGIN, end=[7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.9)
-        span_v_2 = Line(start=ORIGIN, end=[-7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.9)
+        span_v_1 = Line(start=ORIGIN, end=[7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.95)
+        span_v_2 = Line(start=ORIGIN, end=[-7.1,0,0], color=RED).set_z_index(0.5).set_opacity(0.95)
         circ_u = Circle(radius=nu.get_value(), color=AZUL, stroke_opacity=0.5, fill_opacity=0)
-        circ_v = Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.5, fill_opacity=0)
-        circ_v.add_updater( lambda c: c.become(Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.5, fill_opacity=0)) )
+        circ_v = Circle(radius=3.5, color=ROJO, stroke_opacity=0.5, fill_opacity=0)
 
         #Magnitud: Animaciones
         self.next_section("Dado que un aumento o disminución de fuerza...", skip_animations=SKIP_DEFAULT)
@@ -232,7 +234,9 @@ class SE1(Scene):
         self.wait()
 
         self.next_section("...asociar la longitud de la flecha que representa a un vector", skip_animations=SKIP_DEFAULT)
-        self.play(FadeOut(desplazamiento), FadeOut(brace_desplazamiento), FadeOut(vec_u_fantasma), FadeOut(brace_u_fantasma)) #ARREGLAR FadeOut de los vectores
+        desplazamiento.clear_updaters() #Es necesario quitar todos los updaters
+        vec_u_fantasma.clear_updaters() #para tener un FadeOut correcto.
+        self.play(FadeOut(desplazamiento), FadeOut(brace_desplazamiento), FadeOut(vec_u_fantasma), FadeOut(brace_u_fantasma))
         self.wait()
 
         self.next_section("...nos dice qué tan cerca o lejos están del vector nulo...", skip_animations=SKIP_DEFAULT)
@@ -248,10 +252,11 @@ class SE1(Scene):
         self.wait()
 
         self.next_section("...o incluso con los vectores de todo el espacio, sin importar las direcciones.", skip_animations=SKIP_DEFAULT)
-        self.play(FadeIn(vec_u), FadeOut(span_v_1), FadeOut(span_v_2), run_time=1.25) #ARREGLAR FadeIn de vec_u
+        self.play(FadeIn(vec_u), FadeOut(span_v_1), FadeOut(span_v_2), run_time=2)
         self.play(FadeIn(circ_v), run_time=1.25)
         self.play(FadeIn(circ_u), run_time=1.25)
         self.wait()
+        circ_v.add_updater( lambda c: c.become(Circle(radius=nv.get_value(), color=ROJO, stroke_opacity=0.5, fill_opacity=0)) )
         self.play(nv.animate.set_value(0.75), run_time=1.5)
         self.play(nv.animate.set_value(-3.75), run_time=1.5)
         self.play(nv.animate.set_value(1), run_time=1.5)
@@ -312,9 +317,9 @@ class SE2(MovingCameraScene):
         vt_u = ValueTracker(1)
         vec_u = Vector(direction = [u1.get_value(), u2.get_value(), 0], color=AZUL).shift(6.75*LEFT)
         vec_u.add_updater(lambda v:
-                          ( vec_u.become( (Vector([value*u1.get_value(), value*u2.get_value(), 0], buff=0, color=AZUL).shift(6.75*LEFT)) ) ) if ((value := vt_u.get_value()) != 0)
-                          else vec_u.become(Circle(radius=0.025, color=AZUL).set_opacity(1).shift(6.75*LEFT))
+                          vec_u.become( (Vector([vt_u.get_value()*u1.get_value(), vt_u.get_value()*u2.get_value(), 0], buff=0, color=AZUL).shift(6.75*LEFT)) )
                           )
+        vec_u_null = Circle(radius=0.025, color=AZUL).set_opacity(1).shift(6.75*LEFT)
         norm_u = MathTex(r"||\vec{u}||").scale(0.6)
         norm_u[0][2:4].set_color(AZUL)
         brace_u = BraceBetweenPoints(ORIGIN, [u1.get_value(), u2.get_value(), 0]).shift(6.75*LEFT)
@@ -325,7 +330,7 @@ class SE2(MovingCameraScene):
                                   )
                           )
         norm_u.add_updater(lambda n: (brace_u.put_at_tip(n, buff=0)) if (vt_u.get_value() != 0)
-                           else n.set_opacity(1).move_to(7.345*LEFT+0.5*DOWN)
+                           else n.set_opacity(1).move_to(7.225*LEFT+0.53*DOWN)
                            )
         geq0 = MathTex(r"0\leq").scale(0.6).next_to(norm_u, LEFT, buff=0.1)
         geq0.add_updater(lambda n: n.next_to(norm_u, LEFT, buff=0.1))
@@ -339,7 +344,7 @@ class SE2(MovingCameraScene):
         vt_2u = ValueTracker(1)
         vec_2u = Vector(direction = [u1.get_value(), u2.get_value(), 0], color=AZUL).shift(6.75*LEFT)
         vec_2u.add_updater(lambda v:
-                          vec_u.become( Vector([vt_2u.get_value()*u1.get_value(), vt_2u.get_value()*u2.get_value(), 0], buff=0, color=AZUL).shift(6.75*LEFT) )
+                          vec_2u.become( Vector([vt_2u.get_value()*u1.get_value(), vt_2u.get_value()*u2.get_value(), 0], buff=0, color=AZUL).shift(6.75*LEFT) )
                           )
         norm_2u = MathTex(r"||2\vec{u}||").scale(0.6)
         norm_2u[0][3:5].set_color(AZUL)
@@ -394,6 +399,7 @@ class SE2(MovingCameraScene):
         grid.shift(3.75*LEFT)
         vec_u.shift(3.75*LEFT)
         self.play(Write(t0))
+        self.wait(0.25)
         self.play(Write(t1[0]))
         self.wait()
 
@@ -418,7 +424,7 @@ class SE2(MovingCameraScene):
         self.play(Unwrite(geq0))
         self.wait()
 
-        self.next_section("Además, si sumamos a un vector consigo mismo...", skip_animations=SKIP_DEFAULT)
+        self.next_section("...sumamos a un vector consigo mismo...", skip_animations=SKIP_DEFAULT)
         vec_u_2.set_opacity(0)
         vec_2u.set_opacity(0)
         self.add(vec_u_2, vec_2u)
@@ -427,10 +433,10 @@ class SE2(MovingCameraScene):
         self.play(FadeIn(brace_u_2, norm_u_2), run_time = 0.5)
         self.wait()
         self.play(Write(brace_2u))
-        self.wait()
+        self.wait(0.5)
         self.play(vt_2u.animate.set_value(2))
         self.wait()
-        self.play(Write(norm_2u))
+        self.play(Write(norm_2u), run_time=1.5)
         self.wait()
 
         self.next_section("Lo mismo ocurre si, en vez de reescalar por 2, reescalamos por -2...", skip_animations=SKIP_DEFAULT)
@@ -467,21 +473,24 @@ class SE2(MovingCameraScene):
         self.wait()
 
         self.next_section("...número complejo.", skip_animations=SKIP_DEFAULT)
-        self.play(Write(t5), Transform(p1[0][12], p1_C[0][12]))
+        self.play(Transform(p1[0][12], p1_C[0][12]), run_time=1.5)
+        self.wait(0.5)
+        self.play(Write(t5))
         self.wait()
-        self.play(FadeOut(t5), Transform(p1[0][12], p1_copy[0][12]), run_time=0.5)
+        self.play(FadeOut(t5), Transform(p1[0][12], p1_copy[0][12]))
         self.wait()
 
         self.next_section("Esto nos da la primera propiedad de la norma...", skip_animations=SKIP_DEFAULT)
-        self.play(vt_2u.animate.set_value(0), FadeOut(brace_2u, norm_m2u, brace_u_copy, norm_u_copy, brace_u_copy_2, norm_u_copy_2, vec_2u)) #ARREGLAR el FadeOut de vec_2u
-        self.wait()
+        vec_2u.clear_updaters()
+        self.play(FadeOut(vec_2u, brace_2u, norm_m2u, brace_u_copy, norm_u_copy, brace_u_copy_2, norm_u_copy_2))
+        self.wait(2)
         self.play(Write(t2))
         self.wait()
 
         self.next_section("Ahora, notemos que el vector nulo del espacio tiene magnitud cero...", skip_animations=SKIP_DEFAULT)
         self.play(FadeIn(brace_u, norm_u))
-        self.wait()
-        self.play(vt_u.animate.set_value(0))
+        self.wait(1.25)
+        self.play(vt_u.animate.set_value(0), FadeIn(vec_u_null), run_time=1.25)
         self.wait()
         cero = MathTex("=0").scale(0.6).next_to(norm_u, buff=0.1)
         self.play(Write(cero))
@@ -489,7 +498,7 @@ class SE2(MovingCameraScene):
 
         self.next_section("...el que un vector arbitrario tenga norma cero equivale a que...", skip_animations=SKIP_DEFAULT)
         self.play(Write(p3[0]), run_time=2)
-        self.wait()
+        self.wait(0.5)
         self.play(Write(p3[1]))
         self.play(Write(p3[2]), run_time=2)
         self.wait()
@@ -502,12 +511,12 @@ class SE2(MovingCameraScene):
         self.next_section("[pausa] Por último, observemos que, si consideramos la suma de dos vectores...", skip_animations=SKIP_DEFAULT)
         self.play(Unwrite(cero))
         self.wait(0.5)
-        self.play(vt_u.animate.set_value(1))
-        self.play(FadeIn(vec_v, brace_v, norm_v))
+        self.play(vt_u.animate.set_value(1), FadeOut(vec_u_null))
         self.wait(0.5)
+        self.play(FadeIn(vec_v, brace_v, norm_v))
         self.play(vt_v.animate.set_value(1), run_time=0.75)
         self.play(FadeIn(vec_upv, brace_upv, norm_upv))
-        self.wait(1.5)
+        self.wait()
         p4.shift(0.375*LEFT)
         self.play(Write(p4[0]), Indicate(norm_upv, color=MAGENTA), run_time=2.5)
         self.play(Write(p4[1]))

@@ -189,27 +189,29 @@ class SE1 (MovingCameraScene):
       self.play(
           Write(u_vect),
           Write(u_label),
+          run_time=1.75
       )
       self.play(
           Write(v_vect),
           Write(v_label),
+          run_time=1.25
       )
       self.play(
           Write(dashedline),
           Write(proy_u_v_arrow),
           FadeIn(label_proy_u_v[:]),
-          run_time=1
+          run_time=1.25
       )
       self.wait()
 
       self.next_section("...reescalando al vector unitario...", skip_animations=SKIP_DEFAULT)
-      self.play(FadeOut(texto_2), FadeOut(texto_3), FadeOut(texto_4))
-      self.play(texto_5.animate.shift(3.675*UP))
+      self.play(FadeOut(texto_2), FadeOut(texto_3), FadeOut(texto_4), run_time=0.5)
+      self.play(texto_5.animate.shift(3.675*UP), run_time=0.75)
       texto_5_hat.move_to(texto_5.get_center())
       texto_1_hat.move_to(texto_1.get_center())
-      self.wait()
-      self.play(Indicate(texto_5[0][15:]), run_time=3)
-      self.play(Indicate(texto_5[0][1:8]), run_time=2)
+      self.wait(0.5)
+      self.play(Indicate(texto_5[0][15:]), run_time=3.25)
+      self.play(Indicate(texto_5[0][1:8]), run_time=2.25)
       self.play(Indicate(texto_5[0][9:15]), run_time=1.5)
       self.play(ReplacementTransform(label_proy_u_v[7], label_c[7]),
                 ReplacementTransform(label_proy_u_v[9], label_c[8]))
@@ -253,22 +255,22 @@ class SE2(MovingCameraScene):
      def bortonormal(self):
 
        texto1 = MathTex(r"N=\{\vec{n}_1,...,\vec{n}_k\}\subseteq V \ \text{es \emph{ortonormal}}").scale(.55)
-       texto1_2 = MathTex(r"\text{si} \ \langle \vec{n}_i , \vec{n}_j \rangle =").scale(.55)
-       texto1_3 = MathTex(r"0 \text{ para } i\neq j, \text{ con } 1\le i,j\le k,",r"\text{ y }", r"||" , r"\vec{n}_i" , r"||", r"=1" , r"\text{ para } 1\le i\le k.").scale(.55)
+       texto1_2 = MathTex(r"\text{si} \ \langle \vec{n}_i , \vec{n}_j \rangle =", r"0 \text{ para } i\neq j, \text{ con } 1\le i,j\le k,").scale(.55)
+       texto1_3 = MathTex(r"\text{y }", r"||" , r"\vec{n}_i" , r"||", r"=1" , r"\text{ para } 1\le i\le k.").scale(.55)
 
        texto_1=VGroup(texto1, texto1_2, texto1_3).arrange(direction=RIGHT, center=True)
-       texto1_2.next_to(texto1, RIGHT)
-       texto1_3.next_to(texto1_2, RIGHT)
+       texto1_2.next_to(texto1, RIGHT, buff=0.15)
+       texto1_3.next_to(texto1_2, RIGHT, buff=0.15)
        texto_1.move_to(3*UP)
 
-       texto2_3 = MathTex(r"0 \text{ para } i\neq j, \text{ con } 1\le i,j\le k,",r"\text{ y }", r" \langle " , r"\vec{n}_i" , r", \vec{n}_i \rangle", r"=1" , r"\text{ para } 1\le i\le k.").scale(.55)
-       texto2_3.next_to(texto1_2, RIGHT)
+       texto2_3 = MathTex(r"\text{y }", r" \langle " , r"\vec{n}_i" , r", \vec{n}_i \rangle", r"=1" , r"\text{ para } 1\le i\le k.").scale(.55)
+       texto2_3.next_to(texto1_2, RIGHT, buff=0.15)
 
        texto3_3 = MathTex(r" \begin{cases} 1 &\text{si } j=i, \\ 0 &\text{si } j\neq i, \end{cases} \text{ con } 1\le i,j\le k.").scale(.55)
-       texto3_3.next_to(texto1_2, RIGHT)
+       texto3_3.next_to(texto1_2[0], RIGHT, buff=0.15)
 
 
-       texto3 = MathTex(r"N=\{\vec{n}_1,...,\vec{n}_k\}",r"\text{ es una base \emph{ortonormal} de } V \text{ si}").scale(.55)
+       texto3 = MathTex(r"N=\{\vec{n}_1,...,\vec{n}_k\} \text{ es una base \emph{ortonormal} de } V", r"\text{ si}").scale(.55)
        texto5 = MathTex(r"\langle N \rangle = V,").scale(.55)
        texto5_c1 = Tex("$1 \\ $~", "si~","$j = i,$").scale(.55)
        texto5_c2 = Tex("$0 \\ $~", " si~", " $j \\neq i.$").scale(.55)
@@ -286,18 +288,20 @@ class SE2(MovingCameraScene):
 
        texto3.move_to(UP, aligned_edge=RIGHT)
 
-       e22 = Tex("*", "Ver el ", "Ejercicio 2.2", ".").scale(.55).to_edge(DOWN).shift(1.25*UP)
+       e22 = Tex("*", "Ver el ", "Ejercicio 2.2", ".").scale(.55).to_edge(DOWN)
        e22[0].set_color(AMARILLO)
        e22[2].set_color(AZUL)
-       e23 = Tex("*", "Ver el ", "Ejercicio 2.3", ".").scale(.55).to_edge(DOWN).shift(1.25*UP)
+       e23 = Tex("*", "Ver el ", "Ejercicio 2.3", ".").scale(.55).to_edge(DOWN)
        e23[0].set_color(AMARILLO)
        e23[2].set_color(AZUL)
 
        #Animaciones
        self.next_section("...decimos que un conjunto es ortonormal...", skip_animations=SKIP_DEFAULT)
        self.camera.frame.animate.move_to(1.5*UP)
-       for element in texto_1:
-         self.play(Write(element), run_time=2)
+       self.play(Write(texto1), run_time=2)
+       self.play(Write(texto1_2), run_time=0.9)
+       self.wait(0.1)
+       self.play(Write(texto1_3), run_time=0.7)
        self.wait()
 
        self.next_section("...sea igual a uno.", skip_animations=SKIP_DEFAULT)
@@ -305,7 +309,7 @@ class SE2(MovingCameraScene):
        self.wait()
 
        self.next_section("...como sigue:", skip_animations=SKIP_DEFAULT)
-       self.play(FadeOut(texto2_3))
+       self.play(FadeOut(texto1_2[1], texto2_3))
        self.play(Write(texto3_3))
        self.wait()
 
@@ -317,10 +321,13 @@ class SE2(MovingCameraScene):
 
        self.next_section("N es una base ortonormal de V...", skip_animations=SKIP_DEFAULT)
        texto3.shift(2.75*RIGHT)
-       self.play(Write(texto3))
-       N_ort[1].move_to(0*LEFT)
+       self.play(Write(texto3[0]), run_time=2.5)
+       N_ort[1].move_to(0.75*RIGHT)
+       self.play(Write(texto3[1]))
+       self.wait(1.5)
        self.play(Write(N_ort[0]))
-       self.play(Write(N_ort[1]))
+       self.wait(0.5)
+       self.play(Write(N_ort[1]), run_time=2)
        self.play(Write(e23))
        self.wait()
        self.play(Unwrite(e23), run_time=0.5)
@@ -328,7 +335,6 @@ class SE2(MovingCameraScene):
 
      def construct(self):
       self.bortonormal()
-      self.wait(2)
 
 
 class SE3(MovingCameraScene):
@@ -448,31 +454,34 @@ class SE3(MovingCameraScene):
         #Animaciones
         self.next_section("...un espacio vectorial de dimensión finita...", skip_animations=SKIP_DEFAULT)
         self.camera.frame.shift(0.2*RIGHT+1.5*UP) #Ajuste de cámara para el encuadre
-        self.play(Write(dim_V))
-        self.play(
-            FadeIn(groups[0][:]),
-            run_time=2)
+        self.play(Write(dim_V), run_time=2)
+        self.wait(1.5)
+        self.play(FadeIn(groups[0][3]), run_time=2)
+        self.play(FadeIn(groups[0][2]), run_time=2)
+        self.wait(0.5)
+        self.play(FadeIn(groups[0][:2]), run_time=2)
         self.wait()
 
-        self.next_section("...tiene producto escalar...", skip_animations=SKIP_DEFAULT)
-        self.play(
-            FadeIn(groups[1][:]),
-            run_time=2)
+        self.next_section("...base ortogonal, entonces los coeficientes...", skip_animations=SKIP_DEFAULT)
+        self.play(FadeIn(groups[1][:2]), run_time=2)
+        self.wait(0.8)
+        self.play(FadeIn(groups[1][2]))
+        self.play(FadeIn(groups[1][3]), run_time=1.5)
         self.wait()
 
-        self.next_section("...base ortonormal de V...", skip_animations=SKIP_DEFAULT)
-        self.play(Write(groups[2][0:3][:]))
+        self.next_section("...base ortonormal, entonces...", skip_animations=SKIP_DEFAULT)
+        self.play(FadeIn(groups[2][0:3][:]), run_time=2)
         self.wait()
 
-        self.next_section("...el mismo resultado.", skip_animations=SKIP_DEFAULT)
-        self.play(Write(groups[2][3][:]))
+        self.next_section("Podemos aplicar el mismo resultado.", skip_animations=SKIP_DEFAULT)
+        self.play(FadeIn(groups[2][3][:]), run_time=2)
         self.wait()
 
-        self.next_section("...de la siguiente manera.", skip_animations=SKIP_DEFAULT)
+        self.next_section("...unitarios, el resultado anterior se simplifica...", skip_animations=SKIP_DEFAULT)
         uno = MathTex("1").scale(0.8)
         uno.move_to(coeficientes_f[0][12:21].get_center())
         self.play(ReplacementTransform(coeficientes_f[0][12:21], uno))
-        self.wait(0.5)
+        self.wait(1.25)
         self.play(coeficientes_f[0][11:21].animate.set_color(BLACK),
                   uno.animate.set_color(BLACK))
         self.play(coeficientes_f[0][3:11].animate.shift(0.2*DOWN+0.1*LEFT),

@@ -41,7 +41,7 @@ class E3(MovingCameraScene):
         texto_1=VGroup(texto1, texto2).arrange(direction=1.5*DOWN).shift(2.3*UP)
 
         texto3=MathTex(r"||\vec{v}||:=\sqrt{\langle \vec{v} , \vec{v} \rangle} \quad \forall \ \vec{v}\in V").scale(.6)
-        texto4=MathTex(r"||\cdot||:V \to \mathbb{R}^{\geq0}").scale(.6)
+        texto4=MathTex(r"||\cdot||:V \to", "\mathbb{R}^{\geq0}").scale(.6)
         texto5=MathTex(r"\forall \ \vec{u}\in V,", r" \ \forall \ a \in K,").scale(.6)
         texto3.next_to(texto_1, 3*DOWN)
         texto_2=VGroup(texto4, texto5).arrange(direction=1.5*DOWN, center=True).next_to(texto3, 3*DOWN)
@@ -56,7 +56,7 @@ class E3(MovingCameraScene):
         texto9=Tex("Distinción del vector nulo").scale(.6)
         texto10=Tex("Desigualdad del triángulo").scale(.6)
 
-        texto11=MathTex(r"\text{La función } ||\cdot||:V \to \mathbb{R}^{\geq0} \text{ definida es una \emph{norma inducida por un producto escalar.}").scale(.6).shift(3.7*DOWN)
+        texto11=MathTex(r"||\cdot||:V \to \mathbb{R}^{\geq0} \text{ es una \emph{norma inducida por un producto escalar.}").scale(.6).shift(3.7*DOWN)
 
         texto_4=VGroup(texto8, texto9, texto10).arrange(direction=1.9*DOWN, center=False, aligned_edge=LEFT).next_to(texto_2, 1.5*DOWN).shift(3.5*RIGHT+0.125*DOWN)
 
@@ -85,7 +85,8 @@ class E3(MovingCameraScene):
         self.wait()
 
         self.next_section("...a cada vector del espacio un número real no negativo....", skip_animations=SKIP_DEFAULT)
-        self.play(Write(texto4), run_time=2)
+        self.play(Write(texto4[0]), run_time=2)
+        self.play(Write(texto4[1]), run_time=1.5)
         self.wait()
 
         self.next_section("...siguientes propiedades:", skip_animations=SKIP_DEFAULT)
@@ -117,14 +118,15 @@ class E3(MovingCameraScene):
 
         self.next_section("...escalabilidad absoluta y distinción del vector nulo.", skip_animations=SKIP_DEFAULT)
         self.add(paloma1, paloma2, paloma3)
-        self.play(Write(texto8), Indicate(texto6[0]), Indicate(texto6[4]), run_time=0.75)
+        self.play(Write(texto8), Indicate(texto6[0], rate_func=there_and_back_with_pause), Indicate(texto6[4], rate_func=there_and_back_with_pause))
         self.play(paloma1.animate.set_opacity(1), run_time=0.5)
-        self.play(Write(texto9), Indicate(texto7[0]), Indicate(texto7[5]), Indicate(texto7[6]), run_time=0.75)
+        self.play(Write(texto9), Indicate(texto7[0], rate_func=there_and_back_with_pause), Indicate(texto7[5], rate_func=there_and_back_with_pause), Indicate(texto7[6], rate_func=there_and_back_with_pause))
         self.play(paloma2.animate.set_opacity(1), run_time=0.5)
 
         self.next_section("...desigualdad del triángulo.", skip_animations=SKIP_DEFAULT)
-        self.play(Write(texto10), run_time=0.75)
-        self.play(paloma3.animate.set_opacity(1))
+        self.play(Write(texto10))
+        self.play(paloma3.animate.set_opacity(1), run_time=0.5)
 
         self.next_section("...norma inducida por un producto escalar.", skip_animations=SKIP_DEFAULT)
-        self.play(Write(texto11))
+        self.play(Write(texto11), run_time=4)
+        self.wait()
