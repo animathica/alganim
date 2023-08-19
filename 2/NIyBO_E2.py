@@ -23,7 +23,7 @@ TEAL_E = "#49A88F"
 MOSTAZA_OSCURO = "#FFD025"
 MOSTAZA_CLARO = "#FFE072"
 
-SKIP_DEFAULT = True #Útil para lo siguiente: si sólo quieres renderizar una sección, cambia esta variable a 'True' y cambia el valor de 'skip_animations' de esa sección a 'not SKIP_DEFAULT'
+SKIP_DEFAULT = False #Útil para lo siguiente: si sólo quieres renderizar una sección, cambia esta variable a 'True' y cambia el valor de 'skip_animations' de esa sección a 'not SKIP_DEFAULT'
 
 
 class ClockwiseTransform(ReplacementTransform):
@@ -142,15 +142,15 @@ class E2(MovingCameraScene):
       self.play(Write(norma_v_hat[1]))
       self.wait()
 
-      self.next_section("...un vector no nulo por el inverso multiplicativo de su norma...", skip_animations=SKIP_DEFAULT)
+      self.next_section("...reescalar un vector no nulo por el inverso multiplicativo de su norma...", skip_animations=SKIP_DEFAULT)
       self.play(t1[0][0].animate.set_opacity(1), GrowArrow(vec_v_copy), run_time=1.5)
       self.wait(0.5)
-      vec_v_copy.add_updater( lambda v: v.become(Vector(direction = [value*2.5, value, 0], color=VERDE).shift(6.3*LEFT)) if (value := (vt_v.get_value() != (1/2.6925) ) )
+      vec_v_copy.add_updater( lambda v: v.become(Vector(direction = [value*2.5, value, 0], color=VERDE).shift(6.3*LEFT)) if ( (value := vt_v.get_value()) != (1/2.6925) )
                             else v.become(Vector(direction = [value*2.5, value, 0], color=NARANJA).shift(6.3*LEFT)) )
       self.play(vt_v.animate.set_value(1/2.6925), run_time=2.75)
       self.wait(1.5)
       self.play(FadeIn(t6_2))
-      self.wait()
+      self.wait(2)
       vec_v_copy.clear_updaters()
       self.play(FadeOut(t3,t3_2,t4,t5,t6,t6_2,vec_v_copy))
       self.play(grid.animate.shift(4.5*LEFT),
@@ -206,13 +206,23 @@ class E2(MovingCameraScene):
       self.play(Circumscribe(grupo))
       self.wait()
 
-      self.next_section("...vector normal con su misma dirección y sentido reescalado por su norma.", skip_animations=not SKIP_DEFAULT)#ARREGLAR ESTA SECCIÓN; vec_v_hat_copy NO CAMBIA CON vt_v_hat.animate.set_value()...
+      self.next_section("...es igual al vector normal con su misma dirección y sentido reescalado por su norma.", skip_animations=SKIP_DEFAULT)#ARREGLAR ESTA SECCIÓN; vec_v_hat_copy NO CAMBIA CON vt_v_hat.animate.set_value()...
       vt_v_hat = ValueTracker(1)
       vec_v_hat_copy = vec_v_hat.copy()
-      self.play(GrowArrow(vec_v_hat_copy))
-      vec_v_hat_copy.add_updater( lambda v: v.become( Vector(direction=[value*0.93, value*0.37, 0], color=NARANJA).shift(6.3*LEFT)) if (value := (vt_v_hat.get_value() != 6.6925 ) )
+      self.play(GrowArrow(vec_v_hat_copy), run_time=1.5)
+      vec_v_hat_copy.add_updater( lambda v: v.become( Vector(direction=[value*0.93, value*0.37, 0], color=NARANJA).shift(6.3*LEFT)) if ((value := vt_v_hat.get_value()) != 2.6925)
                                  else v.become( Vector(direction=[value*0.93, value*0.37, 0], color=VERDE).shift(6.3*LEFT)) )
-      self.play(vt_v_hat.animate.set_value(-1))
+      self.wait(1.5)
+      self.play(vt_v_hat.animate.set_value(2.6925), run_time=2.25)
+      self.wait(0.5)
+      self.play(Write(norma_v[0]))
+      self.play(Write(norma_v[1]))
+      self.wait()
+      self.play(Circumscribe(grupo))
+      self.wait(1.5)
+      vec_v_hat_copy.clear_updaters()
+      self.play(FadeOut(vec_v_hat_copy, norma_v[0], norma_v[1]))
+      self.wait()
 
       self.next_section("...magnitudes entre vectores...", skip_animations=SKIP_DEFAULT)
       self.play(Write(circ_v))
